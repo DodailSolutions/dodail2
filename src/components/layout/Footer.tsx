@@ -12,13 +12,13 @@ export function Footer() {
           {/* Column 1: Brand & Identity */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
-              <div className="relative h-10 w-10 overflow-hidden rounded-xl bg-[#0E2235] p-1 border border-[#1B3652]">
+              <div className="relative h-10 w-10 overflow-hidden rounded-full shadow-sm">
                 <Image
-                  src="/brand/dodail-emblem.png"
-                  alt="Dodail Solutions Emblem"
+                  src="/brand/dodail-logo.png"
+                  alt="Dodail Solutions Pvt Ltd"
                   fill
                   sizes="40px"
-                  className="object-contain p-0.5"
+                  className="object-contain"
                 />
               </div>
               <div>

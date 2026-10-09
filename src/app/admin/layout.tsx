@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { LayoutDashboard, FileText, Sliders, Image as ImageIcon, BookOpen, Clock, ShieldCheck, ArrowUpRight, Compass, Users, Kanban, Bot, Calendar, Share2, GitBranch } from "lucide-react";
 
 export const metadata = {
@@ -19,8 +20,15 @@ export default function AdminLayout({
       <aside className="w-full md:w-64 bg-[#0A1B2A] border-b md:border-b-0 md:border-r border-slate-800 flex flex-col shrink-0">
         <div className="p-5 border-b border-slate-800 flex items-center justify-between">
           <Link href="/admin" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#FA5B0F] flex items-center justify-center font-bold text-white text-lg shadow-sm">
-              D
+            <div className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 shadow-sm">
+              <Image
+                src="/brand/dodail-logo.png"
+                alt="Dodail Solutions"
+                fill
+                sizes="36px"
+                className="object-contain"
+                priority
+              />
             </div>
             <div>
               <span className="font-bold text-white tracking-tight block text-sm">DODAIL CMS</span>

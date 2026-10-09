@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   Share2,
   BookOpen,
@@ -799,8 +800,14 @@ export default function SocialAndContentStudioPage() {
                   <span className="text-[10px] font-mono">Professional Tone</span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded bg-[#FA5B0F] text-white font-bold flex items-center justify-center text-xs">
-                    D
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 shadow-sm">
+                    <Image
+                      src="/brand/dodail-logo.png"
+                      alt="Dodail Solutions"
+                      fill
+                      sizes="32px"
+                      className="object-contain"
+                    />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-white">Dodail Solutions</div>

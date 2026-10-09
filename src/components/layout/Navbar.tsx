@@ -97,13 +97,13 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] rounded-lg p-1">
-          <div className="relative h-11 w-11 overflow-hidden rounded-xl bg-[#0E2235] p-1 border border-[#1B3652] group-hover:border-[#FA5B0F]/50 transition-colors">
+          <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-sm group-hover:scale-105 transition-transform">
             <Image
-              src="/brand/dodail-emblem.png"
-              alt="Dodail Solutions Emblem"
+              src="/brand/dodail-logo.png"
+              alt="Dodail Solutions Pvt Ltd"
               fill
               sizes="44px"
-              className="object-contain p-0.5"
+              className="object-contain"
               priority
             />
           </div>
