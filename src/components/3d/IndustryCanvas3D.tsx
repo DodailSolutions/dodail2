@@ -37,16 +37,16 @@ export function IndustryCanvas3D({ activeIndustry }: IndustryCanvas3DProps) {
   return (
     <div
       onPointerMove={handlePointerMove}
-      className="relative w-full h-full min-h-[300px] overflow-hidden"
+      className="relative w-full h-full min-h-[300px] overflow-hidden bg-gradient-to-b from-white to-slate-50"
     >
       <Canvas
         camera={{ position: [0, 0, 5.2], fov: 46 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight color="#0C2233" intensity={1.5} />
-        <directionalLight position={[4, 5, 4]} color="#FF6B2C" intensity={1.2} />
-        <directionalLight position={[-4, -3, 2]} color="#27D3C2" intensity={1.0} />
+        <ambientLight color="#FFFFFF" intensity={2.0} />
+        <directionalLight position={[4, 5, 4]} color="#FFFFFF" intensity={1.5} />
+        <directionalLight position={[-4, -3, 2]} color="#FF6B2C" intensity={1.0} />
 
         <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.25}>
           <group position={[-2.4, 0, 0]}>

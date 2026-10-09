@@ -29,8 +29,8 @@ const AutonomousBrainCore = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[460px] sm:h-[540px] lg:h-[620px] flex items-center justify-center border border-[#1B3652]/40 bg-[#0C2233]/20">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#AABAC8]">
+      <div className="w-full h-[460px] sm:h-[540px] lg:h-[620px] flex items-center justify-center border border-slate-200 bg-slate-50/60">
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
           <span className="h-2 w-2 rounded-full bg-[#FF6B2C] animate-pulse" />
           <span>INITIALIZING 3D AUTONOMOUS CORE...</span>
         </div>
@@ -47,8 +47,8 @@ const ServicesCanvas3D = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-full min-h-[440px] flex items-center justify-center bg-[#0C2233]/20 border border-[#1B3652]/40">
-        <span className="text-xs font-mono text-[#AABAC8]">LOADING 3D FORMATION...</span>
+      <div className="w-full h-full min-h-[440px] flex items-center justify-center bg-slate-50/60 border border-slate-200">
+        <span className="text-xs font-mono text-slate-500">LOADING 3D FORMATION...</span>
       </div>
     ),
   }
@@ -62,8 +62,8 @@ const PipelineCanvas3D = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[320px] sm:h-[380px] flex items-center justify-center bg-[#071A28]/80 border border-[#1B3652] mb-8">
-        <span className="text-xs font-mono text-[#AABAC8]">LOADING 3D PIPELINE...</span>
+      <div className="w-full h-[320px] sm:h-[380px] flex items-center justify-center bg-slate-50 border border-slate-200 mb-8 rounded-lg">
+        <span className="text-xs font-mono text-slate-500">LOADING 3D PIPELINE...</span>
       </div>
     ),
   }
@@ -77,8 +77,8 @@ const IndustryCanvas3D = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-full min-h-[300px] flex items-center justify-center bg-[#071A28]/40">
-        <span className="text-xs font-mono text-[#AABAC8]">LOADING 3D SECTOR CLUSTER...</span>
+      <div className="w-full h-full min-h-[300px] flex items-center justify-center bg-slate-50/40">
+        <span className="text-xs font-mono text-slate-500">LOADING 3D SECTOR CLUSTER...</span>
       </div>
     ),
   }
@@ -255,28 +255,28 @@ export function HomePageClient() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#071A28] text-[#F5F8FC]">
+    <div className="relative min-h-screen bg-[#FAFBFD] text-[#0F172A]">
       {/* =========================================================================
           SECTION 1: HERO
           Editorial Split: Left = Bold Typography & Action, Right = 3D Brain Core
           ========================================================================= */}
-      <section className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 pt-28 pb-20 border-b border-[#1B3652]/60 bg-gradient-to-b from-[#071A28] via-[#0C2233]/40 to-[#071A28]">
+      <section className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 pt-28 pb-20 border-b border-slate-200/80 bg-gradient-to-b from-[#FFFFFF] via-[#F8FAFC] to-[#F1F5F9]">
         <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Headline & Action */}
           <div className="lg:col-span-6 z-10">
-            <div className="inline-flex items-center gap-3 px-4 py-2 border border-[#1B3652] bg-[#0C2233]/80 backdrop-blur-md mb-8">
-              <span className="h-2 w-2 bg-emerald-400 animate-pulse" />
-              <span className="text-xs font-mono text-[#AABAC8] uppercase tracking-wider">
+            <div className="inline-flex items-center gap-3 px-4 py-2 border border-slate-200 bg-white/90 shadow-sm backdrop-blur-md mb-8 rounded-full">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-mono text-slate-600 uppercase tracking-wider font-medium">
                 Dodail Solutions Private Limited · Hyderabad [17.3850° N]
               </span>
             </div>
 
-            <h1 className="hero-title-clamp font-extrabold text-[#F5F8FC] leading-[0.96] tracking-[-0.035em]">
+            <h1 className="hero-title-clamp font-extrabold text-slate-950 leading-[0.96] tracking-[-0.035em]">
               Turn Repetitive Operations Into{" "}
               <span className="text-[#FF6B2C]">Autonomous Growth</span>
             </h1>
 
-            <p className="mt-8 max-w-xl text-lg sm:text-xl text-[#AABAC8] font-light leading-relaxed">
+            <p className="mt-8 max-w-xl text-lg sm:text-xl text-slate-600 font-normal leading-relaxed">
               Dodail helps growing businesses automate repetitive work, connect
               business systems, and build digital solutions that drive measurable
               progress.
@@ -287,7 +287,7 @@ export function HomePageClient() {
                 href="/consultation"
                 variant="primary"
                 size="lg"
-                className="text-sm px-8 py-4 font-semibold uppercase tracking-wider shadow-none"
+                className="text-sm px-8 py-4 font-semibold uppercase tracking-wider shadow-lg shadow-orange-500/20"
               >
                 <Calendar className="h-4 w-4 mr-2" />
                 Book a Consultation
@@ -296,7 +296,7 @@ export function HomePageClient() {
                 href="/solutions/ai-automation"
                 variant="outline"
                 size="lg"
-                className="text-sm px-8 py-4 uppercase tracking-wider border-[#1B3652]"
+                className="text-sm px-8 py-4 uppercase tracking-wider border-slate-300 text-slate-800 bg-white/90 hover:bg-slate-100 shadow-sm"
               >
                 Explore Solutions
                 <ArrowRight className="h-4 w-4 ml-2" />
@@ -304,29 +304,29 @@ export function HomePageClient() {
             </div>
 
             {/* Telemetry metadata tags */}
-            <div className="mt-14 pt-8 border-t border-[#1B3652]/60 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono text-[#AABAC8]">
+            <div className="mt-14 pt-8 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono text-slate-600">
               <div>
-                <span className="block text-[#FF6B2C] font-bold">EST. 2019</span>
-                <span className="text-[11px] text-[#AABAC8]">5+ Years Active</span>
+                <span className="block text-[#FF6B2C] font-bold text-sm">EST. 2019</span>
+                <span className="text-[11px] text-slate-500">5+ Years Active</span>
               </div>
               <div>
-                <span className="block text-[#27D3C2] font-bold">&lt; 60s TRIAGE</span>
-                <span className="text-[11px] text-[#AABAC8]">Automated Speed</span>
+                <span className="block text-[#0D9488] font-bold text-sm">&lt; 60s TRIAGE</span>
+                <span className="text-[11px] text-slate-500">Automated Speed</span>
               </div>
               <div>
-                <span className="block text-[#F5F8FC] font-bold">100% IP</span>
-                <span className="text-[11px] text-[#AABAC8]">Client Code Control</span>
+                <span className="block text-slate-900 font-bold text-sm">100% IP</span>
+                <span className="text-[11px] text-slate-500">Client Code Control</span>
               </div>
               <div>
-                <span className="block text-emerald-400 font-bold">POSTGRES</span>
-                <span className="text-[11px] text-[#AABAC8]">ACID Compliant</span>
+                <span className="block text-emerald-600 font-bold text-sm">POSTGRES</span>
+                <span className="text-[11px] text-slate-500">ACID Compliant</span>
               </div>
             </div>
           </div>
 
           {/* Right Column: VIVID 3D AUTONOMOUS BRAIN CORE CENTERPIECE */}
           <div className="lg:col-span-6 z-10 flex items-center justify-center">
-            <div className="w-full border border-[#1B3652] bg-[#0C2233]/40 backdrop-blur-md relative shadow-2xl shadow-[#FF6B2C]/5">
+            <div className="w-full border border-slate-200 bg-white/80 backdrop-blur-md relative shadow-xl shadow-slate-200/50 rounded-2xl overflow-hidden">
               <AutonomousBrainCore />
             </div>
           </div>
@@ -336,16 +336,16 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 2: PROBLEM (Disconnected Systems & Manual Bottlenecks)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-slate-50/70">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-20">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
               DIAGNOSTIC // COST OF FRICTION
             </span>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
               Where Growing Companies Silently Bleed Revenue
             </h2>
-            <p className="mt-6 text-lg text-[#AABAC8] font-light leading-relaxed">
+            <p className="mt-6 text-lg text-slate-600 font-normal leading-relaxed">
               When business software operates in isolated silos, customer context disappears,
               leads go cold, and high-cost team members waste half their day on manual copy-pasting.
             </p>
@@ -367,7 +367,7 @@ export function HomePageClient() {
                 title: "Sales specialists burn time on unqualified inquiries",
                 desc: "Your closers waste 60% of their workday answering basic repetitive pricing queries or fielding leads with mismatched budgets, leaving scarce bandwidth for serious buyers.",
                 solution: "Pre-qualification workflows that filter budget, timeline, and requirements before calendar booking.",
-                accent: "#27D3C2",
+                accent: "#0D9488",
               },
               {
                 num: "03",
@@ -380,37 +380,36 @@ export function HomePageClient() {
             ].map((item) => (
               <div
                 key={item.num}
-                className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8 flex flex-col justify-between hover:border-[#FF6B2C] transition-all duration-300 shadow-lg"
+                className="bg-white border border-slate-200 p-8 flex flex-col justify-between hover:border-[#FF6B2C] transition-all duration-300 shadow-sm hover:shadow-lg rounded-xl group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span
-                      className="text-4xl font-black font-mono"
-                      style={{ color: `${item.accent}35` }}
+                      className="text-4xl font-black font-mono text-slate-200 group-hover:text-orange-200 transition-colors"
                     >
                       {item.num}
                     </span>
                     <span
-                      className="text-xs font-mono uppercase tracking-wider font-semibold"
+                      className="text-xs font-mono uppercase tracking-wider font-bold"
                       style={{ color: item.accent }}
                     >
                       {item.label}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-[#F5F8FC] mb-4 leading-snug">
+                  <h3 className="text-xl font-bold text-slate-900 mb-4 leading-snug">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-[#AABAC8] leading-relaxed font-light mb-6">
+                  <p className="text-sm text-slate-600 leading-relaxed font-normal mb-6">
                     {item.desc}
                   </p>
                 </div>
 
                 <div
-                  className="border-t border-[#1B3652] pt-4 text-xs font-mono"
+                  className="border-t border-slate-100 pt-4 text-xs font-mono"
                   style={{ color: item.accent }}
                 >
                   <span className="font-bold block mb-1">[DODAIL SOLUTION]</span>
-                  <span className="text-[#F5F8FC]/80 font-sans">{item.solution}</span>
+                  <span className="text-slate-700 font-sans">{item.solution}</span>
                 </div>
               </div>
             ))}
@@ -421,16 +420,16 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 3: SERVICES (5 3D Formations Driven By Visitor Focus)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-white">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-16">
-            <span className="text-xs font-mono font-bold text-[#27D3C2] uppercase tracking-[0.18em]">
+            <span className="text-xs font-mono font-bold text-[#0D9488] uppercase tracking-[0.18em]">
               CAPABILITIES // 5 CORE OFFERINGS
             </span>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
               Engineered Solutions For Measurable Growth
             </h2>
-            <p className="mt-6 text-lg text-[#AABAC8] font-light leading-relaxed">
+            <p className="mt-6 text-lg text-slate-600 font-normal leading-relaxed">
               Hover or select an offering below to explore how the 3D procedural formation adapts in real time.
             </p>
           </div>
@@ -446,28 +445,28 @@ export function HomePageClient() {
                     key={srv.id}
                     onMouseEnter={() => setActiveService(index)}
                     onClick={() => setActiveService(index)}
-                    className={`p-6 sm:p-8 border transition-all duration-300 cursor-pointer ${
+                    className={`p-6 sm:p-8 border transition-all duration-300 cursor-pointer rounded-xl ${
                       isActive
-                        ? "bg-[#0C2233] border-[#FF6B2C] shadow-lg shadow-[#FF6B2C]/10"
-                        : "bg-[#0C2233]/40 border-[#1B3652] hover:border-[#1B3652]/80 hover:bg-[#0C2233]/70"
+                        ? "bg-orange-50/40 border-[#FF6B2C] shadow-md shadow-orange-500/10 ring-1 ring-[#FF6B2C]"
+                        : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/70"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-4 mb-3">
                       <span
                         className="text-xs font-mono font-bold uppercase tracking-wider"
-                        style={{ color: isActive ? "#FF6B2C" : "#AABAC8" }}
+                        style={{ color: isActive ? "#FF6B2C" : "#64748B" }}
                       >
                         {srv.tag}
                       </span>
-                      <span className="text-xs font-mono text-[#27D3C2] px-2 py-0.5 border border-[#1B3652] bg-[#071A28]">
+                      <span className="text-xs font-mono text-[#0D9488] px-2.5 py-0.5 border border-slate-200 bg-white font-semibold rounded">
                         {srv.metric}
                       </span>
                     </div>
 
-                    <h3 className="text-2xl font-bold text-[#F5F8FC] tracking-tight mb-2">
+                    <h3 className="text-2xl font-bold text-slate-900 tracking-tight mb-2">
                       {srv.title}
                     </h3>
-                    <p className="text-sm text-[#AABAC8] leading-relaxed font-light mb-4">
+                    <p className="text-sm text-slate-600 leading-relaxed font-normal mb-4">
                       {srv.desc}
                     </p>
 
@@ -475,7 +474,7 @@ export function HomePageClient() {
                       {srv.deliverables.map((item) => (
                         <span
                           key={item}
-                          className="text-[11px] font-mono text-[#AABAC8] bg-[#071A28] px-2.5 py-1 border border-[#1B3652]"
+                          className="text-[11px] font-mono text-slate-700 bg-slate-100 px-2.5 py-1 border border-slate-200 rounded"
                         >
                           {item}
                         </span>
@@ -484,7 +483,7 @@ export function HomePageClient() {
 
                     <Link
                       href={srv.href}
-                      className="text-xs font-mono uppercase tracking-wider text-[#FF6B2C] hover:text-[#F5F8FC] inline-flex items-center gap-1 font-bold pt-2"
+                      className="text-xs font-mono uppercase tracking-wider text-[#FF6B2C] hover:text-[#d4531b] inline-flex items-center gap-1 font-bold pt-2"
                     >
                       <span>Explore Offering</span>
                       <ArrowRight className="h-3 w-3" />
@@ -495,12 +494,12 @@ export function HomePageClient() {
             </div>
 
             {/* Right Column: DEDICATED 3D FORMATION CANVAS */}
-            <div className="lg:col-span-5 sticky top-28 border border-[#1B3652] bg-[#0C2233]/50 backdrop-blur-md overflow-hidden">
-              <div className="p-4 border-b border-[#1B3652] flex items-center justify-between">
+            <div className="lg:col-span-5 sticky top-28 border border-slate-200 bg-slate-50/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg shadow-slate-200/50">
+              <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-white/90">
                 <span className="text-xs font-mono text-[#FF6B2C] font-bold">
                   {services[activeService].tag}
                 </span>
-                <span className="text-[10px] font-mono text-[#AABAC8]">
+                <span className="text-[10px] font-mono text-slate-500">
                   [ PROCEDURAL 3D MOTIF ]
                 </span>
               </div>
@@ -513,25 +512,27 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 4: AUTOMATION SHOWCASE (Interactive 3D Pipeline)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-slate-50/70">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-12">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
               INTERACTIVE DEMO // 4-STAGE PIPELINE
             </span>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
               Experience How Dodail Automates Operations
             </h2>
-            <p className="mt-6 text-lg text-[#AABAC8] font-light leading-relaxed">
+            <p className="mt-6 text-lg text-slate-600 font-normal leading-relaxed">
               Click any stage below to inspect how inbound signals travel across deterministic validation and commit to core databases in under 400 milliseconds.
             </p>
           </div>
 
           {/* DEDICATED 3D PIPELINE CANVAS VIEWPORT */}
-          <PipelineCanvas3D
-            activePipelineStage={activePipelineStage}
-            onSelectStage={setActivePipelineStage}
-          />
+          <div className="border border-slate-200 bg-white rounded-2xl overflow-hidden shadow-lg shadow-slate-200/50 mb-8 p-1">
+            <PipelineCanvas3D
+              activePipelineStage={activePipelineStage}
+              onSelectStage={setActivePipelineStage}
+            />
+          </div>
 
           {/* Interactive Pipeline Stage Selector Tabs */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -543,19 +544,19 @@ export function HomePageClient() {
                   key={st.stage}
                   type="button"
                   onClick={() => setActivePipelineStage(st.stage)}
-                  className={`p-5 text-left border transition-all duration-200 ${
+                  className={`p-5 text-left border transition-all duration-200 rounded-xl ${
                     isSelected
-                      ? "bg-[#0C2233] border-[#FF6B2C]"
-                      : "bg-[#0C2233]/40 border-[#1B3652] hover:bg-[#0C2233]/70 hover:border-[#1B3652]/80"
+                      ? "bg-white border-[#FF6B2C] shadow-md ring-1 ring-[#FF6B2C]"
+                      : "bg-white/80 border-slate-200 hover:bg-white hover:border-slate-300"
                   }`}
                 >
                   <span
                     className="text-[11px] font-mono font-bold uppercase tracking-wider block mb-1"
-                    style={{ color: isSelected ? "#FF6B2C" : "#AABAC8" }}
+                    style={{ color: isSelected ? "#FF6B2C" : "#64748B" }}
                   >
                     {st.code}
                   </span>
-                  <h4 className="text-base font-bold text-[#F5F8FC] tracking-tight">
+                  <h4 className="text-base font-bold text-slate-900 tracking-tight">
                     {st.title}
                   </h4>
                 </button>
@@ -564,37 +565,39 @@ export function HomePageClient() {
           </div>
 
           {/* Active Stage Technical Specification Card */}
-          <div className="bg-[#0C2233] border border-[#1B3652] p-8 sm:p-10">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#1B3652] pb-6 mb-6">
+          <div className="bg-white border border-slate-200 p-8 sm:p-10 rounded-2xl shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
               <div>
                 <span className="text-xs font-mono text-[#FF6B2C] uppercase tracking-wider font-bold">
                   STAGE ACTIVE: {pipelineStages[activePipelineStage].code}
                 </span>
-                <h3 className="text-2xl font-bold text-[#F5F8FC] mt-1">
+                <h3 className="text-2xl font-bold text-slate-900 mt-1">
                   {pipelineStages[activePipelineStage].title}
                 </h3>
               </div>
-              <span className="text-xs font-mono text-emerald-400 border border-emerald-500/30 bg-emerald-950/20 px-3 py-1">
+              <span className="text-xs font-mono text-emerald-700 border border-emerald-300 bg-emerald-50 px-3 py-1 font-semibold rounded">
                 ILLUSTRATIVE DEMO // NO FAKE TELEMETRY
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <span className="text-xs font-mono text-[#AABAC8] uppercase tracking-wider block mb-2">
+                <span className="text-xs font-mono text-slate-500 uppercase tracking-wider block mb-2 font-medium">
                   Operating Behavior
                 </span>
-                <p className="text-base text-[#F5F8FC]/90 leading-relaxed font-light">
+                <p className="text-base text-slate-700 leading-relaxed font-normal">
                   {pipelineStages[activePipelineStage].desc}
                 </p>
               </div>
               <div>
-                <span className="text-xs font-mono text-[#27D3C2] uppercase tracking-wider block mb-2">
+                <span className="text-xs font-mono text-[#0D9488] uppercase tracking-wider block mb-2 font-medium">
                   Engineered Execution Details
                 </span>
-                <p className="text-sm font-mono text-[#AABAC8] leading-relaxed">
-                  {pipelineStages[activePipelineStage].details}
-                </p>
+                <div className="bg-slate-50 p-4 border border-slate-200 rounded-lg">
+                  <p className="text-sm font-mono text-slate-700 leading-relaxed">
+                    {pipelineStages[activePipelineStage].details}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -604,22 +607,22 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 5: INDUSTRIES (4 Verticals Re-skinning 3D Node Cluster)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-white">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-14">
-            <span className="text-xs font-mono font-bold text-[#27D3C2] uppercase tracking-[0.18em]">
+            <span className="text-xs font-mono font-bold text-[#0D9488] uppercase tracking-[0.18em]">
               VERTICALS // INDUSTRY ADAPTATIONS
             </span>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
               Calibrated For High-Growth Sectors
             </h2>
-            <p className="mt-6 text-lg text-[#AABAC8] font-light leading-relaxed">
+            <p className="mt-6 text-lg text-slate-600 font-normal leading-relaxed">
               Select an industry vertical below to observe how the 3D network nodes adapt with sector-specific workflows.
             </p>
           </div>
 
           {/* Industry Vertical Tab Bar */}
-          <div className="flex flex-wrap gap-2 mb-10 border-b border-[#1B3652] pb-4">
+          <div className="flex flex-wrap gap-2 mb-10 border-b border-slate-200 pb-4">
             {industries.map((ind) => {
               const isSelected = activeIndustry === ind.key;
               const Icon = ind.icon;
@@ -629,10 +632,10 @@ export function HomePageClient() {
                   key={ind.key}
                   type="button"
                   onClick={() => setActiveIndustry(ind.key)}
-                  className={`flex items-center gap-2 px-5 py-3 border text-xs font-mono uppercase tracking-wider font-semibold transition-all duration-200 ${
+                  className={`flex items-center gap-2 px-5 py-3 border text-xs font-mono uppercase tracking-wider font-semibold transition-all duration-200 rounded-lg ${
                     isSelected
-                      ? "bg-[#FF6B2C] text-[#071A28] border-[#FF6B2C]"
-                      : "bg-[#0C2233] text-[#AABAC8] border-[#1B3652] hover:text-[#F5F8FC] hover:border-[#FF6B2C]"
+                      ? "bg-[#FF6B2C] text-white border-[#FF6B2C] shadow-sm"
+                      : "bg-slate-100 text-slate-700 border-slate-200 hover:text-slate-900 hover:bg-slate-200"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -646,7 +649,7 @@ export function HomePageClient() {
           {(() => {
             const current = industries.find((i) => i.key === activeIndustry) || industries[0];
             return (
-              <div className="bg-[#0C2233] border border-[#1B3652] p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="bg-slate-50/80 border border-slate-200 p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-2xl shadow-sm">
                 <div className="lg:col-span-7">
                   <span
                     className="text-xs font-mono uppercase tracking-wider font-bold block mb-2"
@@ -654,10 +657,10 @@ export function HomePageClient() {
                   >
                     {current.label.toUpperCase()} ARCHITECTURE
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5F8FC] tracking-tight mb-4">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-4">
                     {current.headline}
                   </h3>
-                  <p className="text-base text-[#AABAC8] leading-relaxed font-light mb-8 max-w-2xl">
+                  <p className="text-base text-slate-600 leading-relaxed font-normal mb-8 max-w-2xl">
                     {current.desc}
                   </p>
 
@@ -665,9 +668,9 @@ export function HomePageClient() {
                     {current.features.map((feat) => (
                       <div
                         key={feat}
-                        className="bg-[#071A28] border border-[#1B3652] p-4 text-xs font-mono text-[#F5F8FC]"
+                        className="bg-white border border-slate-200 p-4 text-xs font-mono text-slate-800 shadow-sm rounded-lg"
                       >
-                        <Check className="h-3.5 w-3.5 text-[#27D3C2] mb-2" />
+                        <Check className="h-3.5 w-3.5 text-[#0D9488] mb-2" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -675,7 +678,7 @@ export function HomePageClient() {
 
                   <Link
                     href={current.href}
-                    className="text-xs font-mono uppercase tracking-wider text-[#FF6B2C] hover:text-[#F5F8FC] inline-flex items-center gap-1 font-bold"
+                    className="text-xs font-mono uppercase tracking-wider text-[#FF6B2C] hover:text-[#d4531b] inline-flex items-center gap-1 font-bold"
                   >
                     <span>[+] View Detailed Blueprint</span>
                     <ArrowRight className="h-3 w-3" />
@@ -683,9 +686,9 @@ export function HomePageClient() {
                 </div>
 
                 {/* 3D Dynamic Sector Cluster Viewport */}
-                <div className="lg:col-span-5 h-[340px] border border-[#1B3652] bg-[#071A28]/80 flex flex-col justify-between overflow-hidden relative">
-                  <div className="p-3 border-b border-[#1B3652] flex items-center justify-between z-10 bg-[#0C2233]/70 backdrop-blur-md">
-                    <span className="text-[11px] font-mono text-[#AABAC8] uppercase">
+                <div className="lg:col-span-5 h-[340px] border border-slate-200 bg-white flex flex-col justify-between overflow-hidden relative rounded-xl shadow-inner">
+                  <div className="p-3 border-b border-slate-200 flex items-center justify-between z-10 bg-slate-100/80 backdrop-blur-md">
+                    <span className="text-[11px] font-mono text-slate-500 uppercase font-medium">
                       3D Telemetry Preview
                     </span>
                     <span
@@ -706,21 +709,21 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 6: DELIVERY PROCESS (5-Stage Path)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-slate-50/70">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-16">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
               METHODOLOGY // 15-DAY CUTOVER
             </span>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
               Our 5-Stage Delivery Process
             </h2>
-            <p className="mt-6 text-lg text-[#AABAC8] font-light leading-relaxed">
+            <p className="mt-6 text-lg text-slate-600 font-normal leading-relaxed">
               Every automation is built with clear exception bounds, deterministic rules, and full client IP ownership.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-0 border border-[#1B3652] divide-y md:divide-y-0 md:divide-x divide-[#1B3652]">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-0 border border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200 rounded-2xl overflow-hidden shadow-sm bg-white">
             {processStages.map((st, i) => {
               const isSelected = activeProcessStep === i;
 
@@ -729,29 +732,29 @@ export function HomePageClient() {
                   key={st.num}
                   onMouseEnter={() => setActiveProcessStep(i)}
                   onClick={() => setActiveProcessStep(i)}
-                  className={`p-6 sm:p-8 cursor-pointer transition-colors duration-200 flex flex-col justify-between ${
+                  className={`p-6 sm:p-8 cursor-pointer transition-colors duration-200 flex flex-col justify-between group ${
                     isSelected
-                      ? "bg-[#0C2233] border-b-2 md:border-b-0 md:border-t-2 border-[#FF6B2C]"
-                      : "bg-[#0C2233]/40 hover:bg-[#0C2233]/70"
+                      ? "bg-orange-50/30 border-b-2 md:border-b-0 md:border-t-2 border-[#FF6B2C]"
+                      : "bg-white hover:bg-slate-50/80"
                   }`}
                 >
                   <div>
                     <span
-                      className="text-4xl font-black font-mono block mb-4"
-                      style={{ color: isSelected ? "#FF6B2C" : "#1B3652" }}
+                      className="text-4xl font-black font-mono block mb-4 transition-colors"
+                      style={{ color: isSelected ? "#FF6B2C" : "#E2E8F0" }}
                     >
                       {st.num}
                     </span>
-                    <h3 className="text-lg font-bold text-[#F5F8FC] mb-2 tracking-tight">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-tight">
                       {st.title}
                     </h3>
-                    <p className="text-xs text-[#AABAC8] leading-relaxed font-light mb-6">
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal mb-6">
                       {st.desc}
                     </p>
                   </div>
                   <span
                     className="text-xs font-mono font-bold uppercase tracking-wider block"
-                    style={{ color: isSelected ? "#27D3C2" : "#AABAC8" }}
+                    style={{ color: isSelected ? "#0D9488" : "#64748B" }}
                   >
                     {st.time}
                   </span>
@@ -765,53 +768,53 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 7: VERIFIED PROOF & CODE CONTROL
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-white">
         <div className="mx-auto max-w-7xl">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
               INTEGRITY // VERIFIED HISTORY
             </span>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
               Real Deliverables. Zero Fabricated Claims.
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8">
+            <div className="bg-slate-50/70 border border-slate-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
               <Eye className="h-8 w-8 text-[#FF6B2C] mb-6" />
-              <span className="text-xs font-mono text-[#27D3C2] uppercase tracking-wider block mb-2 font-bold">
+              <span className="text-xs font-mono text-[#0D9488] uppercase tracking-wider block mb-2 font-bold">
                 ESTABLISHED JUNE 2019
               </span>
-              <h3 className="text-xl font-bold text-[#F5F8FC] mb-3">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
                 Hyderabad Digital Roots
               </h3>
-              <p className="text-sm text-[#AABAC8] leading-relaxed font-light">
+              <p className="text-sm text-slate-600 leading-relaxed font-normal">
                 Incorporated in June 2019 in Hyderabad, Telangana, Dodail Solutions Private Limited has engineered software and automations across India and overseas.
               </p>
             </div>
 
-            <div className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8">
-              <Shield className="h-8 w-8 text-[#27D3C2] mb-6" />
+            <div className="bg-slate-50/70 border border-slate-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+              <Shield className="h-8 w-8 text-[#0D9488] mb-6" />
               <span className="text-xs font-mono text-[#FF6B2C] uppercase tracking-wider block mb-2 font-bold">
                 COMPLETE CODE CONTROL
               </span>
-              <h3 className="text-xl font-bold text-[#F5F8FC] mb-3">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
                 100% Client IP Ownership
               </h3>
-              <p className="text-sm text-[#AABAC8] leading-relaxed font-light">
+              <p className="text-sm text-slate-600 leading-relaxed font-normal">
                 You retain complete ownership of your application source code, schemas, and workflows. Zero proprietary lock-ins or arbitrary per-record subscription taxes.
               </p>
             </div>
 
-            <div className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8">
+            <div className="bg-slate-50/70 border border-slate-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
               <Sparkles className="h-8 w-8 text-[#FF6B2C] mb-6" />
-              <span className="text-xs font-mono text-[#27D3C2] uppercase tracking-wider block mb-2 font-bold">
+              <span className="text-xs font-mono text-[#0D9488] uppercase tracking-wider block mb-2 font-bold">
                 DATA ETHICS & SECURITY
               </span>
-              <h3 className="text-xl font-bold text-[#F5F8FC] mb-3">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
                 Strict Governance
               </h3>
-              <p className="text-sm text-[#AABAC8] leading-relaxed font-light">
+              <p className="text-sm text-slate-600 leading-relaxed font-normal">
                 Data is encrypted in transit and at rest with strict PostgreSQL Row-Level Security. Private business communications are NEVER used to train public LLMs.
               </p>
             </div>
@@ -822,13 +825,13 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 8: FAQ (Accessible Accordion)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-slate-50/70">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-16">
-            <span className="text-xs font-mono font-bold text-[#27D3C2] uppercase tracking-[0.18em]">
+            <span className="text-xs font-mono font-bold text-[#0D9488] uppercase tracking-[0.18em]">
               SPECIFICATIONS // FREQUENTLY ASKED QUESTIONS
             </span>
-            <h2 className="mt-4 text-4xl sm:text-5xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
               Frequently Asked Questions
             </h2>
           </div>
@@ -839,20 +842,20 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 9: FINAL HIGH-CONVERSION CTA
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 bg-gradient-to-b from-[#071A28] to-[#0C2233]/70">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 bg-gradient-to-b from-white via-slate-50 to-orange-50/20 border-t border-slate-200">
         <div className="mx-auto max-w-5xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#FF6B2C]/40 bg-[#FF6B2C]/10 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 border border-orange-200 bg-orange-50 mb-8 rounded-full shadow-sm">
             <Zap className="h-4 w-4 text-[#FF6B2C]" />
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-wider">
               CONFIDENTIAL FEASIBILITY AUDIT
             </span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.05]">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-[-0.03em] leading-[1.05]">
             Ready to eliminate repetitive manual friction from your business?
           </h2>
 
-          <p className="mt-6 text-lg sm:text-xl text-[#AABAC8] font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-6 text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
             Schedule a 30-minute feasibility session with a Dodail solutions engineer. We will review your current manual touchpoints, assess technical feasibility, and present an actionable architectural blueprint.
           </p>
 
@@ -861,7 +864,7 @@ export function HomePageClient() {
               href="/consultation"
               variant="primary"
               size="lg"
-              className="text-sm px-10 py-4 font-semibold uppercase tracking-wider shadow-none"
+              className="text-sm px-10 py-4 font-semibold uppercase tracking-wider shadow-lg shadow-orange-500/25"
             >
               <Calendar className="h-4 w-4 mr-2" />
               Book a Consultation
@@ -870,29 +873,29 @@ export function HomePageClient() {
               href="/contact"
               variant="outline"
               size="lg"
-              className="text-sm px-10 py-4 uppercase tracking-wider border-[#1B3652]"
+              className="text-sm px-10 py-4 uppercase tracking-wider border-slate-300 text-slate-800 bg-white hover:bg-slate-100 shadow-sm"
             >
               Send Direct Message
             </Button>
           </div>
 
-          <div className="mt-16 pt-8 border-t border-[#1B3652]/50 flex flex-wrap items-center justify-center gap-6 text-sm text-[#AABAC8]">
-            <span className="text-[#F5F8FC] font-semibold">
+          <div className="mt-16 pt-8 border-t border-slate-200 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600">
+            <span className="text-slate-900 font-semibold">
               Dodail Solutions Private Limited
             </span>
-            <span className="text-[#1B3652]">·</span>
+            <span className="text-slate-300">·</span>
             <span>Hyderabad, Telangana, India</span>
-            <span className="text-[#1B3652]">·</span>
+            <span className="text-slate-300">·</span>
             <a
               href="tel:+919966400235"
-              className="text-[#AABAC8] hover:text-[#FF6B2C] transition-colors underline underline-offset-2"
+              className="text-slate-700 hover:text-[#FF6B2C] transition-colors underline underline-offset-2"
             >
               +91 99664 00235
             </a>
-            <span className="text-[#1B3652]">·</span>
+            <span className="text-slate-300">·</span>
             <a
               href="mailto:info@dodail.com"
-              className="text-[#AABAC8] hover:text-[#FF6B2C] transition-colors underline underline-offset-2"
+              className="text-slate-700 hover:text-[#FF6B2C] transition-colors underline underline-offset-2"
             >
               info@dodail.com
             </a>

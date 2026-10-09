@@ -37,11 +37,11 @@ export function PipelineCanvas3D({ activePipelineStage, onSelectStage }: Pipelin
   return (
     <div
       onPointerMove={handlePointerMove}
-      className="relative w-full h-[320px] sm:h-[380px] bg-[#071A28]/80 border border-[#1B3652] overflow-hidden mb-8"
+      className="relative w-full h-[320px] sm:h-[380px] bg-white border border-slate-200 overflow-hidden mb-8 shadow-sm"
     >
-      <div className="absolute top-3 left-4 z-10 flex items-center gap-2 text-[10px] font-mono text-[#AABAC8] uppercase tracking-wider bg-[#0C2233]/80 px-2.5 py-1 border border-[#1B3652]">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-        <span>INTERACTIVE 3D CONDUIT // CLICK STAGES TO INSPECT</span>
+      <div className="absolute top-3 left-4 z-10 flex items-center gap-2 text-[10px] font-mono text-slate-700 uppercase tracking-wider bg-white/95 px-3 py-1 border border-slate-200 shadow-sm">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <span className="font-semibold">INTERACTIVE 3D PIPELINE // CLICK ANY STAGE</span>
       </div>
 
       <Canvas
@@ -49,10 +49,10 @@ export function PipelineCanvas3D({ activePipelineStage, onSelectStage }: Pipelin
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight color="#0C2233" intensity={1.4} />
-        <directionalLight position={[4, 5, 4]} color="#FF6B2C" intensity={1.1} />
-        <directionalLight position={[-4, -3, 2]} color="#27D3C2" intensity={0.9} />
-        <pointLight position={[0, 0, 3]} color="#F5F8FC" intensity={0.5} />
+        <ambientLight color="#FFFFFF" intensity={2.0} />
+        <directionalLight position={[4, 5, 4]} color="#FFFFFF" intensity={1.5} />
+        <directionalLight position={[-4, -3, 2]} color="#FF6B2C" intensity={1.0} />
+        <pointLight position={[0, 0, 3]} color="#0284C7" intensity={0.8} />
 
         <Pipeline3D sceneState={sceneState} onSelectStage={onSelectStage} />
       </Canvas>

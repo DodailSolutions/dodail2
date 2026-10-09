@@ -120,9 +120,9 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
   }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#1B3652] bg-[#071A28]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md shadow-xs">
       {announcement?.enabled && announcement.text && (
-        <div className="bg-gradient-to-r from-[#FF6B2C] to-[#FF6B2C] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <div className="bg-[#FF6B2C] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
           <span>{announcement.text}</span>
           {announcement.link && (
             <Link href={announcement.link} className="underline text-white font-semibold hover:opacity-90 ml-1">
@@ -136,7 +136,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
         <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] p-1">
           <div
             style={{ width: "44px", height: "44px", minWidth: "44px", minHeight: "44px" }}
-            className="relative h-11 w-11 overflow-hidden shadow-sm group-hover:scale-105 transition-transform shrink-0"
+            className="relative h-11 w-11 overflow-hidden shadow-xs group-hover:scale-105 transition-transform shrink-0"
           >
             <Image
               src="/brand/dodail-logo.png"
@@ -148,13 +148,13 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight text-[#F5F8FC] flex items-center gap-1.5 font-sans">
+            <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-1.5 font-sans">
               Dodail
-              <span className="text-[#FF6B2C] text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-none bg-[#FF6B2C]/10 border border-[#FF6B2C]/30">
+              <span className="text-[#FF6B2C] text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-none bg-orange-50 border border-orange-200">
                 2.0
               </span>
             </span>
-            <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#AABAC8]">
+            <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-slate-500">
               Solutions Pvt Ltd
             </span>
           </div>
@@ -174,35 +174,35 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-                solutionsOpen && "bg-[#0C2233] text-white"
+                "flex items-center gap-1 px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                solutionsOpen && "bg-slate-100 text-slate-950"
               )}
               onClick={() => setSolutionsOpen(!solutionsOpen)}
               aria-haspopup="true"
               aria-expanded={solutionsOpen}
             >
               <span>Solutions</span>
-              <ChevronDown className={cn("h-4 w-4 transition-transform", solutionsOpen && "rotate-180")} />
+              <ChevronDown className={cn("h-4 w-4 transition-transform text-slate-500", solutionsOpen && "rotate-180")} />
             </button>
 
             {solutionsOpen && (
               <div className="absolute left-0 top-full pt-2 w-80 z-50">
-                <div className="rounded-none border border-[#1B3652] bg-[#0C2233] p-3 shadow-2xl shadow-black/80">
+                <div className="rounded-none border border-slate-200 bg-white p-3 shadow-xl shadow-slate-900/10">
                   <div className="space-y-1">
                     {solutions.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-[#10293B] transition-colors group"
+                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-slate-50 transition-colors group"
                       >
-                        <div className="rounded-none bg-[#10293B] p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                        <div className="rounded-none bg-orange-50 p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
                           <item.icon className="h-4 w-4" />
                         </div>
                         <div>
-                          <p className="font-semibold text-[#F5F8FC] group-hover:text-white text-sm">
+                          <p className="font-semibold text-slate-900 group-hover:text-[#FF6B2C] text-sm transition-colors">
                             {item.title}
                           </p>
-                          <p className="text-xs text-[#AABAC8] leading-snug">
+                          <p className="text-xs text-slate-500 leading-snug">
                             {item.description}
                           </p>
                         </div>
@@ -226,35 +226,35 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-                servicesOpen && "bg-[#0C2233] text-white"
+                "flex items-center gap-1 px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                servicesOpen && "bg-slate-100 text-slate-950"
               )}
               onClick={() => setServicesOpen(!servicesOpen)}
               aria-haspopup="true"
               aria-expanded={servicesOpen}
             >
               <span>Services</span>
-              <ChevronDown className={cn("h-4 w-4 transition-transform", servicesOpen && "rotate-180")} />
+              <ChevronDown className={cn("h-4 w-4 transition-transform text-slate-500", servicesOpen && "rotate-180")} />
             </button>
 
             {servicesOpen && (
               <div className="absolute left-0 top-full pt-2 w-80 z-50">
-                <div className="rounded-none border border-[#1B3652] bg-[#0C2233] p-3 shadow-2xl shadow-black/80">
+                <div className="rounded-none border border-slate-200 bg-white p-3 shadow-xl shadow-slate-900/10">
                   <div className="space-y-1">
                     {services.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-[#10293B] transition-colors group"
+                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-slate-50 transition-colors group"
                       >
-                        <div className="rounded-none bg-[#10293B] p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                        <div className="rounded-none bg-orange-50 p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
                           <item.icon className="h-4 w-4" />
                         </div>
                         <div>
-                          <p className="font-semibold text-[#F5F8FC] group-hover:text-white text-sm">
+                          <p className="font-semibold text-slate-900 group-hover:text-[#FF6B2C] text-sm transition-colors">
                             {item.title}
                           </p>
-                          <p className="text-xs text-[#AABAC8] leading-snug">
+                          <p className="text-xs text-slate-500 leading-snug">
                             {item.description}
                           </p>
                         </div>
@@ -269,7 +269,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Industries */}
           <Link
             href="/industries"
-            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
+            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Industries
           </Link>
@@ -277,7 +277,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Work */}
           <Link
             href="/work"
-            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
+            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Work & Results
           </Link>
@@ -285,7 +285,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Blog / Resources */}
           <Link
             href="/blog"
-            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
+            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Resources
           </Link>
@@ -293,7 +293,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* About */}
           <Link
             href="/about"
-            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
+            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             About
           </Link>
@@ -301,7 +301,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Contact */}
           <Link
             href="/contact"
-            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
+            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Contact
           </Link>
@@ -309,7 +309,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
         {/* Desktop CTA & Consultation */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button href="/consultation" variant="primary" size="md" className="rounded-none">
+          <Button href="/consultation" variant="primary" size="md" className="rounded-none shadow-sm text-white font-semibold">
             <Calendar className="h-4 w-4 mr-1.5" />
             Book a Consultation
           </Button>
@@ -319,7 +319,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-none text-[#AABAC8] hover:text-white hover:bg-[#0C2233] border border-[#1B3652] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
+          className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 border border-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
           aria-expanded={mobileMenuOpen}
           aria-label="Toggle navigation menu"
         >
@@ -329,7 +329,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div ref={mobileMenuRef} className="lg:hidden border-b border-[#1B3652] bg-[#071A28] px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto">
+        <div ref={mobileMenuRef} className="lg:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto shadow-xl">
           <div className="space-y-4 pt-2">
             <div>
               <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FF6B2C]">
@@ -340,7 +340,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-[#F5F8FC] hover:bg-[#0C2233] hover:text-white"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
                   >
                     <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
@@ -358,7 +358,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-[#F5F8FC] hover:bg-[#0C2233] hover:text-white"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
                   >
                     <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
@@ -368,7 +368,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             </div>
 
             <div>
-              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#AABAC8]">
+              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Key Industries
               </p>
               <div className="mt-1 space-y-1">
@@ -376,7 +376,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-3 py-2 rounded-none text-sm text-[#AABAC8] hover:bg-[#0C2233] hover:text-white"
+                    className="block px-3 py-2 rounded-none text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-950"
                   >
                     {item.title}
                   </Link>
@@ -384,35 +384,35 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
               </div>
             </div>
 
-            <div className="border-t border-[#1B3652] pt-4 space-y-1">
+            <div className="border-t border-slate-200 pt-4 space-y-1">
               <Link
                 href="/work"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 Work & Case Studies
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 Resources & Blog
               </Link>
               <Link
                 href="/about"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 About Dodail
               </Link>
               <Link
                 href="/contact"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 Contact & Support
               </Link>
             </div>
 
             <div className="pt-2">
-              <Button href="/consultation" variant="primary" size="lg" className="w-full rounded-none">
+              <Button href="/consultation" variant="primary" size="lg" className="w-full rounded-none text-white shadow-sm font-semibold">
                 <Calendar className="h-5 w-5 mr-2" />
                 Book a Consultation
               </Button>

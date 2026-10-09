@@ -37,19 +37,19 @@ export function ServicesCanvas3D({ activeServiceIndex }: ServicesCanvas3DProps) 
   return (
     <div
       onPointerMove={handlePointerMove}
-      className="relative w-full h-full min-h-[440px] flex items-center justify-center overflow-hidden"
+      className="relative w-full h-full min-h-[440px] flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50"
     >
-      <div className="absolute inset-0 bg-gradient-radial from-[#FF6B2C]/10 via-[#27D3C2]/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-radial from-orange-400/10 via-sky-400/5 to-transparent pointer-events-none" />
 
       <Canvas
         camera={{ position: [0, 0, 5.2], fov: 45 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight color="#0C2233" intensity={1.5} />
-        <directionalLight position={[4, 5, 4]} color="#FF6B2C" intensity={1.2} />
-        <directionalLight position={[-4, -3, 2]} color="#27D3C2" intensity={1.0} />
-        <pointLight position={[0, 0, 3]} color="#F5F8FC" intensity={0.6} />
+        <ambientLight color="#FFFFFF" intensity={2.0} />
+        <directionalLight position={[4, 5, 4]} color="#FFFFFF" intensity={1.5} />
+        <directionalLight position={[-4, -3, 2]} color="#FF6B2C" intensity={1.0} />
+        <pointLight position={[0, 0, 3]} color="#0284C7" intensity={0.8} />
 
         <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.2}>
           <group position={[-2.6, 0, 0]}>

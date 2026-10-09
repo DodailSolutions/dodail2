@@ -31,8 +31,8 @@ html {
 }
 
 body {
-  background-color: #071A28;
-  color: #F5F8FC;
+  background-color: #FAFBFD;
+  color: #0F172A;
   min-height: 100vh;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
@@ -49,13 +49,13 @@ body {
 .swiss-grid-bg {
   background-size: 64px 64px;
   background-image: 
-    linear-gradient(to right, rgba(27, 54, 82, 0.45) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(27, 54, 82, 0.45) 1px, transparent 1px);
+    linear-gradient(to right, rgba(203, 213, 225, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203, 213, 225, 0.45) 1px, transparent 1px);
 }
 
 .swiss-dot-bg {
   background-size: 32px 32px;
-  background-image: radial-gradient(rgba(27, 54, 82, 0.7) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(148, 163, 184, 0.5) 1px, transparent 1px);
 }
 
 /* Swiss Registration Crosshair Mark */
@@ -160,10 +160,11 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #071A28;
+  background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1B3652;
+  background: #CBD5E1;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #FF6B2C;

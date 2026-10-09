@@ -56,7 +56,7 @@ export function FAQAccordion() {
   };
 
   return (
-    <div className="border-t border-[#1B3652] divide-y divide-[#1B3652]">
+    <div className="border border-slate-200 divide-y divide-slate-200 bg-white shadow-xs">
       {faqs.map((faq, index) => {
         const isOpen = openIndex === index;
         const indexStr = String(index + 1).padStart(2, "0");
@@ -65,7 +65,7 @@ export function FAQAccordion() {
           <div
             key={index}
             className={`transition-colors duration-150 ${
-              isOpen ? "bg-[#0C2233]" : "hover:bg-[#0C2233]/40"
+              isOpen ? "bg-orange-50/30" : "hover:bg-slate-50"
             }`}
           >
             <h3>
@@ -83,17 +83,17 @@ export function FAQAccordion() {
                   </span>
                   <div className="flex flex-col gap-1">
                     {faq.category && (
-                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#AABAC8] font-semibold">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-orange-600 font-semibold">
                         {faq.category}
                       </span>
                     )}
-                    <span className="text-base sm:text-xl font-bold text-[#F5F8FC] leading-snug tracking-[-0.015em]">
+                    <span className="text-base sm:text-xl font-bold text-slate-900 leading-snug tracking-[-0.015em]">
                       {faq.question}
                     </span>
                   </div>
                 </div>
 
-                <div className="font-mono text-xs text-[#FF6B2C] border border-[#1B3652] px-2 py-1 shrink-0 mt-1 select-none" aria-hidden="true">
+                <div className="font-mono text-xs text-[#FF6B2C] border border-orange-200 bg-white px-2 py-1 shrink-0 mt-1 select-none shadow-2xs" aria-hidden="true">
                   {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
                 </div>
               </button>
@@ -104,9 +104,9 @@ export function FAQAccordion() {
               role="region"
               aria-labelledby={`faq-trigger-${index}`}
               hidden={!isOpen}
-              className={isOpen ? "px-4 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-[#AABAC8] leading-relaxed pl-12 sm:pl-20 border-t border-[#1B3652]/40" : ""}
+              className={isOpen ? "px-4 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed pl-12 sm:pl-20 border-t border-slate-100" : ""}
             >
-              {isOpen && <p className="font-light max-w-3xl">{faq.answer}</p>}
+              {isOpen && <p className="font-normal max-w-3xl leading-relaxed">{faq.answer}</p>}
             </div>
           </div>
         );
