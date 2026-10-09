@@ -34,7 +34,7 @@ export default function ConsultationPage() {
   const [status, setStatus] = React.useState<"idle" | "submitting" | "success">("idle");
   const [errorMsg, setErrorMsg] = React.useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
 
@@ -53,10 +53,40 @@ export default function ConsultationPage() {
 
     setStatus("submitting");
 
-    // Simulate submission
-    setTimeout(() => {
-      setStatus("success");
-    }, 800);
+    try {
+      // Calculate slot ISO timestamp for tomorrow
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const dateStr = tomorrow.toISOString().slice(0, 10);
+      const slotHour = selectedSlot.includes("10:00") ? "10:00" : selectedSlot.includes("12:00") ? "12:00" : selectedSlot.includes("03:00") ? "15:00" : selectedSlot.includes("05:00") ? "17:00" : "19:30";
+      const slotIso = new Date(`${dateStr}T${slotHour}:00+05:30`).toISOString();
+
+      const res = await fetch("/api/booking/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: "prod-arch-discovery",
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          company: company.trim() || undefined,
+          notes: `Topic: ${selectedTopic}. Notes: ${notes.trim()}`,
+          slotIso,
+          timeZone: "Asia/Kolkata",
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setStatus("success");
+      } else {
+        setStatus("idle");
+        setErrorMsg(data.error || "Unable to secure slot. Please select an alternate time.");
+      }
+    } catch (err: any) {
+      setStatus("idle");
+      setErrorMsg(err.message || "An unexpected error occurred. Please contact us directly.");
+    }
   };
 
   return (
