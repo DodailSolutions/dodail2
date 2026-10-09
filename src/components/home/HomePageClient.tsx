@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -16,9 +17,72 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { OperationsCanvasHost } from "@/components/3d/OperationsCanvasHost";
 import { IndustryKey } from "@/components/3d/3DTypes";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
+
+// Lazy-load dedicated 3D components without SSR for optimal LCP & WebGL performance
+const AutonomousBrainCore = dynamic(
+  () =>
+    import("@/components/3d/AutonomousBrainCore").then(
+      (mod) => mod.AutonomousBrainCore
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[460px] sm:h-[540px] lg:h-[620px] flex items-center justify-center border border-[#1B3652]/40 bg-[#0C2233]/20">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#AABAC8]">
+          <span className="h-2 w-2 rounded-full bg-[#FF6B2C] animate-pulse" />
+          <span>INITIALIZING 3D AUTONOMOUS CORE...</span>
+        </div>
+      </div>
+    ),
+  }
+);
+
+const ServicesCanvas3D = dynamic(
+  () =>
+    import("@/components/3d/ServicesCanvas3D").then(
+      (mod) => mod.ServicesCanvas3D
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full min-h-[440px] flex items-center justify-center bg-[#0C2233]/20 border border-[#1B3652]/40">
+        <span className="text-xs font-mono text-[#AABAC8]">LOADING 3D FORMATION...</span>
+      </div>
+    ),
+  }
+);
+
+const PipelineCanvas3D = dynamic(
+  () =>
+    import("@/components/3d/PipelineCanvas3D").then(
+      (mod) => mod.PipelineCanvas3D
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[320px] sm:h-[380px] flex items-center justify-center bg-[#071A28]/80 border border-[#1B3652] mb-8">
+        <span className="text-xs font-mono text-[#AABAC8]">LOADING 3D PIPELINE...</span>
+      </div>
+    ),
+  }
+);
+
+const IndustryCanvas3D = dynamic(
+  () =>
+    import("@/components/3d/IndustryCanvas3D").then(
+      (mod) => mod.IndustryCanvas3D
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full min-h-[300px] flex items-center justify-center bg-[#071A28]/40">
+        <span className="text-xs font-mono text-[#AABAC8]">LOADING 3D SECTOR CLUSTER...</span>
+      </div>
+    ),
+  }
+);
 
 export function HomePageClient() {
   const [activeService, setActiveService] = useState(0);
@@ -193,25 +257,14 @@ export function HomePageClient() {
   return (
     <div className="relative min-h-screen bg-[#071A28] text-[#F5F8FC]">
       {/* =========================================================================
-          PERSISTENT 3D CONNECTED OPERATIONS SYSTEM CANVAS
-          Single persistent WebGL scene evolving with scroll position
+          SECTION 1: HERO
+          Editorial Split: Left = Bold Typography & Action, Right = 3D Brain Core
           ========================================================================= */}
-      <OperationsCanvasHost
-        activeServiceIndex={activeService}
-        activePipelineStage={activePipelineStage}
-        activeIndustry={activeIndustry}
-        activeProcessStep={activeProcessStep}
-        onSelectPipelineStage={setActivePipelineStage}
-      />
-
-      {/* =========================================================================
-          SECTION 1: HERO (Asymmetric Editorial Split with 3D Network)
-          ========================================================================= */}
-      <section className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 pt-28 pb-20 z-10">
+      <section className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 pt-28 pb-20 border-b border-[#1B3652]/60 bg-gradient-to-b from-[#071A28] via-[#0C2233]/40 to-[#071A28]">
         <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Headline & Action */}
-          <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-3 px-4 py-2 border border-[#1B3652] bg-[#0C2233]/70 backdrop-blur-md mb-8">
+          <div className="lg:col-span-6 z-10">
+            <div className="inline-flex items-center gap-3 px-4 py-2 border border-[#1B3652] bg-[#0C2233]/80 backdrop-blur-md mb-8">
               <span className="h-2 w-2 bg-emerald-400 animate-pulse" />
               <span className="text-xs font-mono text-[#AABAC8] uppercase tracking-wider">
                 Dodail Solutions Private Limited · Hyderabad [17.3850° N]
@@ -271,12 +324,10 @@ export function HomePageClient() {
             </div>
           </div>
 
-          {/* Right Column: Visual Spatial Area for 3D Network */}
-          <div className="lg:col-span-5 h-[360px] sm:h-[460px] lg:h-[540px] flex items-center justify-end relative">
-            <div className="absolute right-0 bottom-4 text-right">
-              <span className="text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider bg-[#0C2233]/70 px-3 py-1.5 border border-[#1B3652]">
-                [ 3D SCENE: CONNECTED OPERATIONS NETWORK ]
-              </span>
+          {/* Right Column: VIVID 3D AUTONOMOUS BRAIN CORE CENTERPIECE */}
+          <div className="lg:col-span-6 z-10 flex items-center justify-center">
+            <div className="w-full border border-[#1B3652] bg-[#0C2233]/40 backdrop-blur-md relative shadow-2xl shadow-[#FF6B2C]/5">
+              <AutonomousBrainCore />
             </div>
           </div>
         </div>
@@ -284,9 +335,8 @@ export function HomePageClient() {
 
       {/* =========================================================================
           SECTION 2: PROBLEM (Disconnected Systems & Manual Bottlenecks)
-          3D visual shows nodes drifting apart and links snapping
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 bg-[#071A28]/85 backdrop-blur-sm border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-20">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
@@ -330,13 +380,13 @@ export function HomePageClient() {
             ].map((item) => (
               <div
                 key={item.num}
-                className="bg-[#0C2233]/70 border border-[#1B3652] p-8 flex flex-col justify-between hover:border-[#FF6B2C] transition-colors duration-300"
+                className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8 flex flex-col justify-between hover:border-[#FF6B2C] transition-all duration-300 shadow-lg"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span
                       className="text-4xl font-black font-mono"
-                      style={{ color: `${item.accent}30` }}
+                      style={{ color: `${item.accent}35` }}
                     >
                       {item.num}
                     </span>
@@ -371,7 +421,7 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 3: SERVICES (5 3D Formations Driven By Visitor Focus)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 bg-[#071A28]/80 backdrop-blur-sm border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-16">
             <span className="text-xs font-mono font-bold text-[#27D3C2] uppercase tracking-[0.18em]">
@@ -381,7 +431,7 @@ export function HomePageClient() {
               Engineered Solutions For Measurable Growth
             </h2>
             <p className="mt-6 text-lg text-[#AABAC8] font-light leading-relaxed">
-              Hover or select an offering below to explore how the 3D operational system evolves to support each capability.
+              Hover or select an offering below to explore how the 3D procedural formation adapts in real time.
             </p>
           </div>
 
@@ -444,16 +494,17 @@ export function HomePageClient() {
               })}
             </div>
 
-            {/* Right Column: Visual Focus Zone for 3D Formations */}
-            <div className="lg:col-span-5 h-[400px] sm:h-[500px] lg:h-[600px] sticky top-28 flex flex-col justify-end p-6 border border-[#1B3652] bg-[#0C2233]/30">
-              <div className="text-right">
-                <span className="text-xs font-mono text-[#FF6B2C] block font-bold">
+            {/* Right Column: DEDICATED 3D FORMATION CANVAS */}
+            <div className="lg:col-span-5 sticky top-28 border border-[#1B3652] bg-[#0C2233]/50 backdrop-blur-md overflow-hidden">
+              <div className="p-4 border-b border-[#1B3652] flex items-center justify-between">
+                <span className="text-xs font-mono text-[#FF6B2C] font-bold">
                   {services[activeService].tag}
                 </span>
-                <span className="text-[11px] font-mono text-[#AABAC8]">
-                  Procedural 3D Formation Active
+                <span className="text-[10px] font-mono text-[#AABAC8]">
+                  [ PROCEDURAL 3D MOTIF ]
                 </span>
               </div>
+              <ServicesCanvas3D activeServiceIndex={activeService} />
             </div>
           </div>
         </div>
@@ -461,9 +512,8 @@ export function HomePageClient() {
 
       {/* =========================================================================
           SECTION 4: AUTOMATION SHOWCASE (Interactive 3D Pipeline)
-          Trigger → Processing → Action → Outcome
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 bg-[#071A28]/85 backdrop-blur-sm border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-12">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
@@ -477,8 +527,14 @@ export function HomePageClient() {
             </p>
           </div>
 
-          {/* Interactive Pipeline Stage Selector */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+          {/* DEDICATED 3D PIPELINE CANVAS VIEWPORT */}
+          <PipelineCanvas3D
+            activePipelineStage={activePipelineStage}
+            onSelectStage={setActivePipelineStage}
+          />
+
+          {/* Interactive Pipeline Stage Selector Tabs */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
             {pipelineStages.map((st) => {
               const isSelected = activePipelineStage === st.stage;
 
@@ -548,7 +604,7 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 5: INDUSTRIES (4 Verticals Re-skinning 3D Node Cluster)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 bg-[#071A28]/80 backdrop-blur-sm border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-14">
             <span className="text-xs font-mono font-bold text-[#27D3C2] uppercase tracking-[0.18em]">
@@ -586,12 +642,12 @@ export function HomePageClient() {
             })}
           </div>
 
-          {/* Selected Industry Card */}
+          {/* Selected Industry Card with EMBEDDED 3D SECTOR CLUSTER */}
           {(() => {
             const current = industries.find((i) => i.key === activeIndustry) || industries[0];
             return (
               <div className="bg-[#0C2233] border border-[#1B3652] p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-8">
+                <div className="lg:col-span-7">
                   <span
                     className="text-xs font-mono uppercase tracking-wider font-bold block mb-2"
                     style={{ color: current.accent }}
@@ -626,21 +682,20 @@ export function HomePageClient() {
                   </Link>
                 </div>
 
-                <div className="lg:col-span-4 h-64 border border-[#1B3652] bg-[#071A28]/40 flex flex-col justify-between p-6">
-                  <span className="text-[11px] font-mono text-[#AABAC8] uppercase">
-                    3D Telemetry Preview
-                  </span>
-                  <div className="text-right">
+                {/* 3D Dynamic Sector Cluster Viewport */}
+                <div className="lg:col-span-5 h-[340px] border border-[#1B3652] bg-[#071A28]/80 flex flex-col justify-between overflow-hidden relative">
+                  <div className="p-3 border-b border-[#1B3652] flex items-center justify-between z-10 bg-[#0C2233]/70 backdrop-blur-md">
+                    <span className="text-[11px] font-mono text-[#AABAC8] uppercase">
+                      3D Telemetry Preview
+                    </span>
                     <span
-                      className="text-xl font-bold font-mono block"
+                      className="text-xs font-bold font-mono"
                       style={{ color: current.accent }}
                     >
                       {current.label}
                     </span>
-                    <span className="text-xs text-[#AABAC8]">
-                      Node Cluster Synchronized
-                    </span>
                   </div>
+                  <IndustryCanvas3D activeIndustry={activeIndustry} />
                 </div>
               </div>
             );
@@ -650,9 +705,8 @@ export function HomePageClient() {
 
       {/* =========================================================================
           SECTION 6: DELIVERY PROCESS (5-Stage Path)
-          Camera and beacon travel along 3D timeline
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 bg-[#071A28]/85 backdrop-blur-sm border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mb-16">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
@@ -711,7 +765,7 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 7: VERIFIED PROOF & CODE CONTROL
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 bg-[#071A28]/80 backdrop-blur-sm border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
         <div className="mx-auto max-w-7xl">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-[0.18em]">
@@ -723,7 +777,7 @@ export function HomePageClient() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-[#0C2233]/70 border border-[#1B3652] p-8">
+            <div className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8">
               <Eye className="h-8 w-8 text-[#FF6B2C] mb-6" />
               <span className="text-xs font-mono text-[#27D3C2] uppercase tracking-wider block mb-2 font-bold">
                 ESTABLISHED JUNE 2019
@@ -736,7 +790,7 @@ export function HomePageClient() {
               </p>
             </div>
 
-            <div className="bg-[#0C2233]/70 border border-[#1B3652] p-8">
+            <div className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8">
               <Shield className="h-8 w-8 text-[#27D3C2] mb-6" />
               <span className="text-xs font-mono text-[#FF6B2C] uppercase tracking-wider block mb-2 font-bold">
                 COMPLETE CODE CONTROL
@@ -749,7 +803,7 @@ export function HomePageClient() {
               </p>
             </div>
 
-            <div className="bg-[#0C2233]/70 border border-[#1B3652] p-8">
+            <div className="bg-gradient-to-b from-[#0C2233] to-[#071A28] border border-[#1B3652] p-8">
               <Sparkles className="h-8 w-8 text-[#FF6B2C] mb-6" />
               <span className="text-xs font-mono text-[#27D3C2] uppercase tracking-wider block mb-2 font-bold">
                 DATA ETHICS & SECURITY
@@ -768,7 +822,7 @@ export function HomePageClient() {
       {/* =========================================================================
           SECTION 8: FAQ (Accessible Accordion)
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 bg-[#071A28]/85 backdrop-blur-sm border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-[#1B3652]/60 bg-[#071A28]">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-16">
             <span className="text-xs font-mono font-bold text-[#27D3C2] uppercase tracking-[0.18em]">
@@ -784,9 +838,8 @@ export function HomePageClient() {
 
       {/* =========================================================================
           SECTION 9: FINAL HIGH-CONVERSION CTA
-          3D Nodes converge into glowing connected core behind "Book a Consultation"
           ========================================================================= */}
-      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 z-10 border-t border-[#1B3652]/50">
+      <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 bg-gradient-to-b from-[#071A28] to-[#0C2233]/70">
         <div className="mx-auto max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#FF6B2C]/40 bg-[#FF6B2C]/10 mb-8">
             <Zap className="h-4 w-4 text-[#FF6B2C]" />
