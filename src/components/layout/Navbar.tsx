@@ -69,7 +69,7 @@ const industries = [
   { title: "E-Commerce & Retail Brands", href: "/industries/ecommerce" },
 ];
 
-export function Navbar() {
+export function Navbar({ announcement }: { announcement?: { enabled: boolean; text: string; link?: string } }) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [solutionsOpen, setSolutionsOpen] = React.useState(false);
   const [servicesOpen, setServicesOpen] = React.useState(false);
@@ -84,6 +84,16 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#1B3652] bg-[#0A1B2A]/90 backdrop-blur-md">
+      {announcement?.enabled && announcement.text && (
+        <div className="bg-gradient-to-r from-[#FA5B0F] to-[#E04F08] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
+          <span>{announcement.text}</span>
+          {announcement.link && (
+            <Link href={announcement.link} className="underline text-white font-semibold hover:opacity-90 ml-1">
+              Learn more →
+            </Link>
+          )}
+        </div>
+      )}
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] rounded-lg p-1">

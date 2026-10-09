@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { AIChatLauncher } from "@/components/layout/AIChatLauncher";
 import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
+import { getGlobalSettings } from "@/lib/cms/api";
 
 export const viewport: Viewport = {
   themeColor: "#0A1B2A",
@@ -76,11 +77,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let announcement = { enabled: false, text: "", link: "" };
+  try {
+    const settings = await getGlobalSettings();
+    announcement = settings?.navigation?.announcement || announcement;
+  } catch (e) {}
+
   return (
     <html lang="en" className="h-full">
       <body className="flex min-h-screen flex-col bg-[#0A1B2A] text-slate-100 antialiased selection:bg-[#FA5B0F] selection:text-white">
@@ -90,7 +97,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <Navbar />
+        <Navbar announcement={announcement} />
         <main id="main-content" className="flex-1">
           {children}
         </main>
