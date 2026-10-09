@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { LayoutDashboard, FileText, Sliders, Image as ImageIcon, BookOpen, Clock, ShieldCheck, ArrowUpRight, Compass, Users, Kanban } from "lucide-react";
+import { LayoutDashboard, FileText, Sliders, Image as ImageIcon, BookOpen, Clock, ShieldCheck, ArrowUpRight, Compass, Users, Kanban, Bot } from "lucide-react";
 
 export const metadata = {
   title: "Dodail Admin | CMS & Site Manager",
@@ -103,6 +103,14 @@ export default function AdminLayout({
           >
             <Kanban className="w-4 h-4 text-emerald-400" />
             <span>Sales Pipeline</span>
+          </Link>
+
+          <Link
+            href="/admin/ai"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
+          >
+            <Bot className="w-4 h-4 text-amber-400" />
+            <span>AI Knowledge & Tools</span>
           </Link>
 
           <div className="pt-4 px-3 py-2 text-[11px] font-semibold tracking-wider text-slate-400 uppercase font-mono">
