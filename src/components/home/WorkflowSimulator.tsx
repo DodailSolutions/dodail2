@@ -12,6 +12,8 @@ import {
   Terminal,
   Layers,
   ArrowRight,
+  Play,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -20,7 +22,7 @@ interface Scenario {
   tabLabel: string;
   industry: string;
   businessName: string;
-  eventInput: {
+  trigger: {
     channel: string;
     timestamp: string;
     rawText: string;
@@ -30,10 +32,13 @@ interface Scenario {
     validation: string;
     latency: string;
   };
-  outcome: {
-    action: string;
+  action: {
+    actionText: string;
     destinations: { name: string; status: string }[];
+  };
+  outcome: {
     impact: string;
+    metric: string;
   };
 }
 
@@ -43,24 +48,27 @@ const scenarios: Scenario[] = [
     tabLabel: "Dental Clinic",
     industry: "Healthcare & Clinics",
     businessName: "Multi-Specialty Dental Center",
-    eventInput: {
-      channel: "WhatsApp Business API",
-      timestamp: "18:42 IST · Inbound Voice/Text",
+    trigger: {
+      channel: "WhatsApp Business API Inbound",
+      timestamp: "18:42 IST · Inbound Patient Message",
       rawText: "Severe toothache and gum swelling since morning. Need an appointment today before 8 PM.",
     },
     processing: {
-      rule: "Acute triage rule #H-104: Emergency oral pain intent flagged",
-      validation: "Doctor Dr. Rao buffer slot verified (19:15 available). Patient record matched.",
+      rule: "Acute triage rule #H-104: Emergency oral pain intent detected & prioritized",
+      validation: "Doctor Dr. Rao buffer slot verified (19:15 available). Patient EHR matched.",
       latency: "280ms",
     },
-    outcome: {
-      action: "Emergency consultation locked. WhatsApp pass with clinic navigation dispatched to patient.",
+    action: {
+      actionText: "Emergency consultation locked. WhatsApp clinic pass with Google Maps route dispatched to patient.",
       destinations: [
-        { name: "Clinic PostgreSQL Database", status: "Row Inserted (ID #9281)" },
+        { name: "Clinic PostgreSQL Database", status: "Appointment Created (#9281)" },
         { name: "Doctor Google Calendar", status: "Slot Held (19:15 - 19:45)" },
-        { name: "WhatsApp Cloud API", status: "Confirmation Delivered" },
+        { name: "WhatsApp Cloud API", status: "Booking Pass Delivered" },
       ],
-      impact: "Zero staff call time required. Patient arrives at clinic in 30 minutes.",
+    },
+    outcome: {
+      impact: "Zero staff call time required. Patient arrived at clinic within 35 minutes.",
+      metric: "100% automated triage during peak reception hours",
     },
   },
   {
@@ -68,9 +76,9 @@ const scenarios: Scenario[] = [
     tabLabel: "Real Estate",
     industry: "Property Development",
     businessName: "Luxury Villa Developer",
-    eventInput: {
+    trigger: {
       channel: "Meta Lead Ads Webhook",
-      timestamp: "14:15 IST · Inbound Form",
+      timestamp: "14:15 IST · Inbound Buyer Inquiry",
       rawText: "Looking for 4BHK Gated Villa in Kokapet / Financial District. Budget: ₹3.8 Cr. Planned purchase within 45 days.",
     },
     processing: {
@@ -78,14 +86,45 @@ const scenarios: Scenario[] = [
       validation: "Phone number authenticated via WhatsApp API. CRM duplicate check clean.",
       latency: "340ms",
     },
-    outcome: {
-      action: "Tier-1 VIP route executed. Digital brochure and floorplans sent to buyer. Senior Sales Director notified.",
+    action: {
+      actionText: "Tier-1 VIP route executed. Digital brochure and floorplans sent to buyer. Senior Sales Director notified.",
       destinations: [
         { name: "Salesforce CRM", status: "Lead Created (VIP Tier A)" },
         { name: "Sales Team Slack", status: "Instant Alert with Direct Dial" },
         { name: "WhatsApp Cloud API", status: "Interactive Brochure Delivered" },
       ],
-      impact: "Response delivered in under 45 seconds while buyer is still actively browsing.",
+    },
+    outcome: {
+      impact: "Response delivered in under 45 seconds while buyer is still actively browsing property details.",
+      metric: "Sub-60s engagement vs industry 4-hour average",
+    },
+  },
+  {
+    id: "manufacturing",
+    tabLabel: "Manufacturing",
+    industry: "Precision Engineering",
+    businessName: "Industrial Components Hub",
+    trigger: {
+      channel: "Vendor Portal Webhook",
+      timestamp: "09:30 IST · Purchase Order PDF Received",
+      rawText: "PO #IND-4421 attached: 5,000 units CNC machined shafts. Delivery required by 28th.",
+    },
+    processing: {
+      rule: "PO parser & inventory match: Raw material stock verified at warehouse",
+      validation: "Rate contract validated against vendor master sheet. Lead-time feasible.",
+      latency: "310ms",
+    },
+    action: {
+      actionText: "Production batch queued in ERP. Warehouse dispatch reservation locked. Vendor acknowledgement issued.",
+      destinations: [
+        { name: "ERP Database", status: "Batch Work Order #WO-8041 Created" },
+        { name: "Warehouse WMS", status: "Material Reserved" },
+        { name: "Vendor WhatsApp & Email", status: "PO Accepted & Delivery Confirmed" },
+      ],
+    },
+    outcome: {
+      impact: "Zero order-entry transcription errors. Production starts 24 hours earlier.",
+      metric: "99.8% PO ingestion accuracy without paper forms",
     },
   },
   {
@@ -93,7 +132,7 @@ const scenarios: Scenario[] = [
     tabLabel: "E-Commerce",
     industry: "DTC & Retail Brands",
     businessName: "Apparel & Lifestyle Brand",
-    eventInput: {
+    trigger: {
       channel: "Storefront Webchat",
       timestamp: "21:04 IST · Customer Inquiry",
       rawText: "Order #DOD-8192 arrived yesterday but size M is too snug. Can I exchange for size L?",
@@ -103,39 +142,17 @@ const scenarios: Scenario[] = [
       validation: "Warehouse inventory queried: Size L in stock (14 units available at Hyderabad Hub).",
       latency: "195ms",
     },
-    outcome: {
-      action: "Size L held in warehouse. Pre-paid courier reverse pickup arranged for tomorrow afternoon.",
+    action: {
+      actionText: "Size L held in warehouse. Pre-paid courier reverse pickup arranged for tomorrow afternoon.",
       destinations: [
         { name: "Shopify Orders API", status: "Exchange Order #DOD-8192-EX Drafted" },
         { name: "Logistics Courier API", status: "Reverse Pickup Slip Generated" },
-        { name: "Customer Email & WhatsApp", status: "Tracking & Label Sent" },
+        { name: "Customer WhatsApp", status: "Tracking & Return Label Delivered" },
       ],
-      impact: "Customer receives instant resolution at 9 PM with zero support ticket overhead.",
-    },
-  },
-  {
-    id: "custom",
-    tabLabel: "Custom Software",
-    industry: "B2B Professional Services",
-    businessName: "Consulting & Operations Firm",
-    eventInput: {
-      channel: "Client Portal Webhook",
-      timestamp: "11:20 IST · Contract Signed",
-      rawText: "Project Master Services Agreement electronically signed by Client CFO (Invoice #INV-2026-44).",
-    },
-    processing: {
-      rule: "Contract execution flow: Cryptographic signature verified against audit trail",
-      validation: "Payment milestone invoice generated. Client workspace provisioning triggered.",
-      latency: "410ms",
     },
     outcome: {
-      action: "Client workspace initialized, project Slack channel created, onboarding sequence dispatched.",
-      destinations: [
-        { name: "Stripe / Razorpay Engine", status: "Milestone Invoice Sent" },
-        { name: "Supabase Database", status: "Account Upgraded to Active" },
-        { name: "Google Workspace / Drive", status: "Secure Project Folder Shared" },
-      ],
-      impact: "Onboarding initiated immediately upon signature without manual coordination.",
+      impact: "Customer receives instant resolution at 9 PM with zero support ticket overhead.",
+      metric: "65% support ticket deflection rate",
     },
   },
 ];
@@ -143,7 +160,7 @@ const scenarios: Scenario[] = [
 export function WorkflowSimulator() {
   const [activeId, setActiveId] = React.useState("healthcare");
   const [isRunning, setIsRunning] = React.useState(false);
-  const [stage, setStage] = React.useState<1 | 2 | 3>(3);
+  const [stage, setStage] = React.useState<1 | 2 | 3 | 4>(4);
 
   const scenario = scenarios.find((s) => s.id === activeId) || scenarios[0];
 
@@ -154,40 +171,47 @@ export function WorkflowSimulator() {
 
     setTimeout(() => {
       setStage(2);
-    }, 380);
+    }, 280);
 
     setTimeout(() => {
       setStage(3);
+    }, 560);
+
+    setTimeout(() => {
+      setStage(4);
       setIsRunning(false);
-    }, 850);
+    }, 900);
   };
 
   return (
-    <div className="rounded-2xl border border-white/[0.08] bg-[#0A0D14] overflow-hidden shadow-2xl">
+    <div className="rounded-3xl border border-[#1B3652] bg-[#0C2233] overflow-hidden shadow-2xl">
       {/* Console Top Toolbar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-white/[0.08] bg-[#0E121B] px-5 py-3.5 gap-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-[#1B3652] bg-[#071A28] px-6 py-4 gap-4">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-slate-600 inline-block" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#FF6B2C]/80 inline-block" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#27D3C2]/80 inline-block" />
           </div>
-          <span className="text-xs font-mono text-slate-400 border-l border-white/10 pl-3">
-            Dodail Workflow Engine · Architecture Preview
+          <span className="text-xs font-mono text-[#AABAC8] border-l border-[#1B3652] pl-3">
+            Dodail Workflow Engine
+          </span>
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#FF6B2C]/15 text-[#FF6B2C] border border-[#FF6B2C]/30 animate-pulse">
+            <Zap className="h-3 w-3" /> INTERACTIVE DEMO
           </span>
         </div>
 
         {/* Scenario Selectors */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
           {scenarios.map((sc) => (
             <button
               key={sc.id}
               onClick={() => handleSelect(sc.id)}
               disabled={isRunning}
-              className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
+              className={`text-xs font-medium px-3.5 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
                 activeId === sc.id
-                  ? "bg-[#FA5B0F] text-white font-semibold"
-                  : "bg-white/[0.04] text-slate-400 hover:text-white hover:bg-white/[0.08]"
+                  ? "bg-[#FF6B2C] text-[#071A28] font-bold shadow-md"
+                  : "bg-[#10293B] text-[#AABAC8] hover:text-[#F5F8FC] hover:bg-[#1B3652]"
               }`}
             >
               {sc.tabLabel}
@@ -196,126 +220,140 @@ export function WorkflowSimulator() {
         </div>
       </div>
 
-      {/* Main Console Viewport */}
-      <div className="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Event Context & Trigger */}
-        <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
+      {/* Main Console Viewport: 4-Stage Architectural Progression */}
+      <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Step 1: TRIGGER */}
+        <div className="rounded-2xl border border-[#1B3652] bg-[#071A28] p-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2">
-              <span>01 / Event Source</span>
-              <span className="text-[#FA5B0F]">{scenario.industry}</span>
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
+              <span className="text-[#FF6B2C] font-bold">01 / TRIGGER</span>
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
             </div>
-            <h4 className="text-base font-bold text-white mb-1">{scenario.businessName}</h4>
-            <p className="text-xs text-slate-400 font-mono mb-4">{scenario.eventInput.channel}</p>
+            <h4 className="text-sm font-bold text-[#F5F8FC] mb-1">{scenario.businessName}</h4>
+            <p className="text-[11px] text-[#27D3C2] font-mono mb-3">{scenario.trigger.channel}</p>
 
-            <div className="rounded-xl border border-white/[0.06] bg-[#07090E] p-4">
-              <span className="text-[10px] font-mono text-slate-500 block mb-1">
-                {scenario.eventInput.timestamp}
+            <div className="rounded-xl border border-[#1B3652] bg-[#0C2233] p-3 text-xs">
+              <span className="text-[10px] font-mono text-[#AABAC8]/60 block mb-1">
+                {scenario.trigger.timestamp}
               </span>
-              <p className="text-xs text-slate-200 leading-relaxed font-sans italic">
-                &ldquo;{scenario.eventInput.rawText}&rdquo;
+              <p className="text-xs text-[#F5F8FC]/90 italic font-sans leading-relaxed">
+                &ldquo;{scenario.trigger.rawText}&rdquo;
               </p>
             </div>
           </div>
-
-          <div className="pt-4 border-t border-white/[0.06] text-xs text-slate-400 space-y-1">
-            <p className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <span>Omni-channel webhook verified</span>
-            </p>
-            <p className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <span>TLS 1.3 encrypted payload</span>
-            </p>
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8]">
+            ✓ Ingestion webhook validated
           </div>
         </div>
 
-        {/* Center & Right Column: Pipeline Execution */}
-        <div className="lg:col-span-8 flex flex-col justify-between space-y-6">
-          {/* Step 2: Policy & Schema Validation */}
-          <div
-            className={`rounded-xl border p-5 transition-all duration-300 ${
-              stage >= 2
-                ? "border-white/[0.12] bg-[#0E131F]"
-                : "border-white/[0.04] bg-[#0A0D14] opacity-40"
-            }`}
-          >
-            <div className="flex items-center justify-between text-xs mb-3">
-              <span className="font-mono text-[#FA5B0F] font-bold">
-                02 / DETERMINISTIC RULE EVALUATION
-              </span>
-              <span className="font-mono text-slate-400 text-[11px]">
-                Latency: <strong className="text-white">{scenario.processing.latency}</strong>
-              </span>
+        {/* Step 2: INTELLIGENT PROCESSING */}
+        <div
+          className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 ${
+            stage >= 2
+              ? "border-[#1B3652] bg-[#071A28]"
+              : "border-[#1B3652]/40 bg-[#071A28]/40 opacity-40"
+          }`}
+        >
+          <div>
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
+              <span className="text-[#27D3C2] font-bold">02 / INTELLIGENT PROCESSING</span>
+              <span className="text-[10px] text-[#AABAC8] font-mono">{scenario.processing.latency}</span>
             </div>
-            <p className="text-xs font-semibold text-white mb-1.5">
+            <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Deterministic Rule Evaluation</h4>
+            <p className="text-xs text-[#F5F8FC]/80 leading-relaxed font-sans mb-3">
               {scenario.processing.rule}
             </p>
-            <p className="text-xs text-slate-400 leading-relaxed font-mono">
+            <div className="rounded-xl border border-[#1B3652] bg-[#0C2233] p-3 text-xs font-mono text-[#27D3C2]">
               → {scenario.processing.validation}
-            </p>
+            </div>
           </div>
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8]">
+            ✓ Zero hallucination schema check
+          </div>
+        </div>
 
-          {/* Step 3: Outbound Synchronization */}
-          <div
-            className={`rounded-xl border p-5 transition-all duration-300 ${
-              stage === 3
-                ? "border-emerald-500/30 bg-[#0B171A]"
-                : "border-white/[0.04] bg-[#0A0D14] opacity-40"
-            }`}
-          >
-            <div className="flex items-center justify-between text-xs mb-3">
-              <span className="font-mono text-emerald-400 font-bold">
-                03 / SYSTEM SYNCHRONIZATION
-              </span>
-              <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                <Check className="h-3 w-3" /> Execution Complete
+        {/* Step 3: AUTOMATED ACTION */}
+        <div
+          className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 ${
+            stage >= 3
+              ? "border-[#1B3652] bg-[#071A28]"
+              : "border-[#1B3652]/40 bg-[#071A28]/40 opacity-40"
+          }`}
+        >
+          <div>
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
+              <span className="text-[#FF6B2C] font-bold">03 / AUTOMATED ACTION</span>
+              <span className="text-emerald-400 font-mono text-[10px] flex items-center gap-1">
+                <Check className="h-3 w-3" /> Dispatched
               </span>
             </div>
-            <p className="text-xs text-slate-200 mb-3 font-sans">
-              {scenario.outcome.action}
+            <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Cross-Platform Sync</h4>
+            <p className="text-xs text-[#F5F8FC]/80 leading-relaxed font-sans mb-3">
+              {scenario.action.actionText}
             </p>
-
-            {/* Destination Ledger */}
-            <div className="space-y-1.5 pt-2 border-t border-white/[0.06]">
-              {scenario.outcome.destinations.map((dest, i) => (
+            <div className="space-y-1.5">
+              {scenario.action.destinations.map((dest, i) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between text-[11px] font-mono p-2 rounded-lg bg-black/30 border border-white/[0.04]"
+                  className="flex items-center justify-between text-[10px] font-mono p-1.5 rounded-lg bg-[#0C2233] border border-[#1B3652]"
                 >
-                  <span className="text-slate-300 flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    {dest.name}
-                  </span>
-                  <span className="text-slate-500">{dest.status}</span>
+                  <span className="text-[#F5F8FC] truncate">{dest.name}</span>
+                  <span className="text-emerald-400 font-medium ml-1 shrink-0">{dest.status}</span>
                 </div>
               ))}
             </div>
+          </div>
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8]">
+            ✓ PostgreSQL transaction committed
+          </div>
+        </div>
 
-            <div className="mt-4 pt-3 border-t border-white/[0.06] text-xs text-emerald-300/90 font-medium flex items-center justify-between">
-              <span>{scenario.outcome.impact}</span>
+        {/* Step 4: BUSINESS OUTCOME */}
+        <div
+          className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 ${
+            stage === 4
+              ? "border-emerald-500/40 bg-[#071A28]"
+              : "border-[#1B3652]/40 bg-[#071A28]/40 opacity-40"
+          }`}
+        >
+          <div>
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
+              <span className="text-emerald-400 font-bold">04 / BUSINESS OUTCOME</span>
+              <span className="text-[10px] text-emerald-400 font-mono">VERIFIED</span>
             </div>
+            <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Measurable Impact</h4>
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-3 mb-3">
+              <span className="text-xs font-bold text-emerald-400 block mb-1">
+                {scenario.outcome.metric}
+              </span>
+              <p className="text-xs text-[#F5F8FC]/90 leading-relaxed font-light">
+                {scenario.outcome.impact}
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+            <Check className="h-3 w-3" /> Verified Production Metric
           </div>
         </div>
       </div>
 
       {/* Console Bottom Action Bar */}
-      <div className="border-t border-white/[0.08] bg-[#0E121B] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-slate-400">
+      <div className="border-t border-[#1B3652] bg-[#071A28] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-xs text-[#AABAC8]">
           Every Dodail system runs on PostgreSQL state stores with deterministic validation layers.
         </p>
         <div className="flex items-center gap-3">
           <button
             onClick={() => handleSelect(activeId)}
             disabled={isRunning}
-            className="text-xs text-slate-400 hover:text-white px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/[0.05] transition-colors flex items-center gap-1.5 font-mono"
+            className="text-xs text-[#AABAC8] hover:text-[#F5F8FC] px-3.5 py-2 rounded-xl border border-[#1B3652] bg-[#10293B] hover:bg-[#1B3652] transition-colors flex items-center gap-1.5 font-mono"
           >
             <RefreshCw className={`h-3 w-3 ${isRunning ? "animate-spin" : ""}`} />
-            Re-run Scenario
+            Re-run Simulation
           </button>
           <Link
             href="/consultation"
-            className="text-xs font-semibold text-[#FA5B0F] hover:text-white transition-colors flex items-center gap-1"
+            className="text-xs font-semibold text-[#FF6B2C] hover:text-[#F5F8FC] transition-colors flex items-center gap-1"
           >
             Design Your Operations Blueprint <ArrowRight className="h-3.5 w-3.5" />
           </Link>
