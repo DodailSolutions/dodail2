@@ -23,15 +23,21 @@ import {
 import { Button } from "@/components/ui/Button";
 import { WorkflowSimulator } from "@/components/home/WorkflowSimulator";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
+import { NetworkCanvas } from "@/components/motion/NetworkCanvas";
+import { HeroScrollShowcase } from "@/components/motion/HeroScrollShowcase";
+import { ServicesScrollStack } from "@/components/motion/ServicesScrollStack";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-28 sm:gap-36 py-8 sm:py-16 overflow-hidden bg-[#07090E] text-slate-100">
       {/* =========================================================================
-          SECTION 2: EDITORIAL HERO SECTION
+          SECTION 2: EDITORIAL HERO SECTION WITH INTERACTIVE MOTION & 3D VIEWPORT
           ========================================================================= */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12 min-h-[85vh] flex flex-col justify-center">
+        {/* Interactive Geometric Network Canvas (Pinterest Inspo 2) */}
+        <NetworkCanvas />
+
+        <div className="relative z-10 mx-auto max-w-6xl w-full">
           {/* Top Editorial Monospace Tag */}
           <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-400 mb-8 border-b border-white/[0.08] pb-4">
             <span className="text-[#FA5B0F] font-semibold tracking-wider uppercase">
@@ -107,6 +113,9 @@ export default function HomePage() {
               <p className="text-xs text-slate-400 mt-1">India & Global Deployments</p>
             </div>
           </div>
+
+          {/* 3D Perspective Scroll Showcase (Pinterest Inspo 1 & 6) */}
+          <HeroScrollShowcase />
         </div>
       </section>
 
@@ -215,234 +224,11 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          SECTION 5: 5 CORE SOLUTIONS (ARCHITECTURAL INDEX)
+          SECTION 5: 5 CORE SOLUTIONS (PINNED SERVICES SCROLL STACK)
           ========================================================================= */}
       <section className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-14">
-            <span className="text-xs font-mono text-[#FA5B0F] uppercase tracking-wider block mb-2">
-              Capabilities & Systems
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Engineered For Measurable Business Impact
-            </h2>
-            <p className="mt-4 text-base text-slate-400 max-w-2xl">
-              Deterministic architectures built for long-term operational resilience. Complete transparency on deliverables, verified outcomes, and engineering scope.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {/* Pillar 01: AI Automation Platform */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0A0D14] p-8 sm:p-10 hover:border-[#FA5B0F]/40 transition-colors">
-              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
-                <div className="max-w-2xl">
-                  <span className="text-xs font-mono text-[#FA5B0F] font-bold">01 / PILLAR</span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                    Autonomous Business Workflow Engines
-                  </h3>
-                  <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                    End-to-end operational systems that receive inquiries, validate data schemas, make rule-based evaluations, and execute cross-platform tasks across WhatsApp, Google Sheets, and CRMs.
-                  </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2 text-xs font-mono text-slate-300">
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">PostgreSQL Queues</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">WhatsApp Cloud API</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Deterministic Retries</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Schema Validation</span>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div>
-                      <span className="text-emerald-400 font-bold block mb-0.5">Verified Outcome</span>
-                      <p className="text-slate-400">Replaces 10+ hours per week of manual cross-app copy-pasting per employee.</p>
-                    </div>
-                    <div>
-                      <span className="text-amber-400 font-bold block mb-0.5">Engineering Boundary</span>
-                      <p className="text-slate-400">High-stakes commercial or legal exceptions route directly to human management.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="shrink-0 pt-2">
-                  <Link
-                    href="/solutions/ai-automation"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/[0.06] hover:bg-[#FA5B0F] hover:text-white px-5 py-3 rounded-xl border border-white/10 transition-colors"
-                  >
-                    <span>View Architecture</span>
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Pillar 02: Custom Web Engineering */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0A0D14] p-8 sm:p-10 hover:border-white/20 transition-colors">
-              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
-                <div className="max-w-2xl">
-                  <span className="text-xs font-mono text-cyan-400 font-bold">02 / PILLAR</span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                    High-Performance Web Platforms & Portals
-                  </h3>
-                  <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                    Custom Next.js web applications, client portals, and administrative workspaces. Engineered with strict TypeScript, clean PostgreSQL schemas, and zero builder bloat.
-                  </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2 text-xs font-mono text-slate-300">
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Next.js 16 SSR</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Row-Level Security (RLS)</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">REST & Webhook APIs</span>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div>
-                      <span className="text-emerald-400 font-bold block mb-0.5">Verified Outcome</span>
-                      <p className="text-slate-400">Sub-100ms response times, 100/100 Core Web Vitals, and total code ownership.</p>
-                    </div>
-                    <div>
-                      <span className="text-amber-400 font-bold block mb-0.5">Engineering Boundary</span>
-                      <p className="text-slate-400">Custom software requires 2-4 weeks of discovery & build vs generic templates.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="shrink-0 pt-2">
-                  <Link
-                    href="/services/web-development"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/[0.06] hover:bg-white hover:text-black px-5 py-3 rounded-xl border border-white/10 transition-colors"
-                  >
-                    <span>Web Engineering</span>
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Pillar 03: Lead Qualification & CRM */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0A0D14] p-8 sm:p-10 hover:border-white/20 transition-colors">
-              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
-                <div className="max-w-2xl">
-                  <span className="text-xs font-mono text-[#FA5B0F] font-bold">03 / PILLAR</span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                    Intelligent Lead Qualification & CRM Sync
-                  </h3>
-                  <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                    Ingests prospects from web forms, ad campaigns, and messaging apps. Validates budget, timeline, and intent within 60 seconds, syncing qualified leads directly into your sales CRM.
-                  </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2 text-xs font-mono text-slate-300">
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Meta & Google Ingestion</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">CRM Sync (Zoho / HubSpot)</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Real-time Scoring</span>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div>
-                      <span className="text-emerald-400 font-bold block mb-0.5">Verified Outcome</span>
-                      <p className="text-slate-400">Response time drops from 4 hours to under 60 seconds with enriched context.</p>
-                    </div>
-                    <div>
-                      <span className="text-amber-400 font-bold block mb-0.5">Engineering Boundary</span>
-                      <p className="text-slate-400">System qualifies and schedules; human sales reps lead high-ticket deal negotiation.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="shrink-0 pt-2">
-                  <Link
-                    href="/solutions/ai-lead-management"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/[0.06] hover:bg-white hover:text-black px-5 py-3 rounded-xl border border-white/10 transition-colors"
-                  >
-                    <span>Lead Operations</span>
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Pillar 04: Customer Support Systems */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0A0D14] p-8 sm:p-10 hover:border-white/20 transition-colors">
-              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
-                <div className="max-w-2xl">
-                  <span className="text-xs font-mono text-purple-400 font-bold">04 / PILLAR</span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                    24/7 Policy-Constrained Customer Support
-                  </h3>
-                  <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                    Constrained AI assistants trained exclusively on your approved documentation and business rules. Resolves repetitive inquiries, looks up order/appointment states, and escalates edge cases cleanly.
-                  </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2 text-xs font-mono text-slate-300">
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Zero Hallucination Bound</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Private Knowledge Base</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Contextual Human Handoff</span>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div>
-                      <span className="text-emerald-400 font-bold block mb-0.5">Verified Outcome</span>
-                      <p className="text-slate-400">65% reduction in first-response tickets without increasing support staff.</p>
-                    </div>
-                    <div>
-                      <span className="text-amber-400 font-bold block mb-0.5">Engineering Boundary</span>
-                      <p className="text-slate-400">Complex refunds and disputes route with complete chat history to your management.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="shrink-0 pt-2">
-                  <Link
-                    href="/solutions/ai-customer-support"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/[0.06] hover:bg-white hover:text-black px-5 py-3 rounded-xl border border-white/10 transition-colors"
-                  >
-                    <span>Support Agents</span>
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Pillar 05: Organic Growth & SEO */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0A0D14] p-8 sm:p-10 hover:border-white/20 transition-colors">
-              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
-                <div className="max-w-2xl">
-                  <span className="text-xs font-mono text-emerald-400 font-bold">05 / PILLAR</span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                    Digital Visibility & Generative Engine Optimization
-                  </h3>
-                  <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                    Technical SEO, structured JSON-LD schemas, and Generative Engine Optimization (GEO) designed to earn visibility both on Google search rankings and emerging AI search assistants.
-                  </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2 text-xs font-mono text-slate-300">
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">GEO AI Optimization</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Technical Schema Markup</span>
-                    <span className="px-3 py-1 rounded-md bg-white/[0.05] border border-white/[0.06]">Domain Authority Strategy</span>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div>
-                      <span className="text-emerald-400 font-bold block mb-0.5">Verified Outcome</span>
-                      <p className="text-slate-400">Predictable organic pipeline that compounds over time without ad spend spikes.</p>
-                    </div>
-                    <div>
-                      <span className="text-amber-400 font-bold block mb-0.5">Engineering Boundary</span>
-                      <p className="text-slate-400">Search authority takes 60–90 days of consistent publishing and technical signals.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="shrink-0 pt-2">
-                  <Link
-                    href="/services/digital-growth-seo"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/[0.06] hover:bg-white hover:text-black px-5 py-3 rounded-xl border border-white/10 transition-colors"
-                  >
-                    <span>Growth & SEO</span>
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ServicesScrollStack />
         </div>
       </section>
 
