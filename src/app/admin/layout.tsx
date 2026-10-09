@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { LayoutDashboard, FileText, Sliders, Image as ImageIcon, BookOpen, Clock, ShieldCheck, ArrowUpRight, Compass, Users, Kanban, Bot, Calendar } from "lucide-react";
+import { LayoutDashboard, FileText, Sliders, Image as ImageIcon, BookOpen, Clock, ShieldCheck, ArrowUpRight, Compass, Users, Kanban, Bot, Calendar, Share2 } from "lucide-react";
 
 export const metadata = {
   title: "Dodail Admin | CMS & Site Manager",
@@ -67,6 +67,14 @@ export default function AdminLayout({
           >
             <BookOpen className="w-4 h-4 text-emerald-400" />
             <span>Blog Articles</span>
+          </Link>
+
+          <Link
+            href="/admin/social"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
+          >
+            <Share2 className="w-4 h-4 text-[#FA5B0F]" />
+            <span>Social & Content Studio</span>
           </Link>
 
           <Link
