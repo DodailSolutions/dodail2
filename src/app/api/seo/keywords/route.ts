@@ -1,0 +1,24 @@
+import { NextResponse } from "next/server";
+import { getAllKeywords, saveKeyword } from "@/lib/seo/api";
+
+export async function GET() {
+  try {
+    const list = await getAllKeywords();
+    return NextResponse.json({ success: true, data: list });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 });
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    if (!body.query) {
+      return NextResponse.json({ error: "Query is required" }, { status: 400 });
+    }
+    const saved = await saveKeyword(body);
+    return NextResponse.json({ success: true, data: saved }, { status: 201 });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 400 });
+  }
+}

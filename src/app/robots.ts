@@ -6,6 +6,25 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        disallow: [
+          "/admin",
+          "/admin/",
+          "/api",
+          "/api/",
+          "/preview",
+          "/_next/",
+          "/slot-gacor-maxwin",
+          "/judi-online-terpercaya",
+        ],
+      },
+      {
+        userAgent: "GPTBot",
+        allow: ["/", "/solutions/", "/services/", "/industries/", "/about", "/work", "/blog"],
+        disallow: ["/admin/", "/api/"],
+      },
+      {
+        userAgent: "Google-Extended",
+        allow: ["/", "/solutions/", "/services/", "/industries/", "/about", "/work", "/blog"],
         disallow: ["/admin/", "/api/"],
       },
     ],

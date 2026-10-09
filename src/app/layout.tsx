@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { AIChatLauncher } from "@/components/layout/AIChatLauncher";
 import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
 import { getGlobalSettings } from "@/lib/cms/api";
+import { StructuredData } from "@/components/seo/StructuredData";
 
 export const viewport: Viewport = {
   themeColor: "#0A1B2A",
@@ -97,6 +98,8 @@ export default async function RootLayout({
         >
           Skip to main content
         </a>
+        <StructuredData type="Organization" />
+        <StructuredData type="WebSite" />
         <Navbar announcement={announcement} />
         <main id="main-content" className="flex-1">
           {children}
