@@ -62,16 +62,16 @@ export function FAQAccordion() {
         return (
           <div
             key={index}
-            className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+            className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
               isOpen
-                ? "border-[#FA5B0F]/40 bg-[#0E2235]/90 shadow-lg shadow-black/40"
-                : "border-[#1B3652]/70 bg-[#0A1B2A]/70 hover:border-[#1B3652] hover:bg-[#0E2235]/50"
+                ? "border-white/20 bg-[#0E121B] shadow-xl"
+                : "border-white/[0.06] bg-[#0A0D14] hover:border-white/10"
             }`}
           >
             <button
               type="button"
               onClick={() => toggleItem(index)}
-              className="w-full text-left p-6 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] rounded-2xl"
+              className="w-full text-left p-6 sm:p-7 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] rounded-2xl"
               aria-expanded={isOpen}
             >
               <div className="flex flex-col gap-1 pr-2">
@@ -85,8 +85,8 @@ export function FAQAccordion() {
                 </h3>
               </div>
               <div
-                className={`h-8 w-8 rounded-full border border-[#1B3652] flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                  isOpen ? "rotate-180 bg-[#FA5B0F]/20 text-[#FA5B0F] border-[#FA5B0F]/40" : "bg-[#142C44] text-slate-400"
+                className={`h-8 w-8 rounded-full border border-white/10 flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                  isOpen ? "rotate-180 bg-white/10 text-white" : "bg-white/[0.03] text-slate-400"
                 }`}
               >
                 <ChevronDown className="h-4 w-4" />
@@ -94,8 +94,8 @@ export function FAQAccordion() {
             </button>
 
             {isOpen && (
-              <div className="px-6 pb-6 pt-1 text-sm text-slate-300 leading-relaxed border-t border-[#1B3652]/50">
-                <p>{faq.answer}</p>
+              <div className="px-6 sm:px-7 pb-6 sm:pb-7 pt-1 text-sm text-slate-300 leading-relaxed border-t border-white/[0.06]">
+                <p className="font-light">{faq.answer}</p>
               </div>
             )}
           </div>

@@ -83,7 +83,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#1B3652] bg-[#0A1B2A]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#07090E]/90 backdrop-blur-xl">
       {announcement?.enabled && announcement.text && (
         <div className="bg-gradient-to-r from-[#FA5B0F] to-[#E04F08] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
           <span>{announcement.text}</span>
@@ -282,7 +282,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-[#1B3652] bg-[#0A1B2A] px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden border-b border-white/[0.08] bg-[#07090E] px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto">
           <div className="space-y-4 pt-2">
             <div>
               <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FA5B0F]">
