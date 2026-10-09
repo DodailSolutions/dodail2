@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { LayoutDashboard, FileText, Sliders, Image as ImageIcon, BookOpen, Clock, ShieldCheck, ArrowUpRight, Compass } from "lucide-react";
+import { LayoutDashboard, FileText, Sliders, Image as ImageIcon, BookOpen, Clock, ShieldCheck, ArrowUpRight, Compass, Users, Kanban } from "lucide-react";
 
 export const metadata = {
   title: "Dodail Admin | CMS & Site Manager",
@@ -82,8 +81,28 @@ export default function AdminLayout({
             href="/admin/seo"
             className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
           >
-            <Compass className="w-4 h-4 text-[#FA5B0F]" />
-            <span className="font-medium text-white">SEO Control Center</span>
+            <Compass className="w-4 h-4 text-blue-400" />
+            <span>SEO Control Center</span>
+          </Link>
+
+          <div className="pt-4 px-3 py-2 text-[11px] font-semibold tracking-wider text-slate-400 uppercase font-mono">
+            CRM & Pipeline
+          </div>
+
+          <Link
+            href="/admin/crm/leads"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
+          >
+            <Users className="w-4 h-4 text-[#FA5B0F]" />
+            <span className="font-medium text-white">Leads & Prospects</span>
+          </Link>
+
+          <Link
+            href="/admin/crm/pipeline"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
+          >
+            <Kanban className="w-4 h-4 text-emerald-400" />
+            <span>Sales Pipeline</span>
           </Link>
 
           <div className="pt-4 px-3 py-2 text-[11px] font-semibold tracking-wider text-slate-400 uppercase font-mono">

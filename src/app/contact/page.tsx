@@ -13,7 +13,7 @@ export default function ContactPage() {
   const [status, setStatus] = React.useState<"idle" | "submitting" | "success">("idle");
   const [errorMsg, setErrorMsg] = React.useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
 
@@ -32,9 +32,31 @@ export default function ContactPage() {
 
     setStatus("submitting");
 
-    setTimeout(() => {
-      setStatus("success");
-    }, 800);
+    try {
+      const res = await fetch("/api/leads/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim() || undefined,
+          message: message.trim(),
+          landing_page: "/contact",
+          marketing_consent: true,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setStatus("success");
+      } else {
+        setStatus("idle");
+        setErrorMsg(data.error || "Failed to submit inquiry. Please try again.");
+      }
+    } catch (err: any) {
+      setStatus("idle");
+      setErrorMsg(err.message || "An unexpected error occurred. Please contact us directly.");
+    }
   };
 
   return (
