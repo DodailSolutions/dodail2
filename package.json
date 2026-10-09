@@ -8,7 +8,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "test": "node scripts/verify-routes.js"
+    "test": "node scripts/verify-routes.js",
+    "test:readiness": "node scripts/production-readiness-test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

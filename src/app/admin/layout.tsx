@@ -198,10 +198,52 @@ export default function AdminLayout({
           </div>
         </header>
 
-        <div className="p-6 md:p-8 max-w-7xl mx-auto">
+        <div className="p-6 md:p-8 max-w-7xl mx-auto pb-24 md:pb-8">
           {children}
         </div>
       </main>
+
+      {/* Mobile & Tablet Bottom Navigation Bar */}
+      <nav
+        aria-label="Mobile Admin Navigation"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0A1B2A]/95 backdrop-blur-md border-t border-slate-800 px-2 py-2 flex items-center justify-around text-[10px] text-slate-400 safe-bottom shadow-2xl"
+      >
+        <Link
+          href="/admin"
+          className="flex flex-col items-center gap-1 px-2 py-1 rounded hover:text-white transition"
+        >
+          <LayoutDashboard className="w-4 h-4 text-slate-400" />
+          <span>Dashboard</span>
+        </Link>
+        <Link
+          href="/admin/cms/pages"
+          className="flex flex-col items-center gap-1 px-2 py-1 rounded hover:text-white transition"
+        >
+          <FileText className="w-4 h-4 text-[#FA5B0F]" />
+          <span>Pages</span>
+        </Link>
+        <Link
+          href="/admin/crm/leads"
+          className="flex flex-col items-center gap-1 px-2 py-1 rounded hover:text-white transition"
+        >
+          <Users className="w-4 h-4 text-emerald-400" />
+          <span>Leads</span>
+        </Link>
+        <Link
+          href="/admin/bookings"
+          className="flex flex-col items-center gap-1 px-2 py-1 rounded hover:text-white transition"
+        >
+          <Calendar className="w-4 h-4 text-amber-400" />
+          <span>Bookings</span>
+        </Link>
+        <Link
+          href="/admin/automation"
+          className="flex flex-col items-center gap-1 px-2 py-1 rounded hover:text-white transition"
+        >
+          <GitBranch className="w-4 h-4 text-blue-400" />
+          <span>Automations</span>
+        </Link>
+      </nav>
     </div>
   );
 }
