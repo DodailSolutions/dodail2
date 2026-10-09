@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import {
   Activity,
   Check,
@@ -35,6 +35,8 @@ export function HeroScrollShowcase() {
   const rotateX = useTransform(smoothProgress, [0, 1], [14, 0]);
   const scale = useTransform(smoothProgress, [0, 1], [0.94, 1]);
   const opacity = useTransform(smoothProgress, [0, 0.4], [0.7, 1]);
+  
+  const prefersReducedMotion = useReducedMotion();
 
   const [activeTab, setActiveTab] = React.useState<"stream" | "topology">("stream");
 
@@ -42,9 +44,9 @@ export function HeroScrollShowcase() {
     <div ref={containerRef} className="relative mt-12 sm:mt-16 w-full perspective-[1200px]">
       <motion.div
         style={{
-          rotateX,
-          scale,
-          opacity,
+          rotateX: prefersReducedMotion ? 0 : rotateX,
+          scale: prefersReducedMotion ? 1 : scale,
+          opacity: prefersReducedMotion ? 1 : opacity,
           transformStyle: "preserve-3d",
         }}
         className="mx-auto max-w-5xl rounded-none border border-[#1B3652] bg-[#0C2233] shadow-2xl overflow-hidden relative"
@@ -66,9 +68,13 @@ export function HeroScrollShowcase() {
             </span>
           </div>
 
-          <div className="flex items-center gap-0 border border-[#1B3652] bg-[#0C2233]">
+          <div className="flex items-center gap-0 border border-[#1B3652] bg-[#0C2233]" role="tablist">
             <button
               onClick={() => setActiveTab("stream")}
+              role="tab"
+              aria-selected={activeTab === "stream"}
+              aria-controls="panel-stream"
+              id="tab-stream"
               className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors ${
                 activeTab === "stream"
                   ? "bg-[#FF6B2C] text-[#071A28] font-bold"
@@ -79,6 +85,10 @@ export function HeroScrollShowcase() {
             </button>
             <button
               onClick={() => setActiveTab("topology")}
+              role="tab"
+              aria-selected={activeTab === "topology"}
+              aria-controls="panel-topology"
+              id="tab-topology"
               className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors border-l border-[#1B3652] ${
                 activeTab === "topology"
                   ? "bg-[#FF6B2C] text-[#071A28] font-bold"
@@ -97,7 +107,7 @@ export function HeroScrollShowcase() {
 
         {/* Console Workspace */}
         {activeTab === "stream" ? (
-          <div className="p-6 sm:p-8">
+          <div className="p-6 sm:p-8" role="tabpanel" id="panel-stream" aria-labelledby="tab-stream">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
               {/* Left Telemetry Column */}
               <div className="md:col-span-4 space-y-4">
@@ -188,7 +198,7 @@ export function HeroScrollShowcase() {
             </div>
           </div>
         ) : (
-          <div className="p-8 font-mono text-xs">
+          <div className="p-8 font-mono text-xs" role="tabpanel" id="panel-topology" aria-labelledby="tab-topology">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="p-5 rounded-none bg-[#071A28] border border-[#1B3652]">
                 <span className="text-[#FF6B2C] block mb-2 font-bold uppercase tracking-wider">01 · INGESTION LAYER</span>

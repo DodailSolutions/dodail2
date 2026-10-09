@@ -129,6 +129,25 @@ const services: ServiceItem[] = [
 export function ServicesScrollStack() {
   const [activeStep, setActiveStep] = React.useState(0);
 
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute("data-index"));
+            setActiveStep(index);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px" }
+    );
+
+    const elements = document.querySelectorAll(".scroll-card-observer");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="relative">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -153,6 +172,7 @@ export function ServicesScrollStack() {
             {services.map((item, idx) => (
               <button
                 key={item.id}
+                aria-current={activeStep === idx ? "true" : undefined}
                 onClick={() => {
                   const el = document.getElementById(`service-${item.id}`);
                   el?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -186,8 +206,9 @@ export function ServicesScrollStack() {
             <div
               key={service.id}
               id={`service-${service.id}`}
+              data-index={index}
               onMouseEnter={() => setActiveStep(index)}
-              className="rounded-none border border-[#1B3652] bg-[#0C2233] p-8 sm:p-10 hover:border-[#FF6B2C] transition-all duration-200 relative group"
+              className="scroll-card-observer rounded-none border border-[#1B3652] bg-[#0C2233] p-8 sm:p-10 hover:border-[#FF6B2C] transition-all duration-200 relative group"
             >
               {/* Giant Swiss Number Watermark in Background */}
               <div className="absolute top-4 right-6 font-mono text-5xl sm:text-7xl font-black text-white/[0.04] pointer-events-none select-none">

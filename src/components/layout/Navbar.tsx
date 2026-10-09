@@ -74,6 +74,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
   const [solutionsOpen, setSolutionsOpen] = React.useState(false);
   const [servicesOpen, setServicesOpen] = React.useState(false);
   const pathname = usePathname();
+  const mobileMenuRef = React.useRef<HTMLDivElement>(null);
 
   // Close menus on route change
   React.useEffect(() => {
@@ -82,10 +83,46 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
     setServicesOpen(false);
   }, [pathname]);
 
+  React.useEffect(() => {
+    if (!mobileMenuOpen || !mobileMenuRef.current) return;
+    
+    const focusableElements = mobileMenuRef.current.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusableElements.length === 0) return;
+    
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    firstElement?.focus();
+    
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#1B3652] bg-[#071A28]/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 w-full border-b border-[#1B3652] bg-[#071A28]/90 backdrop-blur-md">
       {announcement?.enabled && announcement.text && (
-        <div className="bg-gradient-to-r from-[#FA5B0F] to-[#E04F08] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <div className="bg-gradient-to-r from-[#FF6B2C] to-[#FF6B2C] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
           <span>{announcement.text}</span>
           {announcement.link && (
             <Link href={announcement.link} className="underline text-white font-semibold hover:opacity-90 ml-1">
@@ -130,13 +167,18 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             className="relative"
             onMouseEnter={() => setSolutionsOpen(true)}
             onMouseLeave={() => setSolutionsOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') setSolutionsOpen(false);
+            }}
           >
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-[#0E2235] transition-colors focus-visible:ring-2 focus-visible:ring-[#FA5B0F]",
-                solutionsOpen && "bg-[#0E2235] text-white"
+                "flex items-center gap-1 px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                solutionsOpen && "bg-[#0C2233] text-white"
               )}
+              onClick={() => setSolutionsOpen(!solutionsOpen)}
+              aria-haspopup="true"
               aria-expanded={solutionsOpen}
             >
               <span>Solutions</span>
@@ -145,22 +187,22 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
             {solutionsOpen && (
               <div className="absolute left-0 top-full pt-2 w-80 z-50">
-                <div className="rounded-2xl border border-[#1B3652] bg-[#0E2235] p-3 shadow-2xl shadow-black/80">
+                <div className="rounded-none border border-[#1B3652] bg-[#0C2233] p-3 shadow-2xl shadow-black/80">
                   <div className="space-y-1">
                     {solutions.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-[#142C44] transition-colors group"
+                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-[#10293B] transition-colors group"
                       >
-                        <div className="rounded-lg bg-[#142C44] p-2 text-[#FA5B0F] group-hover:bg-[#FA5B0F] group-hover:text-white transition-colors">
+                        <div className="rounded-none bg-[#10293B] p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
                           <item.icon className="h-4 w-4" />
                         </div>
                         <div>
-                          <p className="font-semibold text-slate-100 group-hover:text-white text-sm">
+                          <p className="font-semibold text-[#F5F8FC] group-hover:text-white text-sm">
                             {item.title}
                           </p>
-                          <p className="text-xs text-slate-400 leading-snug">
+                          <p className="text-xs text-[#AABAC8] leading-snug">
                             {item.description}
                           </p>
                         </div>
@@ -177,13 +219,18 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             className="relative"
             onMouseEnter={() => setServicesOpen(true)}
             onMouseLeave={() => setServicesOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') setServicesOpen(false);
+            }}
           >
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-[#0E2235] transition-colors focus-visible:ring-2 focus-visible:ring-[#FA5B0F]",
-                servicesOpen && "bg-[#0E2235] text-white"
+                "flex items-center gap-1 px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                servicesOpen && "bg-[#0C2233] text-white"
               )}
+              onClick={() => setServicesOpen(!servicesOpen)}
+              aria-haspopup="true"
               aria-expanded={servicesOpen}
             >
               <span>Services</span>
@@ -192,22 +239,22 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
             {servicesOpen && (
               <div className="absolute left-0 top-full pt-2 w-80 z-50">
-                <div className="rounded-2xl border border-[#1B3652] bg-[#0E2235] p-3 shadow-2xl shadow-black/80">
+                <div className="rounded-none border border-[#1B3652] bg-[#0C2233] p-3 shadow-2xl shadow-black/80">
                   <div className="space-y-1">
                     {services.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-[#142C44] transition-colors group"
+                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-[#10293B] transition-colors group"
                       >
-                        <div className="rounded-lg bg-[#142C44] p-2 text-[#FA5B0F] group-hover:bg-[#FA5B0F] group-hover:text-white transition-colors">
+                        <div className="rounded-none bg-[#10293B] p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
                           <item.icon className="h-4 w-4" />
                         </div>
                         <div>
-                          <p className="font-semibold text-slate-100 group-hover:text-white text-sm">
+                          <p className="font-semibold text-[#F5F8FC] group-hover:text-white text-sm">
                             {item.title}
                           </p>
-                          <p className="text-xs text-slate-400 leading-snug">
+                          <p className="text-xs text-[#AABAC8] leading-snug">
                             {item.description}
                           </p>
                         </div>
@@ -222,7 +269,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Industries */}
           <Link
             href="/industries"
-            className="px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-[#0E2235] transition-colors"
+            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
           >
             Industries
           </Link>
@@ -230,7 +277,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Work */}
           <Link
             href="/work"
-            className="px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-[#0E2235] transition-colors"
+            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
           >
             Work & Results
           </Link>
@@ -238,7 +285,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Blog / Resources */}
           <Link
             href="/blog"
-            className="px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-[#0E2235] transition-colors"
+            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
           >
             Resources
           </Link>
@@ -246,7 +293,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* About */}
           <Link
             href="/about"
-            className="px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-[#0E2235] transition-colors"
+            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
           >
             About
           </Link>
@@ -254,7 +301,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Contact */}
           <Link
             href="/contact"
-            className="px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-[#0E2235] transition-colors"
+            className="px-3 py-2 rounded-none text-[#F5F8FC] hover:text-white hover:bg-[#0C2233] transition-colors"
           >
             Contact
           </Link>
@@ -262,7 +309,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
         {/* Desktop CTA & Consultation */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button href="/consultation" variant="primary" size="md">
+          <Button href="/consultation" variant="primary" size="md" className="rounded-none">
             <Calendar className="h-4 w-4 mr-1.5" />
             Book a Consultation
           </Button>
@@ -272,7 +319,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#0E2235] border border-[#1B3652] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F]"
+          className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-none text-[#AABAC8] hover:text-white hover:bg-[#0C2233] border border-[#1B3652] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
           aria-expanded={mobileMenuOpen}
           aria-label="Toggle navigation menu"
         >
@@ -282,10 +329,10 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-[#1B3652] bg-[#071A28] px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto">
+        <div ref={mobileMenuRef} className="lg:hidden border-b border-[#1B3652] bg-[#071A28] px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto">
           <div className="space-y-4 pt-2">
             <div>
-              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FA5B0F]">
+              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FF6B2C]">
                 AI Solutions
               </p>
               <div className="mt-1 space-y-1">
@@ -293,9 +340,9 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-200 hover:bg-[#0E2235] hover:text-white"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-[#F5F8FC] hover:bg-[#0C2233] hover:text-white"
                   >
-                    <item.icon className="h-4 w-4 text-[#FA5B0F]" />
+                    <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
                   </Link>
                 ))}
@@ -303,7 +350,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             </div>
 
             <div>
-              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FA5B0F]">
+              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FF6B2C]">
                 Core Services
               </p>
               <div className="mt-1 space-y-1">
@@ -311,9 +358,9 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-200 hover:bg-[#0E2235] hover:text-white"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-[#F5F8FC] hover:bg-[#0C2233] hover:text-white"
                   >
-                    <item.icon className="h-4 w-4 text-[#FA5B0F]" />
+                    <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
                   </Link>
                 ))}
@@ -321,7 +368,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             </div>
 
             <div>
-              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#AABAC8]">
                 Key Industries
               </p>
               <div className="mt-1 space-y-1">
@@ -329,7 +376,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-3 py-2 rounded-xl text-sm text-slate-300 hover:bg-[#0E2235] hover:text-white"
+                    className="block px-3 py-2 rounded-none text-sm text-[#AABAC8] hover:bg-[#0C2233] hover:text-white"
                   >
                     {item.title}
                   </Link>
@@ -340,32 +387,32 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <div className="border-t border-[#1B3652] pt-4 space-y-1">
               <Link
                 href="/work"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-200 hover:bg-[#0E2235]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
               >
                 Work & Case Studies
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-200 hover:bg-[#0E2235]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
               >
                 Resources & Blog
               </Link>
               <Link
                 href="/about"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-200 hover:bg-[#0E2235]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
               >
                 About Dodail
               </Link>
               <Link
                 href="/contact"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-200 hover:bg-[#0E2235]"
+                className="block px-3 py-2.5 rounded-none text-base font-medium text-[#F5F8FC] hover:bg-[#0C2233]"
               >
                 Contact & Support
               </Link>
             </div>
 
             <div className="pt-2">
-              <Button href="/consultation" variant="primary" size="lg" className="w-full">
+              <Button href="/consultation" variant="primary" size="lg" className="w-full rounded-none">
                 <Calendar className="h-5 w-5 mr-2" />
                 Book a Consultation
               </Button>

@@ -68,38 +68,46 @@ export function FAQAccordion() {
               isOpen ? "bg-[#0C2233]" : "hover:bg-[#0C2233]/40"
             }`}
           >
-            <button
-              type="button"
-              onClick={() => toggleItem(index)}
-              className="w-full text-left py-6 px-4 sm:px-6 flex items-start justify-between gap-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
-              aria-expanded={isOpen}
-            >
-              <div className="flex items-start gap-4 sm:gap-8">
-                <span className="font-mono text-xs sm:text-sm font-bold text-[#FF6B2C] pt-0.5 shrink-0">
-                  {indexStr}
-                </span>
-                <div className="flex flex-col gap-1">
-                  {faq.category && (
-                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#AABAC8] font-semibold">
-                      {faq.category}
+            <h3>
+              <button
+                type="button"
+                onClick={() => toggleItem(index)}
+                className="w-full text-left py-6 px-4 sm:px-6 flex items-start justify-between gap-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
+                aria-expanded={isOpen}
+                aria-controls={`faq-answer-${index}`}
+                id={`faq-trigger-${index}`}
+              >
+                <div className="flex items-start gap-4 sm:gap-8">
+                  <span className="font-mono text-xs sm:text-sm font-bold text-[#FF6B2C] pt-0.5 shrink-0">
+                    {indexStr}
+                  </span>
+                  <div className="flex flex-col gap-1">
+                    {faq.category && (
+                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#AABAC8] font-semibold">
+                        {faq.category}
+                      </span>
+                    )}
+                    <span className="text-base sm:text-xl font-bold text-[#F5F8FC] leading-snug tracking-[-0.015em]">
+                      {faq.question}
                     </span>
-                  )}
-                  <h3 className="text-base sm:text-xl font-bold text-[#F5F8FC] leading-snug tracking-[-0.015em]">
-                    {faq.question}
-                  </h3>
+                  </div>
                 </div>
-              </div>
 
-              <div className="font-mono text-xs text-[#FF6B2C] border border-[#1B3652] px-2 py-1 shrink-0 mt-1 select-none">
-                {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-              </div>
-            </button>
+                <div className="font-mono text-xs text-[#FF6B2C] border border-[#1B3652] px-2 py-1 shrink-0 mt-1 select-none" aria-hidden="true">
+                  {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                </div>
+              </button>
+            </h3>
 
-            {isOpen && (
-              <div className="px-4 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-[#AABAC8] leading-relaxed pl-12 sm:pl-20 border-t border-[#1B3652]/40">
-                <p className="font-light max-w-3xl">{faq.answer}</p>
-              </div>
-            )}
+            <div
+              id={`faq-answer-${index}`}
+              role="region"
+              aria-labelledby={`faq-trigger-${index}`}
+              hidden={!isOpen}
+              className={isOpen ? "px-4 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-[#AABAC8] leading-relaxed pl-12 sm:pl-20 border-t border-[#1B3652]/40" : ""}
+            >
+              {isOpen && <p className="font-light max-w-3xl">{faq.answer}</p>}
+            </div>
           </div>
         );
       })}
