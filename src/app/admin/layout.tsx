@@ -20,7 +20,10 @@ export default function AdminLayout({
       <aside className="w-full md:w-64 bg-[#0A1B2A] border-b md:border-b-0 md:border-r border-slate-800 flex flex-col shrink-0">
         <div className="p-5 border-b border-slate-800 flex items-center justify-between">
           <Link href="/admin" className="flex items-center gap-3">
-            <div className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 shadow-sm">
+            <div
+              style={{ width: "36px", height: "36px", minWidth: "36px", minHeight: "36px" }}
+              className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 shadow-sm"
+            >
               <Image
                 src="/brand/dodail-logo.png"
                 alt="Dodail Solutions"

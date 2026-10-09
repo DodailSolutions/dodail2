@@ -97,7 +97,10 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] rounded-lg p-1">
-          <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-sm group-hover:scale-105 transition-transform">
+          <div
+            style={{ width: "44px", height: "44px", minWidth: "44px", minHeight: "44px" }}
+            className="relative h-11 w-11 overflow-hidden rounded-full shadow-sm group-hover:scale-105 transition-transform shrink-0"
+          >
             <Image
               src="/brand/dodail-logo.png"
               alt="Dodail Solutions Pvt Ltd"
