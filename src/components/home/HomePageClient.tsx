@@ -334,6 +334,43 @@ export function HomePageClient() {
       </section>
 
       {/* =========================================================================
+          INTEGRATION & ECOSYSTEM PARTNERS BAR
+          ========================================================================= */}
+      <section className="border-b border-slate-200/80 bg-white py-10 px-6 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-center text-xs font-mono font-bold uppercase tracking-[0.2em] text-slate-400 mb-8">
+            Engineered To Integrate Seamlessly With Your Core Stack
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-slate-600 font-medium text-sm">
+            <div className="flex items-center gap-2 text-slate-800">
+              <span className="font-bold text-slate-950 font-sans tracking-tight">WhatsApp Cloud API</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Official</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-800">
+              <span className="font-bold text-slate-950 font-sans tracking-tight">Google Gemini 1.5</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">Multimodal</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-800">
+              <span className="font-bold text-slate-950 font-sans tracking-tight">Meta Graph API</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">Ads & CRM</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-800">
+              <span className="font-bold text-slate-950 font-sans tracking-tight">Supabase PostgreSQL</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">ACID</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-800">
+              <span className="font-bold text-slate-950 font-sans tracking-tight">Next.js 16</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-orange-50 text-[#FF6B2C] border border-orange-200">Edge SSR</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-800">
+              <span className="font-bold text-slate-950 font-sans tracking-tight">Razorpay & Stripe</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">Payments</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
           SECTION 2: PROBLEM (Disconnected Systems & Manual Bottlenecks)
           ========================================================================= */}
       <section className="relative px-6 sm:px-8 lg:px-12 py-28 sm:py-36 border-b border-slate-200/80 bg-slate-50/70">

@@ -68,49 +68,49 @@ const verifiedArticles = [
 
 export default function BlogIndexPage() {
   return (
-    <div className="flex flex-col gap-20 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col gap-20 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <section className="mx-auto max-w-4xl text-center">
         <Badge variant="orange">Knowledge Hub</Badge>
-        <h1 className="mt-4 text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl tracking-tight">
+        <h1 className="mt-4 text-4xl font-extrabold text-slate-950 sm:text-5xl lg:text-6xl tracking-tight">
           Architectural Insights & Growth Strategies
         </h1>
-        <p className="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+        <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
           Deep-dive guides on Generative Engine Optimization, autonomous workflows, and modern web software engineering.
         </p>
       </section>
 
       {/* CMS Notice Badge */}
-      <div className="mx-auto max-w-3xl rounded-xl border border-[#1B3652] bg-[#0E2235]/60 p-4 text-center text-xs text-slate-400">
-        <span>💡 <strong>CMS Notice:</strong> The full markdown blog studio and dynamic database publishing pipeline will be integrated in <strong>Phase 04</strong>. Below is the curated index of verified Dodail knowledge articles.</span>
+      <div className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center text-xs text-slate-600 shadow-xs">
+        <span>💡 <strong>Technical Publications:</strong> Below is the curated index of verified Dodail engineering & growth research.</span>
       </div>
 
-      <section className="mx-auto max-w-7xl">
+      <section className="mx-auto max-w-7xl w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {verifiedArticles.map((article) => (
-            <Card key={article.slug} className="flex flex-col justify-between">
+            <Card key={article.slug} className="flex flex-col justify-between hover:shadow-md transition-shadow">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-400 mb-3">
-                  <span className="text-[#FA5B0F] font-semibold">{article.category}</span>
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-3 font-mono">
+                  <span className="text-[#FF6B2C] font-semibold">{article.category}</span>
                   <span className="flex items-center gap-1">
                     <Clock className="h-3 w-3" />
                     {article.readTime}
                   </span>
                 </div>
 
-                <CardTitle className="text-xl hover:text-[#FA5B0F] transition-colors">
+                <CardTitle className="text-xl text-slate-950 hover:text-[#FF6B2C] transition-colors leading-snug">
                   {article.title}
                 </CardTitle>
 
-                <p className="mt-3 text-sm text-slate-300 leading-relaxed">
+                <p className="mt-3 text-sm text-slate-600 leading-relaxed">
                   {article.excerpt}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#1B3652] flex items-center justify-between">
-                <span className="text-xs text-slate-400">{article.date}</span>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-xs text-slate-400 font-mono">{article.date}</span>
                 <Link
                   href={`/contact?topic=${encodeURIComponent(article.title)}`}
-                  className="text-xs font-semibold text-[#FA5B0F] hover:underline inline-flex items-center"
+                  className="text-xs font-semibold text-[#FF6B2C] hover:underline inline-flex items-center"
                 >
                   Request Full Whitepaper <ArrowRight className="h-3 w-3 ml-1" />
                 </Link>

@@ -12,23 +12,23 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", href, isExternal, children, ...props }, ref) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-semibold tracking-tight transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071A28] disabled:opacity-50 disabled:pointer-events-none rounded-none active:translate-y-0.5 select-none";
+      "inline-flex items-center justify-center font-semibold tracking-tight transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:pointer-events-none rounded-xl active:translate-y-0.5 select-none";
 
     const variantStyles = {
       primary:
-        "bg-[#FF6B2C] hover:bg-[#FF854D] text-[#071A28] font-bold border border-[#FF6B2C] shadow-sm shadow-[#FF6B2C]/20 hover:shadow-[#FF6B2C]/40",
+        "bg-[#FF6B2C] hover:bg-[#e0561b] text-white font-bold border border-[#FF6B2C] shadow-md shadow-orange-500/20 hover:shadow-orange-500/30",
       secondary:
-        "bg-[#0C2233] hover:bg-[#10293B] hover:text-[#F5F8FC] text-[#F5F8FC] border border-[#1B3652]",
+        "bg-slate-900 hover:bg-slate-800 text-white border border-slate-800 shadow-sm",
       outline:
-        "border border-[#1B3652] hover:border-[#FF6B2C] text-[#F5F8FC] hover:bg-[#FF6B2C]/5",
+        "border border-slate-300 hover:border-[#FF6B2C] text-slate-800 bg-white hover:bg-orange-50/20 shadow-sm",
       ghost:
-        "text-[#AABAC8] hover:text-[#F5F8FC] hover:bg-[#10293B]",
+        "text-slate-600 hover:text-slate-950 hover:bg-slate-100",
     };
 
     const sizeStyles = {
-      sm: "text-xs px-3.5 py-1.5 h-8 gap-1.5 font-mono uppercase tracking-wider",
-      md: "text-xs px-5 py-2.5 h-10 gap-2 font-mono uppercase tracking-wider",
-      lg: "text-sm px-7 py-3.5 h-12 gap-2.5 font-bold uppercase tracking-wider",
+      sm: "text-xs px-3.5 py-1.5 h-8 gap-1.5 font-mono uppercase tracking-wider rounded-lg",
+      md: "text-xs px-5 py-2.5 h-10 gap-2 font-mono uppercase tracking-wider rounded-xl",
+      lg: "text-sm px-7 py-3.5 h-12 gap-2.5 font-bold uppercase tracking-wider rounded-xl",
     };
 
     const combinedClassName = cn(baseStyles, variantStyles[variant], sizeStyles[size], className);

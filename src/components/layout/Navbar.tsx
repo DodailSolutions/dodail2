@@ -174,7 +174,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                "flex items-center gap-1 px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
                 solutionsOpen && "bg-slate-100 text-slate-950"
               )}
               onClick={() => setSolutionsOpen(!solutionsOpen)}
@@ -187,15 +187,15 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
             {solutionsOpen && (
               <div className="absolute left-0 top-full pt-2 w-80 z-50">
-                <div className="rounded-none border border-slate-200 bg-white p-3 shadow-xl shadow-slate-900/10">
+                <div className="rounded-2xl border border-slate-200/90 bg-white p-3 shadow-xl shadow-slate-900/10">
                   <div className="space-y-1">
                     {solutions.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-slate-50 transition-colors group"
+                        className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors group"
                       >
-                        <div className="rounded-none bg-orange-50 p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                        <div className="rounded-xl bg-orange-50 p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
                           <item.icon className="h-4 w-4" />
                         </div>
                         <div>
@@ -226,7 +226,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                "flex items-center gap-1 px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
                 servicesOpen && "bg-slate-100 text-slate-950"
               )}
               onClick={() => setServicesOpen(!servicesOpen)}
@@ -239,15 +239,15 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
             {servicesOpen && (
               <div className="absolute left-0 top-full pt-2 w-80 z-50">
-                <div className="rounded-none border border-slate-200 bg-white p-3 shadow-xl shadow-slate-900/10">
+                <div className="rounded-2xl border border-slate-200/90 bg-white p-3 shadow-xl shadow-slate-900/10">
                   <div className="space-y-1">
                     {services.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-start gap-3 rounded-none p-2.5 hover:bg-slate-50 transition-colors group"
+                        className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors group"
                       >
-                        <div className="rounded-none bg-orange-50 p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                        <div className="rounded-xl bg-orange-50 p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
                           <item.icon className="h-4 w-4" />
                         </div>
                         <div>
@@ -269,7 +269,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Industries */}
           <Link
             href="/industries"
-            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Industries
           </Link>
@@ -277,7 +277,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Work */}
           <Link
             href="/work"
-            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Work & Results
           </Link>
@@ -285,7 +285,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Blog / Resources */}
           <Link
             href="/blog"
-            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Resources
           </Link>
@@ -293,7 +293,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* About */}
           <Link
             href="/about"
-            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             About
           </Link>
@@ -301,7 +301,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Contact */}
           <Link
             href="/contact"
-            className="px-3 py-2 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
           >
             Contact
           </Link>
@@ -309,7 +309,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
         {/* Desktop CTA & Consultation */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button href="/consultation" variant="primary" size="md" className="rounded-none shadow-sm text-white font-semibold">
+          <Button href="/consultation" variant="primary" size="md" className="rounded-xl shadow-sm text-white font-semibold">
             <Calendar className="h-4 w-4 mr-1.5" />
             Book a Consultation
           </Button>
@@ -319,7 +319,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-none text-slate-700 hover:text-slate-950 hover:bg-slate-100 border border-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
+          className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 border border-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
           aria-expanded={mobileMenuOpen}
           aria-label="Toggle navigation menu"
         >
@@ -340,7 +340,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
                   >
                     <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
@@ -358,7 +358,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
                   >
                     <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
@@ -376,7 +376,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-3 py-2 rounded-none text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-950"
+                    className="block px-3 py-2 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-950"
                   >
                     {item.title}
                   </Link>
@@ -387,32 +387,32 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <div className="border-t border-slate-200 pt-4 space-y-1">
               <Link
                 href="/work"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 Work & Case Studies
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 Resources & Blog
               </Link>
               <Link
                 href="/about"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 About Dodail
               </Link>
               <Link
                 href="/contact"
-                className="block px-3 py-2.5 rounded-none text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
               >
                 Contact & Support
               </Link>
             </div>
 
             <div className="pt-2">
-              <Button href="/consultation" variant="primary" size="lg" className="w-full rounded-none text-white shadow-sm font-semibold">
+              <Button href="/consultation" variant="primary" size="lg" className="w-full rounded-xl text-white shadow-sm font-semibold">
                 <Calendar className="h-5 w-5 mr-2" />
                 Book a Consultation
               </Button>
