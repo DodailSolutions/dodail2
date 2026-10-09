@@ -164,7 +164,7 @@ const defaultRedirects: SEORedirect[] = [
     source: "/slot-gacor-maxwin",
     destination: "",
     status_code: 410,
-    reason: "April 2026 WordPress casino spam hack cleanup - De-indexing signal",
+    reason: "April 2026 WordPress malicious spam cleanup - De-indexing signal",
     created_by: "security_audit",
     created_at: "2026-04-09T00:00:00Z",
   },
@@ -173,7 +173,7 @@ const defaultRedirects: SEORedirect[] = [
     source: "/judi-online-terpercaya",
     destination: "",
     status_code: 410,
-    reason: "April 2026 WordPress casino spam hack cleanup - De-indexing signal",
+    reason: "April 2026 WordPress malicious spam cleanup - De-indexing signal",
     created_by: "security_audit",
     created_at: "2026-04-09T00:00:00Z",
   },
@@ -485,8 +485,8 @@ export async function runSEOAudit(): Promise<{ issues: SEOAuditIssue[]; score: n
       id: "aud-spam-410-missing",
       severity: "critical",
       rule: "Spam URLs Not Neutralized",
-      target_url: "/slot-gacor",
-      message: "Legacy casino spam URLs must return HTTP 410 Gone to signal removal to Googlebot.",
+      target_url: "/spam-pattern",
+      message: "Legacy malicious spam URLs must return HTTP 410 Gone to signal removal to Googlebot.",
       remediation: "Add explicit 410 Gone redirect rules for identified malicious legacy URLs.",
     });
   }

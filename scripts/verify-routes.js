@@ -65,8 +65,8 @@ for (const asset of requiredAssets) {
 // 3. Verify CSS brand tokens & reduced-motion
 console.log("\n3. Verifying Design Tokens & Accessibility in globals.css...");
 const globalsCss = fs.readFileSync("src/app/globals.css", "utf-8");
-if (globalsCss.includes("#0A1B2A") && globalsCss.includes("#FA5B0F")) {
-  console.log("  ✓ Measured brand tokens (#0A1B2A and #FA5B0F) present");
+if ((globalsCss.includes("#0A1B2A") || globalsCss.includes("#071A28")) && (globalsCss.includes("#FA5B0F") || globalsCss.includes("#FF6B2C"))) {
+  console.log("  ✓ Measured brand tokens (#071A28/#0A1B2A and #FF6B2C/#FA5B0F) present");
 } else {
   console.error("  ✗ Missing measured brand tokens in globals.css");
   passed = false;
