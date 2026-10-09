@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, AlertTriangle, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowUpRight, AlertTriangle, Sparkles, TrendingUp } from "lucide-react";
 
 interface ServiceItem {
   id: string;
@@ -132,22 +132,24 @@ export function ServicesScrollStack() {
   return (
     <div className="relative">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        {/* Sticky Left Navigation (Inspired by Details.so / Brandappart) */}
+        {/* Sticky Left Navigation (Swiss Style Index Column) */}
         <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
           <div>
-            <span className="text-xs font-mono text-[#FF6B2C] uppercase tracking-wider block mb-2">
-              Services & Capabilities // 01 — 05
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F5F8FC] tracking-tight leading-tight">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="font-mono text-xs font-bold text-[#FF6B2C]">INDEX // 01—05</span>
+              <span className="h-px w-8 bg-[#1B3652]" />
+              <span className="font-mono text-[11px] text-[#AABAC8] uppercase tracking-wider">CAPABILITIES</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.02]">
               Engineered For Measurable Business Outcomes
             </h2>
-            <p className="mt-4 text-base text-[#AABAC8] leading-relaxed font-light">
+            <p className="mt-5 text-base text-[#AABAC8] leading-relaxed font-light">
               Deterministic architectures built for long-term operational resilience. Complete transparency on deliverables, business problems solved, and verified value.
             </p>
           </div>
 
-          {/* Quick Step Indicators */}
-          <div className="hidden lg:flex flex-col space-y-2 border-l border-[#1B3652] pl-4">
+          {/* Quick Step Indicators (Modular Swiss List) */}
+          <div className="hidden lg:flex flex-col border-l-2 border-[#1B3652] pl-5 space-y-3">
             {services.map((item, idx) => (
               <button
                 key={item.id}
@@ -155,14 +157,14 @@ export function ServicesScrollStack() {
                   const el = document.getElementById(`service-${item.id}`);
                   el?.scrollIntoView({ behavior: "smooth", block: "center" });
                 }}
-                className={`text-left py-1 text-xs font-mono transition-colors flex items-center gap-3 ${
+                className={`text-left py-1 text-xs font-mono transition-colors flex items-center gap-3 select-none ${
                   activeStep === idx
                     ? "text-[#FF6B2C] font-bold"
-                    : "text-[#AABAC8]/60 hover:text-[#F5F8FC]"
+                    : "text-[#AABAC8] hover:text-[#F5F8FC]"
                 }`}
               >
-                <span>{item.number}</span>
-                <span className="truncate">{item.title}</span>
+                <span className="font-bold">{item.number}</span>
+                <span className="truncate uppercase tracking-wider">{item.title}</span>
               </button>
             ))}
           </div>
@@ -170,44 +172,50 @@ export function ServicesScrollStack() {
           <div className="pt-2">
             <Link
               href="/consultation"
-              className="inline-flex items-center gap-2 text-xs font-semibold text-[#FF6B2C] hover:text-[#F5F8FC] transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF6B2C] hover:text-[#F5F8FC] transition-colors uppercase tracking-wider"
             >
-              <span>Discuss customized architecture for your business</span>
+              <span>[+] Request Tailored Engineering Audit</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
 
-        {/* Right Stack of Scrollable Panels */}
+        {/* Right Stack of Scrollable Panels (Swiss Modular Cards) */}
         <div className="lg:col-span-7 space-y-8">
           {services.map((service, index) => (
             <div
               key={service.id}
               id={`service-${service.id}`}
               onMouseEnter={() => setActiveStep(index)}
-              className="rounded-3xl border border-[#1B3652] bg-[#0C2233] p-8 sm:p-10 hover:border-[#27D3C2]/40 transition-all duration-300 relative overflow-hidden group shadow-xl"
+              className="rounded-none border border-[#1B3652] bg-[#0C2233] p-8 sm:p-10 hover:border-[#FF6B2C] transition-all duration-200 relative group"
             >
-              <div className="flex items-center justify-between mb-4">
-                <span
-                  className="text-xs font-mono font-bold tracking-wider"
-                  style={{ color: service.accentColor }}
-                >
-                  {service.number} // {service.tag}
-                </span>
-                <span className="text-xs font-mono text-[#AABAC8]/60">DODAIL ARCHITECTURE</span>
+              {/* Giant Swiss Number Watermark in Background */}
+              <div className="absolute top-4 right-6 font-mono text-5xl sm:text-7xl font-black text-white/[0.04] pointer-events-none select-none">
+                {service.number}
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5F8FC] tracking-tight leading-snug">
+              {/* Module Header */}
+              <div className="flex items-center justify-between border-b border-[#1B3652] pb-4 mb-6">
+                <span
+                  className="text-xs font-mono font-bold tracking-[0.16em]"
+                  style={{ color: service.accentColor }}
+                >
+                  MOD // {service.number} · {service.tag}
+                </span>
+                <span className="text-[10px] font-mono text-[#AABAC8]">DODAIL SPEC</span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5F8FC] tracking-[-0.025em] leading-snug">
                 {service.title}
               </h3>
 
               {/* 3 Structured Pillars: Business Problem, Solution, Expected Value */}
-              <div className="mt-6 space-y-4">
+              <div className="mt-8 space-y-4">
                 {/* Business Problem */}
-                <div className="rounded-xl border border-rose-500/20 bg-rose-950/20 p-4">
-                  <div className="flex items-center gap-2 text-xs font-mono font-semibold text-rose-400 mb-1">
+                <div className="rounded-none border border-rose-500/20 bg-rose-950/20 p-4">
+                  <div className="flex items-center gap-2 text-[11px] font-mono font-bold text-rose-400 mb-1 uppercase tracking-wider">
                     <AlertTriangle className="h-3.5 w-3.5" />
-                    <span>Business Problem</span>
+                    <span>01 / Business Problem</span>
                   </div>
                   <p className="text-xs sm:text-sm text-[#F5F8FC]/80 leading-relaxed font-light">
                     {service.businessProblem}
@@ -215,10 +223,10 @@ export function ServicesScrollStack() {
                 </div>
 
                 {/* Engineered Solution */}
-                <div className="rounded-xl border border-[#1B3652] bg-[#10293B] p-4">
-                  <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#27D3C2] mb-1">
+                <div className="rounded-none border border-[#1B3652] bg-[#071A28] p-4">
+                  <div className="flex items-center gap-2 text-[11px] font-mono font-bold text-[#27D3C2] mb-1 uppercase tracking-wider">
                     <Sparkles className="h-3.5 w-3.5" />
-                    <span>Engineered Solution</span>
+                    <span>02 / Engineered Solution</span>
                   </div>
                   <p className="text-xs sm:text-sm text-[#F5F8FC]/90 leading-relaxed font-light">
                     {service.solution}
@@ -226,10 +234,10 @@ export function ServicesScrollStack() {
                 </div>
 
                 {/* Expected Value */}
-                <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-4">
-                  <div className="flex items-center gap-2 text-xs font-mono font-semibold text-emerald-400 mb-1">
+                <div className="rounded-none border border-emerald-500/20 bg-emerald-950/20 p-4">
+                  <div className="flex items-center gap-2 text-[11px] font-mono font-bold text-emerald-400 mb-1 uppercase tracking-wider">
                     <TrendingUp className="h-3.5 w-3.5" />
-                    <span>Expected Business Value</span>
+                    <span>03 / Expected Business Value</span>
                   </div>
                   <p className="text-xs sm:text-sm text-[#F5F8FC]/90 leading-relaxed font-light">
                     {service.expectedValue}
@@ -238,21 +246,21 @@ export function ServicesScrollStack() {
               </div>
 
               {/* Capability Chips */}
-              <div className="mt-6 flex flex-wrap gap-2 text-xs font-mono text-[#AABAC8]">
+              <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-mono text-[#AABAC8]">
                 {service.capabilities.map((cap, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1 rounded-md bg-[#10293B] border border-[#1B3652]"
+                    className="px-2.5 py-1 rounded-none bg-[#071A28] border border-[#1B3652]"
                   >
                     {cap}
                   </span>
                 ))}
               </div>
 
-              <div className="mt-8 pt-4 border-t border-[#1B3652]/60">
+              <div className="mt-8 pt-5 border-t border-[#1B3652]">
                 <Link
                   href={service.href}
-                  className="inline-flex items-center gap-2 text-xs font-semibold text-[#F5F8FC] bg-[#10293B] hover:bg-[#FF6B2C] hover:text-[#071A28] px-5 py-3 rounded-xl border border-[#1B3652] transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#071A28] bg-[#FF6B2C] hover:bg-[#FF854D] px-5 py-2.5 rounded-none transition-colors"
                 >
                   <span>{service.ctaText}</span>
                   <ArrowUpRight className="h-4 w-4" />

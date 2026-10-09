@@ -33,8 +33,8 @@ export function HeroScrollShowcase() {
   });
 
   const rotateX = useTransform(smoothProgress, [0, 1], [14, 0]);
-  const scale = useTransform(smoothProgress, [0, 1], [0.93, 1]);
-  const opacity = useTransform(smoothProgress, [0, 0.4], [0.6, 1]);
+  const scale = useTransform(smoothProgress, [0, 1], [0.94, 1]);
+  const opacity = useTransform(smoothProgress, [0, 0.4], [0.7, 1]);
 
   const [activeTab, setActiveTab] = React.useState<"stream" | "topology">("stream");
 
@@ -47,50 +47,51 @@ export function HeroScrollShowcase() {
           opacity,
           transformStyle: "preserve-3d",
         }}
-        className="mx-auto max-w-5xl rounded-2xl border border-white/[0.12] bg-[#0A0D14]/95 shadow-2xl shadow-black/90 overflow-hidden"
+        className="mx-auto max-w-5xl rounded-none border border-[#1B3652] bg-[#0C2233] shadow-2xl overflow-hidden relative"
       >
-        {/* Device Window Header Bar */}
-        <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#0D111A] px-4 sm:px-6 py-3.5 text-xs">
+        {/* Registration Crosshairs */}
+        <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FF6B2C] select-none pointer-events-none">+</div>
+        <div className="absolute top-2 right-2 font-mono text-[10px] text-[#27D3C2] select-none pointer-events-none">+</div>
+        <div className="absolute bottom-2 left-2 font-mono text-[10px] text-[#27D3C2] select-none pointer-events-none">+</div>
+        <div className="absolute bottom-2 right-2 font-mono text-[10px] text-[#FF6B2C] select-none pointer-events-none">+</div>
+
+        {/* Device Window Header Bar (Swiss Style Toolbar) */}
+        <div className="flex items-center justify-between border-b border-[#1B3652] bg-[#071A28] px-4 sm:px-6 py-3 text-xs">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#FA5B0F]/90" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#FF6B2C]">
+              [DOD // SYS-01]
             </div>
-            <span className="font-mono text-slate-400 border-l border-white/10 pl-3 hidden sm:inline text-[11px]">
-              dodail.engine.core // runtime-cluster-01
+            <span className="font-mono text-[#AABAC8] border-l border-[#1B3652] pl-3 hidden sm:inline text-[11px] uppercase tracking-wider">
+              dodail.engine.core // runtime-telemetry
             </span>
           </div>
 
-          <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/[0.06]">
+          <div className="flex items-center gap-0 border border-[#1B3652] bg-[#0C2233]">
             <button
               onClick={() => setActiveTab("stream")}
-              className={`px-3 py-1 rounded text-[11px] font-mono transition-colors ${
+              className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors ${
                 activeTab === "stream"
-                  ? "bg-[#FA5B0F] text-white font-semibold shadow"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#FF6B2C] text-[#071A28] font-bold"
+                  : "text-[#AABAC8] hover:text-[#F5F8FC]"
               }`}
             >
               Event Stream
             </button>
             <button
               onClick={() => setActiveTab("topology")}
-              className={`px-3 py-1 rounded text-[11px] font-mono transition-colors ${
+              className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors border-l border-[#1B3652] ${
                 activeTab === "topology"
-                  ? "bg-[#FA5B0F] text-white font-semibold shadow"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#FF6B2C] text-[#071A28] font-bold"
+                  : "text-[#AABAC8] hover:text-[#F5F8FC]"
               }`}
             >
-              System Topology
+              Architecture Matrix
             </button>
           </div>
 
           <div className="flex items-center gap-2 font-mono text-[11px] text-emerald-400">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="hidden sm:inline">Active & Synchronized</span>
+            <span className="h-1.5 w-1.5 rounded-none bg-emerald-400"></span>
+            <span className="hidden sm:inline uppercase tracking-wider">SYNCHRONIZED</span>
           </div>
         </div>
 
@@ -100,36 +101,36 @@ export function HeroScrollShowcase() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
               {/* Left Telemetry Column */}
               <div className="md:col-span-4 space-y-4">
-                <div className="p-4 rounded-xl bg-[#06080E] border border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">
-                    Throughput Status
+                <div className="p-5 rounded-none bg-[#071A28] border border-[#1B3652]">
+                  <span className="text-[10px] font-mono text-[#AABAC8] uppercase tracking-[0.16em] block mb-1">
+                    System Accuracy
                   </span>
-                  <div className="text-xl sm:text-2xl font-bold text-white flex items-baseline gap-2">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#F5F8FC] flex items-baseline gap-2 tracking-tight">
                     <span>99.98%</span>
-                    <span className="text-xs text-emerald-400 font-mono font-normal">0 errors</span>
+                    <span className="text-xs text-emerald-400 font-mono font-normal">0 FAILURES</span>
                   </div>
-                  <div className="mt-3 flex items-center justify-between text-xs text-slate-400 border-t border-white/[0.06] pt-2">
-                    <span>Queue Lag:</span>
-                    <strong className="text-white font-mono">18ms</strong>
+                  <div className="mt-3 flex items-center justify-between text-xs text-[#AABAC8] border-t border-[#1B3652] pt-2 font-mono">
+                    <span>QUEUE LATENCY:</span>
+                    <strong className="text-[#F5F8FC]">18ms</strong>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#06080E] border border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">
-                    Live Connections
+                <div className="p-5 rounded-none bg-[#071A28] border border-[#1B3652]">
+                  <span className="text-[10px] font-mono text-[#AABAC8] uppercase tracking-[0.16em] block mb-1">
+                    Verified Endpoints
                   </span>
                   <div className="space-y-2 mt-2 text-xs font-mono">
-                    <div className="flex items-center justify-between text-slate-300">
+                    <div className="flex items-center justify-between text-[#F5F8FC]">
                       <span>WhatsApp Cloud API</span>
-                      <span className="text-emerald-400">Connected</span>
+                      <span className="text-emerald-400">OK</span>
                     </div>
-                    <div className="flex items-center justify-between text-slate-300">
-                      <span>PostgreSQL State Store</span>
-                      <span className="text-emerald-400">Pooled (4ms)</span>
+                    <div className="flex items-center justify-between text-[#F5F8FC]">
+                      <span>Supabase PostgreSQL</span>
+                      <span className="text-emerald-400">POOLED (4ms)</span>
                     </div>
-                    <div className="flex items-center justify-between text-slate-300">
-                      <span>Salesforce / CRM</span>
-                      <span className="text-emerald-400">OAuth Verified</span>
+                    <div className="flex items-center justify-between text-[#F5F8FC]">
+                      <span>CRM Webhook Router</span>
+                      <span className="text-emerald-400">HMAC VERIFIED</span>
                     </div>
                   </div>
                 </div>
@@ -137,51 +138,51 @@ export function HeroScrollShowcase() {
 
               {/* Right Live Stream Ledger */}
               <div className="md:col-span-8 space-y-2.5">
-                <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
-                  <span>Recent Real-Time Executions</span>
-                  <span className="text-[#FA5B0F]">Auto-refreshing</span>
+                <div className="text-[11px] font-mono text-[#AABAC8] uppercase tracking-[0.16em] mb-2 flex items-center justify-between">
+                  <span>REAL-TIME TRANSACTION AUDIT TRAIL</span>
+                  <span className="text-[#FF6B2C] font-semibold">STREAMING</span>
                 </div>
 
                 {/* Event Row 1 */}
-                <div className="p-3.5 rounded-xl bg-[#06080E] border border-white/[0.06] flex items-center justify-between gap-4 text-xs font-mono hover:border-white/10 transition-colors">
+                <div className="p-3.5 rounded-none bg-[#071A28] border border-[#1B3652] flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FF6B2C] transition-colors">
                   <div className="flex items-center gap-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-none bg-emerald-400 shrink-0" />
                     <div>
-                      <span className="text-white font-semibold">WHATSAPP_INQUIRY_RECEIVED</span>
-                      <p className="text-[11px] text-slate-400 font-sans">
+                      <span className="text-[#F5F8FC] font-bold">WHATSAPP_INQUIRY_RECEIVED</span>
+                      <p className="text-[11px] text-[#AABAC8] font-sans">
                         Patient Emergency Molar Slot Booked (Clinic Dr. Reddy)
                       </p>
                     </div>
                   </div>
-                  <span className="text-slate-500 shrink-0">340ms · OK</span>
+                  <span className="text-[#AABAC8] shrink-0">340ms · OK</span>
                 </div>
 
                 {/* Event Row 2 */}
-                <div className="p-3.5 rounded-xl bg-[#06080E] border border-white/[0.06] flex items-center justify-between gap-4 text-xs font-mono hover:border-white/10 transition-colors">
+                <div className="p-3.5 rounded-none bg-[#071A28] border border-[#1B3652] flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FF6B2C] transition-colors">
                   <div className="flex items-center gap-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-none bg-emerald-400 shrink-0" />
                     <div>
-                      <span className="text-white font-semibold">LEAD_QUALIFIED_TIER_A</span>
-                      <p className="text-[11px] text-slate-400 font-sans">
+                      <span className="text-[#F5F8FC] font-bold">LEAD_QUALIFIED_TIER_A</span>
+                      <p className="text-[11px] text-[#AABAC8] font-sans">
                         ₹3.5 Cr Luxury Villa Inquiry → Senior Director Alerted
                       </p>
                     </div>
                   </div>
-                  <span className="text-slate-500 shrink-0">410ms · OK</span>
+                  <span className="text-[#AABAC8] shrink-0">410ms · OK</span>
                 </div>
 
                 {/* Event Row 3 */}
-                <div className="p-3.5 rounded-xl bg-[#06080E] border border-white/[0.06] flex items-center justify-between gap-4 text-xs font-mono hover:border-white/10 transition-colors">
+                <div className="p-3.5 rounded-none bg-[#071A28] border border-[#1B3652] flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FF6B2C] transition-colors">
                   <div className="flex items-center gap-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-none bg-emerald-400 shrink-0" />
                     <div>
-                      <span className="text-white font-semibold">RETURN_LOGISTICS_DISPATCHED</span>
-                      <p className="text-[11px] text-slate-400 font-sans">
+                      <span className="text-[#F5F8FC] font-bold">RETURN_LOGISTICS_DISPATCHED</span>
+                      <p className="text-[11px] text-[#AABAC8] font-sans">
                         DTC Order #9821 Size Exchange → Courier Slip Auto-Created
                       </p>
                     </div>
                   </div>
-                  <span className="text-slate-500 shrink-0">190ms · OK</span>
+                  <span className="text-[#AABAC8] shrink-0">190ms · OK</span>
                 </div>
               </div>
             </div>
@@ -189,38 +190,38 @@ export function HeroScrollShowcase() {
         ) : (
           <div className="p-8 font-mono text-xs">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="p-5 rounded-xl bg-[#06080E] border border-white/[0.06]">
-                <span className="text-[#FA5B0F] block mb-2 font-bold">LAYER 1 · INGESTION</span>
-                <p className="text-slate-300 font-sans leading-relaxed mb-3">
+              <div className="p-5 rounded-none bg-[#071A28] border border-[#1B3652]">
+                <span className="text-[#FF6B2C] block mb-2 font-bold uppercase tracking-wider">01 · INGESTION LAYER</span>
+                <p className="text-[#F5F8FC] font-sans leading-relaxed mb-3">
                   Inbound Webhooks, Meta Ads, WhatsApp Cloud API, and Stripe Checkout triggers.
                 </p>
-                <span className="text-slate-500 text-[11px]">→ Rate limited & TLS 1.3 verified</span>
+                <span className="text-[#AABAC8] text-[11px]">→ Rate limited & TLS 1.3 verified</span>
               </div>
 
-              <div className="p-5 rounded-xl bg-[#06080E] border border-white/[0.06]">
-                <span className="text-cyan-400 block mb-2 font-bold">LAYER 2 · REASONING</span>
-                <p className="text-slate-300 font-sans leading-relaxed mb-3">
+              <div className="p-5 rounded-none bg-[#071A28] border border-[#1B3652]">
+                <span className="text-[#27D3C2] block mb-2 font-bold uppercase tracking-wider">02 · LOGIC & EVALUATION</span>
+                <p className="text-[#F5F8FC] font-sans leading-relaxed mb-3">
                   Deterministic business rules, schema guardrails, and context-bound AI evaluation.
                 </p>
-                <span className="text-slate-500 text-[11px]">→ Zero unverified hallucinations</span>
+                <span className="text-[#AABAC8] text-[11px]">→ Zero unverified hallucinations</span>
               </div>
 
-              <div className="p-5 rounded-xl bg-[#06080E] border border-white/[0.06]">
-                <span className="text-emerald-400 block mb-2 font-bold">LAYER 3 · SYNC</span>
-                <p className="text-slate-300 font-sans leading-relaxed mb-3">
+              <div className="p-5 rounded-none bg-[#071A28] border border-[#1B3652]">
+                <span className="text-emerald-400 block mb-2 font-bold uppercase tracking-wider">03 · PERSISTENCE & SYNC</span>
+                <p className="text-[#F5F8FC] font-sans leading-relaxed mb-3">
                   PostgreSQL ACID state updates, CRM bi-directional writes, and user notification.
                 </p>
-                <span className="text-slate-500 text-[11px]">→ Instant & audit-logged</span>
+                <span className="text-[#AABAC8] text-[11px]">→ Instant & audit-logged</span>
               </div>
             </div>
           </div>
         )}
 
         {/* Footer info strip */}
-        <div className="border-t border-white/[0.08] bg-[#0A0D14] px-6 py-3 flex items-center justify-between text-xs text-slate-400 font-mono">
-          <span>Encrypted End-to-End // Zero Data Sharing</span>
-          <Link href="/solutions/ai-automation" className="text-[#FA5B0F] hover:underline flex items-center gap-1">
-            <span>Explore Technical Specs</span>
+        <div className="border-t border-[#1B3652] bg-[#071A28] px-6 py-3 flex items-center justify-between text-xs text-[#AABAC8] font-mono">
+          <span>ENCRYPTED END-TO-END // ZERO DATA LEAKAGE</span>
+          <Link href="/solutions/ai-automation" className="text-[#FF6B2C] hover:text-[#F5F8FC] flex items-center gap-1 font-semibold">
+            <span>Explore Technical Architecture</span>
             <ChevronRight className="h-3 w-3" />
           </Link>
         </div>

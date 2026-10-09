@@ -91,10 +91,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="h-full">
-      <body className="flex min-h-screen flex-col bg-[#0A1B2A] text-slate-100 antialiased selection:bg-[#FA5B0F] selection:text-white">
+      <body className="flex min-h-screen flex-col bg-[#071A28] text-[#F5F8FC] antialiased selection:bg-[#FF6B2C] selection:text-[#071A28]">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-[#FA5B0F] focus:px-4 focus:py-2 focus:text-white focus:shadow-lg focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-none focus:bg-[#FF6B2C] focus:px-4 focus:py-2 focus:text-[#071A28] focus:font-bold focus:shadow-lg focus:outline-none font-mono text-xs uppercase tracking-wider"
         >
           Skip to main content
         </a>

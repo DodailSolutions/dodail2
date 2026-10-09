@@ -41,42 +41,69 @@ body {
 
 /* Accessibility & Focus States */
 :focus-visible {
-  outline: 2px solid #FA5B0F;
+  outline: 2px solid #FF6B2C;
   outline-offset: 2px;
 }
 
-/* Custom Design System Utilities */
-.bg-tech-grid {
-  background-size: 40px 40px;
+/* Swiss Architectural Grid & Coordinate Lines */
+.swiss-grid-bg {
+  background-size: 64px 64px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(27, 54, 82, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27, 54, 82, 0.45) 1px, transparent 1px);
 }
 
-.bg-radial-hero {
-  background: radial-gradient(circle at 50% 0%, rgba(250, 91, 15, 0.15) 0%, rgba(10, 27, 42, 0) 70%);
+.swiss-dot-bg {
+  background-size: 32px 32px;
+  background-image: radial-gradient(rgba(27, 54, 82, 0.7) 1px, transparent 1px);
 }
 
-.bg-radial-accent {
-  background: radial-gradient(circle at 100% 50%, rgba(39, 211, 194, 0.08) 0%, rgba(10, 27, 42, 0) 60%);
+/* Swiss Registration Crosshair Mark */
+.swiss-crosshair {
+  position: relative;
+}
+.swiss-crosshair::before {
+  content: "+";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: #FF6B2C;
+  font-weight: bold;
+  pointer-events: none;
+}
+.swiss-crosshair::after {
+  content: "+";
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: #27D3C2;
+  font-weight: bold;
+  pointer-events: none;
 }
 
+/* Glass & Surface Utilities */
 .glass-surface {
-  background: rgba(14, 34, 53, 0.65);
+  background: rgba(12, 34, 51, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #1B3652;
 }
 
 .glass-surface-elevated {
-  background: rgba(18, 43, 67, 0.75);
+  background: rgba(16, 41, 59, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid #1B3652;
 }
 
 .glow-orange {
-  box-shadow: 0 0 35px -8px rgba(250, 91, 15, 0.35);
+  box-shadow: 0 0 35px -8px rgba(255, 107, 44, 0.35);
 }
 
 .glow-cyan {
@@ -93,40 +120,50 @@ body {
   }
 }
 
-/* Fluid Typography Utilities */
+/* Fluid Swiss Typography Utilities */
 .hero-title-clamp {
-  font-size: clamp(2.5rem, 5vw + 1rem, 5.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.75rem, 5.5vw + 1rem, 6.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 800;
 }
 
 .section-title-clamp {
-  font-size: clamp(2rem, 3.2vw + 0.5rem, 3.5rem);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.25rem, 3.8vw + 0.5rem, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 800;
 }
 
 .card-title-clamp {
-  font-size: clamp(1.25rem, 1.2vw + 0.25rem, 1.5rem);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.25rem, 1.2vw + 0.25rem, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 .body-text-clamp {
-  font-size: clamp(1rem, 0.4vw + 0.8rem, 1.125rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 0.4vw + 0.85rem, 1.2rem);
+  line-height: 1.6;
+}
+
+.swiss-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #071A28;
 }
 ::-webkit-scrollbar-thumb {
   background: #1B3652;
-  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #FF6B2C;

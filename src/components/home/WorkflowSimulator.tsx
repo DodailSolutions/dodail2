@@ -184,34 +184,38 @@ export function WorkflowSimulator() {
   };
 
   return (
-    <div className="rounded-3xl border border-[#1B3652] bg-[#0C2233] overflow-hidden shadow-2xl">
-      {/* Console Top Toolbar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-[#1B3652] bg-[#071A28] px-6 py-4 gap-4">
+    <div className="rounded-none border border-[#1B3652] bg-[#0C2233] overflow-hidden shadow-2xl relative">
+      {/* Registration Crosshairs */}
+      <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FF6B2C] pointer-events-none select-none">+</div>
+      <div className="absolute top-2 right-2 font-mono text-[10px] text-[#27D3C2] pointer-events-none select-none">+</div>
+
+      {/* Console Top Toolbar (Swiss Architectural Header) */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-[#1B3652] bg-[#071A28] px-6 py-3.5 gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#FF6B2C]/80 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#27D3C2]/80 inline-block" />
-          </div>
-          <span className="text-xs font-mono text-[#AABAC8] border-l border-[#1B3652] pl-3">
-            Dodail Workflow Engine
+          <span className="font-mono text-xs font-bold text-[#FF6B2C]">
+            SIM // 04-STAGE PIPELINE
           </span>
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#FF6B2C]/15 text-[#FF6B2C] border border-[#FF6B2C]/30 animate-pulse">
-            <Zap className="h-3 w-3" /> INTERACTIVE DEMO
+          <span className="font-mono text-xs text-[#AABAC8] border-l border-[#1B3652] pl-3 uppercase tracking-wider hidden sm:inline">
+            Workflow Simulator
+          </span>
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-bold bg-[#FF6B2C] text-[#071A28] uppercase tracking-wider select-none">
+            INTERACTIVE DEMO
           </span>
         </div>
 
-        {/* Scenario Selectors */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-          {scenarios.map((sc) => (
+        {/* Scenario Selectors (Swiss Tab Matrix) */}
+        <div className="flex items-center border border-[#1B3652] bg-[#071A28] overflow-x-auto">
+          {scenarios.map((sc, i) => (
             <button
               key={sc.id}
               onClick={() => handleSelect(sc.id)}
               disabled={isRunning}
-              className={`text-xs font-medium px-3.5 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
+              className={`text-xs font-mono uppercase tracking-wider px-3.5 py-1.5 transition-colors whitespace-nowrap select-none ${
+                i > 0 ? "border-l border-[#1B3652]" : ""
+              } ${
                 activeId === sc.id
-                  ? "bg-[#FF6B2C] text-[#071A28] font-bold shadow-md"
-                  : "bg-[#10293B] text-[#AABAC8] hover:text-[#F5F8FC] hover:bg-[#1B3652]"
+                  ? "bg-[#FF6B2C] text-[#071A28] font-bold"
+                  : "bg-transparent text-[#AABAC8] hover:text-[#F5F8FC] hover:bg-[#10293B]"
               }`}
             >
               {sc.tabLabel}
@@ -223,16 +227,16 @@ export function WorkflowSimulator() {
       {/* Main Console Viewport: 4-Stage Architectural Progression */}
       <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Step 1: TRIGGER */}
-        <div className="rounded-2xl border border-[#1B3652] bg-[#071A28] p-5 flex flex-col justify-between">
+        <div className="rounded-none border border-[#1B3652] bg-[#071A28] p-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
+            <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
               <span className="text-[#FF6B2C] font-bold">01 / TRIGGER</span>
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="h-1.5 w-1.5 bg-emerald-400" />
             </div>
             <h4 className="text-sm font-bold text-[#F5F8FC] mb-1">{scenario.businessName}</h4>
             <p className="text-[11px] text-[#27D3C2] font-mono mb-3">{scenario.trigger.channel}</p>
 
-            <div className="rounded-xl border border-[#1B3652] bg-[#0C2233] p-3 text-xs">
+            <div className="rounded-none border border-[#1B3652] bg-[#0C2233] p-3 text-xs">
               <span className="text-[10px] font-mono text-[#AABAC8]/60 block mb-1">
                 {scenario.trigger.timestamp}
               </span>
@@ -241,50 +245,50 @@ export function WorkflowSimulator() {
               </p>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8]">
-            ✓ Ingestion webhook validated
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8] uppercase tracking-wider">
+            [+] Ingestion Webhook Validated
           </div>
         </div>
 
         {/* Step 2: INTELLIGENT PROCESSING */}
         <div
-          className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 ${
+          className={`rounded-none border p-5 flex flex-col justify-between transition-all duration-200 ${
             stage >= 2
               ? "border-[#1B3652] bg-[#071A28]"
               : "border-[#1B3652]/40 bg-[#071A28]/40 opacity-40"
           }`}
         >
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
-              <span className="text-[#27D3C2] font-bold">02 / INTELLIGENT PROCESSING</span>
+            <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
+              <span className="text-[#27D3C2] font-bold">02 / PROCESSING</span>
               <span className="text-[10px] text-[#AABAC8] font-mono">{scenario.processing.latency}</span>
             </div>
-            <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Deterministic Rule Evaluation</h4>
+            <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Deterministic Evaluation</h4>
             <p className="text-xs text-[#F5F8FC]/80 leading-relaxed font-sans mb-3">
               {scenario.processing.rule}
             </p>
-            <div className="rounded-xl border border-[#1B3652] bg-[#0C2233] p-3 text-xs font-mono text-[#27D3C2]">
+            <div className="rounded-none border border-[#1B3652] bg-[#0C2233] p-3 text-xs font-mono text-[#27D3C2]">
               → {scenario.processing.validation}
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8]">
-            ✓ Zero hallucination schema check
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8] uppercase tracking-wider">
+            [+] Zero-Hallucination Guardrail
           </div>
         </div>
 
         {/* Step 3: AUTOMATED ACTION */}
         <div
-          className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 ${
+          className={`rounded-none border p-5 flex flex-col justify-between transition-all duration-200 ${
             stage >= 3
               ? "border-[#1B3652] bg-[#071A28]"
               : "border-[#1B3652]/40 bg-[#071A28]/40 opacity-40"
           }`}
         >
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
-              <span className="text-[#FF6B2C] font-bold">03 / AUTOMATED ACTION</span>
-              <span className="text-emerald-400 font-mono text-[10px] flex items-center gap-1">
-                <Check className="h-3 w-3" /> Dispatched
+            <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
+              <span className="text-[#FF6B2C] font-bold">03 / ACTION</span>
+              <span className="text-emerald-400 font-mono text-[10px] uppercase">
+                DISPATCHED
               </span>
             </div>
             <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Cross-Platform Sync</h4>
@@ -295,7 +299,7 @@ export function WorkflowSimulator() {
               {scenario.action.destinations.map((dest, i) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between text-[10px] font-mono p-1.5 rounded-lg bg-[#0C2233] border border-[#1B3652]"
+                  className="flex items-center justify-between text-[10px] font-mono p-1.5 rounded-none bg-[#0C2233] border border-[#1B3652]"
                 >
                   <span className="text-[#F5F8FC] truncate">{dest.name}</span>
                   <span className="text-emerald-400 font-medium ml-1 shrink-0">{dest.status}</span>
@@ -303,26 +307,26 @@ export function WorkflowSimulator() {
               ))}
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8]">
-            ✓ PostgreSQL transaction committed
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8] uppercase tracking-wider">
+            [+] ACID Transaction Committed
           </div>
         </div>
 
         {/* Step 4: BUSINESS OUTCOME */}
         <div
-          className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 ${
+          className={`rounded-none border p-5 flex flex-col justify-between transition-all duration-200 ${
             stage === 4
               ? "border-emerald-500/40 bg-[#071A28]"
               : "border-[#1B3652]/40 bg-[#071A28]/40 opacity-40"
           }`}
         >
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider mb-2">
-              <span className="text-emerald-400 font-bold">04 / BUSINESS OUTCOME</span>
+            <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
+              <span className="text-emerald-400 font-bold">04 / OUTCOME</span>
               <span className="text-[10px] text-emerald-400 font-mono">VERIFIED</span>
             </div>
             <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Measurable Impact</h4>
-            <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-3 mb-3">
+            <div className="rounded-none border border-emerald-500/30 bg-emerald-950/20 p-3 mb-3">
               <span className="text-xs font-bold text-emerald-400 block mb-1">
                 {scenario.outcome.metric}
               </span>
@@ -331,31 +335,31 @@ export function WorkflowSimulator() {
               </p>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-emerald-400 flex items-center gap-1">
-            <Check className="h-3 w-3" /> Verified Production Metric
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+            <Check className="h-3 w-3" /> Live Production Telemetry
           </div>
         </div>
       </div>
 
       {/* Console Bottom Action Bar */}
-      <div className="border-t border-[#1B3652] bg-[#071A28] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-[#AABAC8]">
-          Every Dodail system runs on PostgreSQL state stores with deterministic validation layers.
+      <div className="border-t border-[#1B3652] bg-[#071A28] px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-xs text-[#AABAC8] font-mono">
+          ARCHITECTURE // POSTGRESQL STATE + DETERMINISTIC RUNTIME
         </p>
         <div className="flex items-center gap-3">
           <button
             onClick={() => handleSelect(activeId)}
             disabled={isRunning}
-            className="text-xs text-[#AABAC8] hover:text-[#F5F8FC] px-3.5 py-2 rounded-xl border border-[#1B3652] bg-[#10293B] hover:bg-[#1B3652] transition-colors flex items-center gap-1.5 font-mono"
+            className="text-xs text-[#AABAC8] hover:text-[#F5F8FC] px-3.5 py-1.5 rounded-none border border-[#1B3652] bg-[#0C2233] hover:bg-[#1B3652] transition-colors flex items-center gap-1.5 font-mono uppercase tracking-wider"
           >
             <RefreshCw className={`h-3 w-3 ${isRunning ? "animate-spin" : ""}`} />
             Re-run Simulation
           </button>
           <Link
             href="/consultation"
-            className="text-xs font-semibold text-[#FF6B2C] hover:text-[#F5F8FC] transition-colors flex items-center gap-1"
+            className="text-xs font-mono font-bold uppercase tracking-wider text-[#FF6B2C] hover:text-[#F5F8FC] transition-colors flex items-center gap-1"
           >
-            Design Your Operations Blueprint <ArrowRight className="h-3.5 w-3.5" />
+            <span>[+] Design Custom Blueprint</span> <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       </div>

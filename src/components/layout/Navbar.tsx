@@ -96,10 +96,10 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
       )}
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] rounded-lg p-1">
+        <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] p-1">
           <div
             style={{ width: "44px", height: "44px", minWidth: "44px", minHeight: "44px" }}
-            className="relative h-11 w-11 overflow-hidden rounded-full shadow-sm group-hover:scale-105 transition-transform shrink-0"
+            className="relative h-11 w-11 overflow-hidden shadow-sm group-hover:scale-105 transition-transform shrink-0"
           >
             <Image
               src="/brand/dodail-logo.png"
@@ -111,13 +111,13 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
+            <span className="text-xl font-bold tracking-tight text-[#F5F8FC] flex items-center gap-1.5 font-sans">
               Dodail
-              <span className="text-[#FA5B0F] text-xs font-semibold px-1.5 py-0.5 rounded bg-[#FA5B0F]/10 border border-[#FA5B0F]/20">
+              <span className="text-[#FF6B2C] text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-none bg-[#FF6B2C]/10 border border-[#FF6B2C]/30">
                 2.0
               </span>
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">
+            <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#AABAC8]">
               Solutions Pvt Ltd
             </span>
           </div>
