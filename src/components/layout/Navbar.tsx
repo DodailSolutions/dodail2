@@ -264,7 +264,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
         <div className="hidden lg:flex items-center gap-3">
           <Button href="/consultation" variant="primary" size="md">
             <Calendar className="h-4 w-4 mr-1.5" />
-            Book AI Consultation
+            Book a Consultation
           </Button>
         </div>
 
@@ -367,7 +367,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <div className="pt-2">
               <Button href="/consultation" variant="primary" size="lg" className="w-full">
                 <Calendar className="h-5 w-5 mr-2" />
-                Book AI Consultation
+                Book a Consultation
               </Button>
             </div>
           </div>
