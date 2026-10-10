@@ -124,7 +124,7 @@ export function AIChatLauncher() {
   };
 
   return (
-    <div className="fixed bottom-20 sm:bottom-6 right-6 z-50">
+    <div className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-4 sm:bottom-6 sm:right-6 z-50">
       {isOpen ? (
         <div ref={modalRef} role="dialog" aria-modal="true" aria-label="AI Chat" className="relative w-96 max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200 bg-white shadow-2xl flex flex-col h-[520px] overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
           {/* Header */}
@@ -245,7 +245,7 @@ export function AIChatLauncher() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="group flex items-center gap-2.5 rounded-full border border-slate-200 bg-white/95 px-4 py-3 text-xs font-semibold text-slate-800 shadow-xl backdrop-blur-md hover:border-[#FF6B2C] hover:shadow-2xl transition-all duration-200"
+          className="group flex items-center gap-2.5 rounded-full border border-white/15 bg-[#12161D]/95 p-3.5 text-white sm:border-slate-200 sm:bg-white/95 sm:px-4 sm:py-3 text-xs font-semibold sm:text-slate-800 shadow-xl backdrop-blur-md hover:border-[#FF6B2C] hover:shadow-2xl transition-all duration-200"
           aria-label="Open Dodail AI Assistant"
         >
           <div className="relative flex h-2 w-2">
@@ -253,7 +253,7 @@ export function AIChatLauncher() {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
           </div>
           <Bot className="h-4 w-4 text-[#FF6B2C]" />
-          <span>Dodail AI Assistant</span>
+          <span className="hidden sm:inline">Dodail AI Assistant</span>
         </button>
       )}
     </div>

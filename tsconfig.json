@@ -19,8 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "three": ["./node_modules/.pnpm/@types+three@0.186.0/node_modules/@types/three/index.d.ts"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [

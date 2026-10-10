@@ -76,6 +76,13 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
   const pathname = usePathname();
   const mobileMenuRef = React.useRef<HTMLDivElement>(null);
 
+  // The homepage is dark navy; every other route keeps the light header.
+  const dark = pathname === "/";
+  const navLink = cn(
+    "px-3.5 py-2 rounded-xl transition-colors",
+    dark ? "text-[#C9CED6] hover:text-white hover:bg-white/10" : "text-slate-700 hover:text-slate-950 hover:bg-slate-100"
+  );
+
   // Close menus on route change
   React.useEffect(() => {
     setMobileMenuOpen(false);
@@ -120,7 +127,12 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
   }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md shadow-xs">
+    <header
+      className={cn(
+        "sticky top-0 z-40 w-full border-b backdrop-blur-md",
+        dark ? "border-white/[0.06] bg-[#05070B]/70" : "border-slate-200/80 bg-white/90 shadow-xs"
+      )}
+    >
       {announcement?.enabled && announcement.text && (
         <div className="bg-[#FF6B2C] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
           <span>{announcement.text}</span>
@@ -131,12 +143,12 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           )}
         </div>
       )}
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] p-1">
           <div
             style={{ width: "44px", height: "44px", minWidth: "44px", minHeight: "44px" }}
-            className="relative h-11 w-11 overflow-hidden shadow-xs group-hover:scale-105 transition-transform shrink-0"
+            className="relative h-11 w-11 overflow-hidden rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
           >
             <Image
               src="/brand/dodail-logo.png"
@@ -148,13 +160,10 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-1.5 font-sans">
+            <span className={cn("text-xl font-bold tracking-tight flex items-center gap-1.5 font-sans", dark ? "text-[#F5F8FC]" : "text-slate-900")}>
               Dodail
-              <span className="text-[#FF6B2C] text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-none bg-orange-50 border border-orange-200">
-                2.0
-              </span>
             </span>
-            <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-slate-500">
+            <span className={cn("text-[10px] font-mono uppercase tracking-[0.16em]", dark ? "text-[#A3AAB5]" : "text-slate-500")}>
               Solutions Pvt Ltd
             </span>
           </div>
@@ -174,8 +183,9 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-                solutionsOpen && "bg-slate-100 text-slate-950"
+                navLink,
+                "flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                solutionsOpen && (dark ? "bg-white/10 text-white" : "bg-slate-100 text-slate-950")
               )}
               onClick={() => setSolutionsOpen(!solutionsOpen)}
               aria-haspopup="true"
@@ -226,8 +236,9 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-                servicesOpen && "bg-slate-100 text-slate-950"
+                navLink,
+                "flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                servicesOpen && (dark ? "bg-white/10 text-white" : "bg-slate-100 text-slate-950")
               )}
               onClick={() => setServicesOpen(!servicesOpen)}
               aria-haspopup="true"
@@ -269,7 +280,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Industries */}
           <Link
             href="/industries"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className={navLink}
           >
             Industries
           </Link>
@@ -277,7 +288,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Work */}
           <Link
             href="/work"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className={navLink}
           >
             Work & Results
           </Link>
@@ -285,7 +296,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Blog / Resources */}
           <Link
             href="/blog"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className={navLink}
           >
             Resources
           </Link>
@@ -293,7 +304,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* About */}
           <Link
             href="/about"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className={navLink}
           >
             About
           </Link>
@@ -301,7 +312,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
           {/* Contact */}
           <Link
             href="/contact"
-            className="px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+            className={navLink}
           >
             Contact
           </Link>
@@ -309,7 +320,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
         {/* Desktop CTA & Consultation */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button href="/consultation" variant="primary" size="md" className="rounded-xl shadow-sm text-white font-semibold">
+          <Button href="/consultation" variant="primary" size="md" className={cn("rounded-xl shadow-sm font-semibold", dark ? "rounded-full normal-case tracking-normal text-sm text-[#05070B] hover:text-[#05070B]" : "text-white")}>
             <Calendar className="h-4 w-4 mr-1.5" />
             Book a Consultation
           </Button>
@@ -319,7 +330,12 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden inline-flex items-center justify-center p-2.5 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 border border-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
+          className={cn(
+            "lg:hidden inline-flex items-center justify-center p-2.5 rounded-xl border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+            dark
+              ? "text-[#F5F8FC] hover:bg-white/10 border-[#2C333E]"
+              : "text-slate-700 hover:text-slate-950 hover:bg-slate-100 border-slate-200"
+          )}
           aria-expanded={mobileMenuOpen}
           aria-label="Toggle navigation menu"
         >
@@ -329,7 +345,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div ref={mobileMenuRef} className="lg:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto shadow-xl">
+        <div ref={mobileMenuRef} className={cn("lg:hidden border-b px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto shadow-xl", dark ? "border-white/10 bg-[#0B0E13]" : "border-slate-200 bg-white")}>
           <div className="space-y-4 pt-2">
             <div>
               <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FF6B2C]">
@@ -340,7 +356,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                    className={cn("flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:text-[#FF6B2C]", dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-900 hover:bg-slate-50")}
                   >
                     <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
@@ -358,7 +374,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                    className={cn("flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:text-[#FF6B2C]", dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-900 hover:bg-slate-50")}
                   >
                     <item.icon className="h-4 w-4 text-[#FF6B2C]" />
                     <span>{item.title}</span>
@@ -376,7 +392,7 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-3 py-2 rounded-xl text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-950"
+                    className={cn("block px-3 py-2 rounded-xl text-sm", dark ? "text-[#A3AAB5] hover:bg-white/5 hover:text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950")}
                   >
                     {item.title}
                   </Link>
@@ -384,35 +400,35 @@ export function Navbar({ announcement }: { announcement?: { enabled: boolean; te
               </div>
             </div>
 
-            <div className="border-t border-slate-200 pt-4 space-y-1">
+            <div className={cn("border-t pt-4 space-y-1", dark ? "border-white/10" : "border-slate-200")}>
               <Link
                 href="/work"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className={cn("block px-3 py-2.5 rounded-xl text-base font-medium hover:text-[#FF6B2C]", dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-800 hover:bg-slate-50")}
               >
                 Work & Case Studies
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className={cn("block px-3 py-2.5 rounded-xl text-base font-medium hover:text-[#FF6B2C]", dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-800 hover:bg-slate-50")}
               >
                 Resources & Blog
               </Link>
               <Link
                 href="/about"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className={cn("block px-3 py-2.5 rounded-xl text-base font-medium hover:text-[#FF6B2C]", dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-800 hover:bg-slate-50")}
               >
                 About Dodail
               </Link>
               <Link
                 href="/contact"
-                className="block px-3 py-2.5 rounded-xl text-base font-medium text-slate-800 hover:bg-slate-50 hover:text-[#FF6B2C]"
+                className={cn("block px-3 py-2.5 rounded-xl text-base font-medium hover:text-[#FF6B2C]", dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-800 hover:bg-slate-50")}
               >
                 Contact & Support
               </Link>
             </div>
 
             <div className="pt-2">
-              <Button href="/consultation" variant="primary" size="lg" className="w-full rounded-xl text-white shadow-sm font-semibold">
+              <Button href="/consultation" variant="primary" size="lg" className={cn("w-full shadow-sm font-semibold", dark ? "rounded-full normal-case tracking-normal text-[#05070B] hover:text-[#05070B]" : "rounded-xl text-white")}>
                 <Calendar className="h-5 w-5 mr-2" />
                 Book a Consultation
               </Button>

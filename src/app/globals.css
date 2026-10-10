@@ -110,6 +110,22 @@ body {
   box-shadow: 0 0 35px -8px rgba(39, 211, 194, 0.25);
 }
 
+/* Motion: caption swap and on-scroll text reveal (see HomePageClient) */
+.fade-up {
+  animation: fadeUp 0.5s ease-out both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.reveal-ready {
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -122,17 +138,17 @@ body {
 
 /* Fluid Swiss Typography Utilities */
 .hero-title-clamp {
-  font-size: clamp(2.75rem, 5.5vw + 1rem, 6.25rem);
+  font-size: clamp(2.75rem, 5vw + 1rem, 5.5rem);
   line-height: 0.98;
-  letter-spacing: -0.04em;
-  font-weight: 800;
+  letter-spacing: -0.045em;
+  font-weight: 300;
 }
 
 .section-title-clamp {
-  font-size: clamp(2.25rem, 3.8vw + 0.5rem, 4rem);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  font-weight: 800;
+  font-size: clamp(2.1rem, 3.4vw + 0.6rem, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 400;
 }
 
 .card-title-clamp {

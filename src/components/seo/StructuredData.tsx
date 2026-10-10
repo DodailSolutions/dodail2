@@ -15,6 +15,7 @@ export function StructuredData({ type, data = {} }: StructuredDataProps) {
       schema = {
         ...schema,
         "@type": "Organization",
+        "@id": "https://www.dodail.com/#organization",
         name: "Dodail Solutions Private Limited",
         legalName: "Dodail Solutions Private Limited",
         url: "https://www.dodail.com",
@@ -48,13 +49,10 @@ export function StructuredData({ type, data = {} }: StructuredDataProps) {
       schema = {
         ...schema,
         "@type": "WebSite",
+        "@id": "https://www.dodail.com/#website",
         name: "Dodail Solutions",
         url: "https://www.dodail.com",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: "https://www.dodail.com/search?q={search_term_string}",
-          "query-input": "required name=search_term_string",
-        },
+        publisher: { "@id": "https://www.dodail.com/#organization" },
         ...data,
       };
       break;

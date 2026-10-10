@@ -12,7 +12,6 @@ export default function robots(): MetadataRoute.Robots {
           "/api",
           "/api/",
           "/preview",
-          "/_next/",
           "/slot-gacor-maxwin",
           "/judi-online-terpercaya",
         ],

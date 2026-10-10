@@ -2,111 +2,54 @@
 
 import * as React from "react";
 import { Plus, Minus } from "lucide-react";
+import { faqs } from "@/components/home/homeData";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-  category?: string;
-}
-
-const faqs: FAQItem[] = [
-  {
-    category: "AI RELIABILITY & SAFETY",
-    question: "How does Dodail guarantee AI accuracy and eliminate hallucinations?",
-    answer:
-      "We never connect unconstrained, raw AI language models directly to your production databases or customer channels. Every prompt is bound by deterministic JSON schema validation, verified business policy contexts, and strict confidence thresholds. If confidence falls below 95% or an input is ambiguous, the system triggers a graceful human escalation rather than guessing.",
-  },
-  {
-    category: "TIMELINE & DELIVERY",
-    question: "How long does a typical automation or custom software deployment take?",
-    answer:
-      "Standard lead triage, WhatsApp business routing, or Google Sheets bi-directional synchronization typically goes live within 7 to 14 business days. Comprehensive enterprise initiatives—such as bespoke Next.js web applications, full CRM migrations, or multi-department workflow DAGs—typically span 3 to 6 weeks from initial architecture to live cutover.",
-  },
-  {
-    category: "INTEGRATION & COMPATIBILITY",
-    question: "Can Dodail integrate with our existing CRM, Google Sheets, and custom tools?",
-    answer:
-      "Yes. We specialize in zero-disruption integration. We construct bi-directional connectors for Google Sheets, Salesforce, HubSpot, Zoho, WhatsApp Cloud API, and internal PostgreSQL/MySQL databases using secure OAuth 2.0 and encrypted webhooks, preserving your current operating habits while automating the grunt work.",
-  },
-  {
-    category: "SECURITY & DATA GOVERNANCE",
-    question: "How is our proprietary customer data and business intelligence protected?",
-    answer:
-      "All data is encrypted in transit via TLS 1.3 and at rest via AES-256. Database instances operate with strict PostgreSQL Row-Level Security (RLS) policies. Crucially, your private operational data, customer inquiries, and commercial records are NEVER submitted to train public foundational LLMs.",
-  },
-  {
-    category: "HUMAN OVERSIGHT",
-    question: "What happens when an inquiry requires human judgment or sales closing?",
-    answer:
-      "Dodail systems are engineered for human-in-the-loop collaboration. High-stakes edge cases, complex pricing negotiations, or sensitive customer complaints are tagged with full context and instant routing alerts to your designated team members via Slack, WhatsApp, or CRM notifications.",
-  },
-  {
-    category: "COMMERCIAL MODEL",
-    question: "What is your pricing structure for automation engineering?",
-    answer:
-      "We provide transparent, fixed-scope engineering packages for initial discovery and implementation, coupled with predictable monthly maintenance and SLA support agreements. We do not charge arbitrary transaction markups on your own API keys or software licenses.",
-  },
-];
-
+/**
+ * Accessible accordion. Every answer is always in the HTML (collapsed with the
+ * `hidden` attribute), so crawlers and the FAQPage schema see the same content.
+ */
 export function FAQAccordion() {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
-  const toggleItem = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
-    <div className="border border-slate-200 divide-y divide-slate-200 bg-white shadow-xs">
+    <div className="overflow-hidden rounded-2xl border border-[#1C222B] divide-y divide-[#1C222B] bg-[#0B0E13]">
       {faqs.map((faq, index) => {
         const isOpen = openIndex === index;
-        const indexStr = String(index + 1).padStart(2, "0");
-
         return (
-          <div
-            key={index}
-            className={`transition-colors duration-150 ${
-              isOpen ? "bg-orange-50/30" : "hover:bg-slate-50"
-            }`}
-          >
+          <div key={faq.question} className={`transition-colors duration-150 ${isOpen ? "bg-[#12161D]" : "hover:bg-[#12161D]/60"}`}>
             <h3>
               <button
                 type="button"
-                onClick={() => toggleItem(index)}
+                onClick={() => setOpenIndex(isOpen ? null : index)}
                 className="w-full text-left py-6 px-4 sm:px-6 flex items-start justify-between gap-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
                 aria-expanded={isOpen}
                 aria-controls={`faq-answer-${index}`}
                 id={`faq-trigger-${index}`}
               >
-                <div className="flex items-start gap-4 sm:gap-8">
-                  <span className="font-mono text-xs sm:text-sm font-bold text-[#FF6B2C] pt-0.5 shrink-0">
-                    {indexStr}
+                <span className="flex items-start gap-4 sm:gap-8">
+                  <span className="text-xs sm:text-sm font-semibold tabular-nums text-[#FF6B2C] pt-1 shrink-0">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className="flex flex-col gap-1">
-                    {faq.category && (
-                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-orange-600 font-semibold">
-                        {faq.category}
-                      </span>
-                    )}
-                    <span className="text-base sm:text-xl font-bold text-slate-900 leading-snug tracking-[-0.015em]">
+                  <span className="flex flex-col gap-1">
+                    <span className="text-xs uppercase tracking-[0.14em] text-[#8A929E] font-medium">{faq.category}</span>
+                    <span className="text-base sm:text-xl font-normal text-[#F5F8FC] leading-snug tracking-[-0.01em]">
                       {faq.question}
                     </span>
-                  </div>
-                </div>
-
-                <div className="font-mono text-xs text-[#FF6B2C] border border-orange-200 bg-white px-2 py-1 shrink-0 mt-1 select-none shadow-2xs" aria-hidden="true">
+                  </span>
+                </span>
+                <span className="text-[#FF6B2C] border border-white/15 rounded-full p-1.5 shrink-0 mt-1" aria-hidden="true">
                   {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                </div>
+                </span>
               </button>
             </h3>
-
             <div
               id={`faq-answer-${index}`}
               role="region"
               aria-labelledby={`faq-trigger-${index}`}
               hidden={!isOpen}
-              className={isOpen ? "px-4 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed pl-12 sm:pl-20 border-t border-slate-100" : ""}
+              className="px-4 sm:px-6 pb-6 pl-12 sm:pl-20"
             >
-              {isOpen && <p className="font-normal max-w-3xl leading-relaxed">{faq.answer}</p>}
+              <p className="max-w-3xl text-sm sm:text-base leading-relaxed text-[#A3AAB5]">{faq.answer}</p>
             </div>
           </div>
         );
