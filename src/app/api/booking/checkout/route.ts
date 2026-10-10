@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         ? "Session held. Please complete checkout to confirm."
         : "Discovery consultation confirmed! Google Meet link has been dispatched.",
     }, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message || "Booking failed" }, { status: 400 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message || "Booking failed" }, { status: 400 });
   }
 }

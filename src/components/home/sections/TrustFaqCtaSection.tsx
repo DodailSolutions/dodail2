@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { HeroParticlesSVG } from "@/components/3d/CanvasFallback";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { Eyebrow, Zone, ghostBtn, primaryBtn, sectionPad } from "../homeUi";
-import { services, trust } from "../homeData";
+import { telHref, useHomeContent } from "../HomeContentContext";
 
 const trustIcons = {
   team: { Icon: Layers, color: "#FF6B2C" },
@@ -17,26 +17,26 @@ const trustIcons = {
 } as const;
 
 export function TrustSection() {
+  const { trust: section, services } = useHomeContent().content;
+  const trust = section.items;
+
   return (
     <section id="why-dodail" aria-labelledby="why-title" className={`relative bg-[#0B0E13] ${sectionPad}`}>
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end mb-12 sm:mb-16">
           <div className="lg:col-span-7">
-            <Eyebrow>Why Dodail</Eyebrow>
+            <Eyebrow>{section.eyebrow}</Eyebrow>
             <h2 id="why-title" className="section-title-clamp mt-4 text-[#F5F8FC]">
-              Why growing businesses choose Dodail
+              {section.title}
             </h2>
           </div>
-          <p className="lg:col-span-5 text-lg leading-relaxed text-[#A3AAB5]">
-            Six commitments behind every automation, application and website we deliver, from the first call to long
-            after launch.
-          </p>
+          <p className="lg:col-span-5 text-lg leading-relaxed text-[#A3AAB5]">{section.description}</p>
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {trust.map((t, idx) => {
             const { Icon, color } = trustIcons[t.icon];
-            const featured = "featured" in t && t.featured;
+            const featured = t.featured;
             return (
               <article
                 key={t.title}
@@ -61,7 +61,7 @@ export function TrustSection() {
                 </p>
                 {featured && (
                   <ul className="mt-6 lg:mt-auto lg:pt-8 flex flex-wrap gap-2" aria-label="Services delivered by one team">
-                    {services.map((sv) => (
+                    {services.items.map((sv) => (
                       <li key={sv.id}>
                         <Link
                           href={sv.href}
@@ -83,36 +83,49 @@ export function TrustSection() {
           })}
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm font-medium">
-          <Link href="/about" className="inline-flex items-center gap-2 text-[#FF6B2C] hover:text-[#ff8a57]">
-            More about our team <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-          <Link href="/work" className="inline-flex items-center gap-2 text-[#F5F8FC] hover:text-[#FF6B2C]">
-            See our work <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
+        {section.links.length > 0 && (
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm font-medium">
+            {section.links.map((l, i) => (
+              <Link
+                key={`${l.href}-${i}`}
+                href={l.href || "/"}
+                className={`inline-flex items-center gap-2 ${
+                  i === 0 ? "text-[#FF6B2C] hover:text-[#ff8a57]" : "text-[#F5F8FC] hover:text-[#FF6B2C]"
+                }`}
+              >
+                {l.label} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
 export function FaqSection() {
+  const { faq } = useHomeContent().content;
+  if (faq.items.length === 0) return null;
+
   return (
     <section id="faq" aria-labelledby="faq-title" className={`relative bg-[#05070B] ${sectionPad}`}>
       <div className="mx-auto max-w-4xl">
         <div className="mb-12">
-          <Eyebrow tone="cyan">Questions</Eyebrow>
-          <h2 id="faq-title" className="section-title-clamp mt-4 text-[#F5F8FC]">Frequently asked questions about Dodail</h2>
+          <Eyebrow tone="cyan">{faq.eyebrow}</Eyebrow>
+          <h2 id="faq-title" className="section-title-clamp mt-4 text-[#F5F8FC]">{faq.title}</h2>
         </div>
-        <FAQAccordion />
+        <FAQAccordion items={faq.items} />
       </div>
     </section>
   );
 }
 
 export function CtaSection({ webgl }: { webgl: boolean }) {
+  const { content, company } = useHomeContent();
+  const { cta } = content;
+
   return (
-    <section id="contact" aria-labelledby="cta-title" className="relative overflow-hidden px-5 sm:px-8 lg:px-12 py-28 sm:py-40">
+    <section id="contact" aria-labelledby="cta-title" className="relative overflow-hidden px-5 sm:px-8 lg:px-12 py-20 sm:py-28">
       {/* The whole section is the scene zone: nodes converge behind the call to action */}
       <Zone phase="cta" className="!absolute inset-0">
         <HeroParticlesSVG
@@ -128,32 +141,39 @@ export function CtaSection({ webgl }: { webgl: boolean }) {
       />
 
       <div className="relative mx-auto max-w-4xl text-center">
-        <Eyebrow>Next step</Eyebrow>
-        <h2 id="cta-title" className="section-title-clamp mt-4 text-[#F5F8FC]">Ready to connect your operations?</h2>
-        <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl leading-relaxed text-[#C9CED6]">
-          Book a consultation with a Dodail engineer. We will look at where manual work is slowing you down, tell you
-          honestly what can be automated, and outline how we would build it.
-        </p>
+        <Eyebrow>{cta.eyebrow}</Eyebrow>
+        <h2 id="cta-title" className="section-title-clamp mt-4 text-[#F5F8FC]">{cta.title}</h2>
+        <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl leading-relaxed text-[#C9CED6]">{cta.description}</p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          <Button href="/consultation" variant="primary" size="lg" className={primaryBtn}>
-            <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
-            Book a Consultation
-          </Button>
-          <Button href="/contact" variant="outline" size="lg" className={`${ghostBtn} bg-[#05070B]/60`}>
-            Send a message
-          </Button>
+          {cta.primaryCta.label && (
+            <Button href={cta.primaryCta.href || "/consultation"} variant="primary" size="lg" className={primaryBtn}>
+              <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
+              {cta.primaryCta.label}
+            </Button>
+          )}
+          {cta.secondaryCta.label && (
+            <Button href={cta.secondaryCta.href || "/contact"} variant="outline" size="lg" className={`${ghostBtn} bg-[#05070B]/60`}>
+              {cta.secondaryCta.label}
+            </Button>
+          )}
         </div>
 
         <p className="mt-14 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-[#1C222B] pt-8 text-base text-[#A3AAB5]">
-          <span className="font-semibold text-[#F5F8FC]">Dodail Solutions Private Limited</span>
-          <span>Hyderabad, Telangana, India</span>
-          <a href="tel:+919966400235" className="underline underline-offset-4 hover:text-[#FF6B2C]">
-            +91 99664 00235
-          </a>
-          <a href="mailto:info@dodail.com" className="underline underline-offset-4 hover:text-[#FF6B2C]">
-            info@dodail.com
-          </a>
+          <span className="font-semibold text-[#F5F8FC]">{company.name}</span>
+          <span>
+            {company.city}, {company.region}, {company.country}
+          </span>
+          {company.phone && (
+            <a href={telHref(company.phone)} className="underline underline-offset-4 hover:text-[#FF6B2C]">
+              {company.phone}
+            </a>
+          )}
+          {company.email && (
+            <a href={`mailto:${company.email}`} className="underline underline-offset-4 hover:text-[#FF6B2C]">
+              {company.email}
+            </a>
+          )}
         </p>
       </div>
     </section>

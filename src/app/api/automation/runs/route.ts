@@ -6,8 +6,8 @@ export async function GET() {
   try {
     const executions = getExecutions();
     return NextResponse.json({ success: true, data: executions });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       data: replayExecution,
       message: "Workflow execution replayed successfully.",
     });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

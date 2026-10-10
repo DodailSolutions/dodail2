@@ -7,7 +7,7 @@ import path from "path";
 // Local file storage fallback to guarantee data persistence across sessions even if remote database tables are initializing
 const STORAGE_FILE = path.join(process.cwd(), "cms-store.json");
 
-interface CMSStore {
+export interface CMSStore {
   pages: CMSPage[];
   revisions: PageRevision[];
   blogPosts: BlogPost[];
@@ -92,11 +92,11 @@ const defaultStore: CMSStore = {
       content_markdown: "Generative Engine Optimization (GEO) represents the next frontier beyond traditional keyword-based search engine optimization...",
       category: "AI & Search",
       tags: ["GEO", "AI Search", "Perplexity"],
-      status: "published",
+      status: "draft",
       author_name: "Dodail Technical Team",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      publish_date: new Date().toISOString(),
+      created_at: "2025-08-01T00:00:00.000Z",
+      updated_at: "2025-08-01T00:00:00.000Z",
+      publish_date: null,
     },
     {
       id: "blog-2",
@@ -106,11 +106,11 @@ const defaultStore: CMSStore = {
       content_markdown: "Building a repeatable workflow for Generative Engine Optimization requires three foundational components...",
       category: "Search Strategy",
       tags: ["Content Clustering", "Schema"],
-      status: "published",
+      status: "draft",
       author_name: "Dodail Technical Team",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      publish_date: new Date().toISOString(),
+      created_at: "2025-08-01T00:00:00.000Z",
+      updated_at: "2025-08-01T00:00:00.000Z",
+      publish_date: null,
     },
   ],
   mediaAssets: [
@@ -185,11 +185,12 @@ const defaultStore: CMSStore = {
   auditLogs: [],
 };
 
-function readLocalStore(): CMSStore {
+export function readLocalStore(): CMSStore {
   try {
     if (fs.existsSync(STORAGE_FILE)) {
-      const data = fs.readFileSync(STORAGE_FILE, "utf-8");
-      return JSON.parse(data);
+      const data = JSON.parse(fs.readFileSync(STORAGE_FILE, "utf-8"));
+      // Fill any collections missing from older or hand-edited store files.
+      return { ...defaultStore, ...data, globalSettings: { ...defaultStore.globalSettings, ...data.globalSettings } };
     }
   } catch (e) {
     // fallback
@@ -197,11 +198,13 @@ function readLocalStore(): CMSStore {
   return defaultStore;
 }
 
-function writeLocalStore(store: CMSStore) {
+export function writeLocalStore(store: CMSStore): boolean {
   try {
     fs.writeFileSync(STORAGE_FILE, JSON.stringify(store, null, 2), "utf-8");
-  } catch (e) {
-    console.error("Failed to write CMS local store:", e);
+    return true;
+  } catch {
+    // Read-only filesystems (serverless) rely on Supabase alone.
+    return false;
   }
 }
 
@@ -374,35 +377,59 @@ export async function restorePageRevision(pageId: string, revisionId: string, us
 
 // ================= GLOBAL SETTINGS =================
 
+export interface NormalizedGlobalSettings {
+  navigation: {
+    items: Array<{ label: string; href: string }>;
+    announcement: { enabled: boolean; text: string; link: string };
+  };
+  theme: { primaryColor: string; navyColor: string; borderRadius: string };
+  footer: { copyrightText: string };
+  [key: string]: unknown;
+}
+
+/**
+ * Settings have been saved in two shapes over time: the seed shape
+ * (navigation.links, top-level announcement, theme.brand_orange) and the editor
+ * shape (navigation.items, navigation.announcement, theme.primaryColor).
+ * Accept both and always return the editor shape, so no caller sees undefined.
+ */
+function normalizeGlobalSettings(raw: Record<string, any> = {}): NormalizedGlobalSettings {
+  const nav = raw.navigation ?? {};
+  const legacyAnnouncement = raw.announcement ?? {};
+  const theme = raw.theme ?? {};
+  const footer = raw.footer ?? {};
+  const items = Array.isArray(nav.items) ? nav.items : Array.isArray(nav.links) ? nav.links : [];
+
+  return {
+    ...raw,
+    navigation: {
+      ...nav,
+      items,
+      announcement: {
+        enabled: Boolean(nav.announcement?.enabled ?? legacyAnnouncement.is_active ?? false),
+        text: String(nav.announcement?.text ?? legacyAnnouncement.message ?? ""),
+        link: String(nav.announcement?.link ?? legacyAnnouncement.link ?? ""),
+      },
+    },
+    theme: {
+      ...theme,
+      primaryColor: theme.primaryColor ?? theme.brand_orange ?? "#FA5B0F",
+      navyColor: theme.navyColor ?? theme.brand_navy ?? "#0A1B2A",
+      borderRadius: theme.borderRadius ?? theme.border_radius ?? "rounded-lg",
+    },
+    footer: {
+      ...footer,
+      copyrightText:
+        footer.copyrightText ??
+        `© ${new Date().getFullYear()} ${footer.company_legal_name ?? "Dodail Solutions Private Limited"}. All rights reserved.`,
+    },
+  };
+}
+
 export async function getGlobalSettings<T = any>(key?: "navigation" | "footer" | "theme" | "announcement" | string): Promise<T> {
   const store = readLocalStore();
   if (!key) {
-    return {
-      navigation: {
-        items: [
-          { label: "Solutions", href: "/solutions/ai-automation" },
-          { label: "Services", href: "/services/web-development" },
-          { label: "Industries", href: "/industries" },
-          { label: "Work", href: "/work" },
-          { label: "Blog", href: "/blog" },
-          { label: "Contact", href: "/contact" },
-        ],
-        announcement: {
-          enabled: true,
-          text: "Dodail 2.0 AI Automation Architecture is live.",
-          link: "/consultation",
-        },
-      },
-      theme: {
-        primaryColor: "#FA5B0F",
-        navyColor: "#0A1B2A",
-        borderRadius: "rounded-lg",
-      },
-      footer: {
-        copyrightText: "© 2026 Dodail Solutions Private Limited. All rights reserved.",
-      },
-      ...store.globalSettings,
-    } as T;
+    return normalizeGlobalSettings(store.globalSettings) as T;
   }
 
   try {
@@ -470,71 +497,18 @@ export async function saveGlobalSettings(
 }
 
 // ================= BLOG POSTS =================
+// Articles live in ./blog.ts (listPosts, savePost, deletePost, …).
 
-export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  try {
-    const { data, error } = await supabaseAdmin.from("blog_posts").select("*").order("created_at", { ascending: false });
-    if (!error && data && data.length > 0) {
-      return data as BlogPost[];
-    }
-  } catch (e) {}
-
-  const store = readLocalStore();
-  return store.blogPosts;
+/** True when the item is published (or scheduled) and its publish date (if any) has passed. */
+function isLive(item: { status: string; publish_date?: string | null }) {
+  if (item.status !== "published" && item.status !== "scheduled") return false;
+  if (!item.publish_date) return item.status === "published";
+  return Date.parse(item.publish_date) <= Date.now();
 }
 
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  try {
-    const { data, error } = await supabaseAdmin.from("blog_posts").select("*").eq("slug", slug).single();
-    if (!error && data) {
-      return data as BlogPost;
-    }
-  } catch (e) {}
-
-  const store = readLocalStore();
-  return store.blogPosts.find((p) => p.slug === slug) || null;
-}
-
-export async function saveBlogPost(postData: Partial<BlogPost>, userEmail: string = "admin@dodail.com"): Promise<BlogPost> {
-  const store = readLocalStore();
-  const now = new Date().toISOString();
-  const existingIdx = store.blogPosts.findIndex((p) => p.id === postData.id || p.slug === postData.slug);
-
-  let savedPost: BlogPost;
-
-  if (existingIdx >= 0) {
-    savedPost = {
-      ...store.blogPosts[existingIdx],
-      ...postData,
-      updated_at: now,
-    };
-    store.blogPosts[existingIdx] = savedPost;
-  } else {
-    savedPost = {
-      id: postData.id || `post-${Date.now()}`,
-      slug: postData.slug || `post-${Date.now()}`,
-      title: postData.title || "Untitled Article",
-      excerpt: postData.excerpt || "",
-      content_markdown: postData.content_markdown || "",
-      featured_image: postData.featured_image || "/brand/dodail-full-logo.png",
-      category: postData.category || "AI & Search",
-      tags: postData.tags || ["AI Automation"],
-      status: postData.status || "draft",
-      author_name: postData.author_name || "Dodail Technical Team",
-      publish_date: postData.status === "published" ? now : null,
-      created_at: now,
-      updated_at: now,
-    };
-    store.blogPosts.unshift(savedPost);
-  }
-
-  writeLocalStore(store);
-
-  try {
-    await supabaseAdmin.from("blog_posts").upsert(savedPost);
-  } catch (e) {}
-
-  return savedPost;
+/** Published custom pages (public site and sitemap). */
+export async function getPublishedPages(): Promise<CMSPage[]> {
+  return (await getAllPages()).filter(isLive);
 }
 
 // ================= MEDIA ASSETS =================
@@ -600,21 +574,8 @@ export async function runScheduledPublishing(): Promise<{ publishedCount: number
     }
   }
 
-  // Check scheduled blog posts
-  for (const post of store.blogPosts) {
-    if (post.status === "scheduled" && post.publish_date && new Date(post.publish_date) <= now) {
-      post.status = "published";
-      count++;
-      const log = `Published scheduled blog post "${post.title}" (${post.slug}) at ${now.toISOString()}`;
-      logs.push(log);
-      store.auditLogs.unshift({
-        action: "AUTO_PUBLISH_BLOG",
-        entity: post.slug,
-        user: "system_cron",
-        timestamp: now.toISOString(),
-      });
-    }
-  }
+  // Scheduled blog posts go live by themselves once their publish date passes (see blog.ts isPostLive).
+
 
   if (count > 0) {
     writeLocalStore(store);
@@ -627,6 +588,4 @@ export async function runScheduledPublishing(): Promise<{ publishedCount: number
 export const createPage = (data: Partial<CMSPage>, userEmail?: string) => savePage(data, userEmail);
 export const updatePage = (id: string, data: Partial<CMSPage>, userEmail?: string) => savePage({ ...data, id }, userEmail);
 export const revertPageRevision = restorePageRevision;
-export const createBlogPost = (data: Partial<BlogPost>, userEmail?: string) => saveBlogPost(data, userEmail);
-export const updateBlogPost = (data: Partial<BlogPost>, userEmail?: string) => saveBlogPost(data, userEmail);
 

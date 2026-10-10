@@ -103,10 +103,10 @@ export async function POST(req: Request) {
       tool_executed: "search_knowledge",
       session_id: sessionId,
     });
-  } catch (e: any) {
+  } catch (e) {
     return NextResponse.json({
       reply: "I am experiencing a momentary connection issue. You can reach our team directly at info@dodail.com or visit /consultation to book an architecture session.",
-      error: e.message,
+      error: (e as Error).message,
     }, { status: 200 });
   }
 }

@@ -5,8 +5,8 @@ export async function GET() {
   try {
     const configs = getSheetConfigs();
     return NextResponse.json({ success: true, data: configs[0] || null });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const saved = saveSheetConfig(body);
     return NextResponse.json({ success: true, data: saved });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

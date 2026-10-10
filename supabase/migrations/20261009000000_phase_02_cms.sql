@@ -2,12 +2,12 @@
 -- Database: Supabase PostgreSQL 16
 -- Project: cnlhegjvxozidrahjmiz
 
--- 1. Enable required extensions
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- 1. Ids are TEXT (UUID strings by default) so ids created by the app's local
+--    fallback store remain valid when content is synced to the database.
 
 -- 2. Pages Table
 CREATE TABLE IF NOT EXISTS public.pages (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
     slug TEXT UNIQUE NOT NULL,
     title TEXT NOT NULL,
     template TEXT DEFAULT 'default',
@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS public.pages (
 
 -- 3. Page Revisions Table (Rollback & History)
 CREATE TABLE IF NOT EXISTS public.page_revisions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    page_id UUID NOT NULL REFERENCES public.pages(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+    page_id TEXT NOT NULL REFERENCES public.pages(id) ON DELETE CASCADE,
     version INTEGER NOT NULL DEFAULT 1,
     title TEXT NOT NULL,
     sections JSONB NOT NULL,
@@ -36,11 +36,11 @@ CREATE TABLE IF NOT EXISTS public.page_revisions (
 
 -- 4. Blog Posts Table
 CREATE TABLE IF NOT EXISTS public.blog_posts (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
     slug TEXT UNIQUE NOT NULL,
     title TEXT NOT NULL,
     excerpt TEXT,
-    content_markdown TEXT NOT NULL,
+    content_markdown TEXT NOT NULL DEFAULT '',
     featured_image TEXT,
     category TEXT DEFAULT 'AI & Search',
     tags TEXT[] DEFAULT ARRAY['AI Automation'],
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS public.global_settings (
 
 -- 6. Media Library Assets Table
 CREATE TABLE IF NOT EXISTS public.media_assets (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
     file_name TEXT NOT NULL,
     file_url TEXT NOT NULL,
     file_size INTEGER,
@@ -76,9 +76,9 @@ CREATE TABLE IF NOT EXISTS public.media_assets (
 
 -- 7. Scheduled Publishing Jobs Table
 CREATE TABLE IF NOT EXISTS public.scheduled_jobs (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
     entity_type TEXT NOT NULL CHECK (entity_type IN ('page', 'blog_post')),
-    entity_id UUID NOT NULL,
+    entity_id TEXT NOT NULL,
     target_status TEXT NOT NULL DEFAULT 'published',
     scheduled_for TIMESTAMPTZ NOT NULL,
     status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'completed', 'failed')),
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS public.scheduled_jobs (
 
 -- 8. Audit Logs Table
 CREATE TABLE IF NOT EXISTS public.audit_logs (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
     user_email TEXT NOT NULL,
     action TEXT NOT NULL,
     entity_type TEXT NOT NULL,
@@ -126,14 +126,15 @@ CREATE POLICY "Public users can view media assets"
 ON public.media_assets FOR SELECT 
 USING (true);
 
--- Service role policies (full access for server-side API)
-CREATE POLICY "Service role full access pages" ON public.pages USING (auth.role() = 'service_role' OR auth.role() = 'anon');
-CREATE POLICY "Service role full access page_revisions" ON public.page_revisions USING (auth.role() = 'service_role' OR auth.role() = 'anon');
-CREATE POLICY "Service role full access blog_posts" ON public.blog_posts USING (auth.role() = 'service_role' OR auth.role() = 'anon');
-CREATE POLICY "Service role full access global_settings" ON public.global_settings USING (auth.role() = 'service_role' OR auth.role() = 'anon');
-CREATE POLICY "Service role full access media_assets" ON public.media_assets USING (auth.role() = 'service_role' OR auth.role() = 'anon');
-CREATE POLICY "Service role full access scheduled_jobs" ON public.scheduled_jobs USING (auth.role() = 'service_role' OR auth.role() = 'anon');
-CREATE POLICY "Service role full access audit_logs" ON public.audit_logs USING (auth.role() = 'service_role' OR auth.role() = 'anon');
+-- Writes are server-only (service role). The anon key ships to every browser,
+-- so it must never be granted write access.
+CREATE POLICY "Service role writes pages" ON public.pages FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');
+CREATE POLICY "Service role writes page_revisions" ON public.page_revisions FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');
+CREATE POLICY "Service role writes blog_posts" ON public.blog_posts FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');
+CREATE POLICY "Service role writes global_settings" ON public.global_settings FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');
+CREATE POLICY "Service role writes media_assets" ON public.media_assets FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');
+CREATE POLICY "Service role manages scheduled_jobs" ON public.scheduled_jobs FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');
+CREATE POLICY "Service role manages audit_logs" ON public.audit_logs FOR ALL USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role');
 
 -- 10. Seed Default Global Settings
 INSERT INTO public.global_settings (id, data) VALUES

@@ -45,7 +45,7 @@ export async function GET() {
         "Content-Disposition": `attachment; filename="dodail_leads_${Date.now()}.csv"`,
       },
     });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

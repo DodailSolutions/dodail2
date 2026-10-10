@@ -1,14 +1,23 @@
 import { createClient } from "@supabase/supabase-js";
 
-const DEFAULT_SUPABASE_URL = "https://cnlhegjvxozidrahjmiz.supabase.co";
-const DEFAULT_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubGhlZ2p2eG96aWRyYWhqbWl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NTM1NTUsImV4cCI6MjEwNzEyOTU1NX0.FoN_GozkM1Nzrg6FBKftaKLFTwnSYOO487XVtVhORaQ";
-const DEFAULT_SERVICE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubGhlZ2p2eG96aWRyYWhqbWl6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MTU1MzU1NSwiZXhwIjoyMTA3MTI5NTU1fQ.B77r-hQyRH23lk_NvUlp6IV5mj-ZsioXDbnS2aZfFVo";
+/**
+ * Supabase clients. Credentials come from the environment only:
+ *   NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY
+ *
+ * When they are missing (e.g. a local checkout), the clients point at an
+ * unreachable placeholder so every data layer falls back to its local JSON store
+ * instead of crashing the build.
+ */
+const PLACEHOLDER_URL = "http://127.0.0.1:54321";
+const PLACEHOLDER_KEY = "supabase-not-configured";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || DEFAULT_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || DEFAULT_ANON_KEY;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || DEFAULT_SERVICE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || PLACEHOLDER_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || PLACEHOLDER_KEY;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || PLACEHOLDER_KEY;
+
+export const isSupabaseConfigured = Boolean(
+  process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 // Public client for anonymous/authenticated visitor requests
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);

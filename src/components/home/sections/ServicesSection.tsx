@@ -4,8 +4,9 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Code2, Palette, ShoppingBag, TrendingUp, Workflow } from "lucide-react";
 import { Eyebrow, StageFade, Zone, sectionPad, stagePanel } from "../homeUi";
-import { services } from "../homeData";
+import { fill } from "@/lib/utils";
 import { useActiveOnScroll } from "../useActiveOnScroll";
+import { useHomeContent } from "../HomeContentContext";
 
 const icons = [Workflow, Code2, ShoppingBag, TrendingUp, Palette];
 
@@ -20,19 +21,18 @@ export function ServicesSection({ active, onActive, webgl }: Props) {
   const listRef = useRef<HTMLDivElement>(null);
   useActiveOnScroll(listRef, onActive);
   const ActiveIcon = icons[active];
+  const section = useHomeContent().content.services;
+  const services = section.items;
 
   return (
     <section id="services" aria-labelledby="services-title" className={`relative ${sectionPad}`}>
       <div className="mx-auto max-w-7xl">
-        <div className="max-w-3xl mb-14 sm:mb-20">
-          <Eyebrow tone="cyan">Services</Eyebrow>
+        <div className="max-w-3xl mb-10 sm:mb-12">
+          <Eyebrow tone="cyan">{section.eyebrow}</Eyebrow>
           <h2 id="services-title" className="section-title-clamp mt-4 text-[#F5F8FC]">
-            AI automation, software, web, marketing and brand under one roof
+            {section.title}
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-[#A3AAB5]">
-            Five services that work best together. Each one is scoped, built and supported by the same team, so your
-            automations, website and marketing share the same data.
-          </p>
+          <p className="mt-6 text-lg leading-relaxed text-[#A3AAB5]">{section.description}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
@@ -61,7 +61,7 @@ export function ServicesSection({ active, onActive, webgl }: Props) {
                   data-index={i}
                   onMouseEnter={() => onActive(i)}
                   onFocus={() => onActive(i)}
-                  className="scroll-mt-28 py-10 sm:py-12"
+                  className="scroll-mt-28 py-8 sm:py-10"
                 >
                   <p className={`text-sm tabular-nums ${isActive ? "text-[#FF6B2C]" : "text-[#6B7380]"}`}>
                     {String(i + 1).padStart(2, "0")}
@@ -87,7 +87,7 @@ export function ServicesSection({ active, onActive, webgl }: Props) {
                     href={s.href}
                     className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#FF6B2C] hover:text-[#ff8a57]"
                   >
-                    Learn more about {s.title}
+                    {fill(section.learnMoreLabel, { service: s.title })}
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </article>

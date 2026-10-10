@@ -213,6 +213,9 @@ export interface BlogPost {
   content?: string;
   content_markdown?: string;
   featured_image?: string;
+  featured_image_alt?: string;
+  /** Pinned to the top of the blog index. */
+  is_featured?: boolean;
   category: string;
   tags: string[];
   status: PageStatus;

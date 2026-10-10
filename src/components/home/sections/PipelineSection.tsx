@@ -5,8 +5,8 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { PipelineSVG } from "@/components/3d/CanvasFallback";
 import { Eyebrow, StageFade, Zone, ghostBtn, primaryBtn, sectionPad, stagePanel } from "../homeUi";
-import { pipelineStages } from "../homeData";
 import { useActiveOnScroll } from "../useActiveOnScroll";
+import { useHomeContent } from "../HomeContentContext";
 
 interface Props {
   active: number;
@@ -19,6 +19,8 @@ export function PipelineSection({ active, onActive, webgl }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLOListElement>(null);
   useActiveOnScroll(listRef, onActive, "(max-width: 767px)"); // stacked cards only
+  const pipeline = useHomeContent().content.pipeline;
+  const pipelineStages = pipeline.items;
 
   // Play the steps 01 -> 04 while the section is visible on wider screens.
   // Stops for good once the visitor hovers, focuses or clicks a step.
@@ -36,7 +38,7 @@ export function PipelineSection({ active, onActive, webgl }: Props) {
     if (window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 767px)").matches) return;
     const id = window.setInterval(() => onActive((s) => (s + 1) % pipelineStages.length), 2200);
     return () => window.clearInterval(id);
-  }, [inView, userTookOver, onActive]);
+  }, [inView, userTookOver, onActive, pipelineStages.length]);
 
   const select = (i: number) => {
     setUserTookOver(true);
@@ -48,14 +50,16 @@ export function PipelineSection({ active, onActive, webgl }: Props) {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-10">
           <div className="max-w-3xl">
-            <Eyebrow>How automation works</Eyebrow>
+            <Eyebrow>{pipeline.eyebrow}</Eyebrow>
             <h2 id="pipeline-title" className="section-title-clamp mt-4 text-[#F5F8FC]">
-              How a business automation turns an enquiry into an outcome
+              {pipeline.title}
             </h2>
           </div>
-          <p className="shrink-0 self-start rounded-full border border-[#27D3C2]/50 px-4 py-1.5 text-sm font-medium text-[#27D3C2] md:self-auto">
-            Illustrative example · not live data
-          </p>
+          {pipeline.badge && (
+            <p className="shrink-0 self-start rounded-full border border-[#27D3C2]/50 px-4 py-1.5 text-sm font-medium text-[#27D3C2] md:self-auto">
+              {pipeline.badge}
+            </p>
+          )}
         </div>
 
         <div>
@@ -103,14 +107,18 @@ export function PipelineSection({ active, onActive, webgl }: Props) {
         </div>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-3">
-          <Button href="/consultation" variant="primary" size="lg" className={primaryBtn}>
-            <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
-            Book a Consultation
-          </Button>
-          <Button href="/solutions/workflow-automation" variant="outline" size="lg" className={ghostBtn}>
-            Explore workflow automation
-            <ArrowRight className="h-4 w-4 ml-2" aria-hidden="true" />
-          </Button>
+          {pipeline.primaryCta.label && (
+            <Button href={pipeline.primaryCta.href || "/consultation"} variant="primary" size="lg" className={primaryBtn}>
+              <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
+              {pipeline.primaryCta.label}
+            </Button>
+          )}
+          {pipeline.secondaryCta.label && (
+            <Button href={pipeline.secondaryCta.href || "/solutions/workflow-automation"} variant="outline" size="lg" className={ghostBtn}>
+              {pipeline.secondaryCta.label}
+              <ArrowRight className="h-4 w-4 ml-2" aria-hidden="true" />
+            </Button>
+          )}
         </div>
       </div>
     </section>

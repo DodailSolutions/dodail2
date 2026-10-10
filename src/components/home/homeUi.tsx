@@ -8,7 +8,7 @@ export const primaryBtn =
 export const ghostBtn =
   "rounded-full text-[15px] px-6 py-3.5 h-auto font-medium normal-case tracking-normal border-white/15 bg-white/[0.03] text-[#F5F8FC] hover:text-[#F5F8FC] hover:bg-white/10 hover:border-white/30 shadow-none focus-visible:ring-offset-[#05070B]";
 
-export const sectionPad = "px-5 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-32";
+export const sectionPad = "px-5 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20";
 
 /**
  * Phones and tablets: pins a section's visual under the header (solid background) while

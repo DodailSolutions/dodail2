@@ -2,13 +2,13 @@
 
 import * as React from "react";
 import { Plus, Minus } from "lucide-react";
-import { faqs } from "@/components/home/homeData";
+import { faqs as defaultFaqs, type FAQItem } from "@/components/home/homeData";
 
 /**
  * Accessible accordion. Every answer is always in the HTML (collapsed with the
  * `hidden` attribute), so crawlers and the FAQPage schema see the same content.
  */
-export function FAQAccordion() {
+export function FAQAccordion({ items: faqs = defaultFaqs }: { items?: FAQItem[] }) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
   return (

@@ -16,8 +16,8 @@ export async function GET(req: Request) {
 
     const leads = await getAllLeads({ status, search });
     return NextResponse.json({ success: true, data: leads });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -30,8 +30,8 @@ export async function POST(req: Request) {
 
     const result = await createLeadFromSubmission(body);
     return NextResponse.json({ success: true, data: result.lead, isDuplicate: result.isDuplicate }, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -44,7 +44,7 @@ export async function PUT(req: Request) {
 
     const updated = await updateLead(body.id, body);
     return NextResponse.json({ success: true, data: updated });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

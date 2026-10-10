@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     const outline = await generateEditorialOutline(body.title, body.keyword || "");
     return NextResponse.json({ success: true, outline });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { GoogleSheetConfig, RowSyncLedger } from "./types";
 import { getSyncLedgers, saveSyncLedger, saveSheetConfig } from "./store";
-import { saveBlogPost } from "@/lib/cms/api";
+import { savePost } from "@/lib/cms/blog";
 
 export interface SheetRowData {
   row_index: number;
@@ -142,7 +142,7 @@ export async function syncGoogleSheetRows(
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, "");
 
-      const draftPost = await saveBlogPost({
+      const { post: draftPost } = await savePost({
         title: row.topic,
         slug,
         excerpt: `Grounded architecture analysis on ${row.topic} tailored for ${row.audience}.`,
@@ -162,7 +162,7 @@ export async function syncGoogleSheetRows(
         category: row.industry || "AI Automation",
         tags: [row.intent, "GoogleSheetsIngestion"],
         status: "draft", // Strictly creates a draft post
-      });
+      }, "Google Sheets Automation");
 
       // 5. Record Row in Ledger
       const newLedger: RowSyncLedger = {

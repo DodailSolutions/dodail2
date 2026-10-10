@@ -37,7 +37,7 @@ export async function POST(
         ? "Workflow completed dry-run simulation successfully. No live records modified."
         : "Workflow executed successfully.",
     });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

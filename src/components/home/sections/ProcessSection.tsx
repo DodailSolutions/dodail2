@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Eyebrow, StageFade, Zone, sectionPad, stagePanel } from "../homeUi";
-import { processStages } from "../homeData";
 import { useActiveOnScroll } from "../useActiveOnScroll";
+import { useHomeContent } from "../HomeContentContext";
 
 interface Props {
   active: number;
@@ -14,6 +14,9 @@ export function ProcessSection({ active, onActive }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLOListElement>(null);
   useActiveOnScroll(listRef, onActive, "(max-width: 767px)"); // stacked steps only
+  // Not named `process`: that would shadow Node's global, which the bundler rewrites (process.env.*).
+  const processContent = useHomeContent().content.process;
+  const processStages = processContent.items;
 
   // Play the stages 01 -> 05 while the section is visible on wider screens.
   // Stops for good once the visitor hovers, focuses or clicks a stage.
@@ -31,7 +34,7 @@ export function ProcessSection({ active, onActive }: Props) {
     if (window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 767px)").matches) return;
     const id = window.setInterval(() => onActive((s) => (s + 1) % processStages.length), 2000);
     return () => window.clearInterval(id);
-  }, [inView, userTookOver, onActive]);
+  }, [inView, userTookOver, onActive, processStages.length]);
 
   const select = (i: number) => {
     setUserTookOver(true);
@@ -42,11 +45,9 @@ export function ProcessSection({ active, onActive }: Props) {
     <section ref={sectionRef} id="process" aria-labelledby="process-title" className={`relative ${sectionPad}`}>
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl mb-10">
-          <Eyebrow>How we deliver</Eyebrow>
-          <h2 id="process-title" className="section-title-clamp mt-4 text-[#F5F8FC]">A clear path from first call to launch</h2>
-          <p className="mt-6 text-lg leading-relaxed text-[#A3AAB5]">
-            Five stages, each with a defined output, so you always know what is being built and what comes next.
-          </p>
+          <Eyebrow>{processContent.eyebrow}</Eyebrow>
+          <h2 id="process-title" className="section-title-clamp mt-4 text-[#F5F8FC]">{processContent.title}</h2>
+          <p className="mt-6 text-lg leading-relaxed text-[#A3AAB5]">{processContent.description}</p>
         </div>
 
         <div>

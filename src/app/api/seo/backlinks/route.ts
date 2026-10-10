@@ -5,8 +5,8 @@ export async function GET() {
   try {
     const list = await getAllBacklinks();
     return NextResponse.json({ success: true, data: list });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     }
     const saved = await saveBacklink(body);
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 400 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 400 });
   }
 }

@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       errorCount: errors.length,
       errors: errors.slice(0, 5), // Preview first 5 errors
     });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

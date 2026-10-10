@@ -185,3 +185,57 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #FF6B2C;
 }
+
+/* ---------- App-like behaviour on phones & tablets ---------- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  /* Keep in-page anchor jumps clear of the sticky header */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+a, button, [role="button"], input, select, textarea, label {
+  touch-action: manipulation;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* Native-feeling press feedback instead of hover states on touch screens */
+  a:active, button:active {
+    transition: transform 0.08s ease-out;
+  }
+  /* 16px inputs stop iOS Safari from zooming into form fields */
+  input, select, textarea {
+    font-size: max(16px, 1em);
+  }
+}
+
+/* Installed (standalone) app: no text selection on chrome, honour the notch */
+@media (display-mode: standalone) {
+  header, nav {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.pt-safe { padding-top: env(safe-area-inset-top); }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Bottom sheets & overlays */
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-sheet-up { animation: sheetUp 0.32s cubic-bezier(0.32, 0.72, 0, 1) both; }
+.animate-fade { animation: fadeIn 0.2s ease-out both; }

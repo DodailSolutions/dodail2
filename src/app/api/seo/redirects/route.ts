@@ -5,8 +5,8 @@ export async function GET() {
   try {
     const redirects = await getAllRedirects();
     return NextResponse.json({ success: true, data: redirects });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -18,8 +18,8 @@ export async function POST(req: Request) {
     }
     const saved = await saveRedirect(body);
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 400 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 400 });
   }
 }
 
@@ -32,7 +32,7 @@ export async function DELETE(req: Request) {
     }
     await deleteRedirect(id);
     return NextResponse.json({ success: true });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

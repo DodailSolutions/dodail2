@@ -11,12 +11,16 @@ import { PipelineSection } from "./sections/PipelineSection";
 import { IndustriesSection } from "./sections/IndustriesSection";
 import { ProcessSection } from "./sections/ProcessSection";
 import { CtaSection, FaqSection, TrustSection } from "./sections/TrustFaqCtaSection";
+import { HomeContentProvider } from "./HomeContentContext";
+import type { HomeContent } from "@/lib/cms/content/defaults/home";
+import type { CompanyContent } from "@/lib/cms/content/defaults/site";
 
 /**
  * Homepage. One persistent, lazily loaded canvas sits behind the page and draws
  * into the empty "zones" each section reserves; everything else is plain HTML.
+ * All copy comes from the CMS ("Homepage" in the admin Site Content editor).
  */
-export function HomePageClient() {
+export function HomePageClient({ content, company }: { content: HomeContent; company: CompanyContent }) {
   const [mode, setMode] = useState<SceneMode>("pending");
   const [problem, setProblem] = useState(0);
   const [service, setService] = useState(0);
@@ -47,6 +51,7 @@ export function HomePageClient() {
   }, []);
 
   return (
+    <HomeContentProvider value={{ content, company }}>
     <div className="relative bg-[#05070B] text-[#F5F8FC]">
       <OperationsCanvasHost
         activeProblem={problem}
@@ -69,5 +74,6 @@ export function HomePageClient() {
         <CtaSection webgl={webgl} />
       </div>
     </div>
+    </HomeContentProvider>
   );
 }

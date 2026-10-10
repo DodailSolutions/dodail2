@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true, data: merged });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

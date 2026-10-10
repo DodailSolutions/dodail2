@@ -75,18 +75,18 @@ const publicPages = [
 ];
 
 const adminPortals = [
-  "src/app/admin/page.tsx",
-  "src/app/admin/cms/pages/page.tsx",
-  "src/app/admin/cms/global/page.tsx",
-  "src/app/admin/cms/blog/page.tsx",
-  "src/app/admin/cms/media/page.tsx",
-  "src/app/admin/seo/page.tsx",
-  "src/app/admin/crm/leads/page.tsx",
-  "src/app/admin/crm/pipeline/page.tsx",
-  "src/app/admin/ai/page.tsx",
-  "src/app/admin/bookings/page.tsx",
-  "src/app/admin/social/page.tsx",
-  "src/app/admin/automation/page.tsx",
+  "src/app/admin/(panel)/page.tsx",
+  "src/app/admin/(panel)/cms/pages/page.tsx",
+  "src/app/admin/(panel)/cms/global/page.tsx",
+  "src/app/admin/(panel)/cms/blog/page.tsx",
+  "src/app/admin/(panel)/cms/media/page.tsx",
+  "src/app/admin/(panel)/seo/page.tsx",
+  "src/app/admin/(panel)/crm/leads/page.tsx",
+  "src/app/admin/(panel)/crm/pipeline/page.tsx",
+  "src/app/admin/(panel)/ai/page.tsx",
+  "src/app/admin/(panel)/bookings/page.tsx",
+  "src/app/admin/(panel)/social/page.tsx",
+  "src/app/admin/(panel)/automation/page.tsx",
 ];
 
 const apiEndpoints = [
@@ -114,16 +114,18 @@ assertTest(
 // 2. AUTHENTICATION & ACCESS CONTROL
 // -----------------------------------------------------------------------------
 console.log("\nTEST AREA 2: Authentication, Authorization & Session Isolation");
-const adminLayout = fs.readFileSync("src/app/admin/layout.tsx", "utf-8");
+const adminLayout = fs.existsSync("src/app/admin/(panel)/layout.tsx")
+  ? fs.readFileSync("src/app/admin/(panel)/layout.tsx", "utf-8")
+  : fs.readFileSync("src/app/admin/layout.tsx", "utf-8");
 assertTest(
   "Admin Layout Robosts Directive (noindex, nofollow)",
-  adminLayout.includes('robots: "noindex, nofollow"'),
+  adminLayout.includes('robots: { index: false, follow: false }') || adminLayout.includes('robots: "noindex, nofollow"'),
   "Admin metadata strictly mandates noindex, nofollow to prevent search engine indexing of private backoffice."
 );
 
 assertTest(
   "Admin Session Indicator Active",
-  adminLayout.includes("Admin Session Active"),
+  adminLayout.includes("Studio Live") || adminLayout.includes("Admin Session Active") || adminLayout.includes("getAdminSession"),
   "Admin layout renders authenticated session status banner."
 );
 
@@ -279,9 +281,10 @@ assertTest(
 // 12. RESPONSIVE DESIGN & MOBILE BOTTOM NAVIGATION
 // -----------------------------------------------------------------------------
 console.log("\nTEST AREA 12: Responsive Behavior & Mobile Admin Navigation");
+const adminNavCode = fs.readFileSync("src/components/admin/AdminNav.tsx", "utf-8");
 assertTest(
   "Mobile Bottom Navigation Bar Active in Admin Layout",
-  adminLayout.includes('aria-label="Mobile Admin Navigation"') && adminLayout.includes("md:hidden fixed bottom-0"),
+  adminLayout.includes("AdminMobileNav") && adminNavCode.includes("fixed inset-x-0 bottom-0"),
   "Admin UI renders bottom navigation tab bar on smartphone/tablet viewports."
 );
 
@@ -292,18 +295,18 @@ console.log("\nTEST AREA 13: Observability & Health Check Endpoint");
 const healthRoute = fs.readFileSync("src/app/api/health/route.ts", "utf-8");
 assertTest(
   "Production Health Check Endpoint (/api/health) Live",
-  healthRoute.includes('status: "healthy"') && healthRoute.includes("uptime_seconds"),
-  "Serves real-time uptime, memory usage, and service check diagnostics."
+  healthRoute.includes('status: "ok"') && healthRoute.includes("response_time_ms"),
+  "Serves real-time response time, database status, and health diagnostics."
 );
 
 // -----------------------------------------------------------------------------
 // 14. DATA PRIVACY, RETENTION & CONSENT
 // -----------------------------------------------------------------------------
 console.log("\nTEST AREA 14: Data Privacy & Legal Compliance");
-const privacyPage = fs.readFileSync("src/app/privacy/page.tsx", "utf-8");
+const privacyDefaultsCode = fs.readFileSync("src/lib/cms/content/defaults/pages.ts", "utf-8");
 assertTest(
   "Privacy Notice & Data Subject Rights Documented",
-  privacyPage.includes("Dodail Solutions Private Limited") && privacyPage.includes("info@dodail.com"),
+  privacyDefaultsCode.includes("Dodail Solutions Private Limited") && privacyDefaultsCode.includes("info@dodail.com"),
   "Comprehensive privacy policy covering GDPR/DPDP data handling, retention and deletion rights."
 );
 

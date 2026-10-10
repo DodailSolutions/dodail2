@@ -54,7 +54,7 @@ export async function POST(req: Request) {
         ? "Inquiry added to existing prospect record."
         : "Lead received and registered successfully.",
     }, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message || "Lead submission failed" }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message || "Lead submission failed" }, { status: 500 });
   }
 }

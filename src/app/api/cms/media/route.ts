@@ -5,8 +5,8 @@ export async function GET() {
   try {
     const assets = await getAllMediaAssets();
     return NextResponse.json({ success: true, data: assets });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
 
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     }
     const asset = await saveMediaAsset(body);
     return NextResponse.json({ success: true, data: asset }, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+  } catch (error) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 400 });
   }
 }

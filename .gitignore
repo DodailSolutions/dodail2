@@ -43,3 +43,15 @@ next-env.d.ts
 
 # local agent caches
 .claude-flow/
+.claude/
+.agent/
+
+# Local fallback data stores (may contain lead PII and drafts — never commit)
+/automation-store.json
+/booking-store.json
+/cms-content.json
+/cms-content-history.json
+/cms-store.json
+/content-store.json
+/crm-store.json
+/seo-store.json

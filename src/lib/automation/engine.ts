@@ -7,7 +7,7 @@ import {
   WorkflowActionType,
 } from "./types";
 import { saveExecution } from "./store";
-import { saveBlogPost } from "@/lib/cms/api";
+import { savePost } from "@/lib/cms/blog";
 
 // SSRF Mitigation: Block private, link-local, and loopback IPs
 export function validateOutboundUrl(urlString: string): boolean {
@@ -149,7 +149,7 @@ async function executeAction(
         };
       }
 
-      const createdPost = await saveBlogPost({
+      const { post: createdPost } = await savePost({
         title: String(payload.topic),
         slug,
         excerpt: `Strategic analysis of ${payload.topic} for ${payload.audience || "enterprise operators"}.`,
@@ -158,7 +158,7 @@ async function executeAction(
         category: payload.industry || "AI Automation",
         tags: [payload.intent || "Commercial", "Automation"],
         status: "draft", // Strictly creates a draft, never publishes directly
-      });
+      }, "Dodail Editorial Bot");
 
       return {
         output: {

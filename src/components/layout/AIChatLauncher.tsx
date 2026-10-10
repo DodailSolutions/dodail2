@@ -124,9 +124,9 @@ export function AIChatLauncher() {
   };
 
   return (
-    <div className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-4 sm:bottom-6 sm:right-6 z-50">
+    <div className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-4 lg:bottom-6 sm:right-6 z-50">
       {isOpen ? (
-        <div ref={modalRef} role="dialog" aria-modal="true" aria-label="AI Chat" className="relative w-96 max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200 bg-white shadow-2xl flex flex-col h-[520px] overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div ref={modalRef} role="dialog" aria-modal="true" aria-label="AI Chat" className="relative w-96 max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200 bg-white shadow-2xl flex flex-col h-[520px] overflow-hidden animate-fade">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-slate-200 p-4 bg-slate-50/90">
             <div className="flex items-center gap-2.5">

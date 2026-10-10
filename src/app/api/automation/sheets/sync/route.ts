@@ -6,8 +6,8 @@ export async function GET() {
   try {
     const ledgers = getSyncLedgers();
     return NextResponse.json({ success: true, data: ledgers });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -22,7 +22,7 @@ export async function POST() {
 
     const result = await syncGoogleSheetRows(activeConfig);
     return NextResponse.json({ success: true, data: result });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

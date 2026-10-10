@@ -11,7 +11,7 @@ export async function GET() {
       internalLinkSuggestions: suggestions,
       testedAt: new Date().toISOString(),
     });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

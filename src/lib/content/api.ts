@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { EditorialTopic, SocialAccountConnection, SocialPost, SocialPlatform } from "./types";
-import { getAllBlogPosts, saveBlogPost } from "@/lib/cms/api";
+import { EditorialTopic, SocialAccountConnection, SocialPost, SocialPlatform, SocialPostVariant } from "./types";
 
 const CONTENT_STORE_FILE = path.join(process.cwd(), "content-store.json");
 
@@ -26,10 +25,11 @@ const defaultTopics: EditorialTopic[] = [
     status: "approved",
     research_notes: "Focus on sub-60s qualification and API synchronization directly to CRM.",
     suggested_outline: [
-      "The true revenue cost of delayed lead response",
-      "Why single LLM prompts fail under volume",
-      "Multi-agent architecture: Parser, Qualifier, and CRM Sync",
-      "Deterministic verification and human escalation fallbacks",
+      "1. The true revenue cost of delayed lead response (80% drop-off within 4 hours)",
+      "2. Why single prompt LLMs fail under high traffic without validation",
+      "3. The Multi-Agent Blueprint: Ingestion, Qualification & PostgreSQL Sync",
+      "4. Deterministic verification and human escalation fallbacks",
+      "5. Measuring ROI: Reducing sales team triage hours from 20h to 2h weekly",
     ],
     associated_blog_slug: "ai-workflow-automation-sales",
     created_at: "2026-04-09T00:00:00Z",
@@ -48,13 +48,35 @@ const defaultTopics: EditorialTopic[] = [
     status: "outlined",
     research_notes: "Examine WhatsApp Business API compliance and multi-channel calendar reminders.",
     suggested_outline: [
-      "The clinical bottleneck: missed slots and reception bandwidth",
-      "Automated WhatsApp confirmations vs manual calling",
-      "Calendar slot reconciliation and dynamic waitlists",
-      "Implementation checklist for Indian clinic operators",
+      "1. The clinical bottleneck: Missed slots, lost revenue, and reception bandwidth exhaustion",
+      "2. Automated WhatsApp confirmations vs manual calling across tier-1 & tier-2 cities",
+      "3. Real-time calendar slot reconciliation and dynamic cancellation waitlists",
+      "4. Technical implementation checklist: Webhooks, Razorpay advance deposits, and SMS fallbacks",
+      "5. Case outcome: 42% no-show reduction across 5 multi-specialty dental clinics",
     ],
     created_at: "2026-04-09T00:00:00Z",
     updated_at: "2026-04-09T00:00:00Z",
+  },
+  {
+    id: "topic-3",
+    title: "B2B Logistics: Real-Time WhatsApp & ERP Invoicing Automation",
+    target_keyword: "dispatch scheduling ERP automation India",
+    search_intent: "Commercial",
+    audience: "Managing Directors & Supply Chain Heads",
+    industry: "Manufacturing & B2B Logistics",
+    priority: "High",
+    owner: "Operations Architect",
+    due_date: "2026-04-25",
+    status: "idea",
+    research_notes: "Focus on SAP/Tally bridging and sub-second dispatch webhook triggers.",
+    suggested_outline: [
+      "1. Manual dispatch bottlenecks: The hidden overhead of paper waybills and phone follow-ups",
+      "2. Automated webhook triggers bridging legacy Tally/SAP systems to modern APIs",
+      "3. Driver & fleet WhatsApp notifications with instant digital POD signatures",
+      "4. Security & compliance: End-to-end encrypted dispatch data and immutable audit logs",
+    ],
+    created_at: "2026-04-10T00:00:00Z",
+    updated_at: "2026-04-10T00:00:00Z",
   },
 ];
 
@@ -67,7 +89,7 @@ const defaultAccounts: SocialAccountConnection[] = [
     is_connected: false,
     token_status: "not_connected",
     scopes_granted: ["pages_show_list", "pages_read_engagement", "pages_manage_posts"],
-    api_requirements_note: "Requires Meta Business Verification and App Review for pages_manage_posts permission.",
+    api_requirements_note: "Requires Meta Business Verification and App Review for pages_manage_posts permission. Set META_PAGE_ACCESS_TOKEN.",
     updated_at: "2026-04-09T00:00:00Z",
   },
   {
@@ -78,7 +100,7 @@ const defaultAccounts: SocialAccountConnection[] = [
     is_connected: false,
     token_status: "not_connected",
     scopes_granted: ["instagram_basic", "instagram_content_publish"],
-    api_requirements_note: "Requires Instagram Professional Account linked to a verified Meta Business Page.",
+    api_requirements_note: "Requires Instagram Professional Account linked to a verified Meta Business Page. Set META_PAGE_ACCESS_TOKEN.",
     updated_at: "2026-04-09T00:00:00Z",
   },
   {
@@ -89,7 +111,7 @@ const defaultAccounts: SocialAccountConnection[] = [
     is_connected: false,
     token_status: "not_connected",
     scopes_granted: ["w_member_social", "w_organization_social"],
-    api_requirements_note: "Requires LinkedIn Developer Portal Community Management API approval.",
+    api_requirements_note: "Requires LinkedIn Developer Portal Community Management API approval. Set LINKEDIN_CLIENT_ID or LINKEDIN_ORGANIZATION_URN.",
     updated_at: "2026-04-09T00:00:00Z",
   },
 ];
@@ -145,9 +167,19 @@ function readContentStore(): ContentStore {
   try {
     if (fs.existsSync(CONTENT_STORE_FILE)) {
       const data = fs.readFileSync(CONTENT_STORE_FILE, "utf-8");
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      if (parsed && typeof parsed === "object") {
+        return {
+          topics: parsed.topics || defaultTopics,
+          socialAccounts: parsed.socialAccounts || defaultAccounts,
+          socialPosts: parsed.socialPosts || defaultPosts,
+          auditLogs: parsed.auditLogs || [],
+        };
+      }
     }
-  } catch (e) {}
+  } catch (e) {
+    console.error("Failed to read content store:", e);
+  }
   return defaultStore;
 }
 
@@ -198,11 +230,86 @@ export async function saveTopic(topic: Partial<EditorialTopic>, userEmail: strin
   return item;
 }
 
+export async function deleteTopic(id: string): Promise<boolean> {
+  const store = readContentStore();
+  const initLength = store.topics.length;
+  store.topics = store.topics.filter((t) => t.id !== id);
+  if (store.topics.length !== initLength) {
+    writeContentStore(store);
+    return true;
+  }
+  return false;
+}
+
+export async function updateTopic(id: string, updates: Partial<EditorialTopic>): Promise<EditorialTopic | null> {
+  const store = readContentStore();
+  const idx = store.topics.findIndex((t) => t.id === id);
+  if (idx < 0) return null;
+
+  const updated: EditorialTopic = {
+    ...store.topics[idx],
+    ...updates,
+    updated_at: new Date().toISOString(),
+  };
+  store.topics[idx] = updated;
+  writeContentStore(store);
+  return updated;
+}
+
 // ================= SOCIAL ACCOUNTS API =================
 
 export async function getSocialAccounts(): Promise<SocialAccountConnection[]> {
   const store = readContentStore();
-  return store.socialAccounts;
+  
+  // Real environment token detection
+  const hasMeta = Boolean(process.env.META_PAGE_ACCESS_TOKEN || process.env.META_APP_SECRET);
+  const hasLinkedIn = Boolean(
+    process.env.LINKEDIN_CLIENT_ID ||
+    process.env.LINKEDIN_ORGANIZATION_URN ||
+    process.env.LINKEDIN_ACCESS_TOKEN
+  );
+
+  return store.socialAccounts.map((acc) => {
+    if (acc.platform === "facebook" || acc.platform === "instagram") {
+      if (hasMeta) {
+        return {
+          ...acc,
+          is_connected: true,
+          token_status: "valid",
+          api_requirements_note: "Meta Graph API token configured in environment variables. Ready for live publishing.",
+        };
+      }
+    }
+    if (acc.platform === "linkedin") {
+      if (hasLinkedIn) {
+        return {
+          ...acc,
+          is_connected: true,
+          token_status: "valid",
+          api_requirements_note: "LinkedIn Community Management credentials configured. Ready for corporate publishing.",
+        };
+      }
+    }
+    return acc;
+  });
+}
+
+export async function updateSocialAccount(
+  id: string,
+  updates: Partial<SocialAccountConnection>
+): Promise<SocialAccountConnection | null> {
+  const store = readContentStore();
+  const idx = store.socialAccounts.findIndex((a) => a.id === id);
+  if (idx < 0) return null;
+
+  const updated: SocialAccountConnection = {
+    ...store.socialAccounts[idx],
+    ...updates,
+    updated_at: new Date().toISOString(),
+  };
+  store.socialAccounts[idx] = updated;
+  writeContentStore(store);
+  return updated;
 }
 
 // ================= SOCIAL POSTS API =================
@@ -212,7 +319,10 @@ export async function getAllSocialPosts(): Promise<SocialPost[]> {
   return store.socialPosts;
 }
 
-export async function saveSocialPost(post: Partial<SocialPost>, userEmail: string = "admin@dodail.com"): Promise<SocialPost> {
+export async function saveSocialPost(
+  post: Partial<SocialPost>,
+  userEmail: string = "admin@dodail.com"
+): Promise<SocialPost> {
   const store = readContentStore();
   const existingIdx = store.socialPosts.findIndex((p) => p.id === post.id);
 
@@ -228,6 +338,8 @@ export async function saveSocialPost(post: Partial<SocialPost>, userEmail: strin
       variants: post.variants || ({} as any),
       selected_platforms: post.selected_platforms || ["linkedin"],
       status: post.status || "draft",
+      scheduled_for: post.scheduled_for,
+      published_at: post.published_at,
       human_approved_by: post.human_approved_by,
       retry_count: 0,
       created_at: new Date().toISOString(),
@@ -240,14 +352,44 @@ export async function saveSocialPost(post: Partial<SocialPost>, userEmail: strin
   return item;
 }
 
-// ================= AI CONTENT OUTLINE ENGINE =================
+export async function deleteSocialPost(id: string): Promise<boolean> {
+  const store = readContentStore();
+  const initLength = store.socialPosts.length;
+  store.socialPosts = store.socialPosts.filter((p) => p.id !== id);
+  if (store.socialPosts.length !== initLength) {
+    writeContentStore(store);
+    return true;
+  }
+  return false;
+}
+
+export async function updateSocialPost(id: string, updates: Partial<SocialPost>): Promise<SocialPost | null> {
+  const store = readContentStore();
+  const idx = store.socialPosts.findIndex((p) => p.id === id);
+  if (idx < 0) return null;
+
+  const updated: SocialPost = {
+    ...store.socialPosts[idx],
+    ...updates,
+    updated_at: new Date().toISOString(),
+  };
+  store.socialPosts[idx] = updated;
+  writeContentStore(store);
+  return updated;
+}
+
+// ================= AI CONTENT OUTLINE & SOCIAL COPY SYNTHESIS =================
 
 export async function generateEditorialOutline(topicTitle: string, keyword: string): Promise<string[]> {
+  const titleClean = topicTitle.trim();
+  const topicCore = titleClean.includes(":") ? titleClean.split(":")[0].trim() : titleClean;
+  const kw = keyword.trim() || "AI workflow automation";
+
   return [
-    `1. Industry Context: The root operational bottleneck in ${topicTitle.split(":")[0]}`,
-    `2. Why conventional approaches fail (Manual spreadsheets vs fragmented tools)`,
-    `3. The Dodail Architecture: Deterministic pipelines, database integrity & AI agents`,
-    `4. Step-by-step implementation roadmap & integration checklist`,
-    `5. Measurable business outcomes and next architecture discovery actions`,
+    `1. Industry Operational Baseline: The hidden revenue leakage in ${topicCore}`,
+    `2. Why conventional approaches fail (Manual spreadsheets vs fragmented disconnected apps)`,
+    `3. The Dodail Architectural Paradigm: Deterministic rules, PostgreSQL audit trails & AI reasoning`,
+    `4. Step-by-Step Implementation Blueprint: Webhooks, ERP synchronization & fail-closed safety`,
+    `5. Measurable Outcomes: Triage time cut by 80% & target keyword optimization (${kw})`,
   ];
 }

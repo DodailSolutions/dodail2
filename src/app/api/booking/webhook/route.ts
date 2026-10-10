@@ -7,13 +7,13 @@ export async function POST(req: Request) {
     const rawBody = await req.text();
     const signature =
       req.headers.get("x-razorpay-signature") || req.headers.get("stripe-signature");
-    const secret =
-      process.env.PAYMENT_WEBHOOK_SECRET ||
-      process.env.RAZORPAY_WEBHOOK_SECRET ||
-      "dodail-webhook-secret-2026";
+    const secret = process.env.PAYMENT_WEBHOOK_SECRET || process.env.RAZORPAY_WEBHOOK_SECRET;
+    if (!secret && process.env.NODE_ENV === "production") {
+      return NextResponse.json({ error: "Webhook secret is not configured" }, { status: 503 });
+    }
 
     // Enforce cryptographic HMAC verification
-    if (signature) {
+    if (signature && secret) {
       const expectedSignature = crypto
         .createHmac("sha256", secret)
         .update(rawBody)
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(result);
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
