@@ -124,7 +124,7 @@ export function AIChatLauncher() {
   };
 
   return (
-    <div className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-4 lg:bottom-6 sm:right-6 z-50">
+    <div className={`fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-4 lg:bottom-6 sm:right-6 ${isOpen ? "z-50" : "z-40"}`}>
       {isOpen ? (
         <div ref={modalRef} role="dialog" aria-modal="true" aria-label="AI Chat" className="relative w-96 max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200 bg-white shadow-2xl flex flex-col h-[520px] overflow-hidden animate-fade">
           {/* Header */}
@@ -245,15 +245,18 @@ export function AIChatLauncher() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="group flex items-center gap-2.5 rounded-full border border-white/15 bg-[#12161D]/95 p-3.5 text-white sm:border-slate-200 sm:bg-white/95 sm:px-4 sm:py-3 text-xs font-semibold sm:text-slate-800 shadow-xl backdrop-blur-md hover:border-[#FF6B2C] hover:shadow-2xl transition-all duration-200"
+          className="group relative flex items-center gap-2.5 rounded-full border border-white/15 bg-[#0D1118]/90 hover:bg-[#141923] p-3 sm:px-4 sm:py-2.5 text-xs font-medium text-[#F5F8FC] shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-xl hover:border-[#FF6B2C]/60 hover:shadow-[0_10px_35px_rgba(255,107,44,0.25)] transition-all duration-200 active:scale-95 ring-1 ring-white/5"
           aria-label="Open Dodail AI Assistant"
         >
           <div className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
           </div>
-          <Bot className="h-4 w-4 text-[#FF6B2C]" />
-          <span className="hidden sm:inline">Dodail AI Assistant</span>
+          <Bot className="h-4 w-4 text-[#FF6B2C] transition-transform duration-200 group-hover:scale-110" />
+          <span className="hidden sm:inline font-medium text-white/90 group-hover:text-white">Dodail AI</span>
+          <span className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            Live
+          </span>
         </button>
       )}
     </div>
