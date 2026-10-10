@@ -55,11 +55,6 @@ export function PipelineSection({ active, onActive, webgl }: Props) {
               {pipeline.title}
             </h2>
           </div>
-          {pipeline.badge && (
-            <p className="shrink-0 self-start rounded-full border border-[#27D3C2]/50 px-4 py-1.5 text-sm font-medium text-[#27D3C2] md:self-auto">
-              {pipeline.badge}
-            </p>
-          )}
         </div>
 
         <div>

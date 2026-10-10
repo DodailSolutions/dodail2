@@ -77,7 +77,7 @@ export const homeDefaults = {
   pipeline: {
     eyebrow: "How automation works",
     title: "How a business automation turns an enquiry into an outcome",
-    badge: "Illustrative example · not live data",
+    badge: "",
     items: clone(pipelineStages),
     primaryCta: { label: "Book a Consultation", href: "/consultation" },
     secondaryCta: { label: "Explore workflow automation", href: "/solutions/workflow-automation" },
