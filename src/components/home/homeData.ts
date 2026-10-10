@@ -235,10 +235,10 @@ export const trust = [
  * copy; keep it in sync with reality (it is the only number on the page).
  */
 export const aboutFigures = [
-  { value: "100+", label: "Global clients" },
-  { value: "2019", label: "Incorporated in Hyderabad" },
-  { value: "5", label: "Disciplines under one roof" },
-  { value: "1 team", label: "Design, build and automate together" },
+  { value: "100+", label: "Global systems delivered" },
+  { value: "2019", label: "Founded in Hyderabad, India" },
+  { value: "< 60s", label: "Autonomous triage speed" },
+  { value: "100%", label: "Client code & IP ownership" },
 ];
 
 export const specialisms = [
