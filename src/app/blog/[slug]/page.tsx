@@ -11,6 +11,8 @@ import { getContent } from "@/lib/cms/content/store";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { articleSchema, breadcrumbSchema, graph } from "@/lib/seo/schema";
 import type { BlogPost } from "@/lib/cms/types";
+import { BlogPostPage } from "@/components/templates/BlogPostPage";
+import { getAllPosts, getPostBySlug as getFilePost } from "@/lib/blog/posts";
 
 /** Safety net so scheduled articles appear even without a cron run. */
 export const revalidate = 600;
@@ -18,7 +20,8 @@ export const revalidate = 600;
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return (await listLivePosts()).map((p) => ({ slug: p.slug }));
+  const cms = (await listLivePosts().catch(() => [])).map((p) => p.slug);
+  return [...new Set([...getAllPosts().map((p) => p.slug), ...cms])].map((slug) => ({ slug }));
 }
 
 /** Live article, or any article while an editor is previewing (Draft Mode). */
@@ -30,7 +33,16 @@ async function loadPost(slug: string): Promise<{ post: BlogPost; preview: boolea
 }
 
 export async function generateMetadata({ params }: Props) {
-  const found = await loadPost((await params).slug);
+  const slug = (await params).slug;
+  const filePost = getFilePost(slug);
+  if (filePost) {
+    return pageMetadata(
+      `/blog/${filePost.slug}/`,
+      { title: filePost.title, description: filePost.metaDescription || filePost.excerpt },
+      { type: "article", image: filePost.featuredImage ?? undefined, publishedTime: filePost.datePublished, modifiedTime: filePost.dateModified }
+    );
+  }
+  const found = await loadPost(slug);
   if (!found) return { title: "Article not found", robots: { index: false } };
   const { post, preview } = found;
   return pageMetadata(
@@ -58,8 +70,10 @@ async function relatedPosts(post: BlogPost): Promise<BlogPost[]> {
   return others.sort((a, b) => score(b) - score(a)).slice(0, 3);
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostRoute({ params }: Props) {
   const { slug } = await params;
+  const filePost = getFilePost(slug);
+  if (filePost) return <BlogPostPage post={filePost} />;
   const [found, content, seo] = await Promise.all([loadPost(slug), getContent("blog"), getContent("site/seo")]);
   if (!found) notFound();
 
@@ -102,16 +116,16 @@ export default async function BlogPostPage({ params }: Props) {
         />
       )}
       <div className="mx-auto max-w-3xl">
-        <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-900">
+        <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm font-medium text-fg-subtle hover:text-fg">
           <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {article.backLabel}
         </Link>
 
         <header className="mt-6 sm:mt-8">
           {post.category && <Badge variant="orange">{post.category}</Badge>}
-          <h1 className="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 leading-[1.1]">{post.title}</h1>
-          {post.excerpt && <p className="mt-5 text-lg text-slate-600 leading-relaxed">{post.excerpt}</p>}
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-500 border-b border-slate-200 pb-6">
-            {author && <span className="font-medium text-slate-700">{author}</span>}
+          <h1 className="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight text-fg leading-[1.1]">{post.title}</h1>
+          {post.excerpt && <p className="mt-5 text-lg text-fg-muted leading-relaxed">{post.excerpt}</p>}
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-fg-subtle border-b border-border-token pb-6">
+            {author && <span className="font-medium text-fg-muted">{author}</span>}
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-4 w-4" aria-hidden="true" />
               <time dateTime={published}>{dateFormat.format(new Date(published))}</time>
@@ -128,17 +142,17 @@ export default async function BlogPostPage({ params }: Props) {
             src={post.featured_image}
             alt={post.featured_image_alt || ""}
             fetchPriority="high"
-            className="mt-8 w-full rounded-2xl border border-slate-200 object-cover aspect-[16/9]"
+            className="mt-8 w-full rounded-2xl border border-border-token object-cover aspect-[16/9]"
           />
         )}
 
         {headings.length >= 3 && (
-          <nav aria-label="On this page" className="mt-8 rounded-2xl border border-slate-200 bg-white p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">On this page</p>
+          <nav aria-label="On this page" className="mt-8 rounded-2xl border border-border-token bg-surface p-5">
+            <p className="text-xs font-semibold uppercase tracking-wider text-fg-subtle">On this page</p>
             <ol className="mt-3 space-y-2 text-sm">
               {headings.map((h) => (
                 <li key={h.id}>
-                  <a href={`#${h.id}`} className="text-slate-700 hover:text-[#C2410C]">{h.text}</a>
+                  <a href={`#${h.id}`} className="text-fg-muted hover:text-[#C2410C]">{h.text}</a>
                 </li>
               ))}
             </ol>
@@ -152,14 +166,14 @@ export default async function BlogPostPage({ params }: Props) {
         {post.tags?.length > 0 && (
           <ul className="mt-10 flex flex-wrap gap-2" aria-label="Tags">
             {post.tags.map((tag) => (
-              <li key={tag} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">#{tag}</li>
+              <li key={tag} className="rounded-full border border-border-token bg-surface px-3 py-1 text-xs text-fg-muted">#{tag}</li>
             ))}
           </ul>
         )}
 
-        <aside className="mt-12 rounded-3xl bg-slate-950 p-6 sm:p-8 text-white">
+        <aside className="mt-12 rounded-3xl bg-surface p-6 sm:p-8 text-fg">
           <h2 className="text-xl sm:text-2xl font-bold">{article.ctaTitle}</h2>
-          <p className="mt-2 text-sm text-slate-300">{article.ctaBody}</p>
+          <p className="mt-2 text-sm text-fg-muted">{article.ctaBody}</p>
           <Button href={article.ctaButton.href} variant="primary" size="lg" className="mt-5 w-full sm:w-auto">
             {article.ctaButton.label}
           </Button>
@@ -167,16 +181,16 @@ export default async function BlogPostPage({ params }: Props) {
 
         {related.length > 0 && (
           <section aria-labelledby="related-heading" className="mt-14">
-            <h2 id="related-heading" className="text-xl font-bold text-slate-950">Keep reading</h2>
-            <ul className="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+            <h2 id="related-heading" className="text-xl font-bold text-fg">Keep reading</h2>
+            <ul className="mt-4 divide-y divide-border-token rounded-2xl border border-border-token bg-surface">
               {related.map((r) => (
                 <li key={r.id}>
-                  <Link href={`/blog/${r.slug}`} className="group flex items-center justify-between gap-4 p-4 sm:p-5 active:bg-slate-50">
+                  <Link href={`/blog/${r.slug}`} className="group flex items-center justify-between gap-4 p-4 sm:p-5 active:bg-surface-2">
                     <span className="min-w-0">
                       <span className="block text-xs font-semibold text-[#C2410C]">{r.category}</span>
-                      <span className="mt-0.5 block font-semibold text-slate-900 group-hover:text-[#C2410C]">{r.title}</span>
+                      <span className="mt-0.5 block font-semibold text-fg group-hover:text-[#C2410C]">{r.title}</span>
                     </span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 group-hover:text-[#C2410C]" aria-hidden="true" />
+                    <ArrowRight className="h-4 w-4 shrink-0 text-fg-muted group-hover:text-[#C2410C]" aria-hidden="true" />
                   </Link>
                 </li>
               ))}

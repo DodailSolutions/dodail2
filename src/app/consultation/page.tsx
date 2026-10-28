@@ -27,8 +27,8 @@ export default async function ConsultationPage() {
       />
       <section className="mx-auto max-w-3xl text-center">
         <Badge variant="orange">{hero.badge}</Badge>
-        <h1 className="mt-4 text-3xl font-extrabold text-slate-950 sm:text-5xl tracking-tight">{hero.title}</h1>
-        <p className="mt-4 text-base text-slate-600 leading-relaxed max-w-xl mx-auto">{hero.subtitle}</p>
+        <h1 className="mt-4 text-3xl font-extrabold text-fg sm:text-5xl tracking-tight">{hero.title}</h1>
+        <p className="mt-4 text-base text-fg-muted leading-relaxed max-w-xl mx-auto">{hero.subtitle}</p>
       </section>
 
       <section className="mx-auto max-w-4xl w-full">

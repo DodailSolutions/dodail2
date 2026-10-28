@@ -20,6 +20,7 @@ import { BuddhaParticlesSVG } from "@/components/3d/CanvasFallback";
 import { RichText } from "@/components/cms/RichText";
 import { Zone, sectionPad } from "../homeUi";
 import { useHomeContent } from "../HomeContentContext";
+import { SpotlightCard } from "../SpotlightCard";
 
 /** Pillar icons/colours by position; the pillar text comes from the CMS. */
 const pillarStyles = [
@@ -36,7 +37,7 @@ const specialismIcons = {
   apps: { Icon: Smartphone, color: "#8B7CFF" },
 } as const;
 
-const linkCls = "text-[#F5F8FC] underline decoration-[#FF6B2C]/60 underline-offset-4 hover:decoration-[#FF6B2C] hover:text-[#FF6B2C] transition-colors";
+const linkCls = "text-fg underline decoration-[#FF6B2C]/60 underline-offset-4 hover:decoration-[#FF6B2C] hover:text-[#FF6B2C] transition-colors";
 
 /** "Who we are": Dodail's own positioning, the company facts, and what it specialises in. */
 export function IntroSection({ webgl }: { webgl: boolean }) {
@@ -44,17 +45,17 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
   const { image, specialisms } = intro;
 
   return (
-    <section aria-labelledby="about-dodail" className={`relative ${sectionPad} border-t border-white/[0.06] bg-[#05070B]`}>
+    <section aria-labelledby="about-dodail" className={`relative ${sectionPad} border-t border-border-token bg-bg`}>
       <div className="mx-auto max-w-7xl">
         {/* Eyebrow badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md mb-4 shadow-xs">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border-token bg-[var(--surface-translucent)] backdrop-blur-md mb-4 shadow-xs">
           <span className="h-2 w-2 rounded-full bg-[#FF6B2C] animate-pulse" />
           <span className="text-xs font-mono font-medium uppercase tracking-[0.16em] text-[#FF6B2C]">
             {intro.badge}
           </span>
         </div>
 
-        <h2 id="about-dodail" className="section-title-clamp max-w-4xl font-extrabold text-[#F5F8FC] tracking-tight leading-[1.04]">
+        <h2 id="about-dodail" className="section-title-clamp max-w-4xl font-extrabold text-fg tracking-tight leading-[1.04]">
           {intro.title}{" "}
           {intro.highlight && (
             <span className="bg-gradient-to-r from-[#FF6B2C] via-[#FFB547] to-[#FF6B2C] bg-clip-text text-transparent">
@@ -66,8 +67,8 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
         <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-start">
           {/* Left Column: Story + 3 Pillars */}
           <div className="lg:col-span-7">
-            <p className="text-xl sm:text-2xl font-light leading-relaxed text-[#F5F8FC]">{intro.lead}</p>
-            <div className="mt-6 space-y-4 text-base sm:text-lg leading-relaxed text-[#A3AAB5]">
+            <p className="text-xl sm:text-2xl font-light leading-relaxed text-fg">{intro.lead}</p>
+            <div className="mt-6 space-y-4 text-base sm:text-lg leading-relaxed text-fg-muted">
               {intro.paragraphs.map((p, i) => (
                 <p key={i}>
                   <RichText text={p} linkClassName={linkCls} />
@@ -76,27 +77,28 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
             </div>
 
             {/* 3 Value Pillars */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/[0.08] pt-8">
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-border-token pt-8">
               {intro.pillars.map(({ title, desc, tag }, i) => {
                 const { Icon, color } = pillarStyles[i % pillarStyles.length];
                 return (
-                <div
-                  key={title}
-                  className="group relative rounded-2xl border border-white/[0.08] bg-[#0A0D13]/70 p-5 transition-all duration-300 hover:border-white/20 hover:bg-[#0F141E] hover:shadow-lg"
-                >
-                  <div
-                    className="grid h-11 w-11 place-items-center rounded-xl transition-transform group-hover:scale-105"
-                    style={{ background: `${color}1A`, color, boxShadow: `inset 0 0 0 1px ${color}33` }}
-                    aria-hidden="true"
+                  <SpotlightCard
+                    key={title}
+                    spotlightColor="rgba(255, 107, 44, 0.08)"
+                    className="group relative rounded-2xl border border-border-token bg-surface p-5 transition-all duration-300 hover:border-border-token hover:bg-surface hover:shadow-lg"
                   >
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mt-4 text-lg font-semibold text-[#F5F8FC] group-hover:text-white">{title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-[#A3AAB5]">{desc}</p>
-                  <span className="mt-3 inline-block font-mono text-[11px] font-medium tracking-wide" style={{ color }}>
-                    {tag}
-                  </span>
-                </div>
+                    <div
+                      className="grid h-11 w-11 place-items-center rounded-xl transition-transform group-hover:scale-105"
+                      style={{ background: `${color}1A`, color, boxShadow: `inset 0 0 0 1px ${color}33` }}
+                      aria-hidden="true"
+                    >
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-4 text-lg font-semibold text-fg group-hover:text-fg">{title}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-fg-muted">{desc}</p>
+                    <span className="mt-3 inline-block font-mono text-[11px] font-medium tracking-wide" style={{ color }}>
+                      {tag}
+                    </span>
+                  </SpotlightCard>
                 );
               })}
             </div>
@@ -105,7 +107,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
           {/* Right Column: Radiant Buddha Art (from Office Reception) + Figures */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <figure className="relative">
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#07090E] shadow-2xl shadow-orange-950/20 group">
+              <div className="relative overflow-hidden rounded-3xl border border-border-token bg-bg shadow-2xl shadow-orange-950/20 group">
                 {/* Ambient background glow matching the gold/cyan aura */}
                 <div
                   aria-hidden="true"
@@ -124,8 +126,8 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                   />
 
                   {/* Dynamic Vignette & Cosmic Glow Overlays */}
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05070B] via-transparent to-transparent opacity-65" />
-                  <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent opacity-65" />
+                  <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-[var(--border)] rounded-3xl" />
 
                   {/* Zone for persistent WebGL particle stream */}
                   <Zone phase="about" className="absolute inset-0 pointer-events-none">
@@ -135,19 +137,19 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                   </Zone>
 
                   {/* Top Glass Badge: Office Reception Emblem */}
-                  <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full border border-white/15 bg-black/60 px-3.5 py-1.5 backdrop-blur-md shadow-lg">
+                  <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full border border-border-token bg-black/60 px-3.5 py-1.5 backdrop-blur-md shadow-lg">
                     <span className="h-2 w-2 rounded-full bg-[#FFB547] animate-pulse" />
-                    <span className="font-mono text-[11px] font-semibold tracking-wider text-white">{image.badge}</span>
+                    <span className="font-mono text-[11px] font-semibold tracking-wider text-fg">{image.badge}</span>
                   </div>
 
                   {/* Bottom philosophical callout overlay */}
                   {(image.quote || image.caption) && (
-                    <div className="absolute bottom-4 inset-x-4 z-10 rounded-2xl border border-white/10 bg-black/75 p-3.5 backdrop-blur-md">
+                    <div className="absolute bottom-4 inset-x-4 z-10 rounded-2xl border border-border-token bg-black/75 p-3.5 backdrop-blur-md">
                       {image.quote && (
-                        <p className="text-xs text-white/90 font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>
+                        <p className="text-xs text-fg/90 font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>
                       )}
                       {image.caption && (
-                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-[#A3AAB5]">
+                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-fg-muted">
                           <MapPin className="h-3 w-3 text-[#FF6B2C]" />
                           {image.caption}
                         </span>
@@ -163,10 +165,10 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
               {intro.figures.map((f, i) => (
                 <div
                   key={`${f.label}-${i}`}
-                  className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0D13]/70 p-4 transition-all duration-300 hover:border-white/20 hover:bg-[#0F141E]"
+                  className="relative overflow-hidden rounded-2xl border border-border-token bg-surface p-4 transition-all duration-300 hover:border-border-token hover:bg-surface"
                 >
-                  <dt className="text-xs text-[#8A929E] font-medium">{f.label}</dt>
-                  <dd className="mt-1.5 text-2xl sm:text-3xl font-light tracking-tight text-[#F5F8FC]">
+                  <dt className="text-xs text-fg-muted font-medium font-mono">{f.label}</dt>
+                  <dd className="mt-1.5 text-2xl sm:text-3xl font-light font-mono tracking-tight text-fg">
                     {f.value}
                   </dd>
                 </div>
@@ -176,18 +178,18 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
         </div>
 
         {/* Specialisms: Link cards into the detailed service pages */}
-        <div className="mt-12 pt-10 border-t border-white/[0.08]">
+        <div className="mt-12 pt-10 border-t border-border-token">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
               <h3 className="text-xs font-mono font-medium uppercase tracking-[0.16em] text-[#FF6B2C]">
                 {specialisms.eyebrow}
               </h3>
-              <p className="mt-1 text-2xl font-bold text-[#F5F8FC]">{specialisms.title}</p>
+              <p className="mt-1 text-2xl font-bold text-fg">{specialisms.title}</p>
             </div>
             {specialisms.linkLabel && (
               <Link
                 href={specialisms.linkHref || "/consultation"}
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#A3AAB5] hover:text-[#FF6B2C] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-fg-muted hover:text-[#FF6B2C] transition-colors"
               >
                 <span>{specialisms.linkLabel}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -202,23 +204,28 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                 <li key={`${sp.label}-${idx}`} className={idx === specialisms.items.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}>
                   <Link
                     href={sp.href}
-                    className="group flex h-full flex-col rounded-2xl border border-white/[0.07] bg-[#0B0E13] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#12161D] hover:shadow-lg"
+                    className="group block h-full"
                   >
-                    <span className="flex items-center justify-between">
-                      <span
-                        className="grid h-10 w-10 place-items-center rounded-xl transition-transform group-hover:scale-105"
-                        style={{ background: `${color}1A`, color, boxShadow: `inset 0 0 0 1px ${color}33` }}
-                        aria-hidden="true"
-                      >
-                        <Icon className="h-5 w-5" />
+                    <SpotlightCard
+                      spotlightColor="rgba(255, 107, 44, 0.08)"
+                      className="flex h-full flex-col rounded-2xl border border-border-token bg-surface p-5 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-border-token group-hover:bg-surface group-hover:shadow-lg"
+                    >
+                      <span className="flex items-center justify-between">
+                        <span
+                          className="grid h-10 w-10 place-items-center rounded-xl transition-transform group-hover:scale-105"
+                          style={{ background: `${color}1A`, color, boxShadow: `inset 0 0 0 1px ${color}33` }}
+                          aria-hidden="true"
+                        >
+                          <Icon className="h-5 w-5" />
+                        </span>
+                        <ArrowRight
+                          className="h-4 w-4 -translate-x-1 text-fg-muted transition-all group-hover:translate-x-0 group-hover:text-[#FF6B2C]"
+                          aria-hidden="true"
+                        />
                       </span>
-                      <ArrowRight
-                        className="h-4 w-4 -translate-x-1 text-[#6B7380] transition-all group-hover:translate-x-0 group-hover:text-[#FF6B2C]"
-                        aria-hidden="true"
-                      />
-                    </span>
-                    <span className="mt-5 text-base font-medium text-[#F5F8FC] group-hover:text-white">{sp.label}</span>
-                    <span className="mt-1 text-sm leading-relaxed text-[#8A929E]">{sp.detail}</span>
+                      <span className="mt-5 text-base font-medium text-fg group-hover:text-fg">{sp.label}</span>
+                      <span className="mt-1 text-sm leading-relaxed text-fg-muted">{sp.detail}</span>
+                    </SpotlightCard>
                   </Link>
                 </li>
               );

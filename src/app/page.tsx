@@ -27,22 +27,8 @@ export default async function HomePage() {
         about: { "@id": `${SITE}/#organization` },
       },
       {
-        "@type": "ProfessionalService",
-        "@id": `${SITE}/#business`,
-        name: company.name,
-        url: `${SITE}/`,
-        image: `${SITE}/brand/dodail-full-logo.png`,
-        telephone: company.phone,
-        email: company.email,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: company.city,
-          addressRegion: company.region,
-          postalCode: company.postalCode,
-          addressCountry: "IN",
-        },
-        areaServed: "Worldwide",
-        parentOrganization: { "@id": `${SITE}/#organization` },
+        // Adds the service catalogue to the sitewide Organization/ProfessionalService node (layout).
+        "@id": `${SITE}/#organization`,
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: `${company.shortName} services`,

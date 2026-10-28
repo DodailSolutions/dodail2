@@ -28,8 +28,11 @@ function CameraRig({ sceneState }: { sceneState: SceneState }) {
   const { phase, live } = sceneState;
   useFrame((state) => {
     const [ox, oy] = CAMERA_OFFSET[phase];
-    state.camera.position.x += (ox + live.mouse.x * 0.28 - state.camera.position.x) * 0.04;
-    state.camera.position.y += (oy + live.mouse.y * 0.18 - state.camera.position.y) * 0.04;
+    // Silky counter-parallax for immersive 3D volume depth
+    const tx = ox - live.mouse.x * 0.22;
+    const ty = oy - live.mouse.y * 0.15;
+    state.camera.position.x += (tx - state.camera.position.x) * 0.055;
+    state.camera.position.y += (ty - state.camera.position.y) * 0.055;
     state.camera.lookAt(0, 0, 0);
   });
   return null;

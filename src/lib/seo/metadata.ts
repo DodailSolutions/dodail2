@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getContent } from "@/lib/cms/content/store";
 import type { SeoContent } from "@/lib/cms/content/defaults/site";
+import { getRoute, normalizePath, requireRoute } from "@/content/routes";
 
 export interface PageSeo {
   title: string;
@@ -16,15 +17,18 @@ interface PageMetadataOptions {
   publishedTime?: string;
   modifiedTime?: string;
   noIndex?: boolean;
+  /** Use the title exactly as written (registry titles already include the brand where it fits). */
+  exactTitle?: boolean;
 }
 
 export function siteUrl(seo: Pick<SeoContent, "siteUrl">): string {
   return seo.siteUrl.replace(/\/+$/, "") || "https://www.dodail.com";
 }
 
-/** Absolute URL for a site path. */
+/** Absolute URL for a site path, with the trailing slash the site uses (`trailingSlash: true`). */
 export function absoluteUrl(seo: Pick<SeoContent, "siteUrl">, path: string): string {
-  return path.startsWith("http") ? path : `${siteUrl(seo)}${path.startsWith("/") ? path : `/${path}`}`;
+  if (path.startsWith("http")) return path;
+  return `${siteUrl(seo)}${normalizePath(path.startsWith("/") ? path : `/${path}`)}`;
 }
 
 /** Brand suffix is added only when the CMS title doesn't already name the brand. */
@@ -41,7 +45,9 @@ export function fullTitle(title: string, seo: Pick<SeoContent, "titleSuffix">): 
  */
 export async function pageMetadata(path: string, page: PageSeo, options: PageMetadataOptions = {}): Promise<Metadata> {
   const seo = await getContent("site/seo");
-  const title = fullTitle(page.title || seo.defaultTitle, seo);
+  // Registry titles are written to fit 60 characters with the brand where it fits; never add a suffix to them.
+  const exact = options.exactTitle || (page.title && getRoute(path)?.title === page.title);
+  const title = exact && page.title ? page.title : fullTitle(page.title || seo.defaultTitle, seo);
   const description = page.description || seo.description;
   const url = absoluteUrl(seo, path);
   const image = options.image || page.image || seo.shareImage;
@@ -70,4 +76,10 @@ export async function pageMetadata(path: string, page: PageSeo, options: PageMet
     },
     ...((options.noIndex || page.noIndex) && { robots: { index: false, follow: true } }),
   };
+}
+
+/** Metadata for a page in the route registry (src/content/routes): title, description, canonical, OG. */
+export function routeMetadata(path: string, options: Omit<PageMetadataOptions, "exactTitle"> = {}): Promise<Metadata> {
+  const route = requireRoute(path);
+  return pageMetadata(route.path, { title: route.title, description: route.description }, { ...options, exactTitle: true });
 }

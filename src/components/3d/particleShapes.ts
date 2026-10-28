@@ -16,12 +16,11 @@ export const BRAND = {
 
 /** Particle colours with relative weights: brand orange leads, the rest add depth. */
 export const PALETTE: [string, number][] = [
-  ["#FF6B2C", 0.32],
-  ["#FFB547", 0.18],
+  ["#FF6B2C", 0.36],
+  ["#FF9E58", 0.22],
   ["#F5F8FC", 0.22],
   ["#27D3C2", 0.14],
-  ["#8B7CFF", 0.07],
-  ["#6E8BFF", 0.07],
+  ["#6E8BFF", 0.06],
 ];
 
 export const INDUSTRY_TINT: Record<IndustryKey, string> = {
@@ -645,7 +644,7 @@ function processPath(count: number): PointShape {
  * and ParticleField rescales outgoing particles by it so morphs never spill out of a zone.
  */
 export const PHASE_NOMINAL: Record<ScenePhase, [number, number]> = {
-  hero: [6.0, 4.4],
+  hero: [6.8, 5.0],
   about: [3.2, 2.85],
   problem: [5.0, 4.0],
   cta: [9, 6.2], // larger nominal = smaller cloud: it sits behind the CTA copy

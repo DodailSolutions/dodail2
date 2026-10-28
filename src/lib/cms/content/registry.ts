@@ -35,13 +35,31 @@ const landingLabels: Record<keyof typeof solutionPages | keyof typeof industryPa
 
 type LandingKey = keyof typeof landingLabels;
 
+/**
+ * Public URL of each landing document. CMS keys keep their original names so stored
+ * edits survive; the pages moved to the new information architecture (brief §4).
+ */
+export const LANDING_PATHS: Partial<Record<LandingKey, string>> = {
+  "solutions/ai-automation": "/services/ai-automation/",
+  "services/web-development": "/services/website-development/",
+  "services/digital-growth-seo": "/services/seo/",
+  "industries/dental": "/industries/dental-clinics/",
+  "industries/ecommerce": "/industries/ecommerce-brands/",
+  "industries/real-estate": "/industries/real-estate/",
+  "industries/manufacturing": "/industries/manufacturing/",
+  // Folded into /services/ai-automation/ (301). Their copy stays editable for reuse in Phase 4.
+  "solutions/ai-lead-management": "/services/ai-automation/",
+  "solutions/ai-customer-support": "/services/ai-automation/",
+  "solutions/workflow-automation": "/services/ai-automation/",
+};
+
 function landing(key: LandingKey, defaults: LandingContent): ContentDefinition<LandingContent> {
   const group: ContentGroup = key.startsWith("solutions/") ? "Solutions" : key.startsWith("services/") ? "Services" : "Industries";
   return {
     key,
     label: landingLabels[key],
     group,
-    path: `/${key}`,
+    path: LANDING_PATHS[key] ?? `/${key}`,
     description: "Hero, feature cards and closing call to action.",
     defaults,
     hints: landingHints,
@@ -101,7 +119,9 @@ export const contentRegistry = {
     defaults: navigationDefaults,
     hints: {
       "announcement.enabled": { label: "Show announcement bar" },
-      "links.*.mobileLabel": { help: "Label used in the phone menu. Leave empty to hide this link on phones." },
+      servicesMenu: { label: "Services mega menu", help: "One column per service pillar. Used on desktop and in the phone menu." },
+      "cta.href": { help: "The booking calendar link. External links open in a new tab." },
+      "mobileBar.tabs.*.href": { help: "A page path, a https:// link, or tel:+91… for a call button." },
       mobileBar: { label: "Phone & tablet tab bar", help: "App-style bar at the bottom of the screen on phones and tablets." },
       "mobileBar.enabled": { label: "Show tab bar" },
       "mobileBar.tabs": { fixedLength: true, help: "Four tabs; the centre button uses the header call to action." },
@@ -176,8 +196,8 @@ export const contentRegistry = {
     path: "/industries",
     defaults: industriesIndexDefaults,
   }),
-  "legal/privacy": define({ key: "legal/privacy", label: "Privacy policy", group: "Legal", path: "/privacy", defaults: privacyDefaults, hints: legalHints }),
-  "legal/terms": define({ key: "legal/terms", label: "Terms of service", group: "Legal", path: "/terms", defaults: termsDefaults, hints: legalHints }),
+  "legal/privacy": define({ key: "legal/privacy", label: "Privacy policy", group: "Legal", path: "/privacy-policy/", defaults: privacyDefaults, hints: legalHints }),
+  "legal/terms": define({ key: "legal/terms", label: "Terms of use", group: "Legal", path: "/terms-of-use/", defaults: termsDefaults, hints: legalHints }),
 };
 
 /**

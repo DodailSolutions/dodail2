@@ -1,3 +1,4 @@
+import { routeSeo } from "@/content/routes";
 import { LandingContent, noIntegrations } from "./landing";
 
 const consult = "/consultation";
@@ -6,11 +7,7 @@ const contact = "/contact";
 export const solutionPages = {
   "solutions/ai-automation": {
     layout: "solution",
-    seo: {
-      title: "AI Automation Platform & Autonomous Agents",
-      description:
-        "Deploy enterprise AI agents and autonomous workflows that orchestrate lead capture, CRM synchronization, and operational execution with strict guardrails.",
-    },
+    seo: routeSeo("/services/ai-automation/"),
     hero: {
       badge: "Core Platform // v2.0",
       badgeTone: "orange",
@@ -158,11 +155,7 @@ export const solutionPages = {
 
   "services/web-development": {
     layout: "solution",
-    seo: {
-      title: "Custom Web & Software Engineering (Next.js)",
-      description:
-        "Custom full-stack web application development, Next.js architecture, headless e-commerce, and cloud APIs engineered for speed, SEO, and long-term scale.",
-    },
+    seo: routeSeo("/services/website-development/"),
     hero: {
       badge: "Full-Stack Engineering",
       badgeTone: "orange",
@@ -194,11 +187,7 @@ export const solutionPages = {
 
   "services/digital-growth-seo": {
     layout: "solution",
-    seo: {
-      title: "Digital Growth, GEO & SEO Services",
-      description:
-        "Dominate search results across traditional Google Search and next-gen AI search engines (Perplexity, ChatGPT, Gemini) with technical SEO and GEO strategy.",
-    },
+    seo: routeSeo("/services/seo/"),
     hero: {
       badge: "Generative Engine Optimization (GEO)",
       badgeTone: "orange",

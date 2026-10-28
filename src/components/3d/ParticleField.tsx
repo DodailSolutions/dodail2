@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef } from "react";
-import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, Points, ShaderMaterial } from "three";
+import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, Points, ShaderMaterial, Vector2 } from "three";
 import type { BufferGeometry as Geometry } from "three";
 import { useFrame } from "@react-three/fiber";
 import { SceneState } from "./3DTypes";
@@ -29,6 +29,8 @@ const vertexShader = /* glsl */ `
   uniform float uDim;
   uniform vec3 uTint;
   uniform float uTintAmt;
+  uniform vec2 uMouse;
+  uniform float uMouseActive;
   varying vec3 vColor;
   varying float vAlpha;
 
@@ -49,6 +51,16 @@ const vertexShader = /* glsl */ `
     p += vec3(sin(n), cos(n * 1.3), sin(n * 0.7)) * (0.012 + uChaos * 0.22 * aSeed);
 
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
+    vec4 proj = projectionMatrix * mv;
+    vec2 ndc = proj.xy / proj.w;
+    float mouseDist = length(ndc - uMouse);
+    float mouseInfluence = smoothstep(0.44, 0.0, mouseDist) * uMouseActive;
+
+    // Organic magnetic displacement away from cursor + forward swell
+    p += normalize(p + vec3(0.001)) * mouseInfluence * 0.2;
+    p.z += mouseInfluence * 0.14;
+
+    mv = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
 
     bool hasActive = uActive > -0.5;
@@ -63,11 +75,14 @@ const vertexShader = /* glsl */ `
       bokeh = aTag < -3.5 ? 1.0 : 0.0;
     }
 
-    gl_PointSize = uSize * (0.55 + aSeed * 0.9) * (1.0 + isActive * 0.5) * (1.0 + bokeh * 2.4) * uPixelRatio * scale / -mv.z;
+    vec3 excitedColor = mix(base, vec3(1.0, 0.74, 0.4), 0.75);
+    base = mix(base, excitedColor, mouseInfluence);
+
+    gl_PointSize = uSize * (0.55 + aSeed * 0.9) * (1.0 + isActive * 0.5 + mouseInfluence * 0.4) * (1.0 + bokeh * 2.4) * uPixelRatio * scale / -mv.z;
 
     float twinkle = 0.75 + 0.25 * sin(uTime * 2.0 + aSeed * 60.0);
-    vColor = mix(base, uTint, uTintAmt) * (1.0 + isActive * 0.7);
-    vAlpha = twinkle * uDim * (hasActive ? (isActive > 0.5 ? 1.0 : 0.4) : 1.0) * (1.0 - bokeh * 0.6);
+    vColor = mix(base, uTint, uTintAmt) * (1.0 + isActive * 0.7 + mouseInfluence * 0.55);
+    vAlpha = (twinkle + mouseInfluence * 0.35) * uDim * (hasActive ? (isActive > 0.5 ? 1.0 : 0.4) : 1.0) * (1.0 - bokeh * 0.6);
     vAlpha *= mix(1.0, min(1.0, sin(f * 3.14159) * 1.6), flowing);
   }
 `;
@@ -93,6 +108,7 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
   const pointsRef = useRef<Points>(null);
   const lastKey = useRef<string | null>(null);
   const lastNominal = useRef<[number, number]>(SCATTER_NOMINAL);
+  const smoothMouse = useRef({ x: 0, y: 0 });
   const lastGeometry = useRef<Geometry | null>(null);
   const mix = useRef(0);
   const tint = useMemo(() => new Color(), []);
@@ -133,12 +149,14 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
           uMix: { value: 0 },
           uTime: { value: 0 },
           uChaos: { value: 0 },
-          uSize: { value: 30 },
+          uSize: { value: 21 },
           uPixelRatio: { value: 1 },
           uActive: { value: -1 },
           uDim: { value: 1 },
           uTint: { value: new Color("#ffffff") },
           uTintAmt: { value: 0 },
+          uMouse: { value: new Vector2(999, 999) },
+          uMouseActive: { value: 0 },
         },
       }),
     []
@@ -201,7 +219,7 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
     u.uMix.value = mix.current;
     u.uTime.value = time;
     u.uPixelRatio.value = state.gl.getPixelRatio();
-    u.uSize.value = isMobile ? 36 : 30;
+    u.uSize.value = isMobile ? 25 : 21;
     u.uChaos.value = lerp(u.uChaos.value, phase === "problem" && problemIndex === 2 ? 0.25 : 0, 0.04);
     u.uDim.value = lerp(u.uDim.value, phase === "problem" ? 0.85 : phase === "cta" ? 1.15 : 1, 0.05);
     u.uActive.value =
@@ -209,6 +227,15 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
     tint.set(phase === "industries" ? INDUSTRY_TINT[activeIndustry] : "#ffffff");
     (u.uTint.value as Color).lerp(tint, 0.08);
     u.uTintAmt.value = lerp(u.uTintAmt.value, phase === "industries" ? 0.55 : 0, 0.06);
+
+    // Smooth mouse coordinates for shader magnetic aura
+    const sm = smoothMouse.current;
+    sm.x = lerp(sm.x, live.mouse.x, 0.08);
+    sm.y = lerp(sm.y, live.mouse.y, 0.08);
+    if (u.uMouse) {
+      (u.uMouse.value as Vector2).set(sm.x, sm.y);
+      u.uMouseActive.value = lerp(u.uMouseActive.value, isMobile ? 0 : 1, 0.06);
+    }
 
     // Brain phases sway in profile; the other shapes face the reader with parallax.
     const brainPhase = phase === "hero" || phase === "cta";
@@ -219,8 +246,14 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
         : phase === "about"
           ? Math.sin(time * 0.18) * 0.22
           : 0;
-    pts.rotation.y = lerp(pts.rotation.y, ry + live.mouse.x * 0.2, 0.04);
-    pts.rotation.x = lerp(pts.rotation.x, (brainPhase ? 0.12 : 0.08) - live.mouse.y * 0.12, 0.04);
+
+    const targetRotY = ry + live.mouse.x * 0.45;
+    const targetRotX = (brainPhase ? 0.14 : 0.08) - live.mouse.y * 0.28;
+    const targetRotZ = -live.mouse.x * 0.12;
+
+    pts.rotation.y = lerp(pts.rotation.y, targetRotY, 0.065);
+    pts.rotation.x = lerp(pts.rotation.x, targetRotX, 0.065);
+    pts.rotation.z = lerp(pts.rotation.z, targetRotZ, 0.065);
   });
 
   return <points ref={pointsRef} geometry={geometry} material={material} frustumCulled={false} />;

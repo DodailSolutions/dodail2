@@ -16,7 +16,7 @@ function inline(text: string, key: string): React.ReactNode[] {
     const k = `${key}-${i}`;
     if (part.startsWith("**") && part.endsWith("**") && part.length > 4) return <strong key={k}>{part.slice(2, -2)}</strong>;
     if (part.startsWith("`") && part.endsWith("`") && part.length > 2)
-      return <code key={k} className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-slate-800">{part.slice(1, -1)}</code>;
+      return <code key={k} className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[0.9em] text-fg">{part.slice(1, -1)}</code>;
     if (part.startsWith("*") && part.endsWith("*") && part.length > 2) return <em key={k}>{part.slice(1, -1)}</em>;
     const link = /^\[([^\]]*)\]\(([^)\s]+)\)$/.exec(part);
     if (link) {
@@ -92,7 +92,7 @@ export function headingId(text: string) {
 
 export function Markdown({ source }: { source: string }) {
   return (
-    <div className="space-y-5 text-[1.0625rem] leading-relaxed text-slate-700">
+    <div className="space-y-5 text-[1.0625rem] leading-relaxed text-fg-muted">
       {parse(source).map((b, i) => {
         const key = String(i);
         switch (b.type) {
@@ -101,7 +101,7 @@ export function Markdown({ source }: { source: string }) {
             const level = Math.min(b.level + 1, 4);
             const Tag = `h${level}` as "h2" | "h3" | "h4";
             const size = level === 2 ? "text-2xl mt-10" : level === 3 ? "text-xl mt-8" : "text-lg mt-6";
-            return <Tag key={key} id={headingId(b.text)} className={`${size} scroll-mt-24 font-bold tracking-tight text-slate-950`}>{inline(b.text, key)}</Tag>;
+            return <Tag key={key} id={headingId(b.text)} className={`${size} scroll-mt-24 font-bold tracking-tight text-fg`}>{inline(b.text, key)}</Tag>;
           }
           case "p":
             return <p key={key}>{inline(b.text, key)}</p>;
@@ -115,16 +115,16 @@ export function Markdown({ source }: { source: string }) {
             );
           }
           case "quote":
-            return <blockquote key={key} className="border-l-4 border-[#FF6B2C] bg-orange-50/50 py-3 pl-5 pr-3 italic text-slate-700">{inline(b.text, key)}</blockquote>;
+            return <blockquote key={key} className="border-l-4 border-[#FF6B2C] bg-orange-50/50 py-3 pl-5 pr-3 italic text-fg-muted">{inline(b.text, key)}</blockquote>;
           case "code":
-            return <pre key={key} className="overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code>{b.text}</code></pre>;
+            return <pre key={key} className="overflow-x-auto rounded-xl bg-surface p-4 text-sm text-fg"><code>{b.text}</code></pre>;
           case "img":
             return isSafeUrl(b.src) ? (
               // eslint-disable-next-line @next/next/no-img-element -- editor images may come from any host
-              <img key={key} src={b.src} alt={b.alt} loading="lazy" decoding="async" className="w-full rounded-2xl border border-slate-200" />
+              <img key={key} src={b.src} alt={b.alt} loading="lazy" decoding="async" className="w-full rounded-2xl border border-border-token" />
             ) : null;
           case "hr":
-            return <hr key={key} className="border-slate-200" />;
+            return <hr key={key} className="border-border-token" />;
         }
       })}
     </div>

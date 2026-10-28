@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Eyebrow, StageFade, Zone, sectionPad, stagePanel } from "../homeUi";
 import { useActiveOnScroll } from "../useActiveOnScroll";
 import { useHomeContent } from "../HomeContentContext";
+import { SpotlightCard } from "../SpotlightCard";
 
 interface Props {
   active: number;
@@ -46,53 +47,62 @@ export function ProcessSection({ active, onActive }: Props) {
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl mb-10">
           <Eyebrow>{processContent.eyebrow}</Eyebrow>
-          <h2 id="process-title" className="section-title-clamp mt-4 text-[#F5F8FC]">{processContent.title}</h2>
-          <p className="mt-6 text-lg leading-relaxed text-[#A3AAB5]">{processContent.description}</p>
+          <h2 id="process-title" className="section-title-clamp mt-4 text-fg">{processContent.title}</h2>
+          <p className="mt-6 text-lg leading-relaxed text-fg-muted">{processContent.description}</p>
         </div>
 
         <div>
-        {/* Icon strip: pinned like a progress bar on phones/tablets; above the columns on desktop */}
-        <div className={`${stagePanel} top-16 sm:top-20 lg:static`}>
-          <Zone phase="process" className="h-[100px] sm:h-[140px] lg:h-[220px]" />
-          <StageFade />
-        </div>
+          {/* Icon strip: pinned like a progress bar on phones/tablets; above the columns on desktop */}
+          <div className={`${stagePanel} top-16 sm:top-20 lg:static`}>
+            <Zone phase="process" className="h-[100px] sm:h-[140px] lg:h-[220px]" />
+            <StageFade />
+          </div>
 
-        <ol ref={listRef} className="mt-6 grid grid-cols-1 md:grid-cols-5 gap-x-6 border-t border-[#1C222B]">
-          {processStages.map((s, i) => {
-            const on = i === active;
-            return (
-              <li
-                key={s.num}
-                data-index={i}
-                onMouseEnter={() => select(i)}
-                className={`relative border-b border-[#1C222B] md:border-b-0 border-t-2 md:-mt-px py-6 transition-colors duration-500 focus-within:ring-2 focus-within:ring-[#FF6B2C] ${
-                  on ? "border-t-[#FF6B2C]" : "border-t-transparent hover:border-t-[#2C333E]"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className={`block text-3xl font-light tabular-nums transition-colors duration-500 ${on ? "text-[#FF6B2C]" : "text-[#2C333E]"}`}
-                    aria-hidden="true"
+          <ol ref={listRef} className="mt-6 grid grid-cols-1 md:grid-cols-5 gap-4 border-t border-border-strong pt-4">
+            {processStages.map((s, i) => {
+              const on = i === active;
+              return (
+                <li
+                  key={s.num}
+                  data-index={i}
+                  onMouseEnter={() => select(i)}
+                  className="relative h-full"
+                >
+                  <SpotlightCard
+                    spotlightColor={on ? "rgba(255, 107, 44, 0.12)" : "rgba(255, 255, 255, 0.04)"}
+                    className={`h-full rounded-2xl border p-5 sm:p-6 transition-all duration-300 ${
+                      on
+                        ? "border-t-2 border-t-[#FF6B2C] border-border-token bg-surface shadow-[0_4px_20px_rgba(255,107,44,0.1)]"
+                        : "border-t-2 border-t-transparent border-border-strong bg-surface hover:border-border-token"
+                    }`}
                   >
-                    {s.num}
-                  </span>
-                </div>
-                <h3 className="mt-3 text-xl font-normal tracking-tight text-[#F5F8FC]">
-                  <button
-                    type="button"
-                    aria-current={on ? "step" : undefined}
-                    onFocus={() => select(i)}
-                    onClick={() => select(i)}
-                    className="text-left focus:outline-none after:absolute after:inset-0 after:content-['']"
-                  >
-                    {s.title}
-                  </button>
-                </h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-[#A3AAB5]">{s.desc}</p>
-              </li>
-            );
-          })}
-        </ol>
+                    <div className="flex items-center justify-between">
+                      <span
+                        className={`block text-3xl font-mono font-light tabular-nums transition-colors duration-300 ${
+                          on ? "text-[#FF6B2C] font-semibold" : "text-fg-subtle"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        {s.num}
+                      </span>
+                    </div>
+                    <h3 className="mt-3 text-lg sm:text-xl font-normal tracking-tight text-fg">
+                      <button
+                        type="button"
+                        aria-pressed={on}
+                        onFocus={() => select(i)}
+                        onClick={() => select(i)}
+                        className="text-left focus:outline-none after:absolute after:inset-0 after:rounded-2xl after:content-['']"
+                      >
+                        {s.title}
+                      </button>
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-fg-muted">{s.desc}</p>
+                  </SpotlightCard>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>

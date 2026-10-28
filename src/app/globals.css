@@ -11,6 +11,93 @@
     --text-main: #F5F8FC;
     --text-secondary: #AABAC8;
     --border-subtle: #1B3652;
+
+    /* ---------- Semantic theme tokens (flip with [data-theme]) ---------- */
+    /* Page + surfaces */
+    --bg: #071A28;            /* page background */
+    --bg-2: #05070B;          /* deeper chrome (nav, footer) */
+    --surface: #0C2233;       /* cards / panels */
+    --surface-2: #10293B;     /* elevated / hover */
+    --surface-translucent: rgba(255, 255, 255, 0.03); /* faint glass fills */
+    --surface-translucent-2: rgba(255, 255, 255, 0.06);
+    /* Text */
+    --fg: #F5F8FC;            /* primary text */
+    --fg-muted: #AABAC8;      /* secondary text */
+    --fg-subtle: #8A929E;     /* tertiary / captions */
+    /* Lines */
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: #1B3652;
+    /* Brand (constant across themes) */
+    --brand: #FF6B2C;
+    --brand-2: #27D3C2;
+    /* Header */
+    --header-bg: rgba(5, 7, 11, 0.70);
+    --header-border: rgba(255, 255, 255, 0.06);
+  }
+
+  /* Dark is the default; make it explicit so [data-theme="dark"] reasserts the same values. */
+  :root[data-theme="dark"] {
+    --bg: #071A28;
+    --bg-2: #05070B;
+    --surface: #0C2233;
+    --surface-2: #10293B;
+    --surface-translucent: rgba(255, 255, 255, 0.03);
+    --surface-translucent-2: rgba(255, 255, 255, 0.06);
+    --fg: #F5F8FC;
+    --fg-muted: #AABAC8;
+    --fg-subtle: #8A929E;
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: #1B3652;
+    --header-bg: rgba(5, 7, 11, 0.70);
+    --header-border: rgba(255, 255, 255, 0.06);
+  }
+
+  :root[data-theme="light"] {
+    --bg: #FAFBFD;
+    --bg-2: #FFFFFF;
+    --surface: #FFFFFF;
+    --surface-2: #F1F5F9;
+    --surface-translucent: rgba(15, 23, 42, 0.03);
+    --surface-translucent-2: rgba(15, 23, 42, 0.06);
+    --fg: #0F172A;
+    --fg-muted: #475569;
+    --fg-subtle: #64748B;
+    --border: rgba(15, 23, 42, 0.10);
+    --border-strong: #E2E8F0;
+    --header-bg: rgba(255, 255, 255, 0.90);
+    --header-border: rgba(15, 23, 42, 0.08);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes border-beam {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.animate-border-beam {
+  animation: border-beam var(--duration) infinite linear;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
   }
 }
 
@@ -23,20 +110,38 @@
   --color-text-main: #F5F8FC;
   --color-text-secondary: #AABAC8;
   --color-border-subtle: #1B3652;
+
+  /* Semantic, theme-aware utilities: bg-bg, bg-surface, text-fg, border-border, … */
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-border-token: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
 }
 
 html {
   scroll-behavior: smooth;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.font-display {
+  font-family: 'Sora', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  background-color: #FAFBFD;
-  color: #0F172A;
+  background-color: var(--bg);
+  color: var(--fg);
   min-height: 100vh;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Accessibility & Focus States */
@@ -89,17 +194,17 @@ body {
 
 /* Glass & Surface Utilities */
 .glass-surface {
-  background: rgba(12, 34, 51, 0.75);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #1B3652;
+  border: 1px solid var(--border-strong);
 }
 
 .glass-surface-elevated {
-  background: rgba(16, 41, 59, 0.85);
+  background: color-mix(in srgb, var(--surface-2) 88%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid #1B3652;
+  border: 1px solid var(--border-strong);
 }
 
 .glow-orange {
@@ -138,10 +243,10 @@ body {
 
 /* Fluid Swiss Typography Utilities */
 .hero-title-clamp {
-  font-size: clamp(2.75rem, 5vw + 1rem, 5.5rem);
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-  font-weight: 300;
+  font-size: clamp(2.15rem, 3.2vw + 0.6rem, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: 700;
 }
 
 .section-title-clamp {
@@ -239,3 +344,22 @@ a, button, [role="button"], input, select, textarea, label {
 }
 .animate-sheet-up { animation: sheetUp 0.32s cubic-bezier(0.32, 0.72, 0, 1) both; }
 .animate-fade { animation: fadeIn 0.2s ease-out both; }
+
+/* Long-form article body (blog posts migrated from the old site) */
+.prose-dodail { color: var(--fg-muted); font-size: 1.0625rem; line-height: 1.8; overflow-wrap: anywhere; }
+.prose-dodail > * + * { margin-top: 1.25rem; }
+.prose-dodail h2 { margin-top: 2.5rem; font-size: 1.625rem; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; color: var(--fg); scroll-margin-top: 6rem; }
+.prose-dodail h3 { margin-top: 2rem; font-size: 1.25rem; line-height: 1.35; font-weight: 700; color: var(--fg); scroll-margin-top: 6rem; }
+.prose-dodail h4 { margin-top: 1.5rem; font-weight: 700; color: var(--fg); }
+.prose-dodail ul, .prose-dodail ol { padding-left: 1.5rem; }
+.prose-dodail ul { list-style: disc; }
+.prose-dodail ol { list-style: decimal; }
+.prose-dodail li + li { margin-top: 0.5rem; }
+.prose-dodail a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+.prose-dodail a:hover { color: #E8541A; }
+.prose-dodail strong { color: var(--fg); font-weight: 700; }
+.prose-dodail blockquote { border-left: 3px solid #FF6B2C; padding-left: 1rem; color: var(--fg-muted); font-style: italic; }
+.prose-dodail table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.95rem; }
+.prose-dodail th, .prose-dodail td { border: 1px solid var(--border-strong); padding: 0.5rem 0.75rem; text-align: left; vertical-align: top; }
+.prose-dodail th { background: var(--surface-2); }
+.prose-dodail img { max-width: 100%; height: auto; border-radius: 0.75rem; }

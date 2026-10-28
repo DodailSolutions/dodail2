@@ -1,0 +1,41 @@
+{
+  "session-1792485450731-a2jgy": {
+    "id": "session-1792485450731-a2jgy",
+    "messages": [
+      {
+        "id": "msg-u-1792485511443",
+        "role": "user",
+        "content": "What services does Dodail provide?",
+        "timestamp": "2026-10-20T08:38:31.443Z"
+      },
+      {
+        "id": "msg-a-1792485516951",
+        "role": "assistant",
+        "content": "Dodail Solutions is an AI-powered creative and technology agency based in Hyderabad. We partner with ambitious brands across India, the UAE, and the USA across 5 core pillars:\n\n1. **Digital Marketing:** SEO, GEO (AI search visibility for ChatGPT/Google AI), performance ads, and high-converting content.\n2. **Web & App Development:** Ultra-fast Next.js/React web platforms, custom dashboards, Shopify, and enterprise systems.\n3. **Mobile App Development:** iOS and Android apps built with Flutter and React Native.\n4. **Branding:** Visual identity, logo design systems, and packaging.\n5. **Marketing & Strategy:** GTM planning, conversion rate optimization, and CMO-as-a-Service.\n\nWhich of these areas are you currently looking to elevate?",
+        "timestamp": "2026-10-20T08:38:36.951Z"
+      },
+      {
+        "id": "msg-u-1792486204943",
+        "role": "user",
+        "content": "What services does Dodail provide?",
+        "timestamp": "2026-10-20T08:50:04.943Z"
+      },
+      {
+        "id": "msg-a-1792486210456",
+        "role": "assistant",
+        "content": "Dodail Solutions is an AI-powered creative and technology agency based in Hyderabad. We partner with ambitious brands across India, the UAE, and the USA across 5 core pillars:\n\n1. **Digital Marketing:** SEO, GEO (AI search visibility for ChatGPT/Google AI), performance ads, and high-converting content.\n2. **Web & App Development:** Ultra-fast Next.js/React web platforms, custom dashboards, Shopify, and enterprise systems.\n3. **Mobile App Development:** iOS and Android apps built with Flutter and React Native.\n4. **Branding:** Visual identity, logo design systems, and packaging.\n5. **Marketing & Strategy:** GTM planning, conversion rate optimization, and CMO-as-a-Service.\n\nWhich of these areas are you currently looking to elevate?",
+        "timestamp": "2026-10-20T08:50:10.456Z"
+      }
+    ],
+    "qualification_state": {
+      "problem": "What services does Dodail provide?"
+    },
+    "consent": {
+      "marketing_consent": true,
+      "terms_agreed": true,
+      "timestamp": "2026-10-20T08:38:31.443Z"
+    },
+    "created_at": "2026-10-20T08:38:31.443Z",
+    "updated_at": "2026-10-20T08:50:10.457Z"
+  }
+}

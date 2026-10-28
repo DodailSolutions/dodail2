@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { AIChatLauncher } from "@/components/layout/AIChatLauncher";
 import { MobileTabBar } from "@/components/layout/MobileTabBar";
 import { PublicOnly } from "@/components/layout/PublicOnly";
+import { ThemeProvider, ThemeScript } from "@/components/theme/ThemeProvider";
 import { JsonLd } from "@/components/seo/StructuredData";
 import { getContent } from "@/lib/cms/content/store";
 import { absoluteUrl, siteUrl } from "@/lib/seo/metadata";
@@ -25,6 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const [seo, company] = await Promise.all([getContent("site/seo"), getContent("site/company")]);
   const verificationOther: Record<string, string> = {};
   if (seo.verification.bing) verificationOther["msvalidate.01"] = seo.verification.bing;
+  if (seo.verification.pinterest) verificationOther["p:domain_verify"] = seo.verification.pinterest;
 
   return {
     metadataBase: new URL(siteUrl(seo)),
@@ -77,11 +79,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     // suppressHydrationWarning: browser extensions (e.g. WOT adds `wotdisconnected`) inject
     // attributes into <html>/<body> before hydration. Applies to these two elements only.
-    <html lang={seo.locale.split("_")[0] || "en"} className="h-full" suppressHydrationWarning>
+    <html lang={seo.locale.replace("_", "-") || "en-IN"} className="h-full" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body
         suppressHydrationWarning
-        className="flex min-h-screen flex-col bg-[#071A28] text-[#F5F8FC] antialiased selection:bg-[#FF6B2C] selection:text-[#071A28]"
+        className="flex min-h-screen flex-col bg-bg text-fg antialiased selection:bg-[#FF6B2C] selection:text-white"
       >
+        <ThemeProvider>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-none focus:bg-[#FF6B2C] focus:px-4 focus:py-2 focus:text-[#071A28] focus:font-bold focus:shadow-lg focus:outline-none font-mono text-xs uppercase tracking-wider"
@@ -100,6 +106,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <MobileTabBar nav={navigation} />
           <AIChatLauncher />
         </PublicOnly>
+        </ThemeProvider>
       </body>
     </html>
   );

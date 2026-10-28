@@ -18,11 +18,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       primary:
         "bg-[#FF6B2C] hover:bg-[#e0561b] text-white font-bold border border-[#FF6B2C] shadow-md shadow-orange-500/20 hover:shadow-orange-500/30",
       secondary:
-        "bg-slate-900 hover:bg-slate-800 text-white border border-slate-800 shadow-sm",
+        "bg-surface hover:bg-surface text-fg border border-border-token shadow-sm",
       outline:
-        "border border-slate-300 hover:border-[#FF6B2C] text-slate-800 bg-white hover:bg-orange-50/20 shadow-sm",
+        "border border-border-strong hover:border-[#FF6B2C] text-fg bg-surface hover:bg-orange-50/20 shadow-sm",
       ghost:
-        "text-slate-600 hover:text-slate-950 hover:bg-slate-100",
+        "text-fg-muted hover:text-fg hover:bg-surface-2",
     };
 
     const sizeStyles = {

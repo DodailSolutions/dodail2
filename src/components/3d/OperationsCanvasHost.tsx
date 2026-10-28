@@ -122,26 +122,12 @@ export function OperationsCanvasHost({
 
   useEffect(() => onModeChange?.(mode), [mode, onModeChange]);
 
-  // 1. Fetch the 3D bundle after first paint, when the browser is idle.
+  // 1. Promptly fetch the 3D bundle after first paint, keeping the main thread responsive.
   useEffect(() => {
-    const win = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-    let idleId = 0;
-    let timeoutId = 0;
-    const start = () => setIdle(true);
-    const schedule = () => {
-      if (win.requestIdleCallback) idleId = win.requestIdleCallback(start, { timeout: 2500 });
-      else timeoutId = window.setTimeout(start, 1200);
-    };
-    if (document.readyState === "complete") schedule();
-    else window.addEventListener("load", schedule, { once: true });
-    return () => {
-      window.removeEventListener("load", schedule);
-      if (idleId && win.cancelIdleCallback) win.cancelIdleCallback(idleId);
-      window.clearTimeout(timeoutId);
-    };
+    const timer = setTimeout(() => {
+      setIdle(true);
+    }, 150);
+    return () => clearTimeout(timer);
   }, []);
 
   // 2. Stop rendering while the tab is hidden.

@@ -10,24 +10,32 @@ import path from "path";
 const requiredRoutes = [
   "src/app/page.tsx",
   "src/app/about/page.tsx",
-  "src/app/solutions/ai-automation/page.tsx",
-  "src/app/solutions/ai-lead-management/page.tsx",
-  "src/app/solutions/ai-customer-support/page.tsx",
-  "src/app/solutions/workflow-automation/page.tsx",
-  "src/app/services/web-development/page.tsx",
-  "src/app/services/digital-growth-seo/page.tsx",
+  "src/app/services/ai-automation/page.tsx",
+  "src/app/services/website-development/page.tsx",
+  "src/app/services/seo/page.tsx",
   "src/app/industries/page.tsx",
-  "src/app/industries/dental/page.tsx",
+  "src/app/industries/dental-clinics/page.tsx",
   "src/app/industries/real-estate/page.tsx",
-  "src/app/industries/ecommerce/page.tsx",
+  "src/app/industries/ecommerce-brands/page.tsx",
   "src/app/work/page.tsx",
   "src/app/blog/page.tsx",
   "src/app/consultation/page.tsx",
   "src/app/contact/page.tsx",
-  "src/app/privacy/page.tsx",
-  "src/app/terms/page.tsx",
+  "src/app/privacy-policy/page.tsx",
+  "src/app/terms-of-use/page.tsx",
+  "src/app/not-found.tsx",
   "src/app/robots.ts",
-  "src/app/sitemap.ts",
+  "src/app/llms.txt/route.ts",
+  "src/app/sitemap.xml/route.ts",
+  "src/app/sitemap-pages.xml/route.ts",
+  "src/app/sitemap-services.xml/route.ts",
+  "src/app/sitemap-industries.xml/route.ts",
+  "src/app/sitemap-work.xml/route.ts",
+  "src/app/sitemap-blog.xml/route.ts",
+  "src/proxy.ts",
+  "src/content/site.ts",
+  "src/content/legacy/redirects.ts",
+  "src/content/legacy/gone.ts",
 ];
 
 const requiredAssets = [
@@ -96,9 +104,12 @@ function scanDir(dir) {
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      if (entry.name !== "node_modules" && entry.name !== ".next" && entry.name !== ".git") {
+      // src/content/legacy holds the 410 list of the old site's hacked spam URLs, which are spam words by design.
+      if (entry.name !== "node_modules" && entry.name !== ".next" && entry.name !== ".git" && fullPath !== path.join("src", "content", "legacy")) {
         scanDir(fullPath);
       }
+    } else if (entry.name === "proxy.ts") {
+      continue; // its spam pattern is a deny-list
     } else if (entry.isFile() && (entry.name.endsWith(".tsx") || entry.name.endsWith(".ts"))) {
       const content = fs.readFileSync(fullPath, "utf-8").toLowerCase();
       for (const kw of forbiddenKeywords) {

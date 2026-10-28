@@ -59,8 +59,8 @@ export function ContactForm({ form, success }: Pick<ContactContent, "form" | "su
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-4">
           <CheckCircle2 className="h-8 w-8" />
         </div>
-        <h2 className="text-2xl font-bold text-slate-950">{success.title}</h2>
-        <p className="mt-2 text-sm text-slate-600">{fill(success.body, { name })}</p>
+        <h2 className="text-2xl font-bold text-fg">{success.title}</h2>
+        <p className="mt-2 text-sm text-fg-muted">{fill(success.body, { name })}</p>
         <div className="mt-6">
           <Button onClick={() => setStatus("idle")} variant="secondary" size="sm">
             {success.againLabel}
@@ -71,7 +71,7 @@ export function ContactForm({ form, success }: Pick<ContactContent, "form" | "su
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-lg">
+    <form onSubmit={handleSubmit} noValidate className="rounded-3xl border border-border-token bg-surface p-5 sm:p-8 shadow-lg">
       {errorMsg && (
         <div role="alert" className="mb-4 flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700 font-medium">
           <AlertCircle className="h-4 w-4 shrink-0" />

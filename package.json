@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build --webpack",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack && node scripts/check-content.js",
+    "check:content": "node scripts/check-content.js",
     "start": "next start",
     "lint": "eslint",
     "test": "node scripts/verify-routes.js",

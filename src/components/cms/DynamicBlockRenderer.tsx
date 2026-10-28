@@ -11,7 +11,7 @@ interface DynamicBlockRendererProps {
 export function DynamicBlockRenderer({ sections, previewMode = false }: DynamicBlockRendererProps) {
   if (!sections || sections.length === 0) {
     return (
-      <div className="py-20 text-center text-slate-500">
+      <div className="py-20 text-center text-fg-subtle">
         <p>No content sections configured on this page.</p>
       </div>
     );
@@ -45,7 +45,7 @@ export function DynamicBlockRenderer({ sections, previewMode = false }: DynamicB
             return <VideoBlockView key={block.id} block={block} />;
           default:
             return (
-              <div key={(block as any).id} className="p-4 bg-slate-900 border border-slate-800 text-xs text-slate-400">
+              <div key={(block as any).id} className="p-4 bg-surface border border-border-token text-xs text-fg-muted">
                 Unknown section block type: {(block as any).type}
               </div>
             );
@@ -58,18 +58,18 @@ export function DynamicBlockRenderer({ sections, previewMode = false }: DynamicB
 // 1. Hero Block
 function HeroBlockView({ block }: { block: any }) {
   return (
-    <section className="relative overflow-hidden py-20 lg:py-28 border-b border-slate-800/60 bg-[#07131F]">
+    <section className="relative overflow-hidden py-20 lg:py-28 border-b border-border-token bg-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         {block.badge && (
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[#FA5B0F]/10 text-[#FA5B0F] border border-[#FA5B0F]/20 font-mono mb-6">
             {block.badge}
           </div>
         )}
-        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-fg max-w-4xl mx-auto leading-tight">
           {block.headline}
         </h1>
         {block.subheadline && (
-          <p className="mt-6 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-6 text-base sm:text-lg text-fg-muted max-w-2xl mx-auto leading-relaxed">
             {block.subheadline}
           </p>
         )}
@@ -84,8 +84,8 @@ function HeroBlockView({ block }: { block: any }) {
           )}
           {block.ctaSecondaryLabel && (
             <Link
-              href={block.ctaSecondaryLink || "/solutions/ai-automation"}
-              className="px-6 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-medium text-sm transition"
+              href={block.ctaSecondaryLink || "/services/ai-automation/"}
+              className="px-6 py-3 rounded-lg bg-surface hover:bg-surface border border-border-token text-fg font-medium text-sm transition"
             >
               {block.ctaSecondaryLabel}
             </Link>
@@ -99,20 +99,20 @@ function HeroBlockView({ block }: { block: any }) {
 // 2. Rich Text Block
 function RichTextBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#07131F] border-b border-slate-800/60">
+    <section className="py-16 bg-bg border-b border-border-token">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {block.badge && (
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-mono bg-slate-800 text-slate-300 mb-4">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-mono bg-surface text-fg-muted mb-4">
             {block.badge}
           </div>
         )}
         {block.title && (
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-fg mb-6">
             {block.title}
           </h2>
         )}
         <div
-          className="prose prose-invert max-w-none text-slate-300 leading-relaxed space-y-4"
+          className="prose prose-invert max-w-none text-fg-muted leading-relaxed space-y-4"
           dangerouslySetInnerHTML={{ __html: block.contentHtml }}
         />
       </div>
@@ -123,7 +123,7 @@ function RichTextBlockView({ block }: { block: any }) {
 // 3. Cards Block
 function CardsBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#0A1B2A]/40 border-b border-slate-800/60">
+    <section className="py-16 bg-bg/40 border-b border-border-token">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           {block.badge && (
@@ -131,11 +131,11 @@ function CardsBlockView({ block }: { block: any }) {
               {block.badge}
             </span>
           )}
-          <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-bold text-fg tracking-tight">
             {block.title}
           </h2>
           {block.description && (
-            <p className="mt-3 text-sm sm:text-base text-slate-400">
+            <p className="mt-3 text-sm sm:text-base text-fg-muted">
               {block.description}
             </p>
           )}
@@ -145,11 +145,11 @@ function CardsBlockView({ block }: { block: any }) {
           {block.items?.map((item: any, idx: number) => (
             <div
               key={idx}
-              className="bg-slate-900/80 border border-slate-800/90 rounded-xl p-6 hover:border-slate-700 transition flex flex-col justify-between"
+              className="bg-surface border border-border-token rounded-xl p-6 hover:border-border-token transition flex flex-col justify-between"
             >
               <div>
-                <h3 className="text-base font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">{item.description}</p>
+                <h3 className="text-base font-semibold text-fg mb-2">{item.title}</h3>
+                <p className="text-xs text-fg-muted leading-relaxed">{item.description}</p>
               </div>
               {item.linkText && item.linkHref && (
                 <Link
@@ -171,7 +171,7 @@ function CardsBlockView({ block }: { block: any }) {
 // 4. Services Block
 function ServicesBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#07131F] border-b border-slate-800/60">
+    <section className="py-16 bg-bg border-b border-border-token">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mb-12">
           {block.badge && (
@@ -179,11 +179,11 @@ function ServicesBlockView({ block }: { block: any }) {
               {block.badge}
             </span>
           )}
-          <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-bold text-fg tracking-tight">
             {block.title}
           </h2>
           {block.description && (
-            <p className="mt-3 text-sm text-slate-400">{block.description}</p>
+            <p className="mt-3 text-sm text-fg-muted">{block.description}</p>
           )}
         </div>
 
@@ -191,17 +191,17 @@ function ServicesBlockView({ block }: { block: any }) {
           {block.items?.map((srv: any, idx: number) => (
             <div
               key={idx}
-              className="bg-slate-900/60 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition"
+              className="bg-surface border border-border-token rounded-xl p-6 hover:border-border-token transition"
             >
               <div className="w-8 h-8 rounded-lg bg-[#FA5B0F]/10 text-[#FA5B0F] flex items-center justify-center font-bold text-sm mb-4">
                 0{idx + 1}
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{srv.title}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">{srv.description}</p>
+              <h3 className="text-lg font-semibold text-fg mb-2">{srv.title}</h3>
+              <p className="text-xs text-fg-muted leading-relaxed mb-4">{srv.description}</p>
               {srv.href && (
                 <Link
                   href={srv.href}
-                  className="text-xs font-medium text-slate-300 hover:text-white inline-flex items-center gap-1"
+                  className="text-xs font-medium text-fg-muted hover:text-fg inline-flex items-center gap-1"
                 >
                   <span>Explore Architecture</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -218,7 +218,7 @@ function ServicesBlockView({ block }: { block: any }) {
 // 5. Stats Block
 function StatsBlockView({ block }: { block: any }) {
   return (
-    <section className="py-14 bg-[#0A1B2A] border-b border-slate-800/60">
+    <section className="py-14 bg-bg border-b border-border-token">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {block.items?.map((item: any, idx: number) => (
@@ -226,7 +226,7 @@ function StatsBlockView({ block }: { block: any }) {
               <div className="text-3xl md:text-4xl font-bold text-[#FA5B0F] font-mono">
                 {item.value}
               </div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">
+              <div className="text-xs text-fg-muted mt-1 uppercase tracking-wider font-medium">
                 {item.label}
               </div>
             </div>
@@ -240,7 +240,7 @@ function StatsBlockView({ block }: { block: any }) {
 // 6. Testimonials Block
 function TestimonialsBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#07131F] border-b border-slate-800/60">
+    <section className="py-16 bg-bg border-b border-border-token">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           {block.badge && (
@@ -248,18 +248,18 @@ function TestimonialsBlockView({ block }: { block: any }) {
               {block.badge}
             </span>
           )}
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">{block.title}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-fg">{block.title}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {block.items?.map((item: any, idx: number) => (
-            <div key={idx} className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
-              <p className="text-xs text-slate-300 italic mb-6 leading-relaxed">
+            <div key={idx} className="bg-surface border border-border-token rounded-xl p-6 flex flex-col justify-between">
+              <p className="text-xs text-fg-muted italic mb-6 leading-relaxed">
                 &ldquo;{item.quote}&rdquo;
               </p>
-              <div className="border-t border-slate-800 pt-4">
-                <div className="font-semibold text-xs text-white">{item.author}</div>
-                <div className="text-[11px] text-slate-400">{item.role}, {item.company}</div>
+              <div className="border-t border-border-token pt-4">
+                <div className="font-semibold text-xs text-fg">{item.author}</div>
+                <div className="text-[11px] text-fg-muted">{item.role}, {item.company}</div>
               </div>
             </div>
           ))}
@@ -272,18 +272,18 @@ function TestimonialsBlockView({ block }: { block: any }) {
 // 7. Case Studies Block
 function CaseStudiesBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#0A1B2A]/50 border-b border-slate-800/60">
+    <section className="py-16 bg-bg/50 border-b border-border-token">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">{block.title}</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-fg mb-8">{block.title}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {block.items?.map((item: any, idx: number) => (
-            <div key={idx} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+            <div key={idx} className="bg-surface border border-border-token rounded-xl p-6">
               <span className="text-[10px] font-mono uppercase text-[#FA5B0F] tracking-wider block mb-2">
                 {item.industry}
               </span>
-              <h3 className="text-base font-semibold text-white mb-2">{item.title}</h3>
-              <p className="text-xs text-slate-400 mb-4">{item.outcome}</p>
-              <div className="p-3 bg-slate-950 rounded text-xs font-mono text-emerald-400">
+              <h3 className="text-base font-semibold text-fg mb-2">{item.title}</h3>
+              <p className="text-xs text-fg-muted mb-4">{item.outcome}</p>
+              <div className="p-3 bg-surface rounded text-xs font-mono text-emerald-400">
                 {item.metric}
               </div>
             </div>
@@ -297,19 +297,19 @@ function CaseStudiesBlockView({ block }: { block: any }) {
 // 8. FAQs Block
 function FaqsBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#07131F] border-b border-slate-800/60">
+    <section className="py-16 bg-bg border-b border-border-token">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">{block.title}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-fg">{block.title}</h2>
           {block.description && (
-            <p className="text-xs text-slate-400 mt-2">{block.description}</p>
+            <p className="text-xs text-fg-muted mt-2">{block.description}</p>
           )}
         </div>
         <div className="space-y-4">
           {block.items?.map((item: any, idx: number) => (
-            <div key={idx} className="bg-slate-900/80 border border-slate-800 rounded-xl p-5">
-              <h3 className="font-semibold text-sm text-white mb-2">{item.question}</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">{item.answer}</p>
+            <div key={idx} className="bg-surface border border-border-token rounded-xl p-5">
+              <h3 className="font-semibold text-sm text-fg mb-2">{item.question}</h3>
+              <p className="text-xs text-fg-muted leading-relaxed">{item.answer}</p>
             </div>
           ))}
         </div>
@@ -321,13 +321,13 @@ function FaqsBlockView({ block }: { block: any }) {
 // 9. CTA Block
 function CtaBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#0A1B2A] border-b border-slate-800/60 text-center">
+    <section className="py-16 bg-bg border-b border-border-token text-center">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-4">
+        <h2 className="text-2xl sm:text-4xl font-bold text-fg tracking-tight mb-4">
           {block.title}
         </h2>
         {block.description && (
-          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-8">
+          <p className="text-sm text-fg-muted max-w-xl mx-auto mb-8">
             {block.description}
           </p>
         )}
@@ -346,16 +346,16 @@ function CtaBlockView({ block }: { block: any }) {
 // 10. Logo Strip Block
 function LogoStripBlockView({ block }: { block: any }) {
   return (
-    <section className="py-10 bg-slate-950 border-b border-slate-800/60">
+    <section className="py-10 bg-surface border-b border-border-token">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {block.title && (
-          <p className="text-xs font-mono uppercase text-slate-500 mb-6 tracking-wider">
+          <p className="text-xs font-mono uppercase text-fg-subtle mb-6 tracking-wider">
             {block.title}
           </p>
         )}
         <div className="flex flex-wrap items-center justify-center gap-8 opacity-75">
           {block.logos?.map((logo: any, idx: number) => (
-            <span key={idx} className="font-semibold text-xs text-slate-400 uppercase tracking-widest">
+            <span key={idx} className="font-semibold text-xs text-fg-muted uppercase tracking-widest">
               {logo.name}
             </span>
           ))}
@@ -368,10 +368,10 @@ function LogoStripBlockView({ block }: { block: any }) {
 // 11. Video Block
 function VideoBlockView({ block }: { block: any }) {
   return (
-    <section className="py-16 bg-[#07131F] border-b border-slate-800/60">
+    <section className="py-16 bg-bg border-b border-border-token">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {block.title && <h2 className="text-2xl font-bold text-white mb-6">{block.title}</h2>}
-        <div className="aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-black">
+        {block.title && <h2 className="text-2xl font-bold text-fg mb-6">{block.title}</h2>}
+        <div className="aspect-video w-full rounded-xl overflow-hidden border border-border-token bg-black">
           <iframe
             src={block.videoUrl}
             title={block.title || "Video"}

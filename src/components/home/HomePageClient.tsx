@@ -10,6 +10,8 @@ import { ServicesSection } from "./sections/ServicesSection";
 import { PipelineSection } from "./sections/PipelineSection";
 import { IndustriesSection } from "./sections/IndustriesSection";
 import { ProcessSection } from "./sections/ProcessSection";
+import { TestimonialsSection } from "./sections/TestimonialsSection";
+import { InsightsSection } from "./sections/InsightsSection";
 import { CtaSection, FaqSection, TrustSection } from "./sections/TrustFaqCtaSection";
 import { HomeContentProvider } from "./HomeContentContext";
 import type { HomeContent } from "@/lib/cms/content/defaults/home";
@@ -52,28 +54,30 @@ export function HomePageClient({ content, company }: { content: HomeContent; com
 
   return (
     <HomeContentProvider value={{ content, company }}>
-    <div className="relative bg-[#05070B] text-[#F5F8FC]">
-      <OperationsCanvasHost
-        activeProblem={problem}
-        activeServiceIndex={service}
-        activePipelineStage={stage}
-        activeIndustry={industry}
-        activeProcessStep={step}
-        onModeChange={setMode}
-      />
-      <div className="relative z-10">
-        <HeroSection webgl={webgl} />
-        <IntroSection webgl={webgl} />
-        <ProblemSection active={problem} onActive={setProblem} />
-        <ServicesSection active={service} onActive={setService} webgl={webgl} />
-        <PipelineSection active={stage} onActive={setStage} webgl={webgl} />
-        <IndustriesSection active={industry} onActive={setIndustry} webgl={webgl} />
-        <ProcessSection active={step} onActive={setStep} />
-        <TrustSection />
-        <FaqSection />
-        <CtaSection webgl={webgl} />
+      <div className="relative bg-bg text-fg">
+        <OperationsCanvasHost
+          activeProblem={problem}
+          activeServiceIndex={service}
+          activePipelineStage={stage}
+          activeIndustry={industry}
+          activeProcessStep={step}
+          onModeChange={setMode}
+        />
+        <div className="relative z-10">
+          <HeroSection webgl={webgl} />
+          <IntroSection webgl={webgl} />
+          <ProblemSection active={problem} onActive={setProblem} />
+          <ServicesSection active={service} onActive={setService} webgl={webgl} />
+          <PipelineSection active={stage} onActive={setStage} webgl={webgl} />
+          <IndustriesSection active={industry} onActive={setIndustry} webgl={webgl} />
+          <ProcessSection active={step} onActive={setStep} />
+          <TrustSection />
+          <TestimonialsSection />
+          <InsightsSection />
+          <FaqSection />
+          <CtaSection webgl={webgl} />
+        </div>
       </div>
-    </div>
     </HomeContentProvider>
   );
 }

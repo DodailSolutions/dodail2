@@ -78,9 +78,9 @@ export function BookingForm({ steps, topics, slots, form, success, whatsapp }: P
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-6">
           <CheckCircle2 className="h-10 w-10" />
         </div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-950">{success.title}</h2>
-        <p className="mt-4 text-slate-600 max-w-lg mx-auto">{fill(success.body, { name, topic, slot: slot?.label ?? "" })}</p>
-        <div className="mt-6 p-5 rounded-2xl bg-white border border-slate-200 max-w-md mx-auto text-xs text-slate-700 text-left space-y-2 shadow-xs">
+        <h2 className="text-2xl sm:text-3xl font-bold text-fg">{success.title}</h2>
+        <p className="mt-4 text-fg-muted max-w-lg mx-auto">{fill(success.body, { name, topic, slot: slot?.label ?? "" })}</p>
+        <div className="mt-6 p-5 rounded-2xl bg-surface border border-border-token max-w-md mx-auto text-xs text-fg-muted text-left space-y-2 shadow-xs">
           <p><strong>Attendee:</strong> {email} ({phone})</p>
           {company && <p><strong>Company:</strong> {company}</p>}
           <p>{success.nextStep}</p>
@@ -92,7 +92,7 @@ export function BookingForm({ steps, topics, slots, form, success, whatsapp }: P
               href={whatsappHref(whatsapp, fill(success.whatsappMessage, { name }))}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-500 transition-colors shadow-sm"
+              className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-fg hover:bg-emerald-500 transition-colors shadow-sm"
             >
               <MessageSquare className="h-4 w-4 mr-2" />
               {success.whatsappLabel}
@@ -108,14 +108,14 @@ export function BookingForm({ steps, topics, slots, form, success, whatsapp }: P
       "rounded-xl border text-left text-sm sm:text-xs transition-all active:scale-[0.98]",
       selected
         ? dark
-          ? "bg-slate-900 border-slate-900 text-white font-semibold shadow-xs"
+          ? "bg-surface border-border-strong text-fg font-semibold shadow-xs"
           : "bg-orange-50 border-[#FF6B2C] text-[#C2410C] font-semibold ring-1 ring-[#FF6B2C]"
-        : "bg-slate-50/70 border-slate-200 text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100"
+        : "bg-surface-2 border-border-token text-fg-muted font-medium hover:text-fg hover:bg-surface-2"
     );
   const stepLabel = "block text-xs font-bold uppercase tracking-wider text-[#C2410C] mb-3 font-mono";
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6 lg:p-10 shadow-xl">
+    <form onSubmit={handleSubmit} noValidate className="rounded-3xl border border-border-token bg-surface p-5 sm:p-6 lg:p-10 shadow-xl">
       {errorMsg && (
         <div role="alert" className="mb-6 flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 p-4 text-xs font-medium text-rose-700">
           <AlertCircle className="h-4 w-4 shrink-0" />
@@ -149,7 +149,7 @@ export function BookingForm({ steps, topics, slots, form, success, whatsapp }: P
         </fieldset>
       )}
 
-      <fieldset className="mb-8 border-t border-slate-100 pt-6">
+      <fieldset className="mb-8 border-t border-border-token pt-6">
         <legend className={cn(stepLabel, "float-left w-full mb-4")}>{steps.details}</legend>
         <div className="clear-both grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -175,8 +175,8 @@ export function BookingForm({ steps, topics, slots, form, success, whatsapp }: P
         </div>
       </fieldset>
 
-      <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+      <div className="border-t border-border-token pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2 text-xs text-fg-subtle">
           <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
           <span>{form.privacyNote}</span>
         </div>

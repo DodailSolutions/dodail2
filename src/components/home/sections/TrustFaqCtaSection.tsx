@@ -22,6 +22,7 @@ import { HeroParticlesSVG } from "@/components/3d/CanvasFallback";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { Eyebrow, Zone, ghostBtn, primaryBtn, sectionPad } from "../homeUi";
 import { telHref, useHomeContent } from "../HomeContentContext";
+import { SpotlightCard } from "../SpotlightCard";
 
 const trustMeta: Record<
   string,
@@ -82,14 +83,14 @@ export function TrustSection() {
   const trust = section.items;
 
   return (
-    <section id="why-dodail" aria-labelledby="why-title" className={`relative bg-[#0B0E13] ${sectionPad} pb-28 sm:pb-36`}>
+    <section id="why-dodail" aria-labelledby="why-title" className={`relative bg-surface ${sectionPad} pb-28 sm:pb-36`}>
       {/* Background ambient lighting */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full bg-[#FF6B2C]/[0.025] blur-[140px]" />
-        <div className="absolute bottom-10 right-10 h-[400px] w-[500px] rounded-full bg-[#27D3C2]/[0.02] blur-[120px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full bg-[#FF6B2C]/[0.035] blur-[140px]" />
+        <div className="absolute bottom-10 right-10 h-[400px] w-[500px] rounded-full bg-[#27D3C2]/[0.025] blur-[120px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl">
@@ -97,11 +98,11 @@ export function TrustSection() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end mb-12 sm:mb-16">
           <div className="lg:col-span-7">
             <Eyebrow>{section.eyebrow}</Eyebrow>
-            <h2 id="why-title" className="section-title-clamp mt-4 text-[#F5F8FC]">
+            <h2 id="why-title" className="section-title-clamp mt-4 text-fg">
               {section.title}
             </h2>
           </div>
-          <p className="lg:col-span-5 text-base sm:text-lg leading-relaxed text-[#A3AAB5]">
+          <p className="lg:col-span-5 text-base sm:text-lg leading-relaxed text-fg-muted">
             {section.description}
           </p>
         </div>
@@ -121,9 +122,10 @@ export function TrustSection() {
 
             if (featured) {
               return (
-                <article
+                <SpotlightCard
                   key={t.title}
-                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#131722]/95 via-[#0F131C]/90 to-[#0A0D13]/95 p-7 sm:p-9 backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_50px_-15px_rgba(255,107,44,0.15)] sm:col-span-2 lg:col-span-2 lg:row-span-2"
+                  spotlightColor="rgba(255, 107, 44, 0.12)"
+                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-border-token bg-gradient-to-b from-[var(--surface)] via-[var(--surface)] to-[var(--surface)] p-7 sm:p-9 backdrop-blur-xl transition-all duration-300 hover:border-border-token hover:shadow-[0_20px_50px_-15px_rgba(255,107,44,0.15)] sm:col-span-2 lg:col-span-2 lg:row-span-2"
                 >
                   {/* Subtle top accent gradient */}
                   <span
@@ -165,15 +167,15 @@ export function TrustSection() {
                       </span>
                     </div>
 
-                    <h3 className="mt-6 text-2xl sm:text-3xl font-normal tracking-tight text-[#F5F8FC]">
+                    <h3 className="mt-6 text-2xl sm:text-3xl font-normal tracking-tight text-fg">
                       {t.title}
                     </h3>
-                    <p className="mt-3 text-base sm:text-lg leading-relaxed text-[#A3AAB5] max-w-2xl">
+                    <p className="mt-3 text-base sm:text-lg leading-relaxed text-fg-muted max-w-2xl">
                       {t.desc}
                     </p>
 
                     {/* Unified Architecture Visual Showcase */}
-                    <div className="my-7 rounded-2xl border border-white/10 bg-[#0A0D14]/80 p-5 sm:p-6 backdrop-blur-md relative overflow-hidden group/arch">
+                    <div className="my-7 rounded-2xl border border-border-token bg-surface p-5 sm:p-6 backdrop-blur-md relative overflow-hidden group/arch">
                       <div
                         className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full opacity-20 blur-3xl transition-opacity group-hover/arch:opacity-35"
                         style={{ background: "#FF6B2C" }}
@@ -183,7 +185,7 @@ export function TrustSection() {
                         style={{ background: "#27D3C2" }}
                       />
 
-                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.08] pb-3 text-xs">
+                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-token pb-3 text-xs">
                         <div className="flex items-center gap-2 font-mono text-[#FF6B2C]">
                           <span className="relative flex h-2 w-2">
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF6B2C] opacity-75" />
@@ -191,106 +193,51 @@ export function TrustSection() {
                           </span>
                           <span>DODAIL UNIFIED ARCHITECTURE</span>
                         </div>
-                        <span className="text-[11px] font-mono text-[#8C94A4]">
+                        <span className="text-[11px] font-mono text-fg-muted">
                           Shared Data Core · Zero Silos
                         </span>
                       </div>
 
                       {/* 4 Connected Pods */}
                       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 transition-colors hover:border-[#FF6B2C]/40 hover:bg-white/[0.04]">
-                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#FF6B2C]/10 text-[#FF6B2C]">
-                            <Workflow className="h-4 w-4" />
-                          </span>
-                          <div>
-                            <div className="text-xs font-medium text-[#F5F8FC]">AI Workflow Automation</div>
-                            <div className="text-[11px] text-[#8C94A4]">Webhooks, LLM agents, error recovery</div>
+                        {services.items.slice(0, 4).map((s, i) => (
+                          <div
+                            key={s.id}
+                            className="flex items-center justify-between rounded-xl border border-border-token bg-[var(--surface-translucent)] p-3 text-xs transition-colors hover:border-border-token"
+                          >
+                            <span className="font-medium text-fg">{s.title}</span>
+                            <span className="font-mono text-fg-muted">Pod 0{i + 1}</span>
                           </div>
-                        </div>
-
-                        <div className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 transition-colors hover:border-[#27D3C2]/40 hover:bg-white/[0.04]">
-                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#27D3C2]/10 text-[#27D3C2]">
-                            <Cpu className="h-4 w-4" />
-                          </span>
-                          <div>
-                            <div className="text-xs font-medium text-[#F5F8FC]">Custom Web & Software</div>
-                            <div className="text-[11px] text-[#8C94A4]">Next.js, high-speed APIs, bespoke portals</div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 transition-colors hover:border-[#8B7CFF]/40 hover:bg-white/[0.04]">
-                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#8B7CFF]/10 text-[#8B7CFF]">
-                            <Database className="h-4 w-4" />
-                          </span>
-                          <div>
-                            <div className="text-xs font-medium text-[#F5F8FC]">Unified Data & CRM</div>
-                            <div className="text-[11px] text-[#8C94A4]">PostgreSQL, single source of truth</div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 transition-colors hover:border-[#FFB547]/40 hover:bg-white/[0.04]">
-                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#FFB547]/10 text-[#FFB547]">
-                            <Zap className="h-4 w-4" />
-                          </span>
-                          <div>
-                            <div className="text-xs font-medium text-[#F5F8FC]">Growth & SEO Engine</div>
-                            <div className="text-[11px] text-[#8C94A4]">Conversion funnels, dynamic schemas</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Architecture banner */}
-                      <div className="mt-3.5 flex items-center justify-between rounded-lg bg-emerald-500/[0.06] border border-emerald-500/20 px-3 py-1.5 text-[11px] text-emerald-400 font-mono">
-                        <span className="flex items-center gap-1.5">
-                          <CheckCircle2 className="h-3.5 w-3.5" />
-                          Single engineering source:
-                        </span>
-                        <span>Zero vendor ping-pong · 100% shared context</span>
+                        ))}
                       </div>
                     </div>
                   </div>
 
-                  {/* Capabilities Pill Bar */}
-                  <div className="mt-auto pt-5 border-t border-white/[0.08]">
-                    <div className="mb-3 text-[11px] font-mono uppercase tracking-wider text-[#8C94A4]">
-                      Specialized Capabilities Under One Roof
-                    </div>
-                    <ul className="flex flex-wrap gap-2" aria-label="Services delivered by one team">
-                      {services.items.map((sv) => (
-                        <li key={sv.id}>
-                          <Link
-                            href={sv.href}
-                            className="group/pill inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-xs text-[#C9CED6] transition-all hover:border-[#FF6B2C] hover:bg-[#FF6B2C]/10 hover:text-white active:scale-95"
-                          >
-                            <span>{sv.title}</span>
-                            <ArrowUpRight className="h-3 w-3 opacity-60 transition-transform group-hover/pill:translate-x-0.5 group-hover/pill:-translate-y-0.5 group-hover/pill:opacity-100 text-[#FF6B2C]" />
-                          </Link>
+                  {/* Highlights Grid */}
+                  <div className="mt-4 border-t border-border-token pt-6">
+                    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-fg-muted">
+                      {meta.highlights.map((h, i) => (
+                        <li key={i} className="flex items-center gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-[#FF6B2C] shrink-0" />
+                          <span>{h}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                </article>
+                </SpotlightCard>
               );
             }
 
             return (
-              <article
+              <SpotlightCard
                 key={t.title}
-                className={`group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#131722]/90 via-[#0F131C]/80 to-[#0A0D13]/90 p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.8)] ${
-                  idx === trust.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
-                }`}
+                spotlightColor="rgba(255, 107, 44, 0.08)"
+                className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-border-token bg-surface p-7 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-border-token hover:bg-surface"
               >
-                {/* Top glow line */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-8 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
-                />
-
                 <div>
                   <div className="flex items-center justify-between gap-3">
                     <span
-                      className="grid h-11 w-11 place-items-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                      className="grid h-10 w-10 place-items-center rounded-xl"
                       style={{
                         background: `${color}1A`,
                         color,
@@ -300,67 +247,52 @@ export function TrustSection() {
                     >
                       <Icon className="h-5 w-5" />
                     </span>
-
-                    <span
-                      className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-mono tracking-wide"
-                      style={{
-                        background: `${color}14`,
-                        color,
-                        border: `1px solid ${color}2E`,
-                      }}
-                    >
-                      {meta.badge}
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-fg-muted">
+                      {meta.tagline}
                     </span>
                   </div>
 
-                  <h3 className="mt-5 text-lg sm:text-xl font-normal tracking-tight text-[#F5F8FC]">
+                  <h3 className="mt-5 text-xl font-normal tracking-tight text-fg">
                     {t.title}
                   </h3>
-
-                  <p className="mt-2.5 text-sm leading-relaxed text-[#A3AAB5]">
+                  <p className="mt-3 text-sm leading-relaxed text-fg-muted">
                     {t.desc}
                   </p>
                 </div>
 
-                {/* Highlights List */}
-                {meta.highlights && meta.highlights.length > 0 && (
-                  <div className="mt-6 pt-5 border-t border-white/[0.06]">
-                    <ul className="space-y-1.5 text-xs text-[#C9CED6]">
-                      {meta.highlights.map((h, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <span
-                            className="h-1.5 w-1.5 rounded-full shrink-0"
-                            style={{ background: color }}
-                          />
-                          <span className="truncate">{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </article>
+                <div className="mt-6 border-t border-border-token pt-4">
+                  <ul className="space-y-2 text-xs text-fg-muted">
+                    {meta.highlights.slice(0, 2).map((h, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </SpotlightCard>
             );
           })}
         </div>
 
-        {/* Polished Bottom Action Banner */}
-        <div className="mt-12 sm:mt-16 rounded-2xl border border-white/[0.08] bg-gradient-to-r from-[#121620]/90 via-[#0E121A]/85 to-[#121620]/90 p-6 sm:p-8 backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
+        {/* Bottom Banner */}
+        <div className="mt-12 rounded-2xl border border-border-token bg-gradient-to-r from-[var(--surface)] to-[var(--surface)] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#FF6B2C]">
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#FF6B2C] mb-1">
               <Sparkles className="h-3.5 w-3.5" />
               Verified Engineering Deliverables
             </div>
-            <h3 className="mt-1 text-lg sm:text-xl font-normal text-[#F5F8FC]">
+            <h3 className="mt-1 text-lg sm:text-xl font-normal text-fg">
               Ready to see these commitments in live production?
             </h3>
-            <p className="mt-1 text-sm text-[#A3AAB5] max-w-xl">
+            <p className="mt-1 text-sm text-fg-muted max-w-xl">
               Every project begins with a frank architecture discovery session to map your data and workflows before writing a single line of code.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-[#F5F8FC] hover:bg-white/[0.08] hover:border-white/20 transition-all"
+              className="inline-flex items-center gap-2 rounded-xl border border-border-token bg-[var(--surface-translucent)] px-4 py-2.5 text-sm font-medium text-fg hover:bg-[var(--surface-translucent-2)] hover:border-border-token transition-all"
             >
               Explore our work <ArrowRight className="h-4 w-4" />
             </Link>
@@ -383,11 +315,11 @@ export function FaqSection() {
   if (faq.items.length === 0) return null;
 
   return (
-    <section id="faq" aria-labelledby="faq-title" className={`relative bg-[#05070B] ${sectionPad}`}>
+    <section id="faq" aria-labelledby="faq-title" className={`relative bg-bg ${sectionPad}`}>
       <div className="mx-auto max-w-4xl">
         <div className="mb-12">
           <Eyebrow tone="cyan">{faq.eyebrow}</Eyebrow>
-          <h2 id="faq-title" className="section-title-clamp mt-4 text-[#F5F8FC]">{faq.title}</h2>
+          <h2 id="faq-title" className="section-title-clamp mt-4 text-fg">{faq.title}</h2>
         </div>
         <FAQAccordion items={faq.items} />
       </div>
@@ -399,43 +331,73 @@ export function CtaSection({ webgl }: { webgl: boolean }) {
   const { content, company } = useHomeContent();
   const { cta } = content;
 
+  const ctaMetrics = [
+    { label: "More Leads", value: "3x" },
+    { label: "Faster Lead Response", value: "9x" },
+    { label: "Time Saved", value: "70%" },
+    { label: "Revenue Growth", value: "2.5x" },
+  ];
+
   return (
-    <section id="contact" aria-labelledby="cta-title" className="relative overflow-hidden px-5 sm:px-8 lg:px-12 py-20 sm:py-28">
-      {/* The whole section is the scene zone: nodes converge behind the call to action */}
-      <Zone phase="cta" className="!absolute inset-0">
-        <HeroParticlesSVG
-          className={`absolute inset-0 h-full w-full opacity-0 transition-opacity duration-700 ${
-            webgl ? "" : "!opacity-40"
-          }`}
-        />
-      </Zone>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 55% 60% at 50% 50%, rgba(5,7,11,0.72), rgba(5,7,11,0.25) 65%, transparent)" }}
-      />
+    <section id="contact" aria-labelledby="cta-title" className="relative overflow-hidden px-5 sm:px-8 lg:px-12 py-16 sm:py-24 bg-bg">
+      <div className="relative mx-auto max-w-7xl">
+        {/* Large Rounded CTA Card */}
+        <div className="relative overflow-hidden rounded-3xl border border-[#FF6B2C]/30 bg-surface p-8 sm:p-12 lg:p-16 shadow-2xl">
+          {/* Ambient Lighting Orbs */}
+          <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-[#FF6B2C]/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-[#FF6B2C]/20 blur-3xl" />
 
-      <div className="relative mx-auto max-w-4xl text-center">
-        <Eyebrow>{cta.eyebrow}</Eyebrow>
-        <h2 id="cta-title" className="section-title-clamp mt-4 text-[#F5F8FC]">{cta.title}</h2>
-        <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl leading-relaxed text-[#C9CED6]">{cta.description}</p>
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left Column: Copy & Actions */}
+            <div className="lg:col-span-7 space-y-6 text-left">
+              <h2 id="cta-title" className="text-3xl sm:text-5xl font-bold tracking-tight text-fg leading-tight">
+                Ready to build a smarter, faster, more profitable business?
+              </h2>
+              <p className="text-base sm:text-lg text-fg-muted leading-relaxed max-w-xl">
+                Book a free consultation with our team and get a clear plan on how we can help you with AI, automation and custom software.
+              </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          {cta.primaryCta.label && (
-            <Button href={cta.primaryCta.href || "/consultation"} variant="primary" size="lg" className={primaryBtn}>
-              <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
-              {cta.primaryCta.label}
-            </Button>
-          )}
-          {cta.secondaryCta.label && (
-            <Button href={cta.secondaryCta.href || "/contact"} variant="outline" size="lg" className={`${ghostBtn} bg-[#05070B]/60`}>
-              {cta.secondaryCta.label}
-            </Button>
-          )}
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <Button
+                  href="/consultation"
+                  variant="primary"
+                  size="lg"
+                  className="rounded-full bg-[#FF6B2C] hover:bg-[#E8541A] text-white px-8 py-4 font-semibold shadow-xl shadow-[#FF6B2C]/20 transition-all hover:scale-105"
+                >
+                  <span>Book a Free Consultation</span>
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+                <Button
+                  href="/contact"
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full border border-border-token bg-[var(--surface-translucent)] hover:bg-[var(--surface-translucent-2)] text-fg px-7 py-4 font-semibold transition"
+                >
+                  Send a Message
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Column: 4 Metric Badges */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
+              {ctaMetrics.map((m, idx) => (
+                <div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-[var(--surface-translucent-2)] border border-[#FF6B2C]/20 backdrop-blur-md flex flex-col justify-center items-center text-center space-y-1 hover:border-[#FF6B2C]/40 transition"
+                >
+                  <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#FF6B2C]">
+                    {m.value}
+                  </span>
+                  <span className="text-xs text-fg-muted font-medium">{m.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <p className="mt-14 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-[#1C222B] pt-8 text-base text-[#A3AAB5]">
-          <span className="font-semibold text-[#F5F8FC]">{company.name}</span>
+        {/* Legal & Location Bar */}
+        <p className="mt-12 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-border-token pt-8 text-xs text-fg-muted">
+          <span className="font-semibold text-fg">{company.name}</span>
           <span>
             {company.city}, {company.region}, {company.country}
           </span>

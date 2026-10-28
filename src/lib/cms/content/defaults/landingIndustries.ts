@@ -1,3 +1,4 @@
+import { routeSeo } from "@/content/routes";
 import { LandingContent, noIntegrations, noLink } from "./landing";
 
 const consult = "/consultation";
@@ -5,11 +6,7 @@ const consult = "/consultation";
 export const industryPages = {
   "industries/dental": {
     layout: "industry",
-    seo: {
-      title: "Dental & Healthcare Clinic Automation | Dodail Solutions",
-      description:
-        "Automate dental clinic appointment booking, emergency patient triage via WhatsApp, automated reminders to eliminate no-shows, and local Google Maps SEO.",
-    },
+    seo: routeSeo("/industries/dental-clinics/"),
     hero: {
       badge: "Healthcare Automation",
       badgeTone: "teal",
@@ -41,11 +38,7 @@ export const industryPages = {
 
   "industries/ecommerce": {
     layout: "industry",
-    seo: {
-      title: "E-Commerce & DTC Brand Automation | Dodail Solutions",
-      description:
-        "Scale DTC e-commerce operations. Sub-second Next.js storefronts, automated shipping & order tracking inquiries, and WhatsApp abandoned cart recovery.",
-    },
+    seo: routeSeo("/industries/ecommerce-brands/"),
     hero: {
       badge: "E-Commerce Architecture",
       badgeTone: "orange",
@@ -112,11 +105,7 @@ export const industryPages = {
 
   "industries/real-estate": {
     layout: "industry",
-    seo: {
-      title: "Real Estate Lead Qualification & Automation | Dodail Solutions",
-      description:
-        "Accelerate property sales. Instant buyer qualification, WhatsApp brochure delivery, and automated site visit scheduling for real estate developers and agencies.",
-    },
+    seo: routeSeo("/industries/real-estate/"),
     hero: {
       badge: "Real Estate Automation",
       badgeTone: "orange",

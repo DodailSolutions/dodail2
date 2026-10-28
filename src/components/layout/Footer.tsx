@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin, ShieldCheck } from "lucide-react";
+import { BadgeCheck, Clock, Mail, Phone, MapPin } from "lucide-react";
 import { fill, telHref } from "@/lib/utils";
+import { addressLine, site } from "@/content/site";
 import type { CompanyContent, FooterContent } from "@/lib/cms/content/defaults/site";
+
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapsQuery)}`;
 
 const SOCIAL_ICONS: Record<keyof CompanyContent["social"], { label: string; path: string }> = {
   linkedin: {
@@ -33,11 +36,11 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
   const socials = (Object.keys(SOCIAL_ICONS) as Array<keyof CompanyContent["social"]>).filter((k) => company.social[k]);
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#05070B] text-[#AABAC8]">
+    <footer className="border-t border-[var(--header-border)] bg-bg-2 text-fg-muted">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-6">
           {/* Column 1: Brand & Identity */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="col-span-2 md:col-span-4 lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
               <div
                 style={{ width: "40px", height: "40px", minWidth: "40px", minHeight: "40px" }}
@@ -46,24 +49,36 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
                 <Image src="/brand/dodail-logo.png" alt={company.name} fill sizes="40px" className="object-contain" />
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tight text-white">{company.shortName}</span>
-                <p className="text-xs text-[#AABAC8]">{footer.brandSubline}</p>
+                <span className="text-xl font-bold tracking-tight text-fg">{company.shortName}</span>
+                <p className="text-xs text-fg-muted">{footer.brandSubline}</p>
               </div>
             </Link>
 
-            <p className="text-sm text-[#AABAC8] leading-relaxed max-w-sm">{footer.about}</p>
+            <p className="text-sm text-fg-muted leading-relaxed max-w-sm">{footer.about}</p>
 
-            <div className="space-y-2 text-sm text-[#AABAC8]">
-              {footer.locationLine && (
+            {/* NAP block — must match the contact page, schema and Google Business Profile exactly. */}
+            <address className="space-y-2 text-sm not-italic text-fg-muted">
+              <p className="font-semibold text-fg">{site.legalName}</p>
+              <div className="flex items-start gap-2.5">
+                <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 text-[#FF6B2C] shrink-0" />
+                <span>
+                  {addressLine()}
+                  <br />
+                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#FF6B2C] hover:underline">
+                    {footer.mapLabel}
+                  </a>
+                </span>
+              </div>
+              {company.hours && (
                 <div className="flex items-center gap-2.5">
-                  <MapPin aria-hidden="true" className="h-4 w-4 text-[#FF6B2C] shrink-0" />
-                  <span>{footer.locationLine}</span>
+                  <Clock aria-hidden="true" className="h-4 w-4 text-[#FF6B2C] shrink-0" />
+                  <span>{company.hours}</span>
                 </div>
               )}
               {company.email && (
                 <div className="flex items-center gap-2.5">
                   <Mail aria-hidden="true" className="h-4 w-4 text-[#FF6B2C] shrink-0" />
-                  <a href={`mailto:${company.email}`} className="hover:text-white transition-colors">
+                  <a href={`mailto:${company.email}`} className="hover:text-fg transition-colors">
                     {company.email}
                   </a>
                 </div>
@@ -71,12 +86,23 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
               {company.phone && (
                 <div className="flex items-center gap-2.5">
                   <Phone aria-hidden="true" className="h-4 w-4 text-[#FF6B2C] shrink-0" />
-                  <a href={telHref(company.phone)} className="hover:text-white transition-colors">
+                  <a href={telHref(company.phone)} className="hover:text-fg transition-colors">
                     {company.phone}
                   </a>
                 </div>
               )}
-            </div>
+            </address>
+
+            {footer.recognition && (
+              <div className="flex items-center gap-2.5 text-sm text-fg-muted">
+                {footer.recognitionImage ? (
+                  <Image src={footer.recognitionImage} alt="Startup India" width={32} height={32} className="h-8 w-8 shrink-0" />
+                ) : (
+                  <BadgeCheck aria-hidden="true" className="h-4 w-4 text-emerald-400 shrink-0" />
+                )}
+                <span>{footer.recognition}</span>
+              </div>
+            )}
 
             {/* Social Links */}
             {socials.length > 0 && (
@@ -87,7 +113,7 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
                     href={company.social[key]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-none bg-[#0C2233] text-[#AABAC8] hover:text-white hover:bg-[#10293B] transition-colors"
+                    className="p-2 rounded-none bg-surface text-fg-muted hover:text-fg hover:bg-surface-2 transition-colors"
                     aria-label={`${company.shortName} on ${SOCIAL_ICONS[key].label}`}
                   >
                     <svg aria-hidden="true" width="16" height="16" className="h-4 w-4 fill-current shrink-0" viewBox="0 0 24 24">
@@ -101,14 +127,11 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
 
           {footer.columns.map((col, ci) => (
             <div key={`${col.title}-${ci}`} className="space-y-3">
-              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-white">{col.title}</h3>
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-fg">{col.title}</h3>
               <ul className="space-y-2 text-sm">
                 {col.links.map((l, li) => (
                   <li key={`${l.href}-${li}`}>
-                    <Link
-                      href={l.href || "/"}
-                      className={l.highlight ? "text-[#FF6B2C] hover:underline font-medium" : "hover:text-white transition-colors"}
-                    >
+                    <Link href={l.href || "/"} className="hover:text-fg transition-colors">
                       {l.label}
                     </Link>
                   </li>
@@ -119,13 +142,18 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 border-t border-white/[0.08] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#AABAC8]">
+        <div className="mt-12 border-t border-[var(--header-border)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-fg-muted">
           <p>{fill(footer.copyright, { year: String(currentYear) })}</p>
-          {footer.trustLine && (
-            <div className="flex items-center gap-2 text-[#AABAC8]">
-              <ShieldCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
-              <span>{footer.trustLine}</span>
-            </div>
+          {footer.legalLinks.length > 0 && (
+            <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              {footer.legalLinks.map((l, i) => (
+                <li key={`${l.href}-${i}`}>
+                  <Link href={l.href} className="hover:text-fg transition-colors">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>

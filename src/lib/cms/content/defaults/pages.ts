@@ -3,14 +3,12 @@
  * Text fields support **bold** and [link text](/path) inline formatting.
  */
 
+import { routeSeo } from "@/content/routes";
+
 const consult = "/consultation";
 
 export const aboutDefaults = {
-  seo: {
-    title: "About Dodail Solutions | AI Automation & Engineering Partner",
-    description:
-      "Learn about Dodail Solutions Private Limited. Established in 2019 in Hyderabad, India, building reliable AI automations, custom software, and digital growth engines.",
-  },
+  seo: routeSeo("/about/"),
   hero: {
     badge: "Company & Mission",
     title: "Engineering Pragmatic AI & Digital Growth Since 2019",
@@ -57,11 +55,7 @@ export const aboutDefaults = {
 };
 
 export const workDefaults = {
-  seo: {
-    title: "Case Studies & Work Portfolio | Dodail Solutions",
-    description:
-      "Explore verified implementation blueprints, real automation architectures, and digital systems engineered by Dodail Solutions.",
-  },
+  seo: routeSeo("/work/"),
   hero: {
     badge: "Verified Work",
     title: "Real Engineering. Measurable Outcomes.",
@@ -110,11 +104,7 @@ export const workDefaults = {
 };
 
 export const industriesIndexDefaults = {
-  seo: {
-    title: "Industry Solutions & Vertical Blueprints | Dodail Solutions",
-    description:
-      "Tailored AI automation, custom software and growth systems for healthcare clinics, real estate developers, e-commerce brands and manufacturers.",
-  },
+  seo: routeSeo("/industries/"),
   hero: {
     badge: "Vertical Blueprints",
     title: "Specialized Architectures For High-Impact Industries",
@@ -127,7 +117,7 @@ export const industriesIndexDefaults = {
     {
       icon: "Stethoscope",
       title: "Healthcare & Dental Clinics",
-      href: "/industries/dental",
+      href: "/industries/dental-clinics/",
       description: "Urgent patient triage, WhatsApp appointment booking, automated pre-intake forms, and local Google Maps search ranking.",
       outcomes: ["Sub-2-minute emergency booking", "70% reduction in appointment no-shows", "Top-3 local Google Maps ranking"],
     },
@@ -141,7 +131,7 @@ export const industriesIndexDefaults = {
     {
       icon: "ShoppingBag",
       title: "E-Commerce & DTC Retail Brands",
-      href: "/industries/ecommerce",
+      href: "/industries/ecommerce-brands/",
       description: "Headless Next.js storefronts, automated shipping & order tracking inquiries, and automated WhatsApp abandoned cart recovery.",
       outcomes: ["Under-500ms mobile page speeds", "60% reduction in order-status tickets", "Recovered cart conversion lifts"],
     },
@@ -169,7 +159,7 @@ export interface LegalContent {
 }
 
 export const privacyDefaults: LegalContent = {
-  seo: { title: "Privacy Policy | Dodail Solutions", description: "Dodail Solutions Private Limited Privacy Policy and data protection terms." },
+  seo: routeSeo("/privacy-policy/"),
   title: "Privacy Policy",
   updatedLine: "Last updated: October 2026 · Dodail Solutions Private Limited",
   sections: [
@@ -182,8 +172,8 @@ export const privacyDefaults: LegalContent = {
 };
 
 export const termsDefaults: LegalContent = {
-  seo: { title: "Terms of Service | Dodail Solutions", description: "Dodail Solutions Private Limited Terms of Service and master consulting agreement." },
-  title: "Terms of Service",
+  seo: routeSeo("/terms-of-use/"),
+  title: "Terms of Use",
   updatedLine: "Last updated: October 2026 · Dodail Solutions Private Limited",
   sections: [
     { heading: "1. Agreement to Terms", body: "By accessing or using the services of Dodail Solutions Private Limited (\"Dodail\"), you agree to be bound by these Terms of Service. If you are entering into these terms on behalf of a company, you represent that you possess the authority to bind that entity." },

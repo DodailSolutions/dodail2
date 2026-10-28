@@ -2,13 +2,10 @@
  * Default copy for the Contact, Consultation and Blog index pages.
  * Phone, email, WhatsApp and address come from "Company details".
  */
+import { routeSeo } from "@/content/routes";
 
 export const contactDefaults = {
-  seo: {
-    title: "Contact Dodail Solutions | AI Automation Experts, Hyderabad",
-    description:
-      "Talk to Dodail Solutions about AI automation, lead management, custom software or SEO. Reach us on WhatsApp, phone or email — we reply within 4 business hours.",
-  },
+  seo: routeSeo("/contact/"),
   hero: {
     badge: "Direct Inquiries",
     title: "Let's Discuss Your Architecture",
@@ -104,11 +101,7 @@ export const consultationDefaults = {
 export type ConsultationContent = typeof consultationDefaults;
 
 export const blogDefaults = {
-  seo: {
-    title: "AI Automation & SEO Insights | Dodail Solutions Blog",
-    description:
-      "Engineering insights, Generative Engine Optimization (GEO) guides, and automation architecture playbooks published by Dodail Solutions.",
-  },
+  seo: routeSeo("/blog/"),
   hero: {
     badge: "Knowledge Hub",
     title: "Architectural Insights & Growth Strategies",

@@ -1,97 +1,13 @@
 import type { NextConfig } from "next";
+import { LEGACY_REDIRECTS } from "./src/content/legacy/redirects";
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
+  // The old WordPress site used trailing slashes; keeping them means every legacy URL resolves in one hop.
+  trailingSlash: true,
+  // 301s from every old dodail.com URL (brief §9.1). Spam URLs get a 410 in src/proxy.ts instead.
   async redirects() {
-    return [
-      {
-        source: "/about-dodail-leading-digital-agency-in-india",
-        destination: "/about",
-        permanent: true,
-      },
-      {
-        source: "/contact-us",
-        destination: "/contact",
-        permanent: true,
-      },
-      {
-        source: "/our-works",
-        destination: "/work",
-        permanent: true,
-      },
-      {
-        source: "/blogs",
-        destination: "/blog",
-        permanent: true,
-      },
-      {
-        source: "/digital-marketing-for-dental-clinics-website-seo",
-        destination: "/industries/dental",
-        permanent: true,
-      },
-      {
-        source: "/hospital-website-seo-solutions-dodail",
-        destination: "/industries/dental",
-        permanent: true,
-      },
-      {
-        source: "/real-estate-digital-marketing-website-solutions",
-        destination: "/industries/real-estate",
-        permanent: true,
-      },
-      {
-        source: "/real-estate-website-development-company",
-        destination: "/industries/real-estate",
-        permanent: true,
-      },
-      {
-        source: "/custom-web-application-development-services",
-        destination: "/services/web-development",
-        permanent: true,
-      },
-      {
-        source: "/custom-website-development-services-wordpress-web-apps",
-        destination: "/services/web-development",
-        permanent: true,
-      },
-      {
-        source: "/wordpress-website-design-development-company",
-        destination: "/services/web-development",
-        permanent: true,
-      },
-      {
-        source: "/seo-services-for-google-ranking-wordpress-shopify-local",
-        destination: "/services/digital-growth-seo",
-        permanent: true,
-      },
-      {
-        source: "/local-seo-services-for-small-local-businesses",
-        destination: "/services/digital-growth-seo",
-        permanent: true,
-      },
-      {
-        source: "/geographic-expansion-officer-geo",
-        destination: "/services/digital-growth-seo",
-        permanent: true,
-      },
-      {
-        source: "/e-commerce-website-development-company-shopify-more",
-        destination: "/industries/ecommerce",
-        permanent: true,
-      },
-      {
-        source: "/custom-e-commerce-website-solutions",
-        destination: "/industries/ecommerce",
-        permanent: true,
-      },
-    ];
+    // statusCode 301 rather than `permanent: true`, which Next.js sends as 308.
+    return LEGACY_REDIRECTS.map(({ from, to }) => ({ source: from, destination: to, statusCode: 301 as const }));
   },
   async headers() {
     return [

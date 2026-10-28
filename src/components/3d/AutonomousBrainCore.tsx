@@ -255,20 +255,20 @@ export function AutonomousBrainCore({ reducedMotion = false }: AutonomousBrainCo
   return (
     <div
       onPointerMove={handlePointerMove}
-      className="relative w-full h-[460px] sm:h-[540px] lg:h-[620px] rounded-none overflow-hidden select-none cursor-grab active:cursor-grabbing bg-gradient-to-b from-white via-slate-50/60 to-white"
+      className="relative w-full h-[460px] sm:h-[540px] lg:h-[620px] rounded-none overflow-hidden select-none cursor-grab active:cursor-grabbing bg-gradient-to-b from-[var(--bg)] via-[var(--surface-2)] to-[var(--bg)]"
     >
       {/* Subtle warm atmospheric glow */}
       <div className="absolute inset-0 bg-gradient-radial from-orange-400/10 via-sky-400/5 to-transparent pointer-events-none" />
 
       {/* Top technical watermark badge */}
-      <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 bg-white/90 border border-slate-200 text-[10px] font-mono text-slate-700 uppercase tracking-wider backdrop-blur-md shadow-sm">
+      <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 bg-surface border border-border-token text-[10px] font-mono text-fg-muted uppercase tracking-wider backdrop-blur-md shadow-sm">
         <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
         <span className="font-semibold">AUTONOMOUS OPERATIONS CORE // LIVE 3D</span>
       </div>
 
       {/* Bottom technical hint */}
       <div className="absolute bottom-4 right-4 z-10 text-right">
-        <span className="text-[10px] font-mono text-slate-500 bg-white/90 px-3 py-1.5 border border-slate-200 shadow-sm">
+        <span className="text-[10px] font-mono text-fg-subtle bg-surface px-3 py-1.5 border border-border-token shadow-sm">
           [ DRAG / HOVER TO ROTATE ]
         </span>
       </div>

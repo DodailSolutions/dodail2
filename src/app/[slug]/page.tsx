@@ -56,7 +56,7 @@ export default async function CustomPage({ params }: Props) {
           faqSchema(faqs)
         )}
       />
-      <div className="bg-[#071A28] text-white">
+      <div className="bg-bg text-fg">
         {/* Every page needs exactly one <h1>; the hero block provides it when present. */}
         {!sections.some((s) => s.type === "hero") && <h1 className="sr-only">{page.title}</h1>}
         <DynamicBlockRenderer sections={sections} />

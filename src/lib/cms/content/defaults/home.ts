@@ -5,16 +5,13 @@
 import {
   aboutFigures, faqs, industries, pipelineStages, problems, processStages, services, specialisms, stack, trust,
 } from "@/components/home/homeData";
+import { routeSeo } from "@/content/routes";
 import type { FieldHint } from "../types";
 
 const clone = <T,>(v: T) => structuredClone(v) as T;
 
 export const homeDefaults = {
-  seo: {
-    title: "AI Automation & Software Development in Hyderabad | Dodail",
-    description:
-      "Dodail connects your business tools and automates repetitive work: AI automation, custom software, websites, e-commerce, SEO and branding. Hyderabad, India.",
-  },
+  seo: routeSeo("/"),
   hero: {
     eyebrow: "AI automation & software development company in Hyderabad",
     title: "Turn repetitive operations into autonomous growth.",
@@ -23,7 +20,7 @@ export const homeDefaults = {
     description:
       "Leads, messages, CRM, payments and reports usually live in separate tools. Dodail connects them, automates the work in between, and builds the software, websites and brand around it.",
     primaryCta: { label: "Book a Consultation", href: "/consultation" },
-    secondaryCta: { label: "Explore Solutions", href: "/solutions/ai-automation" },
+    secondaryCta: { label: "Explore Solutions", href: "/services/ai-automation/" },
   },
   intro: {
     badge: "About Dodail · Brand Philosophy",
@@ -80,7 +77,7 @@ export const homeDefaults = {
     badge: "",
     items: clone(pipelineStages),
     primaryCta: { label: "Book a Consultation", href: "/consultation" },
-    secondaryCta: { label: "Explore workflow automation", href: "/solutions/workflow-automation" },
+    secondaryCta: { label: "Explore workflow automation", href: "/services/ai-automation/" },
   },
   industries: {
     eyebrow: "Industries",

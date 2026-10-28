@@ -13,7 +13,7 @@ export const services = [
     audience: "For teams answering the same enquiries, re-typing data between tools or chasing follow-ups by hand.",
     desc: "Connect the systems your team already uses and automate the steps between them, from the first WhatsApp message or web form to the CRM record and the follow-up.",
     deliverables: ["WhatsApp Cloud API integration", "Rule-based triage with human hand-off", "CRM and Google Sheets sync"],
-    href: "/solutions/ai-automation",
+    href: "/services/ai-automation/",
     accent: "#FF6B2C",
   },
   {
@@ -23,7 +23,7 @@ export const services = [
     audience: "For businesses whose processes have outgrown spreadsheets and off-the-shelf tools.",
     desc: "Web applications, internal dashboards and client portals built on Next.js and PostgreSQL, with access control designed in from the start.",
     deliverables: ["Full-stack Next.js applications", "Database and schema design", "Source code you own"],
-    href: "/services/web-development",
+    href: "/services/website-development/",
     accent: "#27D3C2",
   },
   {
@@ -33,7 +33,7 @@ export const services = [
     audience: "For brands that need a fast site or store that is easy to run and connects to the rest of their operations.",
     desc: "Fast storefronts and business sites that are straightforward to manage, with order, inventory and logistics steps automated behind them.",
     deliverables: ["Shopify and custom headless stores", "Post-purchase automation", "Conversion-focused interface design"],
-    href: "/industries/ecommerce",
+    href: "/industries/ecommerce-brands/",
     accent: "#FF6B2C",
   },
   {
@@ -43,7 +43,7 @@ export const services = [
     audience: "For businesses that want more of the right enquiries from search, and to know what is driving them.",
     desc: "Search visibility, local presence and content that bring in the right enquiries, tracked so you can see what is working.",
     deliverables: ["Technical SEO and structured data", "Local search presence", "Performance tracking and reporting"],
-    href: "/services/digital-growth-seo",
+    href: "/services/seo/",
     accent: "#27D3C2",
   },
   {
@@ -129,7 +129,7 @@ export const industries: IndustryItem[] = [
     desc: "Triage enquiries by urgency, offer appointment slots over WhatsApp and send pre-visit forms, so reception time goes to patients in the clinic.",
     features: ["After-hours triage", "Fewer reception phone calls", "Intake forms sent automatically"],
     steps: ["Emergency triage", "Patient intake", "Doctor schedule", "Confirmation message"],
-    href: "/industries/dental",
+    href: "/industries/dental-clinics/",
     accent: "#27D3C2",
   },
   {
@@ -159,7 +159,7 @@ export const industries: IndustryItem[] = [
     desc: "Answer where-is-my-order questions, check return eligibility against your policy and create return pickups without staff involvement.",
     features: ["Order-status questions answered", "Policy-checked return requests", "Restock alerts for your team"],
     steps: ["Order or return event", "Policy check", "Pickup created", "Inventory updated"],
-    href: "/industries/ecommerce",
+    href: "/industries/ecommerce-brands/",
     accent: "#34D399",
   },
 ];
@@ -242,11 +242,11 @@ export const aboutFigures = [
 ];
 
 export const specialisms = [
-  { icon: "automation", label: "AI automation & workflows", detail: "WhatsApp, CRMs and spreadsheets, connected", href: "/solutions/ai-automation" },
-  { icon: "web", label: "Website design & development", detail: "Fast, accessible business websites", href: "/services/web-development" },
-  { icon: "commerce", label: "E-commerce", detail: "Shopify, WooCommerce and custom stores", href: "/industries/ecommerce" },
-  { icon: "marketing", label: "SEO & digital marketing", detail: "Including marketing automation", href: "/services/digital-growth-seo" },
-  { icon: "apps", label: "Mobile & web apps", detail: "Mobile apps and custom web applications", href: "/services/web-development" },
+  { icon: "automation", label: "AI automation & workflows", detail: "WhatsApp, CRMs and spreadsheets, connected", href: "/services/ai-automation/" },
+  { icon: "web", label: "Website design & development", detail: "Fast, accessible business websites", href: "/services/website-development/" },
+  { icon: "commerce", label: "E-commerce", detail: "Shopify, WooCommerce and custom stores", href: "/industries/ecommerce-brands/" },
+  { icon: "marketing", label: "SEO & digital marketing", detail: "Including marketing automation", href: "/services/seo/" },
+  { icon: "apps", label: "Mobile & web apps", detail: "Mobile apps and custom web applications", href: "/services/website-development/" },
 ] as const;
 
 /** Plain company facts for the intro section and structured data. */

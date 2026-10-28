@@ -1,0 +1,50 @@
+/** The 35 genuine posts kept from the old site (brief §8), with their new category. */
+export type BlogCategory = "generative-engine-optimization" | "seo" | "ai-marketing" | "industry-guides";
+
+export const BLOG_CATEGORIES: Record<BlogCategory, { name: string; description: string }> = {
+  "generative-engine-optimization": {
+    name: "Generative Engine Optimization",
+    description: "How to get your brand cited by ChatGPT, Gemini, Perplexity and Google AI Overviews.",
+  },
+  seo: { name: "SEO", description: "Practical search engine optimisation for business websites and online stores." },
+  "ai-marketing": { name: "AI Marketing", description: "Using AI in marketing, growth and digital transformation — without the hype." },
+  "industry-guides": { name: "Industry Guides", description: "Search and AI visibility playbooks for healthcare, real estate, education and legal." },
+};
+
+export const LEGACY_BLOG_POSTS: ReadonlyArray<{ slug: string; category: BlogCategory }> = [
+  { slug: "generative-engine-optimization-guide", category: "generative-engine-optimization" },
+  { slug: "generative-engine-optimization-benefits", category: "generative-engine-optimization" },
+  { slug: "generative-engine-optimization-step-by-step", category: "generative-engine-optimization" },
+  { slug: "generative-engine-optimization-for-startups", category: "generative-engine-optimization" },
+  { slug: "generative-engine-optimization-tools", category: "generative-engine-optimization" },
+  { slug: "ai-generative-engine-optimization", category: "generative-engine-optimization" },
+  { slug: "ai-prompts-for-geo-strategy", category: "generative-engine-optimization" },
+  { slug: "schema-markup-for-geo-examples-how-to-use", category: "generative-engine-optimization" },
+  { slug: "geo-workflow-ai-powered-content", category: "generative-engine-optimization" },
+  { slug: "best-practices-for-geo-driven-content-strategy", category: "generative-engine-optimization" },
+  { slug: "how-to-build-powerful-content-clusters-using-geo", category: "generative-engine-optimization" },
+  { slug: "advanced-keyword-research-techniques-for-geo-success", category: "generative-engine-optimization" },
+  { slug: "top-ranking-factors-in-generative-engine-optimization", category: "generative-engine-optimization" },
+  { slug: "the-best-geo-analytics-tools-for-smarter-insights", category: "generative-engine-optimization" },
+  { slug: "how-to-audit-your-geo-strategy-like-a-pro", category: "generative-engine-optimization" },
+  { slug: "geo-vs-seo-analytics-what-to-track-and-why-it-matters", category: "generative-engine-optimization" },
+  { slug: "seo-vs-geo-7-critical-differences-every-digital-marketer-must-know-in-2025", category: "generative-engine-optimization" },
+  { slug: "best-ai-tools-to-optimize-geo-content-2025", category: "generative-engine-optimization" },
+  { slug: "recovering-from-geo-penalty-step-by-step-fix", category: "generative-engine-optimization" },
+  { slug: "black-hat-geo-techniques-to-avoid-2025", category: "generative-engine-optimization" },
+  { slug: "bad-practices-that-kill-your-geo-efforts", category: "generative-engine-optimization" },
+  { slug: "why-your-geo-content-isnt-ranking-and-what-to-do", category: "generative-engine-optimization" },
+  { slug: "10-critical-geo-optimization-mistakes-businesses-make", category: "generative-engine-optimization" },
+  { slug: "training-ai-for-better-geo-results-guide", category: "generative-engine-optimization" },
+  { slug: "optimize-ai-generated-content-geo-techniques", category: "generative-engine-optimization" },
+  { slug: "generative-ai-affects-seo-2025", category: "seo" },
+  { slug: "real-estate-seo-strategies-2025", category: "seo" },
+  { slug: "geo-for-real-estate-content-strategy-that-sells", category: "industry-guides" },
+  { slug: "geo-for-educational-content-smarter-visibility", category: "industry-guides" },
+  { slug: "geo-targeting-benefits-legal-websites", category: "industry-guides" },
+  { slug: "geo-healthcare-ai-patient-outcomes-2026", category: "industry-guides" },
+  { slug: "geo-ai-in-medical-systems", category: "industry-guides" },
+  { slug: "saas-global-expansion-2025", category: "ai-marketing" },
+  { slug: "ai-digital-transformation-strategy-300-roi", category: "ai-marketing" },
+  { slug: "best-digital-marketing-company-usa-dodail-2025", category: "ai-marketing" },
+];

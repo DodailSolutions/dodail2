@@ -37,7 +37,7 @@ const services: ServiceItem[] = [
       "Deterministic retry logic",
       "Strict schema validation guardrails",
     ],
-    href: "/solutions/ai-automation",
+    href: "/services/ai-automation/",
     ctaText: "Explore Automation Architecture",
   },
   {
@@ -58,7 +58,7 @@ const services: ServiceItem[] = [
       "Custom REST & Webhook APIs",
       "Zero vendor lock-in guarantee",
     ],
-    href: "/services/web-development",
+    href: "/services/website-development/",
     ctaText: "View Software Engineering Specs",
   },
   {
@@ -79,7 +79,7 @@ const services: ServiceItem[] = [
       "Dynamic inventory & order sync",
       "Mobile-first responsive UX",
     ],
-    href: "/services/web-development",
+    href: "/services/website-development/",
     ctaText: "Explore Web & Commerce Platforms",
   },
   {
@@ -100,7 +100,7 @@ const services: ServiceItem[] = [
       "Programmatic SEO pipelines",
       "Full-funnel attribution tracking",
     ],
-    href: "/services/digital-growth-seo",
+    href: "/services/seo/",
     ctaText: "View Growth & Visibility Framework",
   },
   {
@@ -157,18 +157,18 @@ export function ServicesScrollStack() {
             <div className="flex items-center gap-2 mb-3">
               <span className="font-mono text-xs font-bold text-[#FF6B2C]">INDEX // 01—05</span>
               <span className="h-px w-8 bg-[#1B3652]" />
-              <span className="font-mono text-[11px] text-[#AABAC8] uppercase tracking-wider">CAPABILITIES</span>
+              <span className="font-mono text-[11px] text-fg-muted uppercase tracking-wider">CAPABILITIES</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F5F8FC] tracking-[-0.03em] leading-[1.02]">
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-fg tracking-[-0.03em] leading-[1.02]">
               Engineered For Measurable Business Outcomes
             </h2>
-            <p className="mt-5 text-base text-[#AABAC8] leading-relaxed font-light">
+            <p className="mt-5 text-base text-fg-muted leading-relaxed font-light">
               Deterministic architectures built for long-term operational resilience. Complete transparency on deliverables, business problems solved, and verified value.
             </p>
           </div>
 
           {/* Quick Step Indicators (Modular Swiss List) */}
-          <div className="hidden lg:flex flex-col border-l-2 border-[#1B3652] pl-5 space-y-3">
+          <div className="hidden lg:flex flex-col border-l-2 border-border-strong pl-5 space-y-3">
             {services.map((item, idx) => (
               <button
                 key={item.id}
@@ -180,7 +180,7 @@ export function ServicesScrollStack() {
                 className={`text-left py-1 text-xs font-mono transition-colors flex items-center gap-3 select-none ${
                   activeStep === idx
                     ? "text-[#FF6B2C] font-bold"
-                    : "text-[#AABAC8] hover:text-[#F5F8FC]"
+                    : "text-fg-muted hover:text-fg"
                 }`}
               >
                 <span className="font-bold">{item.number}</span>
@@ -192,7 +192,7 @@ export function ServicesScrollStack() {
           <div className="pt-2">
             <Link
               href="/consultation"
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF6B2C] hover:text-[#F5F8FC] transition-colors uppercase tracking-wider"
+              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF6B2C] hover:text-fg transition-colors uppercase tracking-wider"
             >
               <span>[+] Request Tailored Engineering Audit</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -208,25 +208,25 @@ export function ServicesScrollStack() {
               id={`service-${service.id}`}
               data-index={index}
               onMouseEnter={() => setActiveStep(index)}
-              className="scroll-card-observer rounded-none border border-[#1B3652] bg-[#0C2233] p-8 sm:p-10 hover:border-[#FF6B2C] transition-all duration-200 relative group"
+              className="scroll-card-observer rounded-none border border-border-strong bg-surface p-8 sm:p-10 hover:border-[#FF6B2C] transition-all duration-200 relative group"
             >
               {/* Giant Swiss Number Watermark in Background */}
-              <div className="absolute top-4 right-6 font-mono text-5xl sm:text-7xl font-black text-white/[0.04] pointer-events-none select-none">
+              <div className="absolute top-4 right-6 font-mono text-5xl sm:text-7xl font-black text-fg/[0.04] pointer-events-none select-none">
                 {service.number}
               </div>
 
               {/* Module Header */}
-              <div className="flex items-center justify-between border-b border-[#1B3652] pb-4 mb-6">
+              <div className="flex items-center justify-between border-b border-border-strong pb-4 mb-6">
                 <span
                   className="text-xs font-mono font-bold tracking-[0.16em]"
                   style={{ color: service.accentColor }}
                 >
                   MOD // {service.number} · {service.tag}
                 </span>
-                <span className="text-[10px] font-mono text-[#AABAC8]">DODAIL SPEC</span>
+                <span className="text-[10px] font-mono text-fg-muted">DODAIL SPEC</span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5F8FC] tracking-[-0.025em] leading-snug">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-fg tracking-[-0.025em] leading-snug">
                 {service.title}
               </h3>
 
@@ -238,18 +238,18 @@ export function ServicesScrollStack() {
                     <AlertTriangle className="h-3.5 w-3.5" />
                     <span>01 / Business Problem</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#F5F8FC]/80 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-fg/80 leading-relaxed font-light">
                     {service.businessProblem}
                   </p>
                 </div>
 
                 {/* Engineered Solution */}
-                <div className="rounded-none border border-[#1B3652] bg-[#071A28] p-4">
+                <div className="rounded-none border border-border-strong bg-bg p-4">
                   <div className="flex items-center gap-2 text-[11px] font-mono font-bold text-[#27D3C2] mb-1 uppercase tracking-wider">
                     <Sparkles className="h-3.5 w-3.5" />
                     <span>02 / Engineered Solution</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#F5F8FC]/90 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-fg/90 leading-relaxed font-light">
                     {service.solution}
                   </p>
                 </div>
@@ -260,25 +260,25 @@ export function ServicesScrollStack() {
                     <TrendingUp className="h-3.5 w-3.5" />
                     <span>03 / Expected Business Value</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#F5F8FC]/90 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-fg/90 leading-relaxed font-light">
                     {service.expectedValue}
                   </p>
                 </div>
               </div>
 
               {/* Capability Chips */}
-              <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-mono text-[#AABAC8]">
+              <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-mono text-fg-muted">
                 {service.capabilities.map((cap, i) => (
                   <span
                     key={i}
-                    className="px-2.5 py-1 rounded-none bg-[#071A28] border border-[#1B3652]"
+                    className="px-2.5 py-1 rounded-none bg-bg border border-border-strong"
                   >
                     {cap}
                   </span>
                 ))}
               </div>
 
-              <div className="mt-8 pt-5 border-t border-[#1B3652]">
+              <div className="mt-8 pt-5 border-t border-border-strong">
                 <Link
                   href={service.href}
                   className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#071A28] bg-[#FF6B2C] hover:bg-[#FF854D] px-5 py-2.5 rounded-none transition-colors"

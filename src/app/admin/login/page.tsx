@@ -207,11 +207,11 @@ export default async function AdminLoginPage({
                   Dodail Solutions Private Limited · Hyderabad, India
                 </p>
                 <div className="flex items-center justify-center gap-3 text-[11px] text-slate-400">
-                  <Link href="/privacy" className="hover:text-slate-300 hover:underline">
+                  <Link href="/privacy-policy/" className="hover:text-slate-300 hover:underline">
                     Privacy Policy
                   </Link>
                   <span>·</span>
-                  <Link href="/terms" className="hover:text-slate-300 hover:underline">
+                  <Link href="/terms-of-use/" className="hover:text-slate-300 hover:underline">
                     Terms of Service
                   </Link>
                   <span>·</span>

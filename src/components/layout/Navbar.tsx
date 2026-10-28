@@ -4,24 +4,35 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Calendar } from "lucide-react";
+import { Menu, X, ChevronDown, Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { contentIcon } from "@/lib/cms/content/icons";
 import type { NavigationContent } from "@/lib/cms/content/defaults/site";
 
-type MenuItem = NavigationContent["solutionsMenu"]["items"][number];
+type MenuId = "services" | "industries";
 
-/** Header navigation. All labels, links and menus are managed in the admin CMS ("Header & navigation"). */
+const isExternal = (href: string) => /^(https?:|tel:|mailto:)/.test(href);
+
+/**
+ * Header navigation. One config ("Header & navigation" in the admin CMS) drives both the
+ * desktop mega menu and the phone menu, so the two can never drift apart.
+ */
 export function Navbar({ nav }: { nav: NavigationContent }) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const [openMenu, setOpenMenu] = React.useState<"solutions" | "services" | null>(null);
+  const [openMenu, setOpenMenu] = React.useState<MenuId | null>(null);
+  // A click "pins" a menu open (touch and keyboard users); hover alone opens and closes it.
+  const [pinned, setPinned] = React.useState(false);
   const pathname = usePathname();
   const mobileMenuRef = React.useRef<HTMLDivElement>(null);
-  const { announcement, brand, solutionsMenu, servicesMenu, industriesMenu, links, cta } = nav;
+  const { announcement, brand, servicesMenu, industriesMenu, links, cta } = nav;
+  const ctaExternal = isExternal(cta.href);
+  const { theme } = useTheme();
 
-  // The homepage is dark navy; every other route keeps the light header.
-  const dark = pathname === "/";
+  // Header chrome follows the active theme: dark navy in dark mode, white bar in light mode.
+  const dark = theme === "dark";
   const navLink = cn(
     "px-3.5 py-2 rounded-xl transition-colors",
     dark ? "text-[#C9CED6] hover:text-white hover:bg-white/10" : "text-slate-700 hover:text-slate-950 hover:bg-slate-100"
@@ -33,127 +44,164 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
     setMenuPath(pathname);
     setMobileMenuOpen(false);
     setOpenMenu(null);
+    setPinned(false);
   }
 
   React.useEffect(() => {
     if (!mobileMenuOpen || !mobileMenuRef.current) return;
 
-    const focusableElements = mobileMenuRef.current.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    if (focusableElements.length === 0) return;
-
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+    const focusable = () =>
+      Array.from(
+        mobileMenuRef.current?.querySelectorAll<HTMLElement>('summary, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])') ?? []
+      ).filter((el) => el.offsetParent !== null);
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMobileMenuOpen(false);
-      }
-      if (e.key === "Tab") {
-        if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            lastElement.focus();
-            e.preventDefault();
-          }
-        } else if (document.activeElement === lastElement) {
-          firstElement.focus();
-          e.preventDefault();
-        }
+      if (e.key === "Escape") setMobileMenuOpen(false);
+      if (e.key !== "Tab") return;
+      const els = focusable();
+      if (els.length === 0) return;
+      const first = els[0];
+      const last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    firstElement?.focus();
-
+    focusable()[0]?.focus();
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
-  const dropdown = (id: "solutions" | "services", label: string, items: MenuItem[]) => {
-    if (items.length === 0) return null;
+  const trigger = (id: MenuId, label: string) => {
     const open = openMenu === id;
     return (
-      <div
-        className="relative"
-        onMouseEnter={() => setOpenMenu(id)}
-        onMouseLeave={() => setOpenMenu(null)}
-        onKeyDown={(e) => {
-          if (e.key === "Escape") setOpenMenu(null);
-        }}
-      >
-        <button
-          type="button"
-          className={cn(
-            navLink,
-            "flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-            open && (dark ? "bg-white/10 text-white" : "bg-slate-100 text-slate-950")
-          )}
-          onClick={() => setOpenMenu(open ? null : id)}
-          aria-haspopup="true"
-          aria-expanded={open}
-        >
-          <span>{label}</span>
-          <ChevronDown className={cn("h-4 w-4 transition-transform text-slate-500", open && "rotate-180")} />
-        </button>
-
-        {open && (
-          <div className="absolute left-0 top-full pt-2 w-80 z-50">
-            <div className="rounded-2xl border border-slate-200/90 bg-white p-3 shadow-xl shadow-slate-900/10">
-              <div className="space-y-1">
-                {items.map((item, i) => {
-                  const Icon = contentIcon(item.icon);
-                  return (
-                    <Link
-                      key={`${item.href}-${i}`}
-                      href={item.href}
-                      className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors group"
-                    >
-                      <div className="rounded-xl bg-orange-50 p-2 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
-                        <Icon className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-slate-900 group-hover:text-[#FF6B2C] text-sm transition-colors">
-                          {item.title}
-                        </p>
-                        <p className="text-xs text-slate-500 leading-snug">{item.description}</p>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+      <button
+        type="button"
+        className={cn(
+          navLink,
+          "flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+          open && (dark ? "bg-white/10 text-white" : "bg-slate-100 text-slate-950")
         )}
-      </div>
+        onClick={() => {
+          const close = open && pinned;
+          setOpenMenu(close ? null : id);
+          setPinned(!close);
+        }}
+        aria-haspopup="true"
+        aria-expanded={open}
+        aria-controls={`menu-${id}`}
+      >
+        <span>{label}</span>
+        <ChevronDown aria-hidden="true" className={cn("h-4 w-4 transition-transform text-slate-500", open && "rotate-180")} />
+      </button>
     );
   };
 
-  const mobileGroup = (heading: string, items: MenuItem[]) =>
-    items.length > 0 && (
-      <div>
-        <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#FF6B2C]">{heading}</p>
-        <div className="mt-1 space-y-1">
-          {items.map((item, i) => {
-            const Icon = contentIcon(item.icon);
-            return (
-              <Link
-                key={`${item.href}-${i}`}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:text-[#FF6B2C]",
-                  dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-900 hover:bg-slate-50"
-                )}
-              >
-                <Icon className="h-4 w-4 text-[#FF6B2C]" />
-                <span>{item.title}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    );
+  const closeMenu = () => {
+    setOpenMenu(null);
+    setPinned(false);
+  };
+  const menuShell = (id: MenuId) => ({
+    onMouseEnter: () => {
+      if (!pinned) setOpenMenu(id);
+    },
+    onMouseLeave: () => {
+      if (!pinned) setOpenMenu(null);
+    },
+    onKeyDown: (e: React.KeyboardEvent) => {
+      if (e.key === "Escape") closeMenu();
+    },
+    // Closes the menu when focus (or a click) leaves it.
+    onBlur: (e: React.FocusEvent<HTMLDivElement>) => {
+      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) closeMenu();
+    },
+  });
 
-  const mobileLinks = links.filter((l) => l.mobileLabel);
+  const panelLink = "block rounded-lg px-2 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#FF6B2C] transition-colors";
+
+  const servicesDropdown = servicesMenu.columns.length > 0 && (
+    <div className="static" {...menuShell("services")}>
+      {trigger("services", servicesMenu.label)}
+      {openMenu === "services" && (
+        <div id="menu-services" className="absolute inset-x-0 top-full z-50 px-4 pt-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xl shadow-slate-900/10">
+            <div className="grid grid-cols-5 gap-6">
+              {servicesMenu.columns.map((col, ci) => {
+                const Icon = contentIcon(col.icon);
+                return (
+                  <div key={`${col.title}-${ci}`}>
+                    <Link href={col.href} className="group mb-2 flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-slate-50">
+                      <span className="rounded-lg bg-orange-50 p-1.5 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                        <Icon aria-hidden="true" className="h-4 w-4" />
+                      </span>
+                      <span className="text-sm font-semibold text-slate-900 group-hover:text-[#FF6B2C]">{col.title}</span>
+                    </Link>
+                    <ul className="space-y-0.5">
+                      {col.items.map((it, ii) => (
+                        <li key={`${it.href}-${ii}`}>
+                          <Link href={it.href} className={panelLink}>
+                            {it.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-5 border-t border-slate-100 pt-4">
+              <Link href={servicesMenu.href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#FF6B2C] hover:underline">
+                {servicesMenu.allLabel} <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const industriesDropdown = industriesMenu.items.length > 0 && (
+    <div className="relative" {...menuShell("industries")}>
+      {trigger("industries", industriesMenu.label)}
+      {openMenu === "industries" && (
+        <div id="menu-industries" className="absolute left-0 top-full z-50 w-72 pt-2">
+          <div className="rounded-2xl border border-slate-200/90 bg-white p-3 shadow-xl shadow-slate-900/10">
+            <ul className="space-y-1">
+              {industriesMenu.items.map((it, i) => {
+                const Icon = contentIcon(it.icon);
+                return (
+                  <li key={`${it.href}-${i}`}>
+                    <Link href={it.href} className="group flex items-center gap-3 rounded-xl p-2 hover:bg-slate-50 transition-colors">
+                      <span className="rounded-lg bg-orange-50 p-1.5 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                        <Icon aria-hidden="true" className="h-4 w-4" />
+                      </span>
+                      <span className="text-sm font-semibold text-slate-900 group-hover:text-[#FF6B2C]">{it.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <Link href={industriesMenu.href} className="mt-2 flex items-center gap-1.5 px-2 py-1.5 text-sm font-semibold text-[#FF6B2C] hover:underline">
+              {industriesMenu.allLabel} <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const mobileLink = cn(
+    "block px-3 py-2.5 rounded-xl text-sm hover:text-[#FF6B2C]",
+    dark ? "text-[#C9CED6] hover:bg-white/5" : "text-slate-700 hover:bg-slate-50"
+  );
+  const mobileSummary = cn(
+    "flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-base font-semibold [&::-webkit-details-marker]:hidden",
+    dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-900 hover:bg-slate-50"
+  );
 
   return (
     <header
@@ -172,134 +220,149 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
           )}
         </div>
       )}
-      <div className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] p-1">
-          <div
-            style={{ width: "44px", height: "44px", minWidth: "44px", minHeight: "44px" }}
-            className="relative h-11 w-11 overflow-hidden rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
-          >
-            <Image
-              src="/brand/dodail-logo.png"
-              alt={`${brand.name} ${brand.tagline}`.trim()}
-              fill
-              sizes="44px"
-              className="object-contain"
-              priority
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className={cn("text-xl font-bold tracking-tight flex items-center gap-1.5 font-sans", dark ? "text-[#F5F8FC]" : "text-slate-900")}>
-              {brand.name}
-            </span>
-            <span className={cn("text-[10px] font-mono uppercase tracking-[0.16em]", dark ? "text-[#A3AAB5]" : "text-slate-500")}>
-              {brand.tagline}
-            </span>
-          </div>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 text-sm font-medium" aria-label="Main Navigation">
-          {dropdown("solutions", solutionsMenu.label, solutionsMenu.items)}
-          {dropdown("services", servicesMenu.label, servicesMenu.items)}
-          {links.map((l, i) => (
-            <Link key={`${l.href}-${i}`} href={l.href} className={navLink}>
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Desktop CTA & Consultation */}
-        {cta.label && (
-          <div className="hidden lg:flex items-center gap-3">
-            <Button
-              href={cta.href || "/consultation"}
-              variant="primary"
-              size="md"
-              className={cn(
-                "rounded-xl shadow-sm font-semibold",
-                dark ? "rounded-full normal-case tracking-normal text-sm text-[#05070B] hover:text-[#05070B]" : "text-white"
-              )}
+      <div className="relative">
+        <div className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] p-1">
+            <div
+              style={{ width: "44px", height: "44px", minWidth: "44px", minHeight: "44px" }}
+              className="relative h-11 w-11 overflow-hidden rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
             >
-              <Calendar className="h-4 w-4 mr-1.5" />
-              {cta.label}
-            </Button>
-          </div>
-        )}
+              <Image src="/brand/dodail-logo.png" alt={`${brand.name} ${brand.tagline}`.trim()} fill sizes="44px" className="object-contain" priority />
+            </div>
+            <div className="flex flex-col">
+              <span className={cn("text-xl font-bold tracking-tight flex items-center gap-1.5 font-sans", dark ? "text-[#F5F8FC]" : "text-slate-900")}>
+                {brand.name}
+              </span>
+              <span className={cn("text-[10px] font-mono uppercase tracking-[0.16em]", dark ? "text-[#A3AAB5]" : "text-slate-500")}>
+                {brand.tagline}
+              </span>
+            </div>
+          </Link>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={cn(
-            "lg:hidden inline-flex items-center justify-center p-2.5 rounded-xl border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-            dark
-              ? "text-[#F5F8FC] hover:bg-white/10 border-[#2C333E]"
-              : "text-slate-700 hover:text-slate-950 hover:bg-slate-100 border-slate-200"
-          )}
-          aria-expanded={mobileMenuOpen}
-          aria-label="Toggle navigation menu"
-        >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1 text-sm font-medium" aria-label="Main navigation">
+            {servicesDropdown}
+            {industriesDropdown}
+            {links.map((l, i) => (
+              <Link key={`${l.href}-${i}`} href={l.href} className={navLink} aria-current={pathname === l.href ? "page" : undefined}>
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden lg:flex items-center gap-3">
+            <ThemeToggle />
+            {cta.label && (
+              <Button
+                href={cta.href}
+                isExternal={ctaExternal}
+                variant="primary"
+                size="md"
+                className={cn(
+                  "rounded-xl shadow-sm font-semibold",
+                  dark ? "rounded-full normal-case tracking-normal text-sm text-[#05070B] hover:text-[#05070B]" : "text-white"
+                )}
+              >
+                <Calendar aria-hidden="true" className="h-4 w-4 mr-1.5" />
+                {cta.label}
+              </Button>
+            )}
+          </div>
+
+          {/* Mobile controls: theme toggle + hamburger */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={cn(
+                "inline-flex items-center justify-center p-2.5 rounded-xl border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                dark ? "text-[#F5F8FC] hover:bg-white/10 border-[#2C333E]" : "text-slate-700 hover:text-slate-950 hover:bg-slate-100 border-slate-200"
+              )}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileMenuOpen ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu — same config as the desktop menus */}
       {mobileMenuOpen && (
         <div
+          id="mobile-menu"
           ref={mobileMenuRef}
           className={cn(
             "lg:hidden border-b px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto shadow-xl",
             dark ? "border-white/10 bg-[#0B0E13]" : "border-slate-200 bg-white"
           )}
         >
-          <div className="space-y-4 pt-2">
-            {mobileGroup(solutionsMenu.mobileHeading, solutionsMenu.items)}
-            {mobileGroup(servicesMenu.mobileHeading, servicesMenu.items)}
-
-            {industriesMenu.items.length > 0 && (
-              <div>
-                <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  {industriesMenu.mobileHeading}
-                </p>
-                <div className="mt-1 space-y-1">
-                  {industriesMenu.items.map((item, i) => (
-                    <Link
-                      key={`${item.href}-${i}`}
-                      href={item.href}
-                      className={cn(
-                        "block px-3 py-2 rounded-xl text-sm",
-                        dark ? "text-[#A3AAB5] hover:bg-white/5 hover:text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
-                      )}
-                    >
-                      {item.title}
+          <nav aria-label="Mobile navigation" className="space-y-1 pt-2">
+            <details className="group">
+              <summary className={mobileSummary}>
+                {servicesMenu.label}
+                <ChevronDown aria-hidden="true" className="h-4 w-4 text-slate-500 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="space-y-3 pb-2 pl-2">
+                {servicesMenu.columns.map((col, ci) => (
+                  <div key={`${col.title}-${ci}`}>
+                    <Link href={col.href} className="block px-3 pt-2 text-xs font-semibold uppercase tracking-wider text-[#FF6B2C]">
+                      {col.title}
                     </Link>
-                  ))}
-                </div>
+                    {col.items.map((it, ii) => (
+                      <Link key={`${it.href}-${ii}`} href={it.href} className={mobileLink}>
+                        {it.title}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+                <Link href={servicesMenu.href} className={cn(mobileLink, "font-semibold text-[#FF6B2C]")}>
+                  {servicesMenu.allLabel}
+                </Link>
               </div>
-            )}
+            </details>
 
-            {mobileLinks.length > 0 && (
-              <div className={cn("border-t pt-4 space-y-1", dark ? "border-white/10" : "border-slate-200")}>
-                {mobileLinks.map((l, i) => (
-                  <Link
-                    key={`${l.href}-${i}`}
-                    href={l.href}
-                    className={cn(
-                      "block px-3 py-2.5 rounded-xl text-base font-medium hover:text-[#FF6B2C]",
-                      dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-800 hover:bg-slate-50"
-                    )}
-                  >
-                    {l.mobileLabel}
+            <details className="group">
+              <summary className={mobileSummary}>
+                {industriesMenu.label}
+                <ChevronDown aria-hidden="true" className="h-4 w-4 text-slate-500 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="pb-2 pl-2">
+                {industriesMenu.items.map((it, i) => (
+                  <Link key={`${it.href}-${i}`} href={it.href} className={mobileLink}>
+                    {it.title}
                   </Link>
                 ))}
+                <Link href={industriesMenu.href} className={cn(mobileLink, "font-semibold text-[#FF6B2C]")}>
+                  {industriesMenu.allLabel}
+                </Link>
               </div>
-            )}
+            </details>
+
+            <div className={cn("border-t pt-2", dark ? "border-white/10" : "border-slate-200")}>
+              {links.map((l, i) => (
+                <Link
+                  key={`${l.href}-${i}`}
+                  href={l.href}
+                  className={cn(
+                    "block px-3 py-2.5 rounded-xl text-base font-semibold hover:text-[#FF6B2C]",
+                    dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-900 hover:bg-slate-50"
+                  )}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
 
             {cta.label && (
-              <div className="pt-2">
+              <div className="pt-3">
                 <Button
-                  href={cta.href || "/consultation"}
+                  href={cta.href}
+                  isExternal={ctaExternal}
                   variant="primary"
                   size="lg"
                   className={cn(
@@ -307,12 +370,12 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                     dark ? "rounded-full normal-case tracking-normal text-[#05070B] hover:text-[#05070B]" : "rounded-xl text-white"
                   )}
                 >
-                  <Calendar className="h-5 w-5 mr-2" />
+                  <Calendar aria-hidden="true" className="h-5 w-5 mr-2" />
                   {cta.label}
                 </Button>
               </div>
             )}
-          </div>
+          </nav>
         </div>
       )}
     </header>

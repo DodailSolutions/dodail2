@@ -10,7 +10,8 @@ import type { LandingContent } from "@/lib/cms/content/defaults/landing";
 import { getContent } from "@/lib/cms/content/store";
 import { JsonLd } from "@/components/seo/StructuredData";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema, graph, serviceSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, graph, routeBreadcrumbSchema, serviceSchema } from "@/lib/seo/schema";
+import { getRoute } from "@/content/routes";
 
 /** Solution, service and industry pages share this template; all copy comes from the CMS. */
 
@@ -39,19 +40,8 @@ export function landingMetadata(path: string, content: LandingContent): Promise<
 /** Service + breadcrumb structured data for a landing page. */
 export async function LandingJsonLd({ path, content }: { path: string; content: LandingContent }) {
   const seo = await getContent("site/seo");
-  const section = path.split("/")[1] ?? "";
-  const sectionName = section.charAt(0).toUpperCase() + section.slice(1);
-  return (
-    <JsonLd
-      data={graph(
-        serviceSchema(seo, path, content.seo),
-        breadcrumbSchema(seo, [
-          ...(section === "industries" ? [{ name: sectionName, path: "/industries" }] : []),
-          { name: content.hero.title, path },
-        ])
-      )}
-    />
-  );
+  const breadcrumbs = getRoute(path) ? routeBreadcrumbSchema(seo, path) : breadcrumbSchema(seo, [{ name: content.hero.title, path }]);
+  return <JsonLd data={graph(serviceSchema(seo, path, content.seo), breadcrumbs)} />;
 }
 
 export function LandingPage({ content }: { content: LandingContent }) {
@@ -66,8 +56,8 @@ export function LandingPage({ content }: { content: LandingContent }) {
         <h1
           className={
             isIndustry
-              ? "mt-4 text-4xl font-extrabold text-slate-950 sm:text-5xl lg:text-6xl tracking-tight"
-              : "mt-5 text-4xl font-extrabold text-slate-950 sm:text-5xl lg:text-6xl tracking-tight leading-[1.05]"
+              ? "mt-4 text-4xl font-extrabold text-fg sm:text-5xl lg:text-6xl tracking-tight"
+              : "mt-5 text-4xl font-extrabold text-fg sm:text-5xl lg:text-6xl tracking-tight leading-[1.05]"
           }
         >
           <HighlightedText
@@ -79,8 +69,8 @@ export function LandingPage({ content }: { content: LandingContent }) {
         <p
           className={
             isIndustry
-              ? "mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto"
-              : "mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal"
+              ? "mt-6 text-base sm:text-lg text-fg-muted leading-relaxed max-w-2xl mx-auto"
+              : "mt-6 text-lg sm:text-xl text-fg-muted leading-relaxed max-w-2xl mx-auto font-normal"
           }
         >
           {hero.subtitle}
@@ -127,7 +117,7 @@ export function LandingPage({ content }: { content: LandingContent }) {
                     </div>
                   )}
                   <CardTitle>{item.title}</CardTitle>
-                  <p className={`${isIndustry ? "mt-2" : "mt-3 font-normal"} text-sm text-slate-600 leading-relaxed`}>
+                  <p className={`${isIndustry ? "mt-2" : "mt-3 font-normal"} text-sm text-fg-muted leading-relaxed`}>
                     {item.description}
                   </p>
                 </Card>
@@ -138,26 +128,26 @@ export function LandingPage({ content }: { content: LandingContent }) {
       )}
 
       {integrations.items.length > 0 && (
-        <section className="rounded-3xl border border-slate-200/90 bg-white p-8 lg:p-14 shadow-sm">
+        <section className="rounded-3xl border border-border-token bg-surface p-8 lg:p-14 shadow-sm">
           <div className="text-center max-w-2xl mx-auto">
             {integrations.eyebrow && (
               <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-wider block mb-2">
                 {integrations.eyebrow}
               </span>
             )}
-            <h2 className="text-3xl font-extrabold text-slate-950">{integrations.title}</h2>
+            <h2 className="text-3xl font-extrabold text-fg">{integrations.title}</h2>
             {integrations.description && (
-              <p className="mt-3 text-base text-slate-600 font-normal">{integrations.description}</p>
+              <p className="mt-3 text-base text-fg-muted font-normal">{integrations.description}</p>
             )}
           </div>
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             {integrations.items.map((it, i) => (
               <div
                 key={`${it.name}-${i}`}
-                className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition-colors"
+                className="p-5 rounded-2xl bg-surface-2 border border-border-token hover:border-border-strong transition-colors"
               >
-                <p className="font-bold text-slate-900 text-sm">{it.name}</p>
-                <p className="text-xs text-slate-500 mt-1">{it.detail}</p>
+                <p className="font-bold text-fg text-sm">{it.name}</p>
+                <p className="text-xs text-fg-subtle mt-1">{it.detail}</p>
               </div>
             ))}
           </div>
@@ -167,21 +157,21 @@ export function LandingPage({ content }: { content: LandingContent }) {
       <section
         className={
           isIndustry
-            ? "mx-auto max-w-5xl w-full rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-orange-50/30 p-8 sm:p-12 text-center shadow-sm"
-            : "rounded-3xl border border-slate-200 bg-gradient-to-b from-white to-orange-50/20 p-10 sm:p-14 text-center"
+            ? "mx-auto max-w-5xl w-full rounded-3xl border border-border-token bg-gradient-to-br from-[var(--bg)] via-[var(--surface-2)] to-orange-50/30 p-8 sm:p-12 text-center shadow-sm"
+            : "rounded-3xl border border-border-token bg-gradient-to-b from-[var(--bg)] to-orange-50/20 p-10 sm:p-14 text-center"
         }
       >
         <h2
           className={
             isIndustry
-              ? "text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight"
-              : "text-3xl sm:text-4xl font-extrabold text-slate-950"
+              ? "text-2xl sm:text-3xl font-extrabold text-fg tracking-tight"
+              : "text-3xl sm:text-4xl font-extrabold text-fg"
           }
         >
           {cta.title}
         </h2>
         {cta.description && (
-          <p className={`mt-4 text-base text-slate-600 max-w-xl mx-auto ${isIndustry ? "" : "font-normal"}`}>{cta.description}</p>
+          <p className={`mt-4 text-base text-fg-muted max-w-xl mx-auto ${isIndustry ? "" : "font-normal"}`}>{cta.description}</p>
         )}
         {cta.button.label && (
           <div className="mt-8 flex justify-center">

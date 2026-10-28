@@ -43,7 +43,7 @@ const defaultStore: CMSStore = {
           ctaPrimaryLabel: "Book an AI Consultation",
           ctaPrimaryLink: "/consultation",
           ctaSecondaryLabel: "Explore Solutions",
-          ctaSecondaryLink: "/solutions/ai-automation",
+          ctaSecondaryLink: "/services/ai-automation/",
         },
         {
           id: "cards-1",
@@ -65,9 +65,9 @@ const defaultStore: CMSStore = {
           title: "Engineered For Measurable Business Outcomes",
           description: "Deterministic, hardened automations that integrate into your existing tools.",
           items: [
-            { title: "AI Lead Qualification", description: "Engages in sub-60-second natural language qualification and pushes directly to CRM.", href: "/solutions/ai-lead-management" },
-            { title: "24/7 AI Customer Support", description: "Resolves 65% of repetitive tier-1 inquiries trained on your private knowledge base.", href: "/solutions/ai-customer-support" },
-            { title: "Workflow Pipelines", description: "Durable PostgreSQL-backed queues connecting Google Sheets, WhatsApp, and databases.", href: "/solutions/workflow-automation" },
+            { title: "AI Lead Qualification", description: "Engages in sub-60-second natural language qualification and pushes directly to CRM.", href: "/services/ai-automation/" },
+            { title: "24/7 AI Customer Support", description: "Resolves 65% of repetitive tier-1 inquiries trained on your private knowledge base.", href: "/services/ai-automation/" },
+            { title: "Workflow Pipelines", description: "Durable PostgreSQL-backed queues connecting Google Sheets, WhatsApp, and databases.", href: "/services/ai-automation/" },
           ],
         },
         {
@@ -144,8 +144,8 @@ const defaultStore: CMSStore = {
       header_cta_label: "Book AI Consultation",
       header_cta_link: "/consultation",
       links: [
-        { label: "Solutions", href: "/solutions/ai-automation" },
-        { label: "Services", href: "/services/web-development" },
+        { label: "Solutions", href: "/services/ai-automation/" },
+        { label: "Services", href: "/services/website-development/" },
         { label: "Industries", href: "/industries" },
         { label: "Work", href: "/work" },
         { label: "Blog", href: "/blog" },
@@ -179,7 +179,7 @@ const defaultStore: CMSStore = {
     announcement: {
       is_active: false,
       message: "Dodail 2.0 AI Automation Architecture is now live.",
-      link: "/solutions/ai-automation",
+      link: "/services/ai-automation/",
     },
   },
   auditLogs: [],

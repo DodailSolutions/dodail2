@@ -22,11 +22,9 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
       { src: "/brand/dodail-logo.png", sizes: "512x512", type: "image/png", purpose: "any" },
       { src: "/apple-icon.png", sizes: "180x180", type: "image/png", purpose: "any" },
     ],
-    shortcuts: [
-      { name: navigation.cta.label, url: navigation.cta.href },
-      ...navigation.mobileBar.tabs
-        .filter((t) => t.label && t.href !== "/")
-        .map((t) => ({ name: t.label, url: t.href })),
-    ],
+    // Shortcuts must stay inside the app's scope, so external, tel: and WhatsApp links are skipped.
+    shortcuts: [navigation.cta, ...navigation.mobileBar.tabs.map((t) => ({ label: t.label, href: t.href }))]
+      .filter((t) => t.label && t.href.startsWith("/") && t.href !== "/")
+      .map((t) => ({ name: t.label, url: t.href })),
   };
 }
