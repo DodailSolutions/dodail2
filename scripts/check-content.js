@@ -15,13 +15,13 @@
 import fs from "node:fs";
 import path from "node:path";
 
-// Next writes prerendered HTML to .next/server/app. On Vercel, the build pipeline relocates those
-// pages into the Build Output API's static directory (.vercel/output/static) before this gate runs,
-// which is why scanning only .next/server/app found nothing there. Scan whichever root actually
+// Next writes prerendered HTML to .next/server/app. On Vercel, the build adapter (Next 16.4+)
+// moves it out of there to .next/output/functions/<route>.prerender-fallback.html before this gate
+// runs, which is why scanning only .next/server/app found nothing. Scan whichever root actually
 // holds the prerendered pages.
 const CANDIDATE_ROOTS = [
   path.join(".next", "server", "app"),
-  path.join(".vercel", "output", "static"),
+  path.join(".next", "output"),
 ];
 let ROOT = CANDIDATE_ROOTS[0];
 const STRICT = process.env.STRICT_SEO === "1";
@@ -50,7 +50,13 @@ function walk(dir, out = []) {
 }
 
 const toRoute = (file) => {
-  const rel = path.relative(ROOT, file).replace(/\.html$/, "").split(path.sep).join("/");
+  const rel = path
+    .relative(ROOT, file)
+    .replace(/\.prerender-fallback\.html$|\.html$/, "")
+    .split(path.sep)
+    .join("/")
+    // Vercel's output nests pages under functions/ or static/; those aren't part of the route.
+    .replace(/^(?:functions|static)\//, "");
   if (rel === "index") return "/";
   return "/" + rel.replace(/\/index$/, "") + "/";
 };
@@ -66,19 +72,26 @@ const text = (html) =>
 
 let files = [];
 for (const root of CANDIDATE_ROOTS) {
-  const found = walk(root);
+  // Skip dynamic-route shells (e.g. blog/[slug]); only concrete pages are scanned.
+  const found = walk(root).filter((f) => !f.includes("["));
   if (found.length > 0) {
     ROOT = root;
     files = found;
     break;
   }
 }
+// The same route can appear more than once in Vercel's output; scan each route a single time.
+{
+  const byRoute = new Map();
+  for (const f of files) if (!byRoute.has(toRoute(f))) byRoute.set(toRoute(f), f);
+  files = [...byRoute.values()];
+}
 if (files.length === 0) {
   console.error(`check-content: no prerendered pages found in ${CANDIDATE_ROOTS.join(" or ")}. Run the build first.`);
   if (process.env.VERCEL) {
-    // Vercel's build adapter relocates the prerendered output after `next build`. Dump where HTML
-    // actually lives so the deploy log shows the real location. This still fails the build: the
-    // gate must not pass silently until it can scan the relocated pages.
+    // Vercel's build adapter relocates the prerendered output after `next build`. If it moves
+    // again, dump where HTML actually lives so the deploy log shows the new location. This still
+    // fails the build: the gate must never pass silently without scanning pages.
     for (const dir of [".next", path.join(".next", "server"), ".vercel", path.join(".vercel", "output")]) {
       const listing = fs.existsSync(dir) ? fs.readdirSync(dir).slice(0, 40).join(", ") : "(missing)";
       console.error(`check-content [vercel diagnostics]: ${dir} -> ${listing}`);
