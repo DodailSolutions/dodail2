@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef } from "react";
-import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, Points, ShaderMaterial, Vector2 } from "three";
+import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, NormalBlending, Points, ShaderMaterial, Vector2 } from "three";
 import type { BufferGeometry as Geometry } from "three";
 import { useFrame } from "@react-three/fiber";
 import { SceneState } from "./3DTypes";
@@ -87,14 +87,20 @@ const vertexShader = /* glsl */ `
   }
 `;
 
+// Dark theme: additive glow. Light theme: additive blending adds light to a near-white page and
+// all but disappears, so use normal blending with deepened colours (near-white dots become navy).
 const fragmentShader = /* glsl */ `
+  uniform float uLight;
   varying vec3 vColor;
   varying float vAlpha;
   void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
     float a = smoothstep(0.5, 0.05, d);
-    gl_FragColor = vec4(vColor, a * vAlpha * 0.85);
+    float lum = dot(vColor, vec3(0.299, 0.587, 0.114));
+    vec3 lightColor = mix(vColor * 0.72, vec3(0.10, 0.14, 0.22), smoothstep(0.7, 0.95, lum));
+    vec3 color = mix(vColor, lightColor, uLight);
+    gl_FragColor = vec4(color, a * vAlpha * mix(0.85, 1.0, uLight));
   }
 `;
 
@@ -151,6 +157,7 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
           uChaos: { value: 0 },
           uSize: { value: 21 },
           uPixelRatio: { value: 1 },
+          uLight: { value: 0 },
           uActive: { value: -1 },
           uDim: { value: 1 },
           uTint: { value: new Color("#ffffff") },
@@ -219,7 +226,16 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
     u.uMix.value = mix.current;
     u.uTime.value = time;
     u.uPixelRatio.value = state.gl.getPixelRatio();
-    u.uSize.value = isMobile ? 25 : 21;
+    // Theme is set on <html data-theme> by ThemeScript/ThemeToggle; read it per frame so the field
+    // follows a toggle without remounting the canvas.
+    const light = document.documentElement.getAttribute("data-theme") === "light";
+    u.uLight.value = light ? 1 : 0;
+    const wantBlending = light ? NormalBlending : AdditiveBlending;
+    if (mat.blending !== wantBlending) {
+      mat.blending = wantBlending;
+      mat.needsUpdate = true;
+    }
+    u.uSize.value = (isMobile ? 25 : 21) * (light ? 1.35 : 1);
     u.uChaos.value = lerp(u.uChaos.value, phase === "problem" && problemIndex === 2 ? 0.25 : 0, 0.04);
     u.uDim.value = lerp(u.uDim.value, phase === "problem" ? 0.85 : phase === "cta" ? 1.15 : 1, 0.05);
     u.uActive.value =

@@ -12,11 +12,11 @@ export function FAQAccordion({ items: faqs = defaultFaqs }: { items?: FAQItem[] 
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#1C222B] divide-y divide-[#1C222B] bg-[#0B0E13]">
+    <div className="overflow-hidden rounded-2xl border border-[var(--border)] divide-y divide-[var(--border)] bg-surface shadow-sm">
       {faqs.map((faq, index) => {
         const isOpen = openIndex === index;
         return (
-          <div key={faq.question} className={`transition-colors duration-150 ${isOpen ? "bg-[#12161D]" : "hover:bg-[#12161D]/60"}`}>
+          <div key={faq.question} className={`transition-colors duration-150 ${isOpen ? "bg-surface-2" : "hover:bg-surface-2/60"}`}>
             <h3>
               <button
                 type="button"
@@ -31,13 +31,13 @@ export function FAQAccordion({ items: faqs = defaultFaqs }: { items?: FAQItem[] 
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="flex flex-col gap-1">
-                    <span className="text-xs uppercase tracking-[0.14em] text-[#8A929E] font-medium">{faq.category}</span>
-                    <span className="text-base sm:text-xl font-normal text-[#F5F8FC] leading-snug tracking-[-0.01em]">
+                    <span className="text-xs uppercase tracking-[0.14em] text-fg-subtle font-medium">{faq.category}</span>
+                    <span className="text-base sm:text-xl font-normal text-fg leading-snug tracking-[-0.01em]">
                       {faq.question}
                     </span>
                   </span>
                 </span>
-                <span className="text-[#FF6B2C] border border-white/15 rounded-full p-1.5 shrink-0 mt-1" aria-hidden="true">
+                <span className="text-[#FF6B2C] border border-[var(--border)] rounded-full p-1.5 shrink-0 mt-1" aria-hidden="true">
                   {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
                 </span>
               </button>
@@ -49,7 +49,7 @@ export function FAQAccordion({ items: faqs = defaultFaqs }: { items?: FAQItem[] 
               hidden={!isOpen}
               className="px-4 sm:px-6 pb-6 pl-12 sm:pl-20"
             >
-              <p className="max-w-3xl text-sm sm:text-base leading-relaxed text-[#A3AAB5]">{faq.answer}</p>
+              <p className="max-w-3xl text-sm sm:text-base leading-relaxed text-fg-muted">{faq.answer}</p>
             </div>
           </div>
         );

@@ -6,7 +6,7 @@ export const primaryBtn =
   "rounded-full text-[15px] px-6 py-3.5 h-auto font-semibold normal-case tracking-normal text-[#05070B] hover:text-[#05070B] shadow-[0_0_40px_-8px_rgba(255,107,44,0.6)] focus-visible:ring-offset-[#05070B]";
 
 export const ghostBtn =
-  "rounded-full text-[15px] px-6 py-3.5 h-auto font-medium normal-case tracking-normal border-white/15 bg-white/[0.03] text-[#F5F8FC] hover:text-[#F5F8FC] hover:bg-white/10 hover:border-white/30 shadow-none focus-visible:ring-offset-[#05070B]";
+  "rounded-full text-[15px] px-6 py-3.5 h-auto font-medium normal-case tracking-normal border-white/15 bg-white/[0.03] text-[#F5F8FC] hover:text-[#F5F8FC] hover:bg-white/10 hover:border-white/30 shadow-none focus-visible:ring-offset-[#05070B] light:border-slate-300 light:bg-white light:text-slate-900 light:hover:bg-slate-50 light:hover:text-slate-900 light:hover:border-slate-400 light:shadow-sm light:focus-visible:ring-offset-white";
 
 export const sectionPad = "px-5 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20";
 
@@ -16,19 +16,19 @@ export const sectionPad = "px-5 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20";
  * Combine with a `top-*` offset. On desktop the panel goes transparent again.
  */
 export const stagePanel =
-  "sticky z-10 -mx-5 bg-[#05070B] px-5 pb-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:bg-transparent lg:px-0 lg:pb-0";
+  "sticky z-10 -mx-5 bg-[#05070B] px-5 pb-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:bg-transparent lg:px-0 lg:pb-0 light:max-lg:bg-[var(--bg)]";
 
 /** Soft edge under a pinned stage panel, so text fades in rather than being cut. */
 export function StageFade() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 top-full h-8 bg-gradient-to-b from-[#05070B] to-transparent lg:hidden"
+      className="pointer-events-none absolute inset-x-0 top-full h-8 bg-gradient-to-b from-[#05070B] to-transparent light:from-[var(--bg)] lg:hidden"
     />
   );
 }
 
-const eyebrowTone = { orange: "text-[#FF6B2C]", cyan: "text-[#27D3C2]", muted: "text-[#8A929E]" };
+const eyebrowTone = { orange: "text-[#FF6B2C]", cyan: "text-[#27D3C2]", muted: "text-[#8A929E] light:text-slate-500" };
 
 export function Eyebrow({
   children,
