@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 import { LEGACY_REDIRECTS } from "./src/content/legacy/redirects";
 
 const nextConfig: NextConfig = {
+  // Marks this app as upgraded by the Next.js security upgrade agent (16.4.0 → 16.4.3).
+  experimental: {
+    agentUpgrade: "security",
+  },
   // The old WordPress site used trailing slashes; keeping them means every legacy URL resolves in one hop.
   trailingSlash: true,
   // 301s from every old dodail.com URL (brief §9.1). Spam URLs get a 410 in src/proxy.ts instead.
