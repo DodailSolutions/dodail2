@@ -87,7 +87,7 @@ export default function FAQPage() {
       <div className="mx-auto max-w-4xl space-y-12">
         {/* Header */}
         <div className="space-y-4 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FF6B2C]/10 text-[#FF6B2C] border border-[#FF6B2C]/20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FA5B0F]/10 text-[#FA5B0F] border border-[#FA5B0F]/20">
             TRANSPARENT ANSWERS
           </div>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-fg leading-tight">
@@ -103,10 +103,10 @@ export default function FAQPage() {
           {FAQS.map((faq, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FF6B2C]/30 transition duration-200 space-y-3"
+              className="p-6 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FA5B0F]/30 transition duration-200 space-y-3"
             >
               <h2 className="text-lg sm:text-xl font-semibold text-fg flex items-start gap-3">
-                <span className="text-[#FF6B2C] font-mono text-sm pt-1">0{idx + 1}.</span>
+                <span className="text-[#FA5B0F] font-mono text-sm pt-1">0{idx + 1}.</span>
                 <span>{faq.q}</span>
               </h2>
               <p className="text-sm sm:text-base text-fg-muted leading-relaxed pl-8">
@@ -127,7 +127,7 @@ export default function FAQPage() {
           <div className="pt-2 flex flex-wrap justify-center gap-3">
             <Link
               href="/consultation"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FF6B2C] hover:bg-[#E8541A] text-white text-sm font-semibold transition shadow-lg"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FA5B0F] hover:bg-[#E04E08] text-white text-sm font-semibold transition shadow-lg"
             >
               <span>Book a Strategy Call</span>
               <ArrowRight className="w-4 h-4" />

@@ -36,7 +36,7 @@ const trustMeta: Record<
 > = {
   team: {
     Icon: Layers,
-    color: "#FF6B2C",
+    color: "#FA5B0F",
     badge: "Unified Delivery",
     tagline: "Zero Hand-Off Silos",
     highlights: ["Single Engineering Core", "Unified Database & Schemas", "Direct Founder & Lead Accountability"],
@@ -50,7 +50,7 @@ const trustMeta: Record<
   },
   tools: {
     Icon: Plug,
-    color: "#FF6B2C",
+    color: "#FA5B0F",
     badge: "50+ Ecosystem Connectors",
     tagline: "Zero Rip-and-Replace",
     highlights: ["WhatsApp Cloud API", "Google Sheets & Enterprise Drive", "Custom CRMs, Shopify & Stripe"],
@@ -89,7 +89,7 @@ export function TrustSection() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full bg-[#FF6B2C]/[0.035] blur-[140px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[900px] rounded-full bg-[#FA5B0F]/[0.035] blur-[140px]" />
         <div className="absolute bottom-10 right-10 h-[400px] w-[500px] rounded-full bg-[#27D3C2]/[0.025] blur-[120px]" />
       </div>
 
@@ -112,7 +112,7 @@ export function TrustSection() {
           {trust.map((t, idx) => {
             const meta = trustMeta[t.icon] || {
               Icon: Layers,
-              color: "#FF6B2C",
+              color: "#FA5B0F",
               badge: "Core Commitment",
               tagline: "Engineering Principle",
               highlights: [],
@@ -124,8 +124,8 @@ export function TrustSection() {
               return (
                 <SpotlightCard
                   key={t.title}
-                  spotlightColor="rgba(255, 107, 44, 0.12)"
-                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-border-token bg-gradient-to-b from-[var(--surface)] via-[var(--surface)] to-[var(--surface)] p-7 sm:p-9 backdrop-blur-xl transition-all duration-300 hover:border-border-token hover:shadow-[0_20px_50px_-15px_rgba(255,107,44,0.15)] sm:col-span-2 lg:col-span-2 lg:row-span-2"
+                  spotlightColor="rgba(250, 91, 15, 0.12)"
+                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-border-token bg-gradient-to-b from-[var(--surface)] via-[var(--surface)] to-[var(--surface)] p-7 sm:p-9 backdrop-blur-xl transition-all duration-300 hover:border-border-token hover:shadow-[0_20px_50px_-15px_rgba(250,91,15,0.15)] sm:col-span-2 lg:col-span-2 lg:row-span-2"
                 >
                   {/* Subtle top accent gradient */}
                   <span
@@ -149,7 +149,7 @@ export function TrustSection() {
                         >
                           <Icon className="h-6 w-6" />
                         </span>
-                        <span className="text-xs font-mono uppercase tracking-wider text-[#FF6B2C]">
+                        <span className="text-xs font-mono uppercase tracking-wider text-[#FA5B0F]">
                           {meta.tagline}
                         </span>
                       </div>
@@ -162,7 +162,7 @@ export function TrustSection() {
                           border: `1px solid ${color}33`,
                         } as React.CSSProperties}
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B2C] animate-pulse" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#FA5B0F] animate-pulse" />
                         {meta.badge}
                       </span>
                     </div>
@@ -178,7 +178,7 @@ export function TrustSection() {
                     <div className="my-7 rounded-2xl border border-border-token bg-surface p-5 sm:p-6 backdrop-blur-md relative overflow-hidden group/arch">
                       <div
                         className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full opacity-20 blur-3xl transition-opacity group-hover/arch:opacity-35"
-                        style={{ background: "#FF6B2C" }}
+                        style={{ background: "#FA5B0F" }}
                       />
                       <div
                         className="pointer-events-none absolute -left-10 -bottom-10 h-44 w-44 rounded-full opacity-15 blur-3xl"
@@ -186,10 +186,10 @@ export function TrustSection() {
                       />
 
                       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-token pb-3 text-xs">
-                        <div className="flex items-center gap-2 font-mono text-[#FF6B2C]">
+                        <div className="flex items-center gap-2 font-mono text-[#FA5B0F]">
                           <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF6B2C] opacity-75" />
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FF6B2C]" />
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FA5B0F] opacity-75" />
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FA5B0F]" />
                           </span>
                           <span>DODAIL UNIFIED ARCHITECTURE</span>
                         </div>
@@ -218,7 +218,7 @@ export function TrustSection() {
                     <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-fg-muted">
                       {meta.highlights.map((h, i) => (
                         <li key={i} className="flex items-center gap-2">
-                          <CheckCircle2 className="h-4 w-4 text-[#FF6B2C] shrink-0" />
+                          <CheckCircle2 className="h-4 w-4 text-[#FA5B0F] shrink-0" />
                           <span>{h}</span>
                         </li>
                       ))}
@@ -231,7 +231,7 @@ export function TrustSection() {
             return (
               <SpotlightCard
                 key={t.title}
-                spotlightColor="rgba(255, 107, 44, 0.08)"
+                spotlightColor="rgba(250, 91, 15, 0.08)"
                 className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-border-token bg-surface p-7 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-border-token hover:bg-surface"
               >
                 <div>
@@ -278,7 +278,7 @@ export function TrustSection() {
         {/* Bottom Banner */}
         <div className="mt-12 rounded-2xl border border-border-token bg-gradient-to-r from-[var(--surface)] to-[var(--surface)] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#FF6B2C] mb-1">
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#FA5B0F] mb-1">
               <Sparkles className="h-3.5 w-3.5" />
               Verified Engineering Deliverables
             </div>
@@ -298,7 +298,7 @@ export function TrustSection() {
             </Link>
             <Link
               href="/consultation"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6B2C] to-[#ff8548] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#FF6B2C]/25 hover:brightness-110 transition-all active:scale-95"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FA5B0F] to-[#ff8548] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#FA5B0F]/25 hover:brightness-110 transition-all active:scale-95"
             >
               <Calendar className="h-4 w-4" />
               Schedule discovery call
@@ -342,10 +342,10 @@ export function CtaSection({ webgl }: { webgl: boolean }) {
     <section id="contact" aria-labelledby="cta-title" className="relative overflow-hidden px-5 sm:px-8 lg:px-12 py-16 sm:py-24 bg-bg">
       <div className="relative mx-auto max-w-7xl">
         {/* Large Rounded CTA Card */}
-        <div className="relative overflow-hidden rounded-3xl border border-[#FF6B2C]/30 bg-surface p-8 sm:p-12 lg:p-16 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl border border-[#FA5B0F]/30 bg-surface p-8 sm:p-12 lg:p-16 shadow-2xl">
           {/* Ambient Lighting Orbs */}
-          <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-[#FF6B2C]/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-[#FF6B2C]/20 blur-3xl" />
+          <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-[#FA5B0F]/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-[#FA5B0F]/20 blur-3xl" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Column: Copy & Actions */}
@@ -362,7 +362,7 @@ export function CtaSection({ webgl }: { webgl: boolean }) {
                   href="/consultation"
                   variant="primary"
                   size="lg"
-                  className="rounded-full bg-[#FF6B2C] hover:bg-[#E8541A] text-white px-8 py-4 font-semibold shadow-xl shadow-[#FF6B2C]/20 transition-all hover:scale-105"
+                  className="rounded-full bg-[#FA5B0F] hover:bg-[#E04E08] text-white px-8 py-4 font-semibold shadow-xl shadow-[#FA5B0F]/20 transition-all hover:scale-105"
                 >
                   <span>Book a Free Consultation</span>
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -383,9 +383,9 @@ export function CtaSection({ webgl }: { webgl: boolean }) {
               {ctaMetrics.map((m, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-[var(--surface-translucent-2)] border border-[#FF6B2C]/20 backdrop-blur-md flex flex-col justify-center items-center text-center space-y-1 hover:border-[#FF6B2C]/40 transition"
+                  className="p-5 rounded-2xl bg-[var(--surface-translucent-2)] border border-[#FA5B0F]/20 backdrop-blur-md flex flex-col justify-center items-center text-center space-y-1 hover:border-[#FA5B0F]/40 transition"
                 >
-                  <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#FF6B2C]">
+                  <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#FA5B0F]">
                     {m.value}
                   </span>
                   <span className="text-xs text-fg-muted font-medium">{m.label}</span>
@@ -402,12 +402,12 @@ export function CtaSection({ webgl }: { webgl: boolean }) {
             {company.city}, {company.region}, {company.country}
           </span>
           {company.phone && (
-            <a href={telHref(company.phone)} className="underline underline-offset-4 hover:text-[#FF6B2C]">
+            <a href={telHref(company.phone)} className="underline underline-offset-4 hover:text-[#FA5B0F]">
               {company.phone}
             </a>
           )}
           {company.email && (
-            <a href={`mailto:${company.email}`} className="underline underline-offset-4 hover:text-[#FF6B2C]">
+            <a href={`mailto:${company.email}`} className="underline underline-offset-4 hover:text-[#FA5B0F]">
               {company.email}
             </a>
           )}

@@ -33,10 +33,10 @@ export function RoiCalculator() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[#E3E6EB] pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#E8541A]/10 text-[#E8541A]">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#E04E08]/10 text-[#E04E08]">
               <Calculator className="h-4 w-4" />
             </span>
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#E8541A]">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#E04E08]">
               Financial Attribution Engine
             </span>
           </div>
@@ -48,8 +48,8 @@ export function RoiCalculator() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 rounded-full border border-[#E8541A]/20 bg-[#F2D5C4]/30 px-4 py-2 text-xs font-semibold text-[#1A2535]">
-          <Sparkles className="h-4 w-4 text-[#E8541A]" />
+        <div className="flex items-center gap-2 rounded-full border border-[#E04E08]/20 bg-[#F2D5C4]/30 px-4 py-2 text-xs font-semibold text-[#1A2535]">
+          <Sparkles className="h-4 w-4 text-[#E04E08]" />
           <span>Audited Median Across 140+ Projects</span>
         </div>
       </div>
@@ -60,7 +60,7 @@ export function RoiCalculator() {
           <div>
             <div className="flex justify-between text-sm font-semibold text-[#1A2535]">
               <span>Monthly Web Traffic</span>
-              <span className="font-mono text-[#E8541A]">{traffic.toLocaleString()} visitors</span>
+              <span className="font-mono text-[#E04E08]">{traffic.toLocaleString()} visitors</span>
             </div>
             <input
               type="range"
@@ -69,7 +69,7 @@ export function RoiCalculator() {
               step="5000"
               value={traffic}
               onChange={(e) => setTraffic(Number(e.target.value))}
-              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E8541A]"
+              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E04E08]"
             />
             <div className="flex justify-between text-[11px] text-[#1A2535]/40 mt-1">
               <span>10K</span>
@@ -81,7 +81,7 @@ export function RoiCalculator() {
           <div>
             <div className="flex justify-between text-sm font-semibold text-[#1A2535]">
               <span>Current Conversion Rate (Lead / Sale)</span>
-              <span className="font-mono text-[#E8541A]">{convRate.toFixed(1)}%</span>
+              <span className="font-mono text-[#E04E08]">{convRate.toFixed(1)}%</span>
             </div>
             <input
               type="range"
@@ -90,7 +90,7 @@ export function RoiCalculator() {
               step="0.1"
               value={convRate}
               onChange={(e) => setConvRate(Number(e.target.value))}
-              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E8541A]"
+              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E04E08]"
             />
             <div className="flex justify-between text-[11px] text-[#1A2535]/40 mt-1">
               <span>0.5%</span>
@@ -102,7 +102,7 @@ export function RoiCalculator() {
           <div>
             <div className="flex justify-between text-sm font-semibold text-[#1A2535]">
               <span>Average Deal Size / Lifetime Value</span>
-              <span className="font-mono text-[#E8541A]">${dealSize.toLocaleString()}</span>
+              <span className="font-mono text-[#E04E08]">${dealSize.toLocaleString()}</span>
             </div>
             <input
               type="range"
@@ -111,7 +111,7 @@ export function RoiCalculator() {
               step="500"
               value={dealSize}
               onChange={(e) => setDealSize(Number(e.target.value))}
-              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E8541A]"
+              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E04E08]"
             />
             <div className="flex justify-between text-[11px] text-[#1A2535]/40 mt-1">
               <span>$500</span>
@@ -123,7 +123,7 @@ export function RoiCalculator() {
           <div>
             <div className="flex justify-between text-sm font-semibold text-[#1A2535]">
               <span>Monthly Digital Ad Spend</span>
-              <span className="font-mono text-[#E8541A]">${adSpend.toLocaleString()} / mo</span>
+              <span className="font-mono text-[#E04E08]">${adSpend.toLocaleString()} / mo</span>
             </div>
             <input
               type="range"
@@ -132,7 +132,7 @@ export function RoiCalculator() {
               step="1000"
               value={adSpend}
               onChange={(e) => setAdSpend(Number(e.target.value))}
-              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E8541A]"
+              className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-[#E3E6EB] accent-[#E04E08]"
             />
             <div className="flex justify-between text-[11px] text-[#1A2535]/40 mt-1">
               <span>$2K</span>
@@ -153,7 +153,7 @@ export function RoiCalculator() {
               <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#1A2535] block font-mono">
                 +${(additionalPipeline / 1000).toFixed(0)}k
               </span>
-              <span className="text-xs font-semibold text-[#E8541A] flex items-center gap-1 mt-1">
+              <span className="text-xs font-semibold text-[#E04E08] flex items-center gap-1 mt-1">
                 <TrendingUp className="h-3.5 w-3.5" />
                 Additional Revenue Pipeline Generated
               </span>
@@ -173,7 +173,7 @@ export function RoiCalculator() {
                 <span className="text-[11px] font-medium text-[#1A2535]/60 uppercase tracking-wider block">
                   Capital Return
                 </span>
-                <span className="text-xl font-bold text-[#E8541A] font-mono mt-0.5 block">
+                <span className="text-xl font-bold text-[#E04E08] font-mono mt-0.5 block">
                   {multiple}x
                 </span>
                 <span className="text-[11px] font-semibold text-[#1A2535]/60">ROAS Multiple</span>
@@ -186,7 +186,7 @@ export function RoiCalculator() {
               href="https://calendly.com/dodailsolutions/15min"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#E8541A] py-3 px-6 text-sm font-semibold text-white transition-all hover:bg-[#D04510] hover:shadow-lg"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#E04E08] py-3 px-6 text-sm font-semibold text-white transition-all hover:bg-[#D04510] hover:shadow-lg"
             >
               <span>Validate With Strategy Team</span>
               <ArrowUpRight className="h-4 w-4" />

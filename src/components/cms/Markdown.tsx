@@ -22,7 +22,7 @@ function inline(text: string, key: string): React.ReactNode[] {
     if (link) {
       const [, label, href] = link;
       if (!isSafeUrl(href)) return label;
-      const cls = "font-medium text-[#C2410C] underline underline-offset-4 hover:text-[#FF6B2C]";
+      const cls = "font-medium text-[#C2410C] underline underline-offset-4 hover:text-[#FA5B0F]";
       return href.startsWith("/") ? (
         <Link key={k} href={href} className={cls}>{label}</Link>
       ) : (
@@ -109,13 +109,13 @@ export function Markdown({ source }: { source: string }) {
           case "ol": {
             const List = b.type;
             return (
-              <List key={key} className={`${b.type === "ul" ? "list-disc" : "list-decimal"} space-y-2 pl-6 marker:text-[#FF6B2C]`}>
+              <List key={key} className={`${b.type === "ul" ? "list-disc" : "list-decimal"} space-y-2 pl-6 marker:text-[#FA5B0F]`}>
                 {b.items.map((item, j) => <li key={j}>{inline(item, `${key}-${j}`)}</li>)}
               </List>
             );
           }
           case "quote":
-            return <blockquote key={key} className="border-l-4 border-[#FF6B2C] bg-orange-50/50 py-3 pl-5 pr-3 italic text-fg-muted">{inline(b.text, key)}</blockquote>;
+            return <blockquote key={key} className="border-l-4 border-[#FA5B0F] bg-orange-50/50 py-3 pl-5 pr-3 italic text-fg-muted">{inline(b.text, key)}</blockquote>;
           case "code":
             return <pre key={key} className="overflow-x-auto rounded-xl bg-surface p-4 text-sm text-fg"><code>{b.text}</code></pre>;
           case "img":

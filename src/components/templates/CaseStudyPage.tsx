@@ -100,14 +100,14 @@ export async function CaseStudyPage({ study }: { study: CaseStudy }) {
         <ul className="flex flex-wrap gap-2.5">
           {study.servicesUsed.map((s) => (
             <li key={s.path}>
-              <Link href={s.path} className="inline-flex min-h-11 items-center rounded-xl border border-border-token bg-surface px-4 text-sm font-semibold text-fg hover:border-[#FF6B2C]">
+              <Link href={s.path} className="inline-flex min-h-11 items-center rounded-xl border border-border-token bg-surface px-4 text-sm font-semibold text-fg hover:border-[#FA5B0F]">
                 {s.label}
               </Link>
             </li>
           ))}
           {project && (
             <li>
-              <Link href={`/work/${project.slug}/`} className="inline-flex min-h-11 items-center rounded-xl border border-border-token bg-surface px-4 text-sm font-semibold text-fg hover:border-[#FF6B2C]">
+              <Link href={`/work/${project.slug}/`} className="inline-flex min-h-11 items-center rounded-xl border border-border-token bg-surface px-4 text-sm font-semibold text-fg hover:border-[#FA5B0F]">
                 See the project
               </Link>
             </li>

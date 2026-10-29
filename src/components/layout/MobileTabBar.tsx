@@ -39,7 +39,7 @@ export function MobileTabBar({ nav }: { nav: NavigationContent }) {
     );
     const inner = (
       <>
-        <Icon className={cn("h-[22px] w-[22px] transition-colors", active ? "text-[#FF6B2C]" : "")} strokeWidth={active ? 2.25 : 1.75} aria-hidden="true" />
+        <Icon className={cn("h-[22px] w-[22px] transition-colors", active ? "text-[#FA5B0F]" : "")} strokeWidth={active ? 2.25 : 1.75} aria-hidden="true" />
         <span className="max-w-full truncate px-1">{item.label}</span>
       </>
     );
@@ -75,10 +75,10 @@ export function MobileTabBar({ nav }: { nav: NavigationContent }) {
               const className = "absolute -top-5 flex flex-col items-center gap-1 active:scale-95 transition-transform";
               const inner = (
                 <>
-                  <span className="grid h-14 w-14 place-items-center rounded-full bg-[#FF6B2C] text-white shadow-[0_8px_24px_-6px_rgba(255,107,44,0.65)] ring-4 ring-[var(--bg-2)]">
+                  <span className="grid h-14 w-14 place-items-center rounded-full bg-[#FA5B0F] text-white shadow-[0_8px_24px_-6px_rgba(250,91,15,0.65)] ring-4 ring-[var(--bg-2)]">
                     <Calendar className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <span className={cn("text-[10.5px] font-semibold tracking-wide", ctaActive ? "text-fg" : "text-[#FF6B2C]")}>
+                  <span className={cn("text-[10.5px] font-semibold tracking-wide", ctaActive ? "text-fg" : "text-[#FA5B0F]")}>
                     {nav.mobileBar.ctaShortLabel || nav.cta.label}
                   </span>
                 </>

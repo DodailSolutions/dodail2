@@ -109,7 +109,7 @@ export function BookingForm({ steps, topics, slots, form, success, whatsapp }: P
       selected
         ? dark
           ? "bg-surface border-border-strong text-fg font-semibold shadow-xs"
-          : "bg-orange-50 border-[#FF6B2C] text-[#C2410C] font-semibold ring-1 ring-[#FF6B2C]"
+          : "bg-orange-50 border-[#FA5B0F] text-[#C2410C] font-semibold ring-1 ring-[#FA5B0F]"
         : "bg-surface-2 border-border-token text-fg-muted font-medium hover:text-fg hover:bg-surface-2"
     );
   const stepLabel = "block text-xs font-bold uppercase tracking-wider text-[#C2410C] mb-3 font-mono";

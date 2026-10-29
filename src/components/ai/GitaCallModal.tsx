@@ -189,7 +189,7 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
             <div>
               <h2 className="text-sm font-bold text-fg flex items-center gap-2">
                 Live Video Call with Gita
-                <span className="text-[10px] font-mono bg-[#E8541A]/20 text-[#E8541A] px-2 py-0.5 rounded border border-[#E8541A]/30">
+                <span className="text-[10px] font-mono bg-[#E04E08]/20 text-[#E04E08] px-2 py-0.5 rounded border border-[#E04E08]/30">
                   HD 1080p
                 </span>
               </h2>
@@ -216,13 +216,13 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
         {/* Center Stage */}
         <div className="flex-1 relative flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden">
           {/* Ambient Lighting Gradients */}
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] bg-[#E8541A]/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] bg-[#E04E08]/10 rounded-full blur-[100px] pointer-events-none" />
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[90px] pointer-events-none" />
 
           {/* Connect / Tap to Start Banner */}
           {!hasStarted ? (
             <div className="text-center space-y-4 z-20 max-w-md bg-surface border border-border-token p-6 rounded-3xl shadow-2xl backdrop-blur-md">
-              <div className="w-16 h-16 rounded-full bg-[#E8541A]/20 text-[#E8541A] flex items-center justify-center mx-auto ring-4 ring-[#E8541A]/30 animate-pulse">
+              <div className="w-16 h-16 rounded-full bg-[#E04E08]/20 text-[#E04E08] flex items-center justify-center mx-auto ring-4 ring-[#E04E08]/30 animate-pulse">
                 <Video className="w-8 h-8" />
               </div>
               <div>
@@ -233,7 +233,7 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
               </div>
               <button
                 onClick={handleConnectCall}
-                className="w-full py-3.5 bg-[#E8541A] hover:bg-[#D44710] text-white font-bold rounded-2xl shadow-lg transition flex items-center justify-center gap-2 text-sm"
+                className="w-full py-3.5 bg-[#E04E08] hover:bg-[#D44710] text-white font-bold rounded-2xl shadow-lg transition flex items-center justify-center gap-2 text-sm"
               >
                 <Mic className="w-4 h-4" />
                 <span>Start Talking with Gita</span>
@@ -296,7 +296,7 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
                       <button
                         key={idx}
                         onClick={() => handleSelectSlot(slot.display)}
-                        className="w-full text-left text-xs bg-surface hover:bg-[#E8541A] hover:text-white border border-border-token text-white p-2 rounded-xl transition flex items-center justify-between group"
+                        className="w-full text-left text-xs bg-surface hover:bg-[#E04E08] hover:text-white border border-border-token text-white p-2 rounded-xl transition flex items-center justify-between group"
                       >
                         <span>{slot.display}</span>
                         <ChevronRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
@@ -390,12 +390,12 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
               placeholder="Or type here & Gita will speak..."
-              className="flex-1 text-xs bg-surface border border-border-token rounded-xl px-3 py-2.5 text-fg placeholder-fg-subtle focus:outline-none focus:border-[#E8541A]"
+              className="flex-1 text-xs bg-surface border border-border-token rounded-xl px-3 py-2.5 text-fg placeholder-fg-subtle focus:outline-none focus:border-[#E04E08]"
             />
             <button
               type="submit"
               disabled={!textInput.trim()}
-              className="p-2.5 bg-[#E8541A] hover:bg-[#D44710] disabled:opacity-50 text-white rounded-xl transition"
+              className="p-2.5 bg-[#E04E08] hover:bg-[#D44710] disabled:opacity-50 text-white rounded-xl transition"
               aria-label="Send text"
             >
               <Send className="w-4 h-4" />
@@ -410,7 +410,7 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
               className={`p-3.5 rounded-full transition shadow-lg flex items-center gap-2 ${
                 voiceState === "listening"
                   ? "bg-emerald-500 hover:bg-emerald-600 text-fg animate-pulse"
-                  : "bg-[#E8541A] hover:bg-[#D44710] text-white"
+                  : "bg-[#E04E08] hover:bg-[#D44710] text-white"
               }`}
               title={voiceState === "listening" ? "Stop listening" : "Tap to Speak"}
               aria-label="Toggle microphone"

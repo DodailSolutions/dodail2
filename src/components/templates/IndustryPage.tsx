@@ -44,7 +44,7 @@ export async function IndustryPage({ content }: { content: IndustryPageContent }
       <Section id="what-we-build" title="What we build for you">
         <dl className="grid gap-x-10 gap-y-7 md:grid-cols-2">
           {content.build.map((b) => (
-            <div key={b.title} className="border-l-2 border-[#FF6B2C] pl-5">
+            <div key={b.title} className="border-l-2 border-[#FA5B0F] pl-5">
               <dt className="text-lg font-bold text-fg">{b.title}</dt>
               <dd className="mt-1.5 text-sm leading-relaxed text-fg-muted">{b.text}</dd>
             </div>

@@ -24,20 +24,20 @@ import { SpotlightCard } from "../SpotlightCard";
 
 /** Pillar icons/colours by position; the pillar text comes from the CMS. */
 const pillarStyles = [
-  { Icon: PenTool, color: "#FF6B2C" },
+  { Icon: PenTool, color: "#FA5B0F" },
   { Icon: Code2, color: "#27D3C2" },
   { Icon: Workflow, color: "#FFB547" },
 ];
 
 const specialismIcons = {
-  automation: { Icon: Workflow, color: "#FF6B2C" },
+  automation: { Icon: Workflow, color: "#FA5B0F" },
   web: { Icon: Globe, color: "#27D3C2" },
   commerce: { Icon: ShoppingBag, color: "#34D399" },
   marketing: { Icon: TrendingUp, color: "#FFB547" },
   apps: { Icon: Smartphone, color: "#8B7CFF" },
 } as const;
 
-const linkCls = "text-fg underline decoration-[#FF6B2C]/60 underline-offset-4 hover:decoration-[#FF6B2C] hover:text-[#FF6B2C] transition-colors";
+const linkCls = "text-fg underline decoration-[#FA5B0F]/60 underline-offset-4 hover:decoration-[#FA5B0F] hover:text-[#FA5B0F] transition-colors";
 
 /** "Who we are": Dodail's own positioning, the company facts, and what it specialises in. */
 export function IntroSection({ webgl }: { webgl: boolean }) {
@@ -49,8 +49,8 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
       <div className="mx-auto max-w-7xl">
         {/* Eyebrow badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border-token bg-[var(--surface-translucent)] backdrop-blur-md mb-4 shadow-xs">
-          <span className="h-2 w-2 rounded-full bg-[#FF6B2C] animate-pulse" />
-          <span className="text-xs font-mono font-medium uppercase tracking-[0.16em] text-[#FF6B2C]">
+          <span className="h-2 w-2 rounded-full bg-[#FA5B0F] animate-pulse" />
+          <span className="text-xs font-mono font-medium uppercase tracking-[0.16em] text-[#FA5B0F]">
             {intro.badge}
           </span>
         </div>
@@ -58,7 +58,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
         <h2 id="about-dodail" className="section-title-clamp max-w-4xl font-extrabold text-fg tracking-tight leading-[1.04]">
           {intro.title}{" "}
           {intro.highlight && (
-            <span className="bg-gradient-to-r from-[#FF6B2C] via-[#FFB547] to-[#FF6B2C] light:from-[#FA5B0F] light:via-[#F97316] light:to-[#FA5B0F] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FA5B0F] via-[#FFB547] to-[#FA5B0F] light:from-[#FA5B0F] light:via-[#F97316] light:to-[#FA5B0F] bg-clip-text text-transparent">
               {intro.highlight}
             </span>
           )}
@@ -83,7 +83,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                 return (
                   <SpotlightCard
                     key={title}
-                    spotlightColor="rgba(255, 107, 44, 0.08)"
+                    spotlightColor="rgba(250, 91, 15, 0.08)"
                     className="group relative rounded-2xl border border-border-token bg-surface p-5 transition-all duration-300 hover:border-border-token hover:bg-surface hover:shadow-lg"
                   >
                     <div
@@ -185,7 +185,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
         <div className="mt-12 pt-10 border-t border-border-token">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h3 className="text-xs font-mono font-medium uppercase tracking-[0.16em] text-[#FF6B2C]">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-[0.16em] text-[#FA5B0F]">
                 {specialisms.eyebrow}
               </h3>
               <p className="mt-1 text-2xl font-bold text-fg">{specialisms.title}</p>
@@ -193,7 +193,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
             {specialisms.linkLabel && (
               <Link
                 href={specialisms.linkHref || "/consultation"}
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-fg-muted hover:text-[#FF6B2C] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-fg-muted hover:text-[#FA5B0F] transition-colors"
               >
                 <span>{specialisms.linkLabel}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -211,7 +211,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                     className="group block h-full"
                   >
                     <SpotlightCard
-                      spotlightColor="rgba(255, 107, 44, 0.08)"
+                      spotlightColor="rgba(250, 91, 15, 0.08)"
                       className="flex h-full flex-col rounded-2xl border border-border-token bg-surface p-5 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-border-token group-hover:bg-surface group-hover:shadow-lg"
                     >
                       <span className="flex items-center justify-between">
@@ -223,7 +223,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                           <Icon className="h-5 w-5" />
                         </span>
                         <ArrowRight
-                          className="h-4 w-4 -translate-x-1 text-fg-muted transition-all group-hover:translate-x-0 group-hover:text-[#FF6B2C]"
+                          className="h-4 w-4 -translate-x-1 text-fg-muted transition-all group-hover:translate-x-0 group-hover:text-[#FA5B0F]"
                           aria-hidden="true"
                         />
                       </span>

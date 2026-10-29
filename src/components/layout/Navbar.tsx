@@ -80,7 +80,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
         type="button"
         className={cn(
           navLink,
-          "flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+          "flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-[#FA5B0F]",
           open && "bg-white/10 text-white light:bg-slate-100 light:text-slate-950"
         )}
         onClick={() => {
@@ -118,7 +118,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
     },
   });
 
-  const panelLink = "block rounded-lg px-2 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#FF6B2C] transition-colors";
+  const panelLink = "block rounded-lg px-2 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#FA5B0F] transition-colors";
 
   const servicesDropdown = servicesMenu.columns.length > 0 && (
     <div className="static" {...menuShell("services")}>
@@ -132,10 +132,10 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                 return (
                   <div key={`${col.title}-${ci}`}>
                     <Link href={col.href} className="group mb-2 flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-slate-50">
-                      <span className="rounded-lg bg-orange-50 p-1.5 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                      <span className="rounded-lg bg-orange-50 p-1.5 text-[#FA5B0F] group-hover:bg-[#FA5B0F] group-hover:text-white transition-colors">
                         <Icon aria-hidden="true" className="h-4 w-4" />
                       </span>
-                      <span className="text-sm font-semibold text-slate-900 group-hover:text-[#FF6B2C]">{col.title}</span>
+                      <span className="text-sm font-semibold text-slate-900 group-hover:text-[#FA5B0F]">{col.title}</span>
                     </Link>
                     <ul className="space-y-0.5">
                       {col.items.map((it, ii) => (
@@ -151,7 +151,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
               })}
             </div>
             <div className="mt-5 border-t border-slate-100 pt-4">
-              <Link href={servicesMenu.href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#FF6B2C] hover:underline">
+              <Link href={servicesMenu.href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#FA5B0F] hover:underline">
                 {servicesMenu.allLabel} <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </Link>
             </div>
@@ -173,16 +173,16 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                 return (
                   <li key={`${it.href}-${i}`}>
                     <Link href={it.href} className="group flex items-center gap-3 rounded-xl p-2 hover:bg-slate-50 transition-colors">
-                      <span className="rounded-lg bg-orange-50 p-1.5 text-[#FF6B2C] group-hover:bg-[#FF6B2C] group-hover:text-white transition-colors">
+                      <span className="rounded-lg bg-orange-50 p-1.5 text-[#FA5B0F] group-hover:bg-[#FA5B0F] group-hover:text-white transition-colors">
                         <Icon aria-hidden="true" className="h-4 w-4" />
                       </span>
-                      <span className="text-sm font-semibold text-slate-900 group-hover:text-[#FF6B2C]">{it.title}</span>
+                      <span className="text-sm font-semibold text-slate-900 group-hover:text-[#FA5B0F]">{it.title}</span>
                     </Link>
                   </li>
                 );
               })}
             </ul>
-            <Link href={industriesMenu.href} className="mt-2 flex items-center gap-1.5 px-2 py-1.5 text-sm font-semibold text-[#FF6B2C] hover:underline">
+            <Link href={industriesMenu.href} className="mt-2 flex items-center gap-1.5 px-2 py-1.5 text-sm font-semibold text-[#FA5B0F] hover:underline">
               {industriesMenu.allLabel} <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
           </div>
@@ -192,7 +192,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
   );
 
   const mobileLink =
-    "block px-3 py-2.5 rounded-xl text-sm hover:text-[#FF6B2C] text-[#C9CED6] hover:bg-white/5 light:text-slate-700 light:hover:bg-slate-50";
+    "block px-3 py-2.5 rounded-xl text-sm hover:text-[#FA5B0F] text-[#C9CED6] hover:bg-white/5 light:text-slate-700 light:hover:bg-slate-50";
   const mobileSummary =
     "flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-base font-semibold [&::-webkit-details-marker]:hidden text-[#F5F8FC] hover:bg-white/5 light:text-slate-900 light:hover:bg-slate-50";
 
@@ -204,7 +204,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
       )}
     >
       {announcement.enabled && announcement.text && (
-        <div className="bg-[#FF6B2C] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <div className="bg-[#FA5B0F] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
           <span>{announcement.text}</span>
           {announcement.link && (
             <Link href={announcement.link} className="underline text-white font-semibold hover:opacity-90 ml-1">
@@ -216,7 +216,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
       <div className="relative">
         <div className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] p-1">
+          <Link href="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] p-1">
             <div
               style={{ width: "44px", height: "44px", minWidth: "44px", minHeight: "44px" }}
               className="relative h-11 w-11 overflow-hidden rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
@@ -271,7 +271,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={cn(
-                "inline-flex items-center justify-center p-2.5 rounded-xl border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
+                "inline-flex items-center justify-center p-2.5 rounded-xl border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F]",
                 "text-[#F5F8FC] hover:bg-white/10 border-[#2C333E] light:text-slate-700 light:hover:text-slate-950 light:hover:bg-slate-100 light:border-slate-200"
               )}
               aria-expanded={mobileMenuOpen}
@@ -303,7 +303,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
               <div className="space-y-3 pb-2 pl-2">
                 {servicesMenu.columns.map((col, ci) => (
                   <div key={`${col.title}-${ci}`}>
-                    <Link href={col.href} className="block px-3 pt-2 text-xs font-semibold uppercase tracking-wider text-[#FF6B2C]">
+                    <Link href={col.href} className="block px-3 pt-2 text-xs font-semibold uppercase tracking-wider text-[#FA5B0F]">
                       {col.title}
                     </Link>
                     {col.items.map((it, ii) => (
@@ -313,7 +313,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                     ))}
                   </div>
                 ))}
-                <Link href={servicesMenu.href} className={cn(mobileLink, "font-semibold text-[#FF6B2C]")}>
+                <Link href={servicesMenu.href} className={cn(mobileLink, "font-semibold text-[#FA5B0F]")}>
                   {servicesMenu.allLabel}
                 </Link>
               </div>
@@ -330,7 +330,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                     {it.title}
                   </Link>
                 ))}
-                <Link href={industriesMenu.href} className={cn(mobileLink, "font-semibold text-[#FF6B2C]")}>
+                <Link href={industriesMenu.href} className={cn(mobileLink, "font-semibold text-[#FA5B0F]")}>
                   {industriesMenu.allLabel}
                 </Link>
               </div>
@@ -341,7 +341,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                 <Link
                   key={`${l.href}-${i}`}
                   href={l.href}
-                  className="block px-3 py-2.5 rounded-xl text-base font-semibold hover:text-[#FF6B2C] text-[#F5F8FC] hover:bg-white/5 light:text-slate-900 light:hover:bg-slate-50"
+                  className="block px-3 py-2.5 rounded-xl text-base font-semibold hover:text-[#FA5B0F] text-[#F5F8FC] hover:bg-white/5 light:text-slate-900 light:hover:bg-slate-50"
                 >
                   {l.label}
                 </Link>

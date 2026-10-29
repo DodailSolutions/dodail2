@@ -101,7 +101,7 @@ export function LivingCursor() {
       {/* Precision Dot */}
       <div
         ref={dotRef}
-        className={`fixed left-0 top-0 h-2.5 w-2.5 rounded-full bg-[#FF6B2C] shadow-[0_0_12px_rgba(255,107,44,0.8)] will-change-transform transition-[width,height,opacity] duration-200 ${
+        className={`fixed left-0 top-0 h-2.5 w-2.5 rounded-full bg-[#FA5B0F] shadow-[0_0_12px_rgba(250,91,15,0.8)] will-change-transform transition-[width,height,opacity] duration-200 ${
           cursorText ? "scale-0 opacity-0" : "scale-100 opacity-100"
         }`}
       />
@@ -111,9 +111,9 @@ export function LivingCursor() {
         ref={ringRef}
         className={`fixed left-0 top-0 flex items-center justify-center will-change-transform transition-[width,height,background-color,border-color,border-radius,transform] duration-200 ease-out ${
           cursorText
-            ? "h-10 w-16 rounded-full bg-[#FF6B2C] border-0 text-white shadow-[0_0_20px_rgba(255,107,44,0.6)] text-[11px] font-bold uppercase tracking-wider"
+            ? "h-10 w-16 rounded-full bg-[#FA5B0F] border-0 text-white shadow-[0_0_20px_rgba(250,91,15,0.6)] text-[11px] font-bold uppercase tracking-wider"
             : isHovered
-            ? "h-12 w-12 rounded-full border-2 border-[#FF6B2C] bg-[#FF6B2C]/15 scale-110"
+            ? "h-12 w-12 rounded-full border-2 border-[#FA5B0F] bg-[#FA5B0F]/15 scale-110"
             : "h-9 w-9 rounded-full border border-white/20 bg-white/[0.02] scale-100"
         }`}
       >

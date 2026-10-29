@@ -9,7 +9,7 @@ import { Eyebrow, sectionPad } from "../homeUi";
 const ARTICLES = [
   {
     tag: "AUTOMATION",
-    tagColor: "bg-[#FF6B2C]/10 text-[#FF6B2C] border-[#FF6B2C]/20",
+    tagColor: "bg-[#FA5B0F]/10 text-[#FA5B0F] border-[#FA5B0F]/20",
     title: "How AI Automation Can Save 10+ Hours Every Week",
     date: "Oct 12, 2026 · 5 min read",
     slug: "enterprise-whatsapp-automation-for-indian-e-commerce-returns",
@@ -45,10 +45,10 @@ export function InsightsSection() {
 
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border-token bg-[var(--surface-translucent)] hover:bg-[var(--surface-translucent-2)] hover:border-[#FF6B2C]/40 text-xs font-semibold text-fg transition group"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border-token bg-[var(--surface-translucent)] hover:bg-[var(--surface-translucent-2)] hover:border-[#FA5B0F]/40 text-xs font-semibold text-fg transition group"
           >
             <span>View All Articles</span>
-            <ArrowRight className="w-3.5 h-3.5 text-[#FF6B2C] group-hover:translate-x-1 transition" />
+            <ArrowRight className="w-3.5 h-3.5 text-[#FA5B0F] group-hover:translate-x-1 transition" />
           </Link>
         </div>
 
@@ -57,8 +57,8 @@ export function InsightsSection() {
           {ARTICLES.map((art, idx) => (
             <Link key={idx} href={`/blog/${art.slug}`} className="group block">
               <SpotlightCard
-                spotlightColor="rgba(255, 107, 44, 0.1)"
-                className="p-7 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FF6B2C]/40 flex flex-col justify-between h-full transition duration-300"
+                spotlightColor="rgba(250, 91, 15, 0.1)"
+                className="p-7 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FA5B0F]/40 flex flex-col justify-between h-full transition duration-300"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -68,14 +68,14 @@ export function InsightsSection() {
                     <span className="text-[11px] text-fg-muted font-mono">{art.date}</span>
                   </div>
 
-                  <h3 className="text-lg sm:text-xl font-bold text-fg group-hover:text-[#FF6B2C] transition leading-snug">
+                  <h3 className="text-lg sm:text-xl font-bold text-fg group-hover:text-[#FA5B0F] transition leading-snug">
                     {art.title}
                   </h3>
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-border-token flex items-center justify-between text-xs font-semibold text-fg-muted group-hover:text-fg transition">
                   <span>Read Article</span>
-                  <ArrowRight className="w-4 h-4 text-[#FF6B2C] group-hover:translate-x-1 transition" />
+                  <ArrowRight className="w-4 h-4 text-[#FA5B0F] group-hover:translate-x-1 transition" />
                 </div>
               </SpotlightCard>
             </Link>

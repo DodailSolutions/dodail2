@@ -52,15 +52,15 @@ export function HeroScrollShowcase() {
         className="mx-auto max-w-5xl rounded-none border border-border-strong bg-surface shadow-2xl overflow-hidden relative"
       >
         {/* Registration Crosshairs */}
-        <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FF6B2C] select-none pointer-events-none">+</div>
+        <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FA5B0F] select-none pointer-events-none">+</div>
         <div className="absolute top-2 right-2 font-mono text-[10px] text-[#27D3C2] select-none pointer-events-none">+</div>
         <div className="absolute bottom-2 left-2 font-mono text-[10px] text-[#27D3C2] select-none pointer-events-none">+</div>
-        <div className="absolute bottom-2 right-2 font-mono text-[10px] text-[#FF6B2C] select-none pointer-events-none">+</div>
+        <div className="absolute bottom-2 right-2 font-mono text-[10px] text-[#FA5B0F] select-none pointer-events-none">+</div>
 
         {/* Device Window Header Bar (Swiss Style Toolbar) */}
         <div className="flex items-center justify-between border-b border-border-strong bg-bg px-4 sm:px-6 py-3 text-xs">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#FF6B2C]">
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#FA5B0F]">
               [DOD // SYS-01]
             </div>
             <span className="font-mono text-fg-muted border-l border-border-strong pl-3 hidden sm:inline text-[11px] uppercase tracking-wider">
@@ -77,7 +77,7 @@ export function HeroScrollShowcase() {
               id="tab-stream"
               className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors ${
                 activeTab === "stream"
-                  ? "bg-[#FF6B2C] text-white font-bold"
+                  ? "bg-[#FA5B0F] text-white font-bold"
                   : "text-fg-muted hover:text-fg"
               }`}
             >
@@ -91,7 +91,7 @@ export function HeroScrollShowcase() {
               id="tab-topology"
               className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors border-l border-border-strong ${
                 activeTab === "topology"
-                  ? "bg-[#FF6B2C] text-white font-bold"
+                  ? "bg-[#FA5B0F] text-white font-bold"
                   : "text-fg-muted hover:text-fg"
               }`}
             >
@@ -150,11 +150,11 @@ export function HeroScrollShowcase() {
               <div className="md:col-span-8 space-y-2.5">
                 <div className="text-[11px] font-mono text-fg-muted uppercase tracking-[0.16em] mb-2 flex items-center justify-between">
                   <span>REAL-TIME TRANSACTION AUDIT TRAIL</span>
-                  <span className="text-[#FF6B2C] font-semibold">STREAMING</span>
+                  <span className="text-[#FA5B0F] font-semibold">STREAMING</span>
                 </div>
 
                 {/* Event Row 1 */}
-                <div className="p-3.5 rounded-none bg-bg border border-border-strong flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FF6B2C] transition-colors">
+                <div className="p-3.5 rounded-none bg-bg border border-border-strong flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FA5B0F] transition-colors">
                   <div className="flex items-center gap-3">
                     <span className="h-1.5 w-1.5 rounded-none bg-emerald-400 shrink-0" />
                     <div>
@@ -168,7 +168,7 @@ export function HeroScrollShowcase() {
                 </div>
 
                 {/* Event Row 2 */}
-                <div className="p-3.5 rounded-none bg-bg border border-border-strong flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FF6B2C] transition-colors">
+                <div className="p-3.5 rounded-none bg-bg border border-border-strong flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FA5B0F] transition-colors">
                   <div className="flex items-center gap-3">
                     <span className="h-1.5 w-1.5 rounded-none bg-emerald-400 shrink-0" />
                     <div>
@@ -182,7 +182,7 @@ export function HeroScrollShowcase() {
                 </div>
 
                 {/* Event Row 3 */}
-                <div className="p-3.5 rounded-none bg-bg border border-border-strong flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FF6B2C] transition-colors">
+                <div className="p-3.5 rounded-none bg-bg border border-border-strong flex items-center justify-between gap-4 text-xs font-mono hover:border-[#FA5B0F] transition-colors">
                   <div className="flex items-center gap-3">
                     <span className="h-1.5 w-1.5 rounded-none bg-emerald-400 shrink-0" />
                     <div>
@@ -201,7 +201,7 @@ export function HeroScrollShowcase() {
           <div className="p-8 font-mono text-xs" role="tabpanel" id="panel-topology" aria-labelledby="tab-topology">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="p-5 rounded-none bg-bg border border-border-strong">
-                <span className="text-[#FF6B2C] block mb-2 font-bold uppercase tracking-wider">01 · INGESTION LAYER</span>
+                <span className="text-[#FA5B0F] block mb-2 font-bold uppercase tracking-wider">01 · INGESTION LAYER</span>
                 <p className="text-fg font-sans leading-relaxed mb-3">
                   Inbound Webhooks, Meta Ads, WhatsApp Cloud API, and Stripe Checkout triggers.
                 </p>
@@ -230,7 +230,7 @@ export function HeroScrollShowcase() {
         {/* Footer info strip */}
         <div className="border-t border-border-strong bg-bg px-6 py-3 flex items-center justify-between text-xs text-fg-muted font-mono">
           <span>ENCRYPTED END-TO-END // ZERO DATA LEAKAGE</span>
-          <Link href="/services/ai-automation/" className="text-[#FF6B2C] hover:text-fg flex items-center gap-1 font-semibold">
+          <Link href="/services/ai-automation/" className="text-[#FA5B0F] hover:text-fg flex items-center gap-1 font-semibold">
             <span>Explore Technical Architecture</span>
             <ChevronRight className="h-3 w-3" />
           </Link>

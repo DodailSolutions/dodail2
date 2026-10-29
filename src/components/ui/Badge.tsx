@@ -7,7 +7,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 export function Badge({ className, variant = "orange", children, ...props }: BadgeProps) {
   const variantStyles = {
-    orange: "bg-orange-500/10 text-[#FF6B2C] border border-orange-500/25 light:bg-orange-50 light:border-orange-200",
+    orange: "bg-orange-500/10 text-[#FA5B0F] border border-orange-500/25 light:bg-orange-50 light:border-orange-200",
     navy: "bg-surface-2 text-fg border border-border-token",
     outline: "border border-border-strong text-fg-muted bg-surface",
     success: "bg-emerald-50 text-emerald-700 border border-emerald-200",

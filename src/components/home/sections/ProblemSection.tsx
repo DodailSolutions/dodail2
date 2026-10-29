@@ -33,7 +33,7 @@ export function ProblemSection({ active, onActive }: Props) {
           {problem.stack.map((s) => (
             <li
               key={s}
-              className="rounded-full border border-border-token bg-[var(--surface-translucent)] px-3.5 py-1.5 text-xs sm:text-sm text-fg-muted hover:border-[#FF6B2C]/40 hover:bg-[var(--surface-translucent)] transition-colors"
+              className="rounded-full border border-border-token bg-[var(--surface-translucent)] px-3.5 py-1.5 text-xs sm:text-sm text-fg-muted hover:border-[#FA5B0F]/40 hover:bg-[var(--surface-translucent)] transition-colors"
             >
               {s}
             </li>
@@ -56,7 +56,7 @@ export function ProblemSection({ active, onActive }: Props) {
           <div className={`${stagePanel} top-16 sm:top-20 lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:top-28`}>
             <Zone phase="problem" className="h-[220px] sm:h-[300px] lg:h-[360px]" />
             <p className="mt-2 lg:mt-1 flex items-baseline gap-3 text-sm text-fg-muted" aria-hidden="true">
-              <span className="tabular-nums font-mono font-bold text-[#FF6B2C]">{problems[active].num}</span>
+              <span className="tabular-nums font-mono font-bold text-[#FA5B0F]">{problems[active].num}</span>
               <span key={active} className="fade-up">{visuals[active]}</span>
             </p>
             <StageFade />
@@ -75,14 +75,14 @@ export function ProblemSection({ active, onActive }: Props) {
                   }`}
                 >
                   <SpotlightCard
-                    spotlightColor="rgba(255, 107, 44, 0.08)"
+                    spotlightColor="rgba(250, 91, 15, 0.08)"
                     className={`grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-10 p-6 sm:p-8 rounded-2xl lg:min-h-[36vh] lg:content-center transition-all ${
-                      on ? "bg-[var(--surface-translucent)] border-l-2 border-l-[#FF6B2C]" : "border-l-2 border-l-transparent"
+                      on ? "bg-[var(--surface-translucent)] border-l-2 border-l-[#FA5B0F]" : "border-l-2 border-l-transparent"
                     }`}
                   >
                     <span
                       className={`text-4xl sm:text-5xl font-light font-mono leading-none tabular-nums transition-colors duration-500 ${
-                        on ? "text-[#FF6B2C] drop-shadow-[0_0_12px_rgba(255,107,44,0.4)]" : "text-fg-subtle"
+                        on ? "text-[#FA5B0F] drop-shadow-[0_0_12px_rgba(250,91,15,0.4)]" : "text-fg-subtle"
                       }`}
                       aria-hidden="true"
                     >
@@ -92,7 +92,7 @@ export function ProblemSection({ active, onActive }: Props) {
                       <h3 className="text-xl sm:text-2xl font-normal tracking-tight text-fg">{p.title}</h3>
                       <p className="mt-3 text-base leading-relaxed text-fg-muted">{p.desc}</p>
                       <p className="mt-4 text-base leading-relaxed text-fg">
-                        <span className="font-semibold text-[#FF6B2C]">{problem.fixLabel} </span>
+                        <span className="font-semibold text-[#FA5B0F]">{problem.fixLabel} </span>
                         {p.fix}
                       </p>
                     </div>

@@ -28,8 +28,8 @@ export function ProjectGrid({ projects, filters }: { projects: Project[]; filter
             aria-pressed={active === c}
             onClick={() => setActive(c)}
             className={cn(
-              "min-h-11 rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-[#FF6B2C]",
-              active === c ? "border-border-strong bg-surface text-fg" : "border-border-strong bg-surface text-fg hover:border-[#FF6B2C]"
+              "min-h-11 rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-[#FA5B0F]",
+              active === c ? "border-border-strong bg-surface text-fg" : "border-border-strong bg-surface text-fg hover:border-[#FA5B0F]"
             )}
           >
             {c}

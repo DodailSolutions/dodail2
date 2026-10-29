@@ -24,10 +24,10 @@ export default async function WorkPage() {
         {caseStudies.map((cs, idx) => (
           <div
             key={idx}
-            className="rounded-3xl border border-border-token bg-surface p-8 lg:p-10 hover:border-[#FF6B2C] transition-all shadow-sm hover:shadow-md"
+            className="rounded-3xl border border-border-token bg-surface p-8 lg:p-10 hover:border-[#FA5B0F] transition-all shadow-sm hover:shadow-md"
           >
             <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-              <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase">{cs.sector}</span>
+              <span className="text-xs font-mono font-bold text-[#FA5B0F] uppercase">{cs.sector}</span>
               {labels.verified && (
                 <span className="text-xs text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                   {labels.verified}

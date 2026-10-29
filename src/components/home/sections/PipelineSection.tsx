@@ -79,15 +79,15 @@ export function PipelineSection({ active, onActive, webgl }: Props) {
                   className="relative h-full"
                 >
                   <SpotlightCard
-                    spotlightColor={on ? "rgba(255, 107, 44, 0.16)" : "rgba(255, 255, 255, 0.05)"}
-                    className={`relative h-full rounded-2xl border p-6 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FF6B2C] ${
+                    spotlightColor={on ? "rgba(250, 91, 15, 0.16)" : "rgba(255, 255, 255, 0.05)"}
+                    className={`relative h-full rounded-2xl border p-6 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FA5B0F] ${
                       on
-                        ? "border-[#FF6B2C] bg-surface shadow-[0_0_24px_rgba(255,107,44,0.15)]"
+                        ? "border-[#FA5B0F] bg-surface shadow-[0_0_24px_rgba(250,91,15,0.15)]"
                         : "border-border-strong bg-surface hover:border-border-strong"
                     }`}
                   >
-                    {on && <BorderBeam size={140} duration={8} colorFrom="#FF6B2C" colorTo="#FFB547" />}
-                    <p className={`text-sm font-mono font-medium ${on ? "text-[#FF6B2C]" : "text-fg-muted"}`}>
+                    {on && <BorderBeam size={140} duration={8} colorFrom="#FA5B0F" colorTo="#FFB547" />}
+                    <p className={`text-sm font-mono font-medium ${on ? "text-[#FA5B0F]" : "text-fg-muted"}`}>
                       Step {s.code} · {s.name}
                     </p>
                     <h3 className="mt-3 text-xl font-normal tracking-tight text-fg">

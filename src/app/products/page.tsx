@@ -101,7 +101,7 @@ export default function ProductsPage() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FF6B2C]/10 text-[#FF6B2C] border border-[#FF6B2C]/20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FA5B0F]/10 text-[#FA5B0F] border border-[#FA5B0F]/20">
             DODAIL SOFTWARE ECOSYSTEM
           </div>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-fg leading-tight">
@@ -117,7 +117,7 @@ export default function ProductsPage() {
           {PRODUCTS.map((prod, idx) => (
             <div
               key={idx}
-              className="p-7 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FF6B2C]/30 flex flex-col justify-between transition duration-200 group"
+              className="p-7 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FA5B0F]/30 flex flex-col justify-between transition duration-200 group"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between gap-2">
@@ -128,7 +128,7 @@ export default function ProductsPage() {
                 </div>
 
                 <div>
-                  <h2 className="text-xl font-bold text-fg group-hover:text-[#FF6B2C] transition">
+                  <h2 className="text-xl font-bold text-fg group-hover:text-[#FA5B0F] transition">
                     {prod.name}
                   </h2>
                   <p className="text-xs sm:text-sm text-fg-muted mt-2 leading-relaxed">
@@ -141,7 +141,7 @@ export default function ProductsPage() {
                   <ul className="space-y-1.5">
                     {prod.features.map((f, i) => (
                       <li key={i} className="text-xs text-fg-muted flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#FF6B2C] shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#FA5B0F] shrink-0" />
                         <span>{f}</span>
                       </li>
                     ))}
@@ -155,7 +155,7 @@ export default function ProductsPage() {
                     href={prod.ctaHref}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-[#FF6B2C] hover:underline"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-[#FA5B0F] hover:underline"
                   >
                     <span>{prod.ctaLabel}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -163,7 +163,7 @@ export default function ProductsPage() {
                 ) : (
                   <Link
                     href={prod.ctaHref}
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-fg hover:text-[#FF6B2C] transition"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-fg hover:text-[#FA5B0F] transition"
                   >
                     <span>{prod.ctaLabel}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -186,7 +186,7 @@ export default function ProductsPage() {
           </div>
           <Link
             href="/consultation"
-            className="px-6 py-3 rounded-xl bg-[#FF6B2C] hover:bg-[#E8541A] text-white text-sm font-semibold transition shrink-0 shadow-lg"
+            className="px-6 py-3 rounded-xl bg-[#FA5B0F] hover:bg-[#E04E08] text-white text-sm font-semibold transition shrink-0 shadow-lg"
           >
             Schedule Product Discovery
           </Link>

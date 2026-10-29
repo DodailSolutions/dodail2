@@ -216,7 +216,7 @@ export function AIChatLauncher() {
             {/* Header */}
             <div className="flex items-center justify-between border-b border-slate-100 p-3 bg-gradient-to-r from-slate-900 to-[#1A2535] text-white">
               <div className="flex items-center gap-2.5">
-                <div className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-[#E8541A] shadow-md shrink-0 bg-slate-800">
+                <div className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-[#E04E08] shadow-md shrink-0 bg-slate-800">
                   <Image
                     src="/brand/gita-avatar.png"
                     alt="Gita"
@@ -228,7 +228,7 @@ export function AIChatLauncher() {
                 <div>
                   <h4 className="text-sm font-bold flex items-center gap-1.5 text-white">
                     Gita
-                    <span className="text-[10px] bg-[#E8541A]/30 text-orange-200 px-1.5 py-0.5 rounded font-mono font-normal">
+                    <span className="text-[10px] bg-[#E04E08]/30 text-orange-200 px-1.5 py-0.5 rounded font-mono font-normal">
                       Dodail Specialist
                     </span>
                   </h4>
@@ -242,7 +242,7 @@ export function AIChatLauncher() {
                   type="button"
                   onClick={() => setIsCallModalOpen(true)}
                   title="Talk to Gita (Real-Time Voice Call)"
-                  className="px-2.5 py-1 bg-[#E8541A] hover:bg-[#D44710] text-white rounded-lg text-xs font-semibold flex items-center gap-1 shadow-sm transition mr-1"
+                  className="px-2.5 py-1 bg-[#E04E08] hover:bg-[#D44710] text-white rounded-lg text-xs font-semibold flex items-center gap-1 shadow-sm transition mr-1"
                 >
                   <PhoneCall className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Call</span>
@@ -272,8 +272,8 @@ export function AIChatLauncher() {
             <div className="bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-orange-500/10 border-b border-orange-200/50 px-3.5 py-2 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E8541A] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E8541A]" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E04E08] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E04E08]" />
                 </span>
                 <span className="text-xs font-medium text-slate-800">
                   Want to speak directly?
@@ -282,7 +282,7 @@ export function AIChatLauncher() {
               <button
                 type="button"
                 onClick={() => setIsCallModalOpen(true)}
-                className="text-xs font-bold text-[#E8541A] hover:underline flex items-center gap-1"
+                className="text-xs font-bold text-[#E04E08] hover:underline flex items-center gap-1"
               >
                 <Video className="w-3.5 h-3.5" />
                 <span>Talk to Gita</span>
@@ -332,7 +332,7 @@ export function AIChatLauncher() {
               {availableSlots.length > 0 && (
                 <div className="bg-orange-50/70 border border-orange-200/80 rounded-xl p-3 space-y-2">
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
-                    <Clock className="w-3.5 h-3.5 text-[#E8541A]" />
+                    <Clock className="w-3.5 h-3.5 text-[#E04E08]" />
                     <span>Select an available time slot:</span>
                   </div>
                   <div className="grid grid-cols-1 gap-1.5">
@@ -340,10 +340,10 @@ export function AIChatLauncher() {
                       <button
                         key={idx}
                         onClick={() => handleSelectSlot(slot)}
-                        className="text-left px-2.5 py-1.5 bg-white border border-orange-200 hover:border-[#E8541A] hover:bg-orange-50/50 rounded-lg text-xs font-medium text-slate-800 transition flex items-center justify-between group"
+                        className="text-left px-2.5 py-1.5 bg-white border border-orange-200 hover:border-[#E04E08] hover:bg-orange-50/50 rounded-lg text-xs font-medium text-slate-800 transition flex items-center justify-between group"
                       >
                         <span>{slot.display}</span>
-                        <ChevronRight className="w-3.5 h-3.5 text-[#E8541A] opacity-0 group-hover:opacity-100 transition" />
+                        <ChevronRight className="w-3.5 h-3.5 text-[#E04E08] opacity-0 group-hover:opacity-100 transition" />
                       </button>
                     ))}
                   </div>
@@ -376,7 +376,7 @@ export function AIChatLauncher() {
 
               {loading && (
                 <div className="flex items-center gap-2 text-xs text-slate-400 bg-slate-50 p-2.5 rounded-lg border border-slate-100 max-w-[180px]">
-                  <div className="w-2 h-2 rounded-full bg-[#E8541A] animate-ping" />
+                  <div className="w-2 h-2 rounded-full bg-[#E04E08] animate-ping" />
                   <span>Gita is thinking...</span>
                 </div>
               )}
@@ -418,13 +418,13 @@ export function AIChatLauncher() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask Gita about services, pricing, or bookings..."
                 disabled={loading}
-                className="flex-1 text-xs border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#E8541A] focus:border-[#E8541A] disabled:opacity-50"
+                className="flex-1 text-xs border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#E04E08] focus:border-[#E04E08] disabled:opacity-50"
               />
               <button
                 type="button"
                 onClick={() => setIsCallModalOpen(true)}
                 title="Start Voice Conversation"
-                className="p-2.5 text-[#E8541A] hover:bg-orange-50 border border-orange-200 rounded-xl transition"
+                className="p-2.5 text-[#E04E08] hover:bg-orange-50 border border-orange-200 rounded-xl transition"
                 aria-label="Voice conversation"
               >
                 <Mic className="h-4 w-4" />
@@ -432,7 +432,7 @@ export function AIChatLauncher() {
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="bg-[#E8541A] hover:bg-[#D44710] disabled:opacity-50 text-white rounded-xl px-3.5 flex items-center justify-center transition shadow-sm"
+                className="bg-[#E04E08] hover:bg-[#D44710] disabled:opacity-50 text-white rounded-xl px-3.5 flex items-center justify-center transition shadow-sm"
                 aria-label="Send message"
               >
                 <Send className="h-4 w-4" />
@@ -445,7 +445,7 @@ export function AIChatLauncher() {
             <button
               type="button"
               onClick={() => setIsCallModalOpen(true)}
-              className="group flex items-center gap-2 bg-[#E8541A] hover:bg-[#D44710] text-white px-3.5 py-3 rounded-full shadow-2xl transition duration-200 hover:scale-105 active:scale-95"
+              className="group flex items-center gap-2 bg-[#E04E08] hover:bg-[#D44710] text-white px-3.5 py-3 rounded-full shadow-2xl transition duration-200 hover:scale-105 active:scale-95"
               title="Talk to Gita (Voice & Video)"
               aria-label="Talk to Gita"
             >
@@ -460,7 +460,7 @@ export function AIChatLauncher() {
               className="relative group flex items-center gap-2.5 bg-[#1A2535] hover:bg-slate-900 text-white px-4 py-3 rounded-full shadow-2xl transition duration-200 border border-slate-700 hover:scale-105 active:scale-95"
               aria-label="Chat with Gita, Dodail Solutions Specialist"
             >
-              <div className="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-[#E8541A] shadow-md shrink-0 bg-slate-800">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-[#E04E08] shadow-md shrink-0 bg-slate-800">
                 <Image
                   src="/brand/gita-avatar.png"
                   alt="Gita"

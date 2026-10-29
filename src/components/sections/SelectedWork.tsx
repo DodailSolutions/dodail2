@@ -8,7 +8,7 @@ import type { Project } from "@/content/types";
 export function ProjectCard({ project }: { project: Project }) {
   const href = `/work/${project.slug}/`;
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-token bg-surface shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#FF6B2C] hover:shadow-md">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-token bg-surface shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#FA5B0F] hover:shadow-md">
       {project.coverImage ? (
         <div className="relative aspect-[16/10] overflow-hidden bg-surface-2">
           <Image

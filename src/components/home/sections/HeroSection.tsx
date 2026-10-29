@@ -67,7 +67,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
       icon: MessageSquare,
       pos: "top-8 sm:top-10 left-3 sm:left-8",
       delay: "0s",
-      dot: "bg-[#FF6B2C]",
+      dot: "bg-[#FA5B0F]",
     },
     {
       label: "Automations",
@@ -91,7 +91,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
       icon: BarChart3,
       pos: "top-1/2 -translate-y-6 right-1 sm:right-4",
       delay: "1.2s",
-      dot: "bg-[#FF6B2C]",
+      dot: "bg-[#FA5B0F]",
     },
     {
       label: "Websites & Apps",
@@ -107,7 +107,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
       icon: TrendingUp,
       pos: "bottom-8 sm:bottom-12 right-4 sm:right-10",
       delay: "0.4s",
-      dot: "bg-[#FF6B2C]",
+      dot: "bg-[#FA5B0F]",
     },
   ];
 
@@ -132,7 +132,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 transition-opacity duration-700"
         style={{
-          background: `radial-gradient(720px circle at ${mouseSpot.x}% ${mouseSpot.y}%, rgba(255,107,44,0.12), rgba(39,211,194,0.035) 40%, transparent 75%)`,
+          background: `radial-gradient(720px circle at ${mouseSpot.x}% ${mouseSpot.y}%, rgba(250, 91, 15,0.12), rgba(39,211,194,0.035) 40%, transparent 75%)`,
         }}
       />
       {/* Atmosphere Base Glow */}
@@ -141,7 +141,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 65% at 75% 45%, rgba(255,107,44,0.1), transparent 70%), radial-gradient(circle at 10% 25%, rgba(39,211,194,0.05), transparent 45%)",
+            "radial-gradient(ellipse 60% 65% at 75% 45%, rgba(250, 91, 15,0.1), transparent 70%), radial-gradient(circle at 10% 25%, rgba(39,211,194,0.05), transparent 45%)",
         }}
       />
 
@@ -157,7 +157,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
           {/* Eyebrow Pill */}
           <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-3 sm:mb-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface-translucent)] border border-border-token backdrop-blur-md shadow-sm">
-              <span className="flex h-1.5 w-1.5 rounded-full bg-[#FF6B2C] shadow-[0_0_8px_#FF6B2C] animate-pulse" />
+              <span className="flex h-1.5 w-1.5 rounded-full bg-[#FA5B0F] shadow-[0_0_8px_#FA5B0F] animate-pulse" />
               <span className="text-[11px] font-mono font-medium uppercase tracking-[0.18em] text-fg-muted">
                 {hero.eyebrow}
               </span>
@@ -171,7 +171,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
                 text={hero.title}
                 highlight={hero.highlight}
                 render={(part) => (
-                  <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B2C] via-[#FF8547] to-[#FFA366] drop-shadow-[0_0_24px_rgba(255,107,44,0.3)]">
+                  <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#FA5B0F] via-[#FF8547] to-[#FFA366] drop-shadow-[0_0_24px_rgba(250,91,15,0.3)]">
                     {part}
                   </span>
                 )}
@@ -190,7 +190,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
           <motion.div variants={itemVariants} className="mt-7 flex flex-wrap items-center gap-3">
             {hero.primaryCta.label && (
               <div className="relative group">
-                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-[#FF6B2C] to-[#FF9E58] opacity-70 blur-xs group-hover:opacity-100 transition duration-300 group-hover:scale-105" />
+                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-[#FA5B0F] to-[#FF9E58] opacity-70 blur-xs group-hover:opacity-100 transition duration-300 group-hover:scale-105" />
                 <Button
                   href={hero.primaryCta.href || "/consultation"}
                   variant="primary"
@@ -207,8 +207,8 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
               variant="outline"
               className={`${ghostBtn} group transition-all duration-300 hover:border-border-token hover:bg-[var(--surface-translucent-2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium`}
             >
-              <span className="relative flex h-5 w-5 items-center justify-center rounded-full bg-[#FF6B2C]/15 border border-[#FF6B2C]/30 group-hover:scale-110 group-hover:bg-[#FF6B2C]/25 transition-all">
-                <Play className="h-2.5 w-2.5 text-[#FF6B2C] fill-[#FF6B2C] translate-x-0.5" />
+              <span className="relative flex h-5 w-5 items-center justify-center rounded-full bg-[#FA5B0F]/15 border border-[#FA5B0F]/30 group-hover:scale-110 group-hover:bg-[#FA5B0F]/25 transition-all">
+                <Play className="h-2.5 w-2.5 text-[#FA5B0F] fill-[#FA5B0F] translate-x-0.5" />
               </span>
               <span className="group-hover:text-fg transition-colors">Watch Video</span>
             </Button>
@@ -220,11 +220,11 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
             className="mt-8 pt-6 border-t border-border-token grid grid-cols-1 sm:grid-cols-3 gap-3"
           >
             <div className="group flex items-center gap-2.5 p-2 rounded-xl border border-transparent hover:border-border-token hover:bg-[var(--surface-translucent)] transition-all duration-300 cursor-default">
-              <div className="w-8 h-8 rounded-lg bg-[#FF6B2C]/10 border border-[#FF6B2C]/20 flex items-center justify-center text-[#FF6B2C] shrink-0 group-hover:scale-110 group-hover:border-[#FF6B2C]/40 group-hover:shadow-[0_0_12px_rgba(255,107,44,0.3)] transition-all">
+              <div className="w-8 h-8 rounded-lg bg-[#FA5B0F]/10 border border-[#FA5B0F]/20 flex items-center justify-center text-[#FA5B0F] shrink-0 group-hover:scale-110 group-hover:border-[#FA5B0F]/40 group-hover:shadow-[0_0_12px_rgba(250,91,15,0.3)] transition-all">
                 <Building2 className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <p className="text-xs font-bold text-fg group-hover:text-[#FF6B2C] transition-colors">100+ Businesses</p>
+                <p className="text-xs font-bold text-fg group-hover:text-[#FA5B0F] transition-colors">100+ Businesses</p>
                 <p className="text-[10px] text-fg-muted">Trust our systems</p>
               </div>
             </div>
@@ -240,11 +240,11 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
             </div>
 
             <div className="group flex items-center gap-2.5 p-2 rounded-xl border border-transparent hover:border-border-token hover:bg-[var(--surface-translucent)] transition-all duration-300 cursor-default">
-              <div className="w-8 h-8 rounded-lg bg-[#FF6B2C]/10 border border-[#FF6B2C]/20 flex items-center justify-center text-[#FF6B2C] shrink-0 group-hover:scale-110 group-hover:border-[#FF6B2C]/40 group-hover:shadow-[0_0_12px_rgba(255,107,44,0.3)] transition-all">
+              <div className="w-8 h-8 rounded-lg bg-[#FA5B0F]/10 border border-[#FA5B0F]/20 flex items-center justify-center text-[#FA5B0F] shrink-0 group-hover:scale-110 group-hover:border-[#FA5B0F]/40 group-hover:shadow-[0_0_12px_rgba(250,91,15,0.3)] transition-all">
                 <Globe2 className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <p className="text-xs font-bold text-fg group-hover:text-[#FF6B2C] transition-colors">Global Reach</p>
+                <p className="text-xs font-bold text-fg group-hover:text-[#FA5B0F] transition-colors">Global Reach</p>
                 <p className="text-[10px] text-fg-muted">India, UAE &amp; USA</p>
               </div>
             </div>
@@ -267,7 +267,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
             return (
               <div
                 key={idx}
-                className={`group absolute ${badge.pos} z-20 pointer-events-auto transition-all duration-300 hover:scale-110 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-border-token shadow-[0_4px_24px_rgba(0,0,0,0.55)] backdrop-blur-md bg-surface text-[11px] font-medium text-fg hover:border-[#FF6B2C]/70 hover:shadow-[0_0_24px_rgba(255,107,44,0.35)] hover:bg-surface cursor-default`}
+                className={`group absolute ${badge.pos} z-20 pointer-events-auto transition-all duration-300 hover:scale-110 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-border-token shadow-[0_4px_24px_rgba(0,0,0,0.55)] backdrop-blur-md bg-surface text-[11px] font-medium text-fg hover:border-[#FA5B0F]/70 hover:shadow-[0_0_24px_rgba(250,91,15,0.35)] hover:bg-surface cursor-default`}
                 style={{
                   animation: `float 5s ease-in-out infinite`,
                   animationDelay: badge.delay,
@@ -277,9 +277,9 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
                   <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${badge.dot} opacity-75`} />
                   <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${badge.dot}`} />
                 </span>
-                <Icon className="w-3.5 h-3.5 text-fg-muted group-hover:text-[#FF6B2C] transition-colors" />
+                <Icon className="w-3.5 h-3.5 text-fg-muted group-hover:text-[#FA5B0F] transition-colors" />
                 <span className="group-hover:text-fg transition-colors">{badge.label}</span>
-                <span className="text-[9px] font-mono uppercase tracking-wider text-[#FF6B2C] opacity-0 group-hover:opacity-100 max-w-0 group-hover:max-w-24 overflow-hidden transition-all duration-300 whitespace-nowrap">
+                <span className="text-[9px] font-mono uppercase tracking-wider text-[#FA5B0F] opacity-0 group-hover:opacity-100 max-w-0 group-hover:max-w-24 overflow-hidden transition-all duration-300 whitespace-nowrap">
                   {badge.sub}
                 </span>
               </div>
@@ -299,9 +299,9 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
             return (
               <div
                 key={idx}
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FF6B2C]/40 text-xs text-fg-muted transition duration-200"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FA5B0F]/40 text-xs text-fg-muted transition duration-200"
               >
-                <Icon className="w-3.5 h-3.5 text-[#FF6B2C]" />
+                <Icon className="w-3.5 h-3.5 text-[#FA5B0F]" />
                 <span>{item.label}</span>
               </div>
             );

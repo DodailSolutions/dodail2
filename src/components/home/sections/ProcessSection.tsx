@@ -69,17 +69,17 @@ export function ProcessSection({ active, onActive }: Props) {
                   className="relative h-full"
                 >
                   <SpotlightCard
-                    spotlightColor={on ? "rgba(255, 107, 44, 0.12)" : "rgba(255, 255, 255, 0.04)"}
+                    spotlightColor={on ? "rgba(250, 91, 15, 0.12)" : "rgba(255, 255, 255, 0.04)"}
                     className={`h-full rounded-2xl border p-5 sm:p-6 transition-all duration-300 ${
                       on
-                        ? "border-t-2 border-t-[#FF6B2C] border-border-token bg-surface shadow-[0_4px_20px_rgba(255,107,44,0.1)]"
+                        ? "border-t-2 border-t-[#FA5B0F] border-border-token bg-surface shadow-[0_4px_20px_rgba(250,91,15,0.1)]"
                         : "border-t-2 border-t-transparent border-border-strong bg-surface hover:border-border-token"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span
                         className={`block text-3xl font-mono font-light tabular-nums transition-colors duration-300 ${
-                          on ? "text-[#FF6B2C] font-semibold" : "text-fg-subtle"
+                          on ? "text-[#FA5B0F] font-semibold" : "text-fg-subtle"
                         }`}
                         aria-hidden="true"
                       >

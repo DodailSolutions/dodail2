@@ -58,13 +58,13 @@ const GONE_HTML = `<!doctype html>
 <style>
   body{margin:0;min-height:100vh;display:grid;place-items:center;background:#071A28;color:#F5F8FC;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
   main{max-width:34rem;padding:2rem 1.5rem;text-align:center}
-  p.code{font:600 .75rem/1 ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:#FF6B2C;margin:0 0 1rem}
+  p.code{font:600 .75rem/1 ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:#FA5B0F;margin:0 0 1rem}
   h1{font-size:1.75rem;line-height:1.25;margin:0 0 .75rem}
   p{color:#AABAC8;margin:0 0 1.75rem}
   nav{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
   a{display:inline-block;min-height:44px;line-height:44px;padding:0 1.25rem;border-radius:.75rem;border:1px solid #1B3652;color:#F5F8FC;text-decoration:none;font-weight:600}
-  a.primary{background:#FF6B2C;border-color:#FF6B2C;color:#071A28}
-  a:focus-visible{outline:2px solid #FF6B2C;outline-offset:2px}
+  a.primary{background:#FA5B0F;border-color:#FA5B0F;color:#071A28}
+  a:focus-visible{outline:2px solid #FA5B0F;outline-offset:2px}
 </style>
 </head>
 <body>

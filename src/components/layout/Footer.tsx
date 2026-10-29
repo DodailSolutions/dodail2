@@ -60,24 +60,24 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
             <address className="space-y-2 text-sm not-italic text-fg-muted">
               <p className="font-semibold text-fg">{site.legalName}</p>
               <div className="flex items-start gap-2.5">
-                <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 text-[#FF6B2C] shrink-0" />
+                <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 text-[#FA5B0F] shrink-0" />
                 <span>
                   {addressLine()}
                   <br />
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#FF6B2C] hover:underline">
+                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#FA5B0F] hover:underline">
                     {footer.mapLabel}
                   </a>
                 </span>
               </div>
               {company.hours && (
                 <div className="flex items-center gap-2.5">
-                  <Clock aria-hidden="true" className="h-4 w-4 text-[#FF6B2C] shrink-0" />
+                  <Clock aria-hidden="true" className="h-4 w-4 text-[#FA5B0F] shrink-0" />
                   <span>{company.hours}</span>
                 </div>
               )}
               {company.email && (
                 <div className="flex items-center gap-2.5">
-                  <Mail aria-hidden="true" className="h-4 w-4 text-[#FF6B2C] shrink-0" />
+                  <Mail aria-hidden="true" className="h-4 w-4 text-[#FA5B0F] shrink-0" />
                   <a href={`mailto:${company.email}`} className="hover:text-fg transition-colors">
                     {company.email}
                   </a>
@@ -85,7 +85,7 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
               )}
               {company.phone && (
                 <div className="flex items-center gap-2.5">
-                  <Phone aria-hidden="true" className="h-4 w-4 text-[#FF6B2C] shrink-0" />
+                  <Phone aria-hidden="true" className="h-4 w-4 text-[#FA5B0F] shrink-0" />
                   <a href={telHref(company.phone)} className="hover:text-fg transition-colors">
                     {company.phone}
                   </a>

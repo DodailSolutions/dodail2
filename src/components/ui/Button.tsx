@@ -12,15 +12,15 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", href, isExternal, children, ...props }, ref) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-semibold tracking-tight transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:pointer-events-none rounded-xl active:translate-y-0.5 select-none";
+      "inline-flex items-center justify-center font-semibold tracking-tight transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F] focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:pointer-events-none rounded-xl active:translate-y-0.5 select-none";
 
     const variantStyles = {
       primary:
-        "bg-[#FF6B2C] hover:bg-[#e0561b] text-white font-bold border border-[#FF6B2C] shadow-md shadow-orange-500/20 hover:shadow-orange-500/30",
+        "bg-[#FA5B0F] hover:bg-[#E04E08] text-white font-bold border border-[#FA5B0F] shadow-md shadow-orange-500/20 hover:shadow-orange-500/30",
       secondary:
         "bg-surface hover:bg-surface text-fg border border-border-token shadow-sm",
       outline:
-        "border border-border-strong hover:border-[#FF6B2C] text-fg bg-surface hover:bg-orange-50/20 shadow-sm",
+        "border border-border-strong hover:border-[#FA5B0F] text-fg bg-surface hover:bg-orange-50/20 shadow-sm",
       ghost:
         "text-fg-muted hover:text-fg hover:bg-surface-2",
     };

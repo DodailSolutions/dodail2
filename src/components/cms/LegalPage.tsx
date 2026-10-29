@@ -18,7 +18,7 @@ export function LegalPage({ content }: { content: LegalContent }) {
           <section key={i}>
             <h2 className="text-lg font-bold text-fg mb-2">{section.heading}</h2>
             <p className="text-fg-muted">
-              <RichText text={section.body} linkClassName="text-[#FF6B2C] underline underline-offset-4" />
+              <RichText text={section.body} linkClassName="text-[#FA5B0F] underline underline-offset-4" />
             </p>
           </section>
         ))}

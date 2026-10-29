@@ -10,7 +10,7 @@ import { getContent } from "@/lib/cms/content/store";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 const statTone: Record<string, string> = {
-  orange: "text-[#FF6B2C]",
+  orange: "text-[#FA5B0F]",
   slate: "text-fg",
   emerald: "text-emerald-600",
   teal: "text-[#0D9488]",
@@ -19,7 +19,7 @@ const statTone: Record<string, string> = {
 };
 
 const iconTone: Record<string, string> = {
-  orange: "bg-orange-500/10 text-[#FF6B2C] border-orange-500/25 light:bg-orange-50 light:border-orange-200/60",
+  orange: "bg-orange-500/10 text-[#FA5B0F] border-orange-500/25 light:bg-orange-50 light:border-orange-200/60",
   emerald: "bg-emerald-50 text-emerald-600 border-emerald-200/60",
   teal: "bg-teal-50 text-[#0D9488] border-teal-200/60",
   amber: "bg-amber-50 text-amber-600 border-amber-200/60",
@@ -48,11 +48,11 @@ export default async function AboutPage() {
         <div className="rounded-3xl border border-border-token bg-surface p-8 lg:p-12 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-wider">{story.eyebrow}</span>
+              <span className="text-xs font-mono font-bold text-[#FA5B0F] uppercase tracking-wider">{story.eyebrow}</span>
               <h2 className="text-2xl font-bold text-fg mt-2">{story.title}</h2>
               {story.paragraphs.map((p, i) => (
                 <p key={i} className="mt-4 text-sm text-fg-muted leading-relaxed">
-                  <RichText text={p} linkClassName="text-[#FF6B2C] underline underline-offset-4" />
+                  <RichText text={p} linkClassName="text-[#FA5B0F] underline underline-offset-4" />
                 </p>
               ))}
             </div>

@@ -73,7 +73,7 @@ export function ThreeHeroCanvas() {
 
       // Dynamic Connecting Lines
       const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0xE8541A,
+        color: 0xE04E08,
         transparent: true,
         opacity: 0.14,
       });
@@ -88,7 +88,7 @@ export function ThreeHeroCanvas() {
       // Signature Brand Geometric Motifs: 2 Orange & Peach Torus Rings
       const ringGeo1 = new THREE.TorusGeometry(18, 0.45, 16, 64);
       const ringMat1 = new THREE.MeshBasicMaterial({
-        color: 0xE8541A,
+        color: 0xE04E08,
         wireframe: true,
         transparent: true,
         opacity: 0.22,

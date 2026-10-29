@@ -186,19 +186,19 @@ export function WorkflowSimulator() {
   return (
     <div className="rounded-none border border-[#1B3652] bg-[#0C2233] overflow-hidden shadow-2xl relative">
       {/* Registration Crosshairs */}
-      <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FF6B2C] pointer-events-none select-none">+</div>
+      <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FA5B0F] pointer-events-none select-none">+</div>
       <div className="absolute top-2 right-2 font-mono text-[10px] text-[#27D3C2] pointer-events-none select-none">+</div>
 
       {/* Console Top Toolbar (Swiss Architectural Header) */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-[#1B3652] bg-[#071A28] px-6 py-3.5 gap-4">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs font-bold text-[#FF6B2C]">
+          <span className="font-mono text-xs font-bold text-[#FA5B0F]">
             SIM // 04-STAGE PIPELINE
           </span>
           <span className="font-mono text-xs text-[#AABAC8] border-l border-[#1B3652] pl-3 uppercase tracking-wider hidden sm:inline">
             Workflow Simulator
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-bold bg-[#FF6B2C] text-white uppercase tracking-wider select-none">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-bold bg-[#FA5B0F] text-white uppercase tracking-wider select-none">
             INTERACTIVE DEMO
           </span>
         </div>
@@ -214,7 +214,7 @@ export function WorkflowSimulator() {
                 i > 0 ? "border-l border-[#1B3652]" : ""
               } ${
                 activeId === sc.id
-                  ? "bg-[#FF6B2C] text-white font-bold"
+                  ? "bg-[#FA5B0F] text-white font-bold"
                   : "bg-transparent text-[#AABAC8] hover:text-[#F5F8FC] hover:bg-[#10293B]"
               }`}
             >
@@ -230,7 +230,7 @@ export function WorkflowSimulator() {
         <div className="rounded-none border border-[#1B3652] bg-[#071A28] p-5 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
-              <span className="text-[#FF6B2C] font-bold">01 / TRIGGER</span>
+              <span className="text-[#FA5B0F] font-bold">01 / TRIGGER</span>
               <span className="h-1.5 w-1.5 bg-emerald-400" />
             </div>
             <h4 className="text-sm font-bold text-[#F5F8FC] mb-1">{scenario.businessName}</h4>
@@ -286,7 +286,7 @@ export function WorkflowSimulator() {
         >
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
-              <span className="text-[#FF6B2C] font-bold">03 / ACTION</span>
+              <span className="text-[#FA5B0F] font-bold">03 / ACTION</span>
               <span className="text-emerald-400 font-mono text-[10px] uppercase">
                 DISPATCHED
               </span>
@@ -357,7 +357,7 @@ export function WorkflowSimulator() {
           </button>
           <Link
             href="/consultation"
-            className="text-xs font-mono font-bold uppercase tracking-wider text-[#FF6B2C] hover:text-[#F5F8FC] transition-colors flex items-center gap-1"
+            className="text-xs font-mono font-bold uppercase tracking-wider text-[#FA5B0F] hover:text-[#F5F8FC] transition-colors flex items-center gap-1"
           >
             <span>[+] Design Custom Blueprint</span> <ArrowRight className="h-3.5 w-3.5" />
           </Link>

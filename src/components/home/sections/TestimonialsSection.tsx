@@ -28,7 +28,7 @@ const TESTIMONIALS = [
     author: "Ananya M.",
     role: "DTC Brand, India",
     avatar: "A",
-    avatarBg: "bg-[#FF6B2C]/20 text-[#FF6B2C] border-[#FF6B2C]/30",
+    avatarBg: "bg-[#FA5B0F]/20 text-[#FA5B0F] border-[#FA5B0F]/30",
   },
 ];
 
@@ -78,8 +78,8 @@ export function TestimonialsSection() {
           {TESTIMONIALS.map((item, idx) => (
             <SpotlightCard
               key={idx}
-              spotlightColor="rgba(255, 107, 44, 0.1)"
-              className="p-7 sm:p-8 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FF6B2C]/40 flex flex-col justify-between transition duration-300 group"
+              spotlightColor="rgba(250, 91, 15, 0.1)"
+              className="p-7 sm:p-8 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FA5B0F]/40 flex flex-col justify-between transition duration-300 group"
             >
               <div className="space-y-4">
                 {/* 5 Stars */}
@@ -102,7 +102,7 @@ export function TestimonialsSection() {
                   {item.avatar}
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-fg group-hover:text-[#FF6B2C] transition">
+                  <h3 className="text-sm font-bold text-fg group-hover:text-[#FA5B0F] transition">
                     {item.author}
                   </h3>
                   <p className="text-xs text-fg-muted font-mono">{item.role}</p>

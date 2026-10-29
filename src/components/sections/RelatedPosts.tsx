@@ -6,7 +6,7 @@ import { formatDate, type BlogPost } from "@/lib/blog/posts";
 /** Post card used by "Keep reading" and the blog listings. */
 export function PostCard({ post }: { post: BlogPost }) {
   return (
-    <article className="group relative flex h-full flex-col rounded-2xl border border-border-token bg-surface p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#FF6B2C] hover:shadow-md">
+    <article className="group relative flex h-full flex-col rounded-2xl border border-border-token bg-surface p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#FA5B0F] hover:shadow-md">
       <p className="font-mono text-[11px] font-semibold uppercase tracking-wider text-orange-700">{post.categoryName}</p>
       <h3 className="mt-2 text-lg font-bold leading-snug text-fg">
         <Link href={`/blog/${post.slug}/`} className="after:absolute after:inset-0 hover:text-orange-700 focus-visible:outline-none">

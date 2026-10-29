@@ -46,7 +46,7 @@ export function WhyDodail({ items, title = "Why Dodail" }: { items: TitledText[]
     <Section id="why-dodail" title={title}>
       <dl className="grid gap-x-10 gap-y-7 md:grid-cols-2">
         {items.map((w) => (
-          <div key={w.title} className="border-l-2 border-[#FF6B2C] pl-5">
+          <div key={w.title} className="border-l-2 border-[#FA5B0F] pl-5">
             <dt className="text-lg font-bold text-fg">{w.title}</dt>
             <dd className="mt-1.5 text-sm leading-relaxed text-fg-muted">{w.text}</dd>
           </div>
@@ -151,7 +151,7 @@ export function LinkCards({
           <li key={route.path}>
             <Link
               href={route.path}
-              className="group flex h-full flex-col rounded-2xl border border-border-token bg-surface p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#FF6B2C] hover:shadow-md"
+              className="group flex h-full flex-col rounded-2xl border border-border-token bg-surface p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#FA5B0F] hover:shadow-md"
             >
               <h3 className="text-lg font-bold text-fg group-hover:text-orange-700">{route.name}</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-muted">{pitch ?? route.description}</p>

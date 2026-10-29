@@ -11,7 +11,7 @@
     --deep-navy: #071A28;
     --secondary-navy: #0C2233;
     --elevated-surface: #10293B;
-    --brand-orange: #FF6B2C;
+    --brand-orange: #FA5B0F;
     --brand-cyan: #27D3C2;
     --text-main: #F5F8FC;
     --text-secondary: #AABAC8;
@@ -33,7 +33,7 @@
     --border: rgba(255, 255, 255, 0.10);
     --border-strong: #1B3652;
     /* Brand (constant across themes) */
-    --brand: #FF6B2C;
+    --brand: #FA5B0F;
     --brand-2: #27D3C2;
     /* Header */
     --header-bg: rgba(5, 7, 11, 0.70);
@@ -110,7 +110,7 @@
   --color-deep-navy: #071A28;
   --color-secondary-navy: #0C2233;
   --color-elevated-surface: #10293B;
-  --color-brand-orange: #FF6B2C;
+  --color-brand-orange: #FA5B0F;
   --color-brand-cyan: #27D3C2;
   --color-text-main: #F5F8FC;
   --color-text-secondary: #AABAC8;
@@ -151,7 +151,7 @@ body {
 
 /* Accessibility & Focus States */
 :focus-visible {
-  outline: 2px solid #FF6B2C;
+  outline: 2px solid #FA5B0F;
   outline-offset: 2px;
 }
 
@@ -180,7 +180,7 @@ body {
   font-family: monospace;
   font-size: 14px;
   line-height: 1;
-  color: #FF6B2C;
+  color: #FA5B0F;
   font-weight: bold;
   pointer-events: none;
 }
@@ -213,7 +213,7 @@ body {
 }
 
 .glow-orange {
-  box-shadow: 0 0 35px -8px rgba(255, 107, 44, 0.35);
+  box-shadow: 0 0 35px -8px rgba(250, 91, 15, 0.35);
 }
 
 .glow-cyan {
@@ -293,7 +293,7 @@ body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF6B2C;
+  background: #FA5B0F;
 }
 
 /* ---------- App-like behaviour on phones & tablets ---------- */
@@ -361,25 +361,19 @@ a, button, [role="button"], input, select, textarea, label {
 .prose-dodail ol { list-style: decimal; }
 .prose-dodail li + li { margin-top: 0.5rem; }
 .prose-dodail a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
-.prose-dodail a:hover { color: #E8541A; }
+.prose-dodail a:hover { color: #E04E08; }
 .prose-dodail strong { color: var(--fg); font-weight: 700; }
-.prose-dodail blockquote { border-left: 3px solid #FF6B2C; padding-left: 1rem; color: var(--fg-muted); font-style: italic; }
+.prose-dodail blockquote { border-left: 3px solid #FA5B0F; padding-left: 1rem; color: var(--fg-muted); font-style: italic; }
 .prose-dodail table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.95rem; }
 .prose-dodail th, .prose-dodail td { border: 1px solid var(--border-strong); padding: 0.5rem 0.75rem; text-align: left; vertical-align: top; }
 .prose-dodail th { background: var(--surface-2); }
 .prose-dodail img { max-width: 100%; height: auto; border-radius: 0.75rem; }
 
-/* ---------- Brand colours for text on light surfaces ----------
-   Orange text on the light theme uses the orange sampled from the logo (#FA5B0F), so headings,
-   eyebrows and links match the logo; it is also a little stronger on near-white (~3.1:1) than
-   the site's #FF6B2C (~2.7:1). Cyan (#27D3C2, ~1.8:1) is darkened to teal for text only.
-   Backgrounds and dark mode keep the brand colours. The utility overrides live in the utilities
-   layer with :where() so they're only (0,1,0): they beat the plain `text-[#FF6B2C]` utility
-   (later in source) but not state variants such as `group-hover:text-white`. */
-:root[data-theme="light"] .prose-dodail a { color: #FA5B0F; }
-:root[data-theme="light"] .prose-dodail a:hover { color: #E04E08; }
-
+/* ---------- Cyan text on light surfaces ----------
+   Brand orange is the logo orange (#FA5B0F) in both themes. Brand cyan (#27D3C2) is only ~1.8:1 on
+   a near-white page, so cyan TEXT is darkened to teal in the light theme (backgrounds and dark
+   mode keep the brand cyan). It lives in the utilities layer with :where() so it's only (0,1,0):
+   it beats the plain `text-[#27D3C2]` utility (later in source) but not state variants. */
 @layer utilities {
-  :where(:root[data-theme="light"]) .text-\[\#FF6B2C\] { color: #FA5B0F; }
   :where(:root[data-theme="light"]) .text-\[\#27D3C2\] { color: #0F766E; }
 }

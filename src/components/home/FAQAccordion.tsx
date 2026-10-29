@@ -21,13 +21,13 @@ export function FAQAccordion({ items: faqs = defaultFaqs }: { items?: FAQItem[] 
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="w-full text-left py-6 px-4 sm:px-6 flex items-start justify-between gap-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]"
+                className="w-full text-left py-6 px-4 sm:px-6 flex items-start justify-between gap-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5B0F]"
                 aria-expanded={isOpen}
                 aria-controls={`faq-answer-${index}`}
                 id={`faq-trigger-${index}`}
               >
                 <span className="flex items-start gap-4 sm:gap-8">
-                  <span className="text-xs sm:text-sm font-semibold tabular-nums text-[#FF6B2C] pt-1 shrink-0">
+                  <span className="text-xs sm:text-sm font-semibold tabular-nums text-[#FA5B0F] pt-1 shrink-0">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="flex flex-col gap-1">
@@ -37,7 +37,7 @@ export function FAQAccordion({ items: faqs = defaultFaqs }: { items?: FAQItem[] 
                     </span>
                   </span>
                 </span>
-                <span className="text-[#FF6B2C] border border-[var(--border)] rounded-full p-1.5 shrink-0 mt-1" aria-hidden="true">
+                <span className="text-[#FA5B0F] border border-[var(--border)] rounded-full p-1.5 shrink-0 mt-1" aria-hidden="true">
                   {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
                 </span>
               </button>

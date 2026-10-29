@@ -42,7 +42,7 @@ export function ServicesSection({ active, onActive, webgl }: Props) {
               <Zone phase="services" className="h-[220px] sm:h-[300px] lg:h-[460px]">
                 {!webgl && (
                   <div className="absolute inset-0 flex items-center justify-center rounded-3xl border border-border-strong bg-surface shadow-inner">
-                    <ActiveIcon className="h-24 w-24 text-[#FF6B2C]" strokeWidth={1.25} aria-hidden="true" />
+                    <ActiveIcon className="h-24 w-24 text-[#FA5B0F]" strokeWidth={1.25} aria-hidden="true" />
                   </div>
                 )}
               </Zone>
@@ -66,12 +66,12 @@ export function ServicesSection({ active, onActive, webgl }: Props) {
                     className="scroll-mt-28 py-2"
                   >
                     <SpotlightCard
-                      spotlightColor="rgba(255, 107, 44, 0.08)"
+                      spotlightColor="rgba(250, 91, 15, 0.08)"
                       className={`p-6 sm:p-8 rounded-2xl transition-all duration-300 ${
-                        isActive ? "bg-[var(--surface-translucent)] border-l-2 border-l-[#FF6B2C]" : "border-l-2 border-l-transparent hover:bg-[var(--surface-translucent)]"
+                        isActive ? "bg-[var(--surface-translucent)] border-l-2 border-l-[#FA5B0F]" : "border-l-2 border-l-transparent hover:bg-[var(--surface-translucent)]"
                       }`}
                     >
-                      <p className={`text-sm font-mono tabular-nums ${isActive ? "text-[#FF6B2C]" : "text-fg-muted"}`}>
+                      <p className={`text-sm font-mono tabular-nums ${isActive ? "text-[#FA5B0F]" : "text-fg-muted"}`}>
                         {String(i + 1).padStart(2, "0")}
                       </p>
                       <h3
@@ -93,7 +93,7 @@ export function ServicesSection({ active, onActive, webgl }: Props) {
                       </ul>
                       <Link
                         href={s.href}
-                        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#FF6B2C] hover:text-[#ff8a57] group"
+                        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#FA5B0F] hover:text-[#ff8a57] group"
                       >
                         <span>{fill(section.learnMoreLabel, { service: s.title })}</span>
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5" aria-hidden="true" />

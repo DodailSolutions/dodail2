@@ -85,12 +85,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       </head>
       <body
         suppressHydrationWarning
-        className="flex min-h-screen flex-col bg-bg text-fg antialiased selection:bg-[#FF6B2C] selection:text-white"
+        className="flex min-h-screen flex-col bg-bg text-fg antialiased selection:bg-[#FA5B0F] selection:text-white"
       >
         <ThemeProvider>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-none focus:bg-[#FF6B2C] focus:px-4 focus:py-2 focus:text-white focus:font-bold focus:shadow-lg focus:outline-none font-mono text-xs uppercase tracking-wider"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-none focus:bg-[#FA5B0F] focus:px-4 focus:py-2 focus:text-white focus:font-bold focus:shadow-lg focus:outline-none font-mono text-xs uppercase tracking-wider"
         >
           Skip to main content
         </a>

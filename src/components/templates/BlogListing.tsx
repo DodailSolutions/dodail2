@@ -11,7 +11,7 @@ export function CategoryNav({ active, counts }: { active?: string; counts: Recor
   const link = "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors";
   return (
     <nav aria-label="Blog categories" className="flex flex-wrap gap-2">
-      <Link href="/blog/" aria-current={!active ? "page" : undefined} className={cn(link, !active ? "border-border-strong bg-surface text-fg" : "border-border-strong bg-surface text-fg hover:border-[#FF6B2C]")}>
+      <Link href="/blog/" aria-current={!active ? "page" : undefined} className={cn(link, !active ? "border-border-strong bg-surface text-fg" : "border-border-strong bg-surface text-fg hover:border-[#FA5B0F]")}>
         All
       </Link>
       {cats.map(([slug, c]) => (
@@ -19,7 +19,7 @@ export function CategoryNav({ active, counts }: { active?: string; counts: Recor
           key={slug}
           href={`/blog/category/${slug}/`}
           aria-current={active === slug ? "page" : undefined}
-          className={cn(link, active === slug ? "border-border-strong bg-surface text-fg" : "border-border-strong bg-surface text-fg hover:border-[#FF6B2C]")}
+          className={cn(link, active === slug ? "border-border-strong bg-surface text-fg" : "border-border-strong bg-surface text-fg hover:border-[#FA5B0F]")}
         >
           {c.name} <span className="ml-1.5 text-xs opacity-70">{counts[slug]}</span>
         </Link>

@@ -14,7 +14,7 @@ export const services = [
     desc: "Connect the systems your team already uses and automate the steps between them, from the first WhatsApp message or web form to the CRM record and the follow-up.",
     deliverables: ["WhatsApp Cloud API integration", "Rule-based triage with human hand-off", "CRM and Google Sheets sync"],
     href: "/services/ai-automation/",
-    accent: "#FF6B2C",
+    accent: "#FA5B0F",
   },
   {
     id: "custom-software",
@@ -34,7 +34,7 @@ export const services = [
     desc: "Fast storefronts and business sites that are straightforward to manage, with order, inventory and logistics steps automated behind them.",
     deliverables: ["Shopify and custom headless stores", "Post-purchase automation", "Conversion-focused interface design"],
     href: "/industries/ecommerce-brands/",
-    accent: "#FF6B2C",
+    accent: "#FA5B0F",
   },
   {
     id: "digital-marketing",
@@ -54,7 +54,7 @@ export const services = [
     desc: "Visual identities, design systems and product interfaces that look considered and are easy to use on every screen.",
     deliverables: ["Visual identity systems", "Component-driven design libraries", "Accessible, WCAG-minded interfaces"],
     href: "/work",
-    accent: "#FF6B2C",
+    accent: "#FA5B0F",
   },
 ];
 
@@ -140,7 +140,7 @@ export const industries: IndustryItem[] = [
     features: ["Budget and timeline qualification", "Brochures sent instantly over WhatsApp", "Site visits booked automatically"],
     steps: ["Portal lead", "Budget qualifier", "Brochure dispatch", "Site visit booked"],
     href: "/industries/real-estate",
-    accent: "#FF6B2C",
+    accent: "#FA5B0F",
   },
   {
     key: "manufacturing",

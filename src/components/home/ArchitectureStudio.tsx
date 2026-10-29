@@ -67,10 +67,10 @@ export async function dispatchAttributionEvent(event: ConversionEvent) {
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-[#E3E6EB] pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#E8541A]/10 text-[#E8541A]">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#E04E08]/10 text-[#E04E08]">
               <Terminal className="h-4 w-4" />
             </span>
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#E8541A]">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#E04E08]">
               Enterprise Architecture Studio
             </span>
           </div>
@@ -88,7 +88,7 @@ export async function dispatchAttributionEvent(event: ConversionEvent) {
             SOC2 Type II / DPDP Aligned
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-[#1A2535]">
-            <Zap className="h-3.5 w-3.5 text-[#E8541A]" />
+            <Zap className="h-3.5 w-3.5 text-[#E04E08]" />
             99.98% SLA
           </span>
         </div>

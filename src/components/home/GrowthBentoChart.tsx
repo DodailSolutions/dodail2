@@ -18,7 +18,7 @@ export function GrowthBentoChart() {
         <div>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#E8541A]">
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#E04E08]">
                 Attribution &amp; Performance Telemetry
               </span>
               <h4 className="mt-1 text-2xl font-bold text-[#1A2535]">
@@ -47,7 +47,7 @@ export function GrowthBentoChart() {
           >
             <defs>
               <linearGradient id="peachGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#E8541A" stopOpacity="0.22" />
+                <stop offset="0%" stopColor="#E04E08" stopOpacity="0.22" />
                 <stop offset="100%" stopColor="#F2D5C4" stopOpacity="0.0" />
               </linearGradient>
             </defs>
@@ -68,7 +68,7 @@ export function GrowthBentoChart() {
             <path
               d="M 20 200 C 140 185, 240 155, 340 120 C 440 85, 540 45, 680 25"
               fill="none"
-              stroke="#E8541A"
+              stroke="#E04E08"
               strokeWidth="3.5"
               strokeLinecap="round"
               style={{
@@ -80,8 +80,8 @@ export function GrowthBentoChart() {
 
             {/* Milestones / Nodes */}
             <circle cx="20" cy="200" r="5" fill="#1A2535" />
-            <circle cx="340" cy="120" r="5.5" fill="#E8541A" stroke="#FFFFFF" strokeWidth="2" />
-            <circle cx="680" cy="25" r="7" fill="#E8541A" stroke="#FFFFFF" strokeWidth="2.5" />
+            <circle cx="340" cy="120" r="5.5" fill="#E04E08" stroke="#FFFFFF" strokeWidth="2" />
+            <circle cx="680" cy="25" r="7" fill="#E04E08" stroke="#FFFFFF" strokeWidth="2.5" />
           </svg>
 
           {/* Month Axis Labels */}
@@ -89,7 +89,7 @@ export function GrowthBentoChart() {
             <span>M1 Baseline</span>
             <span>M4 Architecture</span>
             <span>M8 AI GEO Velocity</span>
-            <span className="font-bold text-[#E8541A]">M12 Market Dominance</span>
+            <span className="font-bold text-[#E04E08]">M12 Market Dominance</span>
           </div>
         </div>
       </div>
@@ -117,10 +117,10 @@ export function GrowthBentoChart() {
             <div>
               <div className="flex justify-between text-xs font-semibold text-[#1A2535] mb-1">
                 <span>With Dodail AI &amp; Performance</span>
-                <span className="font-mono font-bold text-[#E8541A]">$46 / lead</span>
+                <span className="font-mono font-bold text-[#E04E08]">$46 / lead</span>
               </div>
               <div className="h-2.5 w-full rounded-full bg-[#E3E6EB]">
-                <div className="h-full w-[28%] rounded-full bg-[#E8541A]" />
+                <div className="h-full w-[28%] rounded-full bg-[#E04E08]" />
               </div>
             </div>
           </div>
@@ -136,7 +136,7 @@ export function GrowthBentoChart() {
             &ldquo;Dodail re-engineered our customer intake pipeline and reduced our cost-per-consultation from $138 to $44 in 90 days. Phenomenal velocity.&rdquo;
           </p>
           <div className="mt-4 flex items-center gap-3 border-t border-[#E3E6EB] pt-3">
-            <div className="h-8 w-8 rounded-full bg-[#E8541A] flex items-center justify-center font-bold text-white text-xs">
+            <div className="h-8 w-8 rounded-full bg-[#E04E08] flex items-center justify-center font-bold text-white text-xs">
               TA
             </div>
             <div>

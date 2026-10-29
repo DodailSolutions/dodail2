@@ -8,7 +8,7 @@ export const contentType = "image/png";
 /** Deterministic dot field echoing the homepage particle cloud. */
 function dots() {
   const out: { x: number; y: number; r: number; c: string }[] = [];
-  const colors = ["#FF6B2C", "#FFB547", "#F5F8FC", "#27D3C2"];
+  const colors = ["#FA5B0F", "#FFB547", "#F5F8FC", "#27D3C2"];
   let seed = 7;
   const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
   for (let i = 0; i < 260; i++) {
@@ -43,7 +43,7 @@ export default function Image() {
             Dodail Solutions · Hyderabad
           </div>
           <div style={{ fontSize: 68, lineHeight: 1.05, color: "#F5F8FC", marginTop: 28, display: "flex", flexWrap: "wrap" }}>
-            Turn repetitive operations into&nbsp;<span style={{ color: "#FF6B2C" }}>autonomous growth.</span>
+            Turn repetitive operations into&nbsp;<span style={{ color: "#FA5B0F" }}>autonomous growth.</span>
           </div>
           <div style={{ fontSize: 26, color: "#A3AAB5", marginTop: 32 }}>
             AI automation · Software · Web · Marketing · Brand

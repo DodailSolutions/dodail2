@@ -92,8 +92,8 @@ export function IndustriesSection({ active, onActive, webgl }: Props) {
                 aria-current={on ? "true" : undefined}
                 className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-5 py-3 text-sm font-medium transition-all duration-300 ${
                   on
-                    ? "border-[#FF6B2C] bg-[#FF6B2C] text-white shadow-[0_0_16px_rgba(255,107,44,0.4)]"
-                    : "border-border-strong text-fg hover:border-[#FF6B2C]/60 hover:bg-[var(--surface-translucent)]"
+                    ? "border-[#FA5B0F] bg-[#FA5B0F] text-white shadow-[0_0_16px_rgba(250,91,15,0.4)]"
+                    : "border-border-strong text-fg hover:border-[#FA5B0F]/60 hover:bg-[var(--surface-translucent)]"
                 }`}
               >
                 <I className="h-4 w-4" />
@@ -179,7 +179,7 @@ export function IndustriesSection({ active, onActive, webgl }: Props) {
                     <div className="mt-8 flex flex-col sm:flex-row gap-4 pt-6 border-t border-border-strong">
                       <Link
                         href={ind.href}
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-[#FF6B2C] hover:text-[#ff8a57] group"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-[#FA5B0F] hover:text-[#ff8a57] group"
                       >
                         <span>{fill(section.linkLabel, { industry: ind.label.toLowerCase() })}</span>
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />

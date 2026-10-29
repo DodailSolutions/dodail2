@@ -23,11 +23,11 @@ export function PlansGrid({ plans, note, title = "Plans and pricing" }: { plans:
               key={plan.name}
               className={cn(
                 "relative flex flex-col rounded-2xl border bg-surface p-7 shadow-sm",
-                plan.recommended ? "border-[#FF6B2C] ring-1 ring-[#FF6B2C]" : "border-border-token"
+                plan.recommended ? "border-[#FA5B0F] ring-1 ring-[#FA5B0F]" : "border-border-token"
               )}
             >
               {plan.recommended && (
-                <p className="absolute -top-3 left-6 rounded-full bg-[#FF6B2C] px-3 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-white">
+                <p className="absolute -top-3 left-6 rounded-full bg-[#FA5B0F] px-3 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-white">
                   Recommended
                 </p>
               )}

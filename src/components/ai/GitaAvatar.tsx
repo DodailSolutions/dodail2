@@ -74,7 +74,7 @@ export function GitaAvatar({
       {voiceState === "speaking" && (
         <>
           <div
-            className="absolute rounded-full border-2 border-[#E8541A]/40 animate-ping pointer-events-none"
+            className="absolute rounded-full border-2 border-[#E04E08]/40 animate-ping pointer-events-none"
             style={{
               width: "115%",
               height: "115%",
@@ -107,7 +107,7 @@ export function GitaAvatar({
       <div
         className={`relative ${sizeClasses} rounded-full overflow-hidden shadow-2xl transition-all duration-300 ring-4 ${
           voiceState === "speaking"
-            ? "ring-[#E8541A] shadow-orange-500/30"
+            ? "ring-[#E04E08] shadow-orange-500/30"
             : voiceState === "listening"
             ? "ring-emerald-400 shadow-emerald-500/30"
             : voiceState === "thinking"
@@ -174,7 +174,7 @@ export function GitaAvatar({
       {showStatusBadge && (
         <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-lg border transition-colors duration-200">
           {voiceState === "speaking" && (
-            <div className="flex items-center gap-1.5 bg-[#E8541A]/10 text-[#E8541A] border border-[#E8541A]/30 px-2 py-0.5 rounded-full">
+            <div className="flex items-center gap-1.5 bg-[#E04E08]/10 text-[#E04E08] border border-[#E04E08]/30 px-2 py-0.5 rounded-full">
               <Volume2 className="w-3.5 h-3.5 animate-pulse" />
               <span>Gita is speaking...</span>
             </div>

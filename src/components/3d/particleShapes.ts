@@ -9,14 +9,14 @@ import type { IndustryKey, ScenePhase } from "./3DTypes";
 
 export const BRAND = {
   bg: "#05070B",
-  orange: "#FF6B2C",
+  orange: "#FA5B0F",
   cyan: "#27D3C2",
   text: "#F5F8FC",
 } as const;
 
 /** Particle colours with relative weights: brand orange leads, the rest add depth. */
 export const PALETTE: [string, number][] = [
-  ["#FF6B2C", 0.36],
+  ["#FA5B0F", 0.36],
   ["#FF9E58", 0.22],
   ["#F5F8FC", 0.22],
   ["#27D3C2", 0.14],
@@ -25,7 +25,7 @@ export const PALETTE: [string, number][] = [
 
 export const INDUSTRY_TINT: Record<IndustryKey, string> = {
   dental: "#27D3C2",
-  "real-estate": "#FF6B2C",
+  "real-estate": "#FA5B0F",
   manufacturing: "#FBBF24",
   ecommerce: "#34D399",
 };

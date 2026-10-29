@@ -147,7 +147,7 @@ export default function ServicesPage() {
       <div className="mx-auto max-w-7xl space-y-16">
         {/* Header */}
         <div className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FF6B2C]/10 text-[#FF6B2C] border border-[#FF6B2C]/20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FA5B0F]/10 text-[#FA5B0F] border border-[#FA5B0F]/20">
             DODAIL SERVICE ARCHITECTURES
           </div>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-fg leading-tight">
@@ -165,18 +165,18 @@ export default function ServicesPage() {
             return (
               <div
                 key={srv.num}
-                className="p-8 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FF6B2C]/40 flex flex-col justify-between transition duration-200 group relative"
+                className="p-8 rounded-2xl bg-[var(--surface-translucent)] border border-border-token hover:border-[#FA5B0F]/40 flex flex-col justify-between transition duration-200 group relative"
               >
                 <div className="space-y-5">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-xl bg-[#FF6B2C]/10 border border-[#FF6B2C]/20 flex items-center justify-center text-[#FF6B2C] group-hover:scale-110 transition duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-[#FA5B0F]/10 border border-[#FA5B0F]/20 flex items-center justify-center text-[#FA5B0F] group-hover:scale-110 transition duration-300">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="font-mono text-sm text-[#FF6B2C] font-semibold">{srv.num}</span>
+                    <span className="font-mono text-sm text-[#FA5B0F] font-semibold">{srv.num}</span>
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-bold text-fg group-hover:text-[#FF6B2C] transition">
+                    <h2 className="text-xl font-bold text-fg group-hover:text-[#FA5B0F] transition">
                       {srv.title}
                     </h2>
                     <p className="text-xs font-mono text-fg-muted mt-1">{srv.tagline}</p>
@@ -192,7 +192,7 @@ export default function ServicesPage() {
                     <ul className="space-y-2">
                       {srv.capabilities.map((cap, i) => (
                         <li key={i} className="text-xs text-fg-muted flex items-start gap-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#FF6B2C] shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#FA5B0F] shrink-0 mt-0.5" />
                           <span>{cap}</span>
                         </li>
                       ))}
@@ -203,7 +203,7 @@ export default function ServicesPage() {
                 <div className="pt-6 mt-6 border-t border-border-token">
                   <Link
                     href={srv.href}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-fg group-hover:text-[#FF6B2C] transition"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-fg group-hover:text-[#FA5B0F] transition"
                   >
                     <span>Explore Solution</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition duration-200" />
@@ -227,7 +227,7 @@ export default function ServicesPage() {
           <div className="flex flex-wrap gap-3 shrink-0">
             <Link
               href="/consultation"
-              className="px-6 py-3.5 rounded-xl bg-[#FF6B2C] hover:bg-[#E8541A] text-white text-sm font-semibold transition shadow-lg"
+              className="px-6 py-3.5 rounded-xl bg-[#FA5B0F] hover:bg-[#E04E08] text-white text-sm font-semibold transition shadow-lg"
             >
               Book Strategy Call
             </Link>

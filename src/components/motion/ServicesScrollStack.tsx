@@ -23,7 +23,7 @@ const services: ServiceItem[] = [
     id: "ai-automation",
     number: "01",
     tag: "AUTONOMOUS OPERATIONS",
-    accentColor: "#FF6B2C",
+    accentColor: "#FA5B0F",
     title: "AI Automation & Business Workflows",
     businessProblem:
       "Repetitive inquiry handling, manual copy-pasting across disparate spreadsheets, and slow handoffs between apps drain 15+ staff hours per week and delay customer responses by hours.",
@@ -65,7 +65,7 @@ const services: ServiceItem[] = [
     id: "website-ecommerce",
     number: "03",
     tag: "HIGH-CONVERTING COMMERCE",
-    accentColor: "#FF6B2C",
+    accentColor: "#FA5B0F",
     title: "Website & E-Commerce Development",
     businessProblem:
       "Bloated templates and slow e-commerce storefronts suffer from high bounce rates, clunky mobile checkout flows, and poor conversion rates that bleed ad spend.",
@@ -107,7 +107,7 @@ const services: ServiceItem[] = [
     id: "branding-ui-ux",
     number: "05",
     tag: "PREMIUM BRAND IDENTITY",
-    accentColor: "#FF6B2C",
+    accentColor: "#FA5B0F",
     title: "Branding & UI/UX Design",
     businessProblem:
       "Generic template aesthetics, inconsistent typography, and amateur visual presentation diminish brand trust and make enterprise clients hesitate to commit to high-ticket contracts.",
@@ -155,7 +155,7 @@ export function ServicesScrollStack() {
         <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="font-mono text-xs font-bold text-[#FF6B2C]">INDEX // 01—05</span>
+              <span className="font-mono text-xs font-bold text-[#FA5B0F]">INDEX // 01—05</span>
               <span className="h-px w-8 bg-[#1B3652]" />
               <span className="font-mono text-[11px] text-fg-muted uppercase tracking-wider">CAPABILITIES</span>
             </div>
@@ -179,7 +179,7 @@ export function ServicesScrollStack() {
                 }}
                 className={`text-left py-1 text-xs font-mono transition-colors flex items-center gap-3 select-none ${
                   activeStep === idx
-                    ? "text-[#FF6B2C] font-bold"
+                    ? "text-[#FA5B0F] font-bold"
                     : "text-fg-muted hover:text-fg"
                 }`}
               >
@@ -192,7 +192,7 @@ export function ServicesScrollStack() {
           <div className="pt-2">
             <Link
               href="/consultation"
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF6B2C] hover:text-fg transition-colors uppercase tracking-wider"
+              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FA5B0F] hover:text-fg transition-colors uppercase tracking-wider"
             >
               <span>[+] Request Tailored Engineering Audit</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -208,7 +208,7 @@ export function ServicesScrollStack() {
               id={`service-${service.id}`}
               data-index={index}
               onMouseEnter={() => setActiveStep(index)}
-              className="scroll-card-observer rounded-none border border-border-strong bg-surface p-8 sm:p-10 hover:border-[#FF6B2C] transition-all duration-200 relative group"
+              className="scroll-card-observer rounded-none border border-border-strong bg-surface p-8 sm:p-10 hover:border-[#FA5B0F] transition-all duration-200 relative group"
             >
               {/* Giant Swiss Number Watermark in Background */}
               <div className="absolute top-4 right-6 font-mono text-5xl sm:text-7xl font-black text-fg/[0.04] pointer-events-none select-none">
@@ -281,7 +281,7 @@ export function ServicesScrollStack() {
               <div className="mt-8 pt-5 border-t border-border-strong">
                 <Link
                   href={service.href}
-                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-white bg-[#FF6B2C] hover:bg-[#FF854D] px-5 py-2.5 rounded-none transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-white bg-[#FA5B0F] hover:bg-[#FF854D] px-5 py-2.5 rounded-none transition-colors"
                 >
                   <span>{service.ctaText}</span>
                   <ArrowUpRight className="h-4 w-4" />

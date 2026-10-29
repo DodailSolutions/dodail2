@@ -24,17 +24,17 @@ function NeuralCore({ mouse, reducedMotion }: { mouse: { x: number; y: number };
   const nodes = useMemo(() => {
     return [
       // Left hemisphere (Operations & Ingestion)
-      { id: "leads", label: "Inbound Leads", pos: [-1.4, 0.9, 0.4] as [number, number, number], color: "#FF6B2C", size: 0.2 },
+      { id: "leads", label: "Inbound Leads", pos: [-1.4, 0.9, 0.4] as [number, number, number], color: "#FA5B0F", size: 0.2 },
       { id: "whatsapp", label: "WhatsApp API", pos: [-1.7, 0.1, -0.3] as [number, number, number], color: "#0284C7", size: 0.18 },
-      { id: "triage", label: "Triage Engine", pos: [-1.2, -0.8, 0.5] as [number, number, number], color: "#FF6B2C", size: 0.22 },
+      { id: "triage", label: "Triage Engine", pos: [-1.2, -0.8, 0.5] as [number, number, number], color: "#FA5B0F", size: 0.22 },
       { id: "rules", label: "Schema Validation", pos: [-0.6, 1.4, -0.2] as [number, number, number], color: "#0284C7", size: 0.16 },
       // Right hemisphere (Execution & Intelligence)
       { id: "postgres", label: "PostgreSQL ACID", pos: [1.3, 0.8, -0.4] as [number, number, number], color: "#0284C7", size: 0.22 },
-      { id: "crm", label: "CRM Sync", pos: [1.6, -0.2, 0.3] as [number, number, number], color: "#FF6B2C", size: 0.19 },
+      { id: "crm", label: "CRM Sync", pos: [1.6, -0.2, 0.3] as [number, number, number], color: "#FA5B0F", size: 0.19 },
       { id: "payments", label: "Stripe Webhook", pos: [1.1, -0.9, -0.5] as [number, number, number], color: "#0284C7", size: 0.17 },
-      { id: "telemetry", label: "BI Intelligence", pos: [0.6, 1.3, 0.4] as [number, number, number], color: "#FF6B2C", size: 0.18 },
+      { id: "telemetry", label: "BI Intelligence", pos: [0.6, 1.3, 0.4] as [number, number, number], color: "#FA5B0F", size: 0.18 },
       // Central nucleus (Autonomous Core)
-      { id: "core", label: "Dodail Autonomous Core", pos: [0, 0, 0] as [number, number, number], color: "#FF6B2C", size: 0.32 },
+      { id: "core", label: "Dodail Autonomous Core", pos: [0, 0, 0] as [number, number, number], color: "#FA5B0F", size: 0.32 },
     ];
   }, []);
 
@@ -125,7 +125,7 @@ function NeuralCore({ mouse, reducedMotion }: { mouse: { x: number; y: number };
         <icosahedronGeometry args={[1.05, 1]} />
         <meshPhysicalMaterial
           color="#FFFFFF"
-          emissive="#FF6B2C"
+          emissive="#FA5B0F"
           emissiveIntensity={0.45}
           roughness={0.12}
           metalness={0.1}
@@ -149,7 +149,7 @@ function NeuralCore({ mouse, reducedMotion }: { mouse: { x: number; y: number };
       {/* 3. ORBITING CONDUIT RINGS (Vibrant Energy Gyroscopes) */}
       <mesh ref={ring1} rotation={[Math.PI / 3, 0, 0]}>
         <torusGeometry args={[1.9, 0.022, 16, 64]} />
-        <meshStandardMaterial color="#FF6B2C" emissive="#FF6B2C" emissiveIntensity={0.65} />
+        <meshStandardMaterial color="#FA5B0F" emissive="#FA5B0F" emissiveIntensity={0.65} />
       </mesh>
       <mesh ref={ring2} rotation={[-Math.PI / 4, Math.PI / 3, 0]}>
         <torusGeometry args={[2.1, 0.02, 16, 64]} />
@@ -157,7 +157,7 @@ function NeuralCore({ mouse, reducedMotion }: { mouse: { x: number; y: number };
       </mesh>
       <mesh ref={ring3} rotation={[0, Math.PI / 2, Math.PI / 6]}>
         <torusGeometry args={[1.7, 0.018, 16, 64]} />
-        <meshStandardMaterial color="#FF6B2C" emissive="#FF6B2C" emissiveIntensity={0.45} />
+        <meshStandardMaterial color="#FA5B0F" emissive="#FA5B0F" emissiveIntensity={0.45} />
       </mesh>
 
       {/* 4. NEURAL CONDUIT LINES */}
@@ -210,7 +210,7 @@ function NeuralCore({ mouse, reducedMotion }: { mouse: { x: number; y: number };
             {node.id !== "core" && (
               <group position={[0, node.size + 0.22, 0]}>
                 <Text
-                  color={isHovered ? "#FF6B2C" : "#0F172A"}
+                  color={isHovered ? "#FA5B0F" : "#0F172A"}
                   fontSize={0.12}
                   maxWidth={2.2}
                   font="monospace"
@@ -229,14 +229,14 @@ function NeuralCore({ mouse, reducedMotion }: { mouse: { x: number; y: number };
       <points ref={particlesRef} geometry={particleGeo}>
         <pointsMaterial
           size={0.038}
-          color="#FF6B2C"
+          color="#FA5B0F"
           transparent
           opacity={0.75}
         />
       </points>
 
       {/* Studio Lighting */}
-      <pointLight color="#FF6B2C" intensity={1.8} distance={5.0} />
+      <pointLight color="#FA5B0F" intensity={1.8} distance={5.0} />
       <pointLight color="#0284C7" intensity={1.2} distance={4.5} position={[0, -1, 1]} />
     </group>
   );
@@ -281,7 +281,7 @@ export function AutonomousBrainCore({ reducedMotion = false }: AutonomousBrainCo
       >
         <ambientLight color="#FFFFFF" intensity={2.0} />
         <directionalLight position={[5, 6, 4]} color="#FFFFFF" intensity={1.5} />
-        <directionalLight position={[-4, 3, 3]} color="#FF6B2C" intensity={0.9} />
+        <directionalLight position={[-4, 3, 3]} color="#FA5B0F" intensity={0.9} />
         <directionalLight position={[0, -4, 2]} color="#0284C7" intensity={0.7} />
         <pointLight position={[0, 0, 3]} color="#FFFFFF" intensity={0.8} />
 

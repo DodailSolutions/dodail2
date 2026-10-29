@@ -54,7 +54,7 @@ export default async function BlogIndexPage() {
             {extra.map((p) => {
               const date = p.publish_date || p.created_at;
               return (
-                <li key={p.id} className="relative rounded-2xl border border-border-token bg-surface p-6 shadow-sm hover:border-[#FF6B2C]">
+                <li key={p.id} className="relative rounded-2xl border border-border-token bg-surface p-6 shadow-sm hover:border-[#FA5B0F]">
                   <p className="font-mono text-[11px] font-semibold uppercase tracking-wider text-orange-700">{p.category}</p>
                   <h3 className="mt-2 text-lg font-bold leading-snug text-fg">
                     <Link href={`/blog/${p.slug}/`} className="after:absolute after:inset-0">

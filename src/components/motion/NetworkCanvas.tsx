@@ -87,7 +87,7 @@ export function NetworkCanvas() {
         // Draw node
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 107, 44, ${n.alpha * 0.7})`;
+        ctx.fillStyle = `rgba(250, 91, 15, ${n.alpha * 0.7})`;
         ctx.fill();
 
         // Connect nearby nodes
@@ -118,7 +118,7 @@ export function NetworkCanvas() {
             ctx.beginPath();
             ctx.moveTo(n.x, n.y);
             ctx.lineTo(mouseX, mouseY);
-            ctx.strokeStyle = `rgba(255, 107, 44, ${mAlpha})`;
+            ctx.strokeStyle = `rgba(250, 91, 15, ${mAlpha})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }

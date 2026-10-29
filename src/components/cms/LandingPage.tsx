@@ -16,7 +16,7 @@ import { getRoute } from "@/content/routes";
 /** Solution, service and industry pages share this template; all copy comes from the CMS. */
 
 const solutionTone: Record<string, { box: string; icon: string }> = {
-  orange: { box: "bg-orange-100", icon: "text-[#FF6B2C]" },
+  orange: { box: "bg-orange-100", icon: "text-[#FA5B0F]" },
   amber: { box: "bg-amber-100", icon: "text-amber-600" },
   emerald: { box: "bg-emerald-100", icon: "text-emerald-600" },
   teal: { box: "bg-teal-100", icon: "text-teal-600" },
@@ -24,7 +24,7 @@ const solutionTone: Record<string, { box: string; icon: string }> = {
 };
 
 const industryTone: Record<string, string> = {
-  orange: "bg-orange-500/10 text-[#FF6B2C] border-orange-500/25 light:bg-orange-50 light:border-orange-200/60",
+  orange: "bg-orange-500/10 text-[#FA5B0F] border-orange-500/25 light:bg-orange-50 light:border-orange-200/60",
   amber: "bg-amber-50 text-amber-600 border-amber-200/60",
   emerald: "bg-emerald-50 text-emerald-600 border-emerald-200/60",
   teal: "bg-teal-50 text-[#0D9488] border-teal-200/60",
@@ -63,7 +63,7 @@ export function LandingPage({ content }: { content: LandingContent }) {
           <HighlightedText
             text={hero.title}
             highlight={hero.highlight}
-            render={(part) => <span className="text-[#FF6B2C]">{part}</span>}
+            render={(part) => <span className="text-[#FA5B0F]">{part}</span>}
           />
         </h1>
         <p
@@ -131,7 +131,7 @@ export function LandingPage({ content }: { content: LandingContent }) {
         <section className="rounded-3xl border border-border-token bg-surface p-8 lg:p-14 shadow-sm">
           <div className="text-center max-w-2xl mx-auto">
             {integrations.eyebrow && (
-              <span className="text-xs font-mono font-bold text-[#FF6B2C] uppercase tracking-wider block mb-2">
+              <span className="text-xs font-mono font-bold text-[#FA5B0F] uppercase tracking-wider block mb-2">
                 {integrations.eyebrow}
               </span>
             )}
