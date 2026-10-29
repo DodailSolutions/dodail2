@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @source "../**/*.{js,ts,jsx,tsx,mdx}";
 
+/* Light-theme variant: `light:` utilities apply under [data-theme="light"] (set pre-paint by
+   ThemeScript). Lets theme-aware chrome be pure CSS instead of JS branches, so server and client
+   render identical markup — no hydration mismatch, no post-paint flash. Dark is the base. */
+@custom-variant light (&:is([data-theme="light"] *));
+
 @layer base {
   :root {
     --deep-navy: #071A28;

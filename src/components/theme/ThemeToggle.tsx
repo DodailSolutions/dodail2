@@ -15,7 +15,9 @@ export function ThemeToggle({ className }: { className?: string }) {
   React.useEffect(() => setMounted(true), []);
 
   const isDark = theme === "dark";
-  const label = isDark ? "Switch to light theme" : "Switch to dark theme";
+  // Keep the label theme-neutral until mounted so the server-rendered attributes match the first
+  // client render (the resolved theme isn't known on the server).
+  const label = !mounted ? "Toggle theme" : isDark ? "Switch to light theme" : "Switch to dark theme";
 
   return (
     <button

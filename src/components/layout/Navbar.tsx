@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { useTheme } from "@/components/theme/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { contentIcon } from "@/lib/cms/content/icons";
 import type { NavigationContent } from "@/lib/cms/content/defaults/site";
@@ -29,14 +28,12 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
   const mobileMenuRef = React.useRef<HTMLDivElement>(null);
   const { announcement, brand, servicesMenu, industriesMenu, links, cta } = nav;
   const ctaExternal = isExternal(cta.href);
-  const { theme } = useTheme();
 
-  // Header chrome follows the active theme: dark navy in dark mode, white bar in light mode.
-  const dark = theme === "dark";
-  const navLink = cn(
-    "px-3.5 py-2 rounded-xl transition-colors",
-    dark ? "text-[#C9CED6] hover:text-white hover:bg-white/10" : "text-slate-700 hover:text-slate-950 hover:bg-slate-100"
-  );
+  // Header chrome follows the active theme via the `light:` CSS variant (data-theme driven, set
+  // pre-paint by ThemeScript). Markup is identical on server and client, so there's no hydration
+  // mismatch and no post-paint flash. Dark is the base; `light:` overrides it.
+  const navLink =
+    "px-3.5 py-2 rounded-xl transition-colors text-[#C9CED6] hover:text-white hover:bg-white/10 light:text-slate-700 light:hover:text-slate-950 light:hover:bg-slate-100";
 
   // Close menus on route change (state adjusted during render, not in an effect).
   const [menuPath, setMenuPath] = React.useState(pathname);
@@ -84,7 +81,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
         className={cn(
           navLink,
           "flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-          open && (dark ? "bg-white/10 text-white" : "bg-slate-100 text-slate-950")
+          open && "bg-white/10 text-white light:bg-slate-100 light:text-slate-950"
         )}
         onClick={() => {
           const close = open && pinned;
@@ -194,20 +191,16 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
     </div>
   );
 
-  const mobileLink = cn(
-    "block px-3 py-2.5 rounded-xl text-sm hover:text-[#FF6B2C]",
-    dark ? "text-[#C9CED6] hover:bg-white/5" : "text-slate-700 hover:bg-slate-50"
-  );
-  const mobileSummary = cn(
-    "flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-base font-semibold [&::-webkit-details-marker]:hidden",
-    dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-900 hover:bg-slate-50"
-  );
+  const mobileLink =
+    "block px-3 py-2.5 rounded-xl text-sm hover:text-[#FF6B2C] text-[#C9CED6] hover:bg-white/5 light:text-slate-700 light:hover:bg-slate-50";
+  const mobileSummary =
+    "flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-base font-semibold [&::-webkit-details-marker]:hidden text-[#F5F8FC] hover:bg-white/5 light:text-slate-900 light:hover:bg-slate-50";
 
   return (
     <header
       className={cn(
         "sticky top-0 z-40 w-full border-b backdrop-blur-md",
-        dark ? "border-white/[0.06] bg-[#05070B]/70" : "border-slate-200/80 bg-white/90 shadow-xs"
+        "border-white/[0.06] bg-[#05070B]/70 light:border-slate-200/80 light:bg-white/90 light:shadow-xs"
       )}
     >
       {announcement.enabled && announcement.text && (
@@ -231,10 +224,10 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
               <Image src="/brand/dodail-logo.png" alt={`${brand.name} ${brand.tagline}`.trim()} fill sizes="44px" className="object-contain" priority />
             </div>
             <div className="flex flex-col">
-              <span className={cn("text-xl font-bold tracking-tight flex items-center gap-1.5 font-sans", dark ? "text-[#F5F8FC]" : "text-slate-900")}>
+              <span className="text-xl font-bold tracking-tight flex items-center gap-1.5 font-sans text-[#F5F8FC] light:text-slate-900">
                 {brand.name}
               </span>
-              <span className={cn("text-[10px] font-mono uppercase tracking-[0.16em]", dark ? "text-[#A3AAB5]" : "text-slate-500")}>
+              <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#A3AAB5] light:text-slate-500">
                 {brand.tagline}
               </span>
             </div>
@@ -262,7 +255,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                 size="md"
                 className={cn(
                   "rounded-xl shadow-sm font-semibold",
-                  dark ? "rounded-full normal-case tracking-normal text-sm text-[#05070B] hover:text-[#05070B]" : "text-white"
+                  "rounded-full normal-case tracking-normal text-sm text-[#05070B] hover:text-[#05070B] light:rounded-xl light:uppercase light:tracking-wider light:text-xs light:text-white light:hover:text-white"
                 )}
               >
                 <Calendar aria-hidden="true" className="h-4 w-4 mr-1.5" />
@@ -279,7 +272,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={cn(
                 "inline-flex items-center justify-center p-2.5 rounded-xl border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B2C]",
-                dark ? "text-[#F5F8FC] hover:bg-white/10 border-[#2C333E]" : "text-slate-700 hover:text-slate-950 hover:bg-slate-100 border-slate-200"
+                "text-[#F5F8FC] hover:bg-white/10 border-[#2C333E] light:text-slate-700 light:hover:text-slate-950 light:hover:bg-slate-100 light:border-slate-200"
               )}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -298,7 +291,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
           ref={mobileMenuRef}
           className={cn(
             "lg:hidden border-b px-4 pt-2 pb-8 max-h-[85vh] overflow-y-auto shadow-xl",
-            dark ? "border-white/10 bg-[#0B0E13]" : "border-slate-200 bg-white"
+            "border-white/10 bg-[#0B0E13] light:border-slate-200 light:bg-white"
           )}
         >
           <nav aria-label="Mobile navigation" className="space-y-1 pt-2">
@@ -343,15 +336,12 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
               </div>
             </details>
 
-            <div className={cn("border-t pt-2", dark ? "border-white/10" : "border-slate-200")}>
+            <div className="border-t pt-2 border-white/10 light:border-slate-200">
               {links.map((l, i) => (
                 <Link
                   key={`${l.href}-${i}`}
                   href={l.href}
-                  className={cn(
-                    "block px-3 py-2.5 rounded-xl text-base font-semibold hover:text-[#FF6B2C]",
-                    dark ? "text-[#F5F8FC] hover:bg-white/5" : "text-slate-900 hover:bg-slate-50"
-                  )}
+                  className="block px-3 py-2.5 rounded-xl text-base font-semibold hover:text-[#FF6B2C] text-[#F5F8FC] hover:bg-white/5 light:text-slate-900 light:hover:bg-slate-50"
                 >
                   {l.label}
                 </Link>
@@ -367,7 +357,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                   size="lg"
                   className={cn(
                     "w-full shadow-sm font-semibold",
-                    dark ? "rounded-full normal-case tracking-normal text-[#05070B] hover:text-[#05070B]" : "rounded-xl text-white"
+                    "rounded-full normal-case tracking-normal text-[#05070B] hover:text-[#05070B] light:rounded-xl light:uppercase light:tracking-wider light:text-white light:hover:text-white"
                   )}
                 >
                   <Calendar aria-hidden="true" className="h-5 w-5 mr-2" />
