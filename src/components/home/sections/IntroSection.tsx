@@ -118,7 +118,7 @@ export function IntroSection(_props: { webgl: boolean }) {
                 />
 
                 {/* The art keeps its own aspect ratio, so the whole card width is picture (and the logo gets every pixel). */}
-                <div className="relative w-full" style={{ aspectRatio: "696 / 638" }}>
+                <div className="relative w-full" style={{ aspectRatio: "1010 / 926" }}>
                   <AboutParticleArt />
                   {image.badge && (
                     <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full border border-border-token bg-surface/90 px-3.5 py-1.5 backdrop-blur-md shadow-sm">

@@ -21,7 +21,7 @@ const sharp = require(path.resolve(pnpmDir, sharpDir, "node_modules", "sharp"));
 
 const SRC = "scripts/assets/dodail-hq-particles.webp";
 const OUT = "public/brand/about-hq-art.webp";
-const SCALE = 0.62; // working / output resolution relative to the 1122x1402 source
+const SCALE = 0.9; // working / output resolution relative to the 1122x1402 source
 const debug = process.argv.includes("--debug");
 
 const meta = await sharp(SRC).metadata();
@@ -106,7 +106,7 @@ for (let y = 0; y < CH; y++) for (let x = 0; x < W; x++) {
   rgba[d] = data[s * 3]; rgba[d + 1] = data[s * 3 + 1]; rgba[d + 2] = data[s * 3 + 2];
   rgba[d + 3] = Math.round(alpha[s] * 255);
 }
-await sharp(rgba, { raw: { width: W, height: CH, channels: 4 } }).webp({ quality: 82, alphaQuality: 85 }).toFile(OUT);
+await sharp(rgba, { raw: { width: W, height: CH, channels: 4 } }).webp({ quality: 86, alphaQuality: 88 }).toFile(OUT);
 console.log(`wrote ${OUT}: ${W}x${CH}, aspect ${(W / CH).toFixed(4)}, ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
 
 if (debug) {

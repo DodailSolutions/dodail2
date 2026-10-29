@@ -47,14 +47,17 @@ scripts/            check-content.js, verify-routes.js, production-readiness-tes
   (hero brain, problem icons, services, pipeline, industries, process). Particles morph between shapes on the GPU.
 - Shapes are pure math (no three import) so `CanvasFallback.tsx` renders the same shape as an SVG poster / no-WebGL fallback.
 - Colour tags: palette (-1), blue (-2), gold (-3), bokeh (-4).
-- **About = the Dodail HQ artwork drawn as ~44k three.js particles** (its own small canvas, NOT part of the shared field):
-  `AboutParticleArt.tsx` (wrapper: poster `<Image>`, lazy-loads the canvas near the viewport, honours WebGL/low-power/reduced-motion) and
-  `AboutParticleCanvas.tsx` (orthographic R3F canvas: a grid of points, each reading its colour from the artwork texture in the vertex
-  shader, assembling from a scatter on scroll-in, shimmering, and rippling away from the pointer; pauses off-screen).
-  Texture + poster are one file, `public/brand/about-hq-art.webp` (RGBA, sky removed). Regenerate with `node scripts/build-about-art.mjs`
-  from `scripts/assets/dodail-hq-particles.webp` (a screenshot of the finished card, so the script masks the baked-in badge/caption and the
-  card border; update its SILHOUETTE polygon if the art changes). Lesson: sampling ~14k random points could NOT reproduce the logo; a dense
-  textured grid does. Do not use index-based hashes for grid jitter (they alias into diagonal stripes): use `mulberry32`.
+- **About = the Dodail HQ artwork; three.js plays the ARRIVAL, the artwork is the resting image.**
+  `AboutParticleArt.tsx` is a small state machine: poster -> playing -> settling -> done. When the card nears the viewport it lazy-loads
+  `AboutParticleCanvas.tsx` (own orthographic R3F canvas, ~50k particles each coloured from the artwork texture) which scatter and fly into
+  place; as they land the crisp artwork fades in and the canvas is unmounted (frees the GPU). No WebGL / low power / reduced motion = the
+  artwork only. Texture and poster are one file, `public/brand/about-hq-art.webp` (RGBA, 1010px, sky removed). Regenerate with
+  `node scripts/build-about-art.mjs` from `scripts/assets/dodail-hq-particles.webp` (a screenshot of the finished card, so the script masks
+  the baked-in badge/caption/card border; adjust its SILHOUETTE polygon if the art changes).
+  **Lessons (do not repeat):** (1) sampling ~14k random points could not reproduce the logo; (2) re-sampling the art into a coarse bead grid at
+  rest also looked noisy, because the artwork is already made of tiny beads and aliases against any other grid (matching it would need
+  ~400k points); (3) index-based hash jitter aliases into diagonal stripes, random jitter reads as salt-and-pepper: use a regular honeycomb grid.
+  Hidden/occluded browser panes throttle rAF to ~1 fps, so canvas animations look stuck: call `mcp__ccd_view__show_pane` (preview) first.
 - Light theme: `ParticleField` switches to normal blending, ink-blended colours and crisper dots (`uLight`); dark keeps additive glow.
 - Canvas z-index: `z-0` in the **hero** and **cta** phases (content sits above), `z-[15]` elsewhere. A `Zone` adds `relative`:
   give it an explicit size (wrap it in a sized container) or it measures 0px.

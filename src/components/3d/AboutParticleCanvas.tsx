@@ -12,7 +12,8 @@ import { mulberry32 } from "./particleShapes";
  * scrolls in, shimmer gently, and ripple away from the pointer. See scripts/build-about-art.mjs.
  */
 export const ART_URL = "/brand/about-hq-art.webp";
-export const ART_ASPECT = 696 / 638;
+export const ART_TEX_W = 1010;
+export const ART_ASPECT = 1010 / 926;
 
 const vertexShader = /* glsl */ `
   uniform sampler2D uTex;
@@ -62,7 +63,7 @@ const fragmentShader = /* glsl */ `
   void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
-    float a = smoothstep(0.5, 0.3, d) * vA;
+    float a = smoothstep(0.5, 0.4, d) * vA;
     if (a < 0.02) discard;
     // On the light card the white signboard would vanish: darken the art a touch.
     vec3 c = mix(vCol, vCol * 0.9, uLight);
@@ -70,22 +71,24 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-function Cloud({ active, onReady }: { active: boolean; onReady: () => void }) {
+function Cloud({ active, onReady, onDone }: { active: boolean; onReady: () => void; onDone: () => void }) {
   const { size, gl } = useThree();
-  const cols = size.width < 520 ? 150 : 230;
+  // The particles only play the arrival; the crisp artwork is the resting image (see AboutParticleArt).
+  const cols = size.width < 520 ? 190 : 280;
   const rows = Math.round(cols / ART_ASPECT);
 
   const geometry = useMemo(() => {
     const n = cols * rows;
     const uv = new Float32Array(n * 2);
     const seed = new Float32Array(n);
-    const rnd = mulberry32(1337); // a real random sequence: index-based hashes line up into diagonal stripes
+    const rnd = mulberry32(1337); // seeds only; positions are a regular grid
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         const i = y * cols + x;
-        // Cell centres, with a hair of jitter so the grid does not read as a screen-door pattern.
-        uv[i * 2] = (x + 0.5 + (rnd() - 0.5) * 0.28) / cols;
-        uv[i * 2 + 1] = (y + 0.5 + (rnd() - 0.5) * 0.28) / rows;
+        // Honeycomb packing (every other row shifted half a cell): full coverage with no random gaps.
+        // Random jitter was tried and read as salt-and-pepper noise on top of the picture.
+        uv[i * 2] = Math.min(0.999, (x + 0.5 + (y % 2) * 0.5) / cols);
+        uv[i * 2 + 1] = (y + 0.5) / rows;
         seed[i] = rnd();
       }
     }
@@ -122,6 +125,7 @@ function Cloud({ active, onReady }: { active: boolean; onReady: () => void }) {
 
   const loaded = useRef(false);
   const reported = useRef(false);
+  const finished = useRef(false);
   const progress = useRef(0);
   const pointer = useRef({ x: 0, y: 0, on: 0, target: 0 });
 
@@ -160,25 +164,30 @@ function Cloud({ active, onReady }: { active: boolean; onReady: () => void }) {
     const fitH = fitW / ART_ASPECT;
     (u.uHalf.value as Vector2).set(fitW / 2, fitH / 2);
     const dpr = gl.getPixelRatio();
-    u.uSize.value = (fitW / cols) * 1.42 * dpr;
-    u.uLod.value = Math.max(0, Math.log2((696 / cols) * 0.9));
-    progress.current = Math.min(1, progress.current + delta / 2.8);
+    u.uSize.value = (fitW / cols) * 1.32 * dpr;
+    // Sample (almost) the base level: averaging a blurred mip is what made the first version mushy.
+    u.uLod.value = Math.max(0, Math.log2(ART_TEX_W / cols) - 0.7);
+    progress.current = Math.min(1, progress.current + Math.min(delta, 0.1) / 2.2);
     u.uProgress.value = progress.current;
     u.uTime.value = state.clock.elapsedTime;
     pointer.current.on += (pointer.current.target - pointer.current.on) * 0.12;
     (u.uPointer.value as Vector2).set(pointer.current.x, pointer.current.y);
     u.uPointerOn.value = pointer.current.on;
     u.uLight.value = document.documentElement.getAttribute("data-theme") === "light" ? 1 : 0;
-    if (!reported.current && progress.current > 0.12) {
+    if (!reported.current && progress.current > 0.04) {
       reported.current = true;
       onReady();
+    }
+    if (!finished.current && progress.current >= 1) {
+      finished.current = true;
+      onDone();
     }
   });
 
   return <points geometry={geometry} material={material} frustumCulled={false} />;
 }
 
-export default function AboutParticleCanvas({ active, onReady }: { active: boolean; onReady: () => void }) {
+export default function AboutParticleCanvas({ active, onReady, onDone }: { active: boolean; onReady: () => void; onDone: () => void }) {
   return (
     <Canvas
       className="!absolute inset-0"
@@ -191,7 +200,7 @@ export default function AboutParticleCanvas({ active, onReady }: { active: boole
       style={{ pointerEvents: "none" }}
       onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
     >
-      <Cloud active={active} onReady={onReady} />
+      <Cloud active={active} onReady={onReady} onDone={onDone} />
     </Canvas>
   );
 }

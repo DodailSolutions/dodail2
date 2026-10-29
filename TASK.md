@@ -9,7 +9,7 @@ Legend: `[x]` done · `[ ]` to do · **you** = needs the owner (credentials / da
 
 ## 0. In progress — branch `feat/about-particle-image`
 
-- [x] About section: Buddha photo removed; the **Dodail HQ artwork is drawn as ~44k coloured three.js particles** (own canvas: assemble-on-scroll, shimmer, pointer ripple), logo on the signboard legible; transparent artwork texture doubles as poster/fallback. See CLAUDE.md.
+- [x] About section: Buddha photo removed; the **Dodail HQ artwork is the resting image, with a three.js particle arrival** (~50k particles assemble as the card scrolls in, then the crisp artwork takes over and the canvas is released). Logo legible at retina density. See CLAUDE.md.
 - [x] Shader: per-particle colour morphing, photo tags (-7/-8), bokeh faded on light, gold half-vivid on light.
 - [x] Floating hero chips now visible on mobile (compact size).
 - [x] Performance: dead code removed (`AwwwardsHomepage`, `WorkflowSimulator`, `AutonomousBrainCore`, orphaned 647 KB JPEG); `next.config` image formats (AVIF/WebP), `optimizePackageImports`, `/brand` cache headers, `poweredByHeader` off; device-adaptive particle count.
@@ -55,7 +55,7 @@ Current build (Next 16.4.3): client JS ≈ 824 KB gzip over 130 files; three.js 
 ## 5. P2 — Design decisions to confirm
 
 - [ ] **you** — White text on the logo orange is ~2.8:1 (below WCAG AA). Keep as is, or use a slightly deeper orange for button backgrounds only.
-- [ ] **you** — About art: confirm you are happy with the look (it reproduces the supplied art). Could add a tilt/parallax on pointer or a looping "scan" shimmer.
+- [ ] **you** — About art: confirm you like the arrival animation. Ideas: replay on re-entry, or a pointer-driven shimmer using a displacement mesh over the artwork.
 - [ ] **you** — Gita avatar and chat panel are always white/dark regardless of theme; make them theme-aware?
 
 ## 6. P2 — Housekeeping
@@ -69,7 +69,7 @@ Current build (Next 16.4.3): client JS ≈ 824 KB gzip over 130 files; three.js 
 
 ## Done log (newest first)
 
-- 2026-10-29 — About building rebuilt as a textured particle grid (logo legible); earlier sampled-cloud attempt discarded.
+- 2026-10-29 — About art: particles for the arrival, crisp artwork at rest (two earlier particle-at-rest attempts discarded).
 - 2026-10-29 — Corporate building + signboard, mobile chips, perf cleanup, CLAUDE.md/TASK.md.
 - 2026-10-29 — Mobile UX pass; Services light-mode polish; logo orange `#FA5B0F` site-wide; white-on-orange buttons; contrast audit (14 pages); hero chip layering; merged to `main`.
 - 2026-10-29 — Next.js 16.4.0 → 16.4.3 security upgrade; Vercel content gate fix (`.next/output`); light/dark theme + hydration fix.
