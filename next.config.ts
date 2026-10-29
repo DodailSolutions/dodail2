@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Marks this app as upgraded by the Next.js security upgrade agent (16.4.0 → 16.4.3).
+  experimental: {
+    agentUpgrade: "security",
+  },
   turbopack: {
     rules: {
       "*.css": {
