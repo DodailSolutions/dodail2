@@ -27,12 +27,14 @@ const vertexShader = /* glsl */ `
   uniform float uPixelRatio;
   uniform float uActive;
   uniform float uDim;
+  uniform float uLight;
   uniform vec3 uTint;
   uniform float uTintAmt;
   uniform vec2 uMouse;
   uniform float uMouseActive;
   varying vec3 vColor;
   varying float vAlpha;
+  varying float vKeep;
 
   void main() {
     float t = clamp(uMix * 1.6 - aSeed * 0.6, 0.0, 1.0);
@@ -69,11 +71,15 @@ const vertexShader = /* glsl */ `
     // Colour tags (particleShapes): -2 blue wisp, -3 gold, -4 large soft gold bokeh.
     vec3 base = aColor;
     float bokeh = 0.0;
+    float keep = 0.0;
     if (aTag < -1.5) {
       if (aTag > -2.5) base = mix(vec3(0.2, 0.52, 1.0), vec3(0.55, 0.85, 1.0), aSeed);
-      else base = mix(vec3(1.0, 0.58, 0.16), vec3(1.0, 0.86, 0.5), aSeed) * 1.3; // glowing gold
-      bokeh = aTag < -3.5 ? 1.0 : 0.0;
+      else if (aTag < -5.5) base = vec3(0.96, 0.98, 1.0); // near-white (inked on light)
+      else if (aTag < -4.5) { base = mix(vec3(0.98, 0.36, 0.06), vec3(1.0, 0.55, 0.2), aSeed) * 1.15; keep = 1.0; } // brand orange
+      else { base = mix(vec3(1.0, 0.58, 0.16), vec3(1.0, 0.86, 0.5), aSeed) * 1.3; keep = 0.5; } // glowing gold: half-vivid on light
+      bokeh = (aTag < -3.5 && aTag > -4.5) ? 1.0 : 0.0;
     }
+    vKeep = keep;
 
     vec3 excitedColor = mix(base, vec3(1.0, 0.74, 0.4), 0.75);
     base = mix(base, excitedColor, mouseInfluence);
@@ -84,6 +90,8 @@ const vertexShader = /* glsl */ `
     vColor = mix(base, uTint, uTintAmt) * (1.0 + isActive * 0.7 + mouseInfluence * 0.55);
     vAlpha = (twinkle + mouseInfluence * 0.35) * uDim * (hasActive ? (isActive > 0.5 ? 1.0 : 0.4) : 1.0) * (1.0 - bokeh * 0.6);
     vAlpha *= mix(1.0, min(1.0, sin(f * 3.14159) * 1.6), flowing);
+    // Soft bokeh glows are grey smudges on a white page: fade them out on light.
+    vAlpha *= 1.0 - bokeh * uLight * 0.8;
   }
 `;
 
@@ -93,6 +101,7 @@ const fragmentShader = /* glsl */ `
   uniform float uLight;
   varying vec3 vColor;
   varying float vAlpha;
+  varying float vKeep;
   void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
@@ -104,16 +113,29 @@ const fragmentShader = /* glsl */ `
     // cohesive drawing on white (instead of dusty noise), while keeping the orange/teal accents.
     vec3 ink = vec3(0.10, 0.14, 0.22);
     vec3 lightColor = mix(mix(vColor * 0.72, ink, 0.30), ink, smoothstep(0.7, 0.95, lum));
-    vec3 color = mix(vColor, lightColor, uLight);
+    // Brand-orange particles (the signboard) keep their colour on light instead of being inked.
+    vec3 color = mix(vColor, mix(lightColor, vColor * 0.92, vKeep), uLight);
     gl_FragColor = vec4(color, a * vAlpha * mix(0.85, 1.0, uLight));
   }
 `;
 
 const lerp = (a: number, b: number, k: number) => a + (b - a) * k;
 
+/**
+ * How many points to draw. Fewer on phones and on modest hardware (4 or fewer logical cores), so the
+ * scene stays smooth on mid-range devices. This module only loads client-side (the canvas chunk is
+ * dynamic, ssr: false), so reading navigator here is safe.
+ */
+function pointCount(isMobile: boolean): number {
+  const cores = typeof navigator !== "undefined" ? navigator.hardwareConcurrency || 8 : 8;
+  const modest = cores <= 4;
+  if (isMobile) return modest ? 1800 : 2800;
+  return modest ? 4500 : 7000;
+}
+
 export function ParticleField({ sceneState }: { sceneState: SceneState }) {
   const { phase, serviceIndex, activeIndustry, pipelineStage, processStep, problemIndex, isMobile, live } = sceneState;
-  const count = isMobile ? 2800 : 7000;
+  const count = pointCount(isMobile);
   const key = shapeKey(phase, serviceIndex, activeIndustry, problemIndex);
 
   const pointsRef = useRef<Points>(null);
@@ -242,7 +264,7 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
     }
     // Phones draw 2800 points instead of 7000, so on the light page (normal blending) bump the dots
     // up further so the shapes keep their body instead of reading as faint specks.
-    u.uSize.value = (isMobile ? 25 : 21) * (light ? (isMobile ? 1.75 : 1.35) : 1);
+    u.uSize.value = (isMobile ? 25 : 21) * (light ? (isMobile ? 1.45 : 1.35) : 1);
     u.uChaos.value = lerp(u.uChaos.value, phase === "problem" && problemIndex === 2 ? 0.25 : 0, 0.04);
     u.uDim.value = lerp(u.uDim.value, phase === "problem" ? 0.85 : phase === "cta" ? 1.15 : 1, 0.05);
     u.uActive.value =

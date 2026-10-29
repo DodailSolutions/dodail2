@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
   // Marks this app as upgraded by the Next.js security upgrade agent (16.4.0 → 16.4.3).
   experimental: {
     agentUpgrade: "security",
+    // Import only the icons / helpers actually used instead of whole barrels (smaller client JS).
+    optimizePackageImports: ["lucide-react", "framer-motion", "three"],
+  },
+  poweredByHeader: false,
+  images: {
+    // AVIF/WebP first: much smaller than PNG/JPEG for the logo, avatar and photos.
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
   // The old WordPress site used trailing slashes; keeping them means every legacy URL resolves in one hop.
   trailingSlash: true,
@@ -43,6 +51,11 @@ const nextConfig: NextConfig = {
             value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
         ],
+      },
+      {
+        // Brand images are revalidated weekly (not immutable: files are replaced in place).
+        source: "/brand/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
       },
     ];
   },

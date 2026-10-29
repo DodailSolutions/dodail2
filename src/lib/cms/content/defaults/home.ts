@@ -38,11 +38,13 @@ export const homeDefaults = {
       { title: "Smart automation", desc: "Reliable AI pipelines connecting WhatsApp, CRMs, and payment gateways to remove repetitive manual friction.", tag: "Autonomous Workflows" },
     ],
     image: {
-      src: "/brand/dodail-buddha-radiance.jpg",
-      alt: "Meditative Buddha sculpture in luminous golden and celestial cyan particles at Dodail Solutions Hyderabad reception",
-      badge: "HYDERABAD HQ · EMBLEM",
-      quote: "Calm and mindful clarity on the surface; deep autonomous discipline and speed underneath.",
-      caption: "Reception Sculpture · Hyderabad, Telangana",
+      // The About visual is now a three.js particle corporate building (no photo); src is kept only
+      // so existing CMS content with an image value still validates.
+      src: "",
+      alt: "Dodail corporate headquarters in Hyderabad drawn in glowing particles, with the Dodail logo on the rooftop signboard",
+      badge: "HYDERABAD HQ · DODAIL",
+      quote: "A calm front office, with deterministic automation running underneath.",
+      caption: "Corporate HQ · Hyderabad, Telangana",
     },
     figures: clone(aboutFigures),
     specialisms: {

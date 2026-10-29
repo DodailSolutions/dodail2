@@ -267,7 +267,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
             return (
               <div
                 key={idx}
-                className={`group absolute ${badge.pos} z-20 pointer-events-auto transition-all duration-300 hover:scale-110 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-border-token shadow-[0_4px_24px_rgba(0,0,0,0.55)] backdrop-blur-md bg-surface text-[11px] font-medium text-fg hover:border-[#FA5B0F]/70 hover:shadow-[0_0_24px_rgba(250,91,15,0.35)] hover:bg-surface cursor-default`}
+                className={`group absolute ${badge.pos} z-20 max-sm:pointer-events-none sm:pointer-events-auto transition-all duration-300 hover:scale-110 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-border-token shadow-[0_4px_24px_rgba(0,0,0,0.55)] backdrop-blur-md bg-surface text-[11px] font-medium text-fg hover:border-[#FA5B0F]/70 hover:shadow-[0_0_24px_rgba(250,91,15,0.35)] hover:bg-surface cursor-default`}
                 style={{
                   animation: `float 5s ease-in-out infinite`,
                   animationDelay: badge.delay,
@@ -277,7 +277,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
                   <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${badge.dot} opacity-75`} />
                   <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${badge.dot}`} />
                 </span>
-                <Icon className="w-3.5 h-3.5 text-fg-muted group-hover:text-[#FA5B0F] transition-colors" />
+                <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-fg-muted group-hover:text-[#FA5B0F] transition-colors" />
                 <span className="group-hover:text-fg transition-colors">{badge.label}</span>
                 <span className="text-[9px] font-mono uppercase tracking-wider text-[#FA5B0F] opacity-0 group-hover:opacity-100 max-w-0 group-hover:max-w-24 overflow-hidden transition-all duration-300 whitespace-nowrap">
                   {badge.sub}

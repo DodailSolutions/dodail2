@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   Code2,
@@ -16,7 +15,7 @@ import {
   ShieldCheck,
   Zap,
 } from "lucide-react";
-import { BuddhaParticlesSVG } from "@/components/3d/CanvasFallback";
+import { BuildingParticlesSVG } from "@/components/3d/CanvasFallback";
 import { RichText } from "@/components/cms/RichText";
 import { Zone, sectionPad } from "../homeUi";
 import { useHomeContent } from "../HomeContentContext";
@@ -108,53 +107,40 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
             </div>
           </div>
 
-          {/* Right Column: Radiant Buddha Art (from Office Reception) + Figures */}
+          {/* Right Column: particle corporate building (three.js) + Figures */}
           <div className="lg:col-span-5 flex flex-col justify-between">
-            <figure className="relative">
-              <div className="relative overflow-hidden rounded-3xl border border-border-token bg-bg shadow-2xl shadow-orange-950/20 group">
-                {/* Ambient background glow matching the gold/cyan aura */}
+            <figure className="relative" aria-label={image.alt}>
+              <div className="relative overflow-hidden rounded-3xl border border-border-token bg-gradient-to-b from-surface to-surface-2 shadow-xl shadow-slate-900/10 group">
+                {/* Soft brand glow behind the building */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute -inset-4 bg-[radial-gradient(circle_at_50%_40%,rgba(255,181,71,0.2),rgba(39,211,194,0.1)_50%,transparent_75%)] opacity-70 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(250,91,15,0.16),rgba(39,211,194,0.07)_48%,transparent_72%)]"
                 />
 
-                {/* High-definition Buddha radiant artwork */}
-                <div className="relative aspect-square w-full sm:aspect-[4/3] lg:aspect-square overflow-hidden rounded-3xl">
-                  <Image
-                    src={image.src || "/brand/dodail-buddha-radiance.jpg"}
-                    alt={image.alt}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    priority={false}
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  />
-
-                  {/* Dynamic Vignette & Cosmic Glow Overlays */}
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent opacity-65" />
-                  <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-[var(--border)] rounded-3xl" />
-
-                  {/* Zone for persistent WebGL particle stream */}
-                  <Zone phase="about" className="absolute inset-0 pointer-events-none">
-                    <BuddhaParticlesSVG
-                      className={`absolute inset-0 h-full w-full p-4 transition-opacity duration-700 ${webgl ? "opacity-0" : "opacity-30"}`}
-                    />
-                  </Zone>
-
-                  {/* Top Glass Badge: Office Reception Emblem */}
-                  <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full border border-border-token bg-black/60 px-3.5 py-1.5 backdrop-blur-md shadow-lg">
-                    <span className="h-2 w-2 rounded-full bg-[#FFB547] animate-pulse" />
-                    <span className="font-mono text-[11px] font-semibold tracking-wider text-white">{image.badge}</span>
+                <div className="relative aspect-[4/5] w-full sm:aspect-[4/3] lg:aspect-[4/5]">
+                  {/* The WebGL particle stream draws the building into this zone; the SVG is the
+                      first-paint poster and the no-WebGL fallback (same generator, same shape). */}
+                  <div className="pointer-events-none absolute inset-x-0 top-14 bottom-[7.5rem]">
+                    <Zone phase="about" className="h-full w-full">
+                      <BuildingParticlesSVG
+                        className={`absolute inset-0 h-full w-full text-fg transition-opacity duration-700 ${webgl ? "opacity-0" : "opacity-90"}`}
+                      />
+                    </Zone>
                   </div>
 
-                  {/* Bottom philosophical callout overlay */}
+                  {image.badge && (
+                    <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full border border-border-token bg-surface/90 px-3.5 py-1.5 backdrop-blur-md shadow-sm">
+                      <span className="h-2 w-2 rounded-full bg-[#FA5B0F] animate-pulse" />
+                      <span className="font-mono text-[11px] font-semibold tracking-wider text-fg">{image.badge}</span>
+                    </div>
+                  )}
+
                   {(image.quote || image.caption) && (
-                    <div className="absolute bottom-4 inset-x-4 z-10 rounded-2xl border border-border-token bg-black/75 p-3.5 backdrop-blur-md">
-                      {image.quote && (
-                        <p className="text-xs text-white/90 font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>
-                      )}
+                    <div className="absolute bottom-4 inset-x-4 z-10 rounded-2xl border border-border-token bg-surface/90 p-3.5 backdrop-blur-md shadow-sm">
+                      {image.quote && <p className="text-xs text-fg font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>}
                       {image.caption && (
-                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-white/70">
-                          <MapPin className="h-3 w-3 text-orange-400" />
+                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-fg-muted">
+                          <MapPin className="h-3 w-3 text-[#FA5B0F]" />
                           {image.caption}
                         </span>
                       )}
