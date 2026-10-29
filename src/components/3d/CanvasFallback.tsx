@@ -1,5 +1,5 @@
 import React from "react";
-import { BRAND, PALETTE, PIPELINE_ICONS, PROCESS_ICONS, TAG_BLUE, TAG_BOKEH, TAG_GOLD, TAG_ORANGE, TAG_WHITE, buildShape, paletteIndices, primsToPath } from "./particleShapes";
+import { BRAND, PALETTE, PIPELINE_ICONS, PROCESS_ICONS, TAG_BLUE, TAG_BOKEH, TAG_GOLD, buildShape, paletteIndices, primsToPath } from "./particleShapes";
 
 type Dot = { x: number; y: number; r: number; fill: string };
 
@@ -16,7 +16,7 @@ function posterDots(key: string, points: number, rotY: number, size: number): Do
     const z = pos[i * 3 + 2];
     const depth = -x * s + z * c; // nearer points drawn larger
     const t = tag[i];
-    const fill = t === TAG_BLUE ? "#4FA3FF" : t === TAG_ORANGE ? BRAND.orange : t === TAG_WHITE ? "currentColor" : t === TAG_GOLD ? (i % 3 ? "#FFB547" : "#FFD98A") : t === TAG_BOKEH ? "#FFC266" : PALETTE[colors[i]][0];
+    const fill = t === TAG_BLUE ? "#4FA3FF" : t === TAG_GOLD ? (i % 3 ? "#FFB547" : "#FFD98A") : t === TAG_BOKEH ? "#FFC266" : PALETTE[colors[i]][0];
     dots.push({
       x: +(x * c + z * s).toFixed(2),
       y: +(-y).toFixed(2),
@@ -28,7 +28,6 @@ function posterDots(key: string, points: number, rotY: number, size: number): Do
 }
 
 const heroDots = posterDots("hero", 460, -0.35, 0.026);
-const buildingDots = posterDots("about", 1100, -0.3, 0.012);
 
 function Poster({ dots, viewBox, glow, className }: { dots: Dot[]; viewBox: string; glow: [number, number, number, number]; className: string }) {
   const id = `glow-${viewBox.replace(/[^0-9]/g, "")}`;
@@ -56,11 +55,6 @@ function Poster({ dots, viewBox, glow, className }: { dots: Dot[]; viewBox: stri
  */
 export function HeroParticlesSVG({ className = "" }: { className?: string }) {
   return <Poster dots={heroDots} viewBox="-3.1 -2.5 6.2 5" glow={[0, -0.1, 3, 2.4]} className={className} />;
-}
-
-/** Static SVG version of the About-section particle corporate building. */
-export function BuildingParticlesSVG({ className = "" }: { className?: string }) {
-  return <Poster dots={buildingDots} viewBox="-1.7 -1.75 3.4 3.5" glow={[0, 0.1, 1.5, 1.6]} className={className} />;
 }
 
 /** Static four-stage pipeline, used when the 3D pipeline is not rendered. */

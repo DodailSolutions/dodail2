@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Code2,
@@ -15,7 +16,6 @@ import {
   ShieldCheck,
   Zap,
 } from "lucide-react";
-import { BuildingParticlesSVG } from "@/components/3d/CanvasFallback";
 import { RichText } from "@/components/cms/RichText";
 import { Zone, sectionPad } from "../homeUi";
 import { useHomeContent } from "../HomeContentContext";
@@ -122,8 +122,12 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                       first-paint poster and the no-WebGL fallback (same generator, same shape). */}
                   <div className="pointer-events-none absolute inset-x-0 top-14 bottom-[7.5rem]">
                     <Zone phase="about" className="h-full w-full">
-                      <BuildingParticlesSVG
-                        className={`absolute inset-0 h-full w-full text-fg transition-opacity duration-700 ${webgl ? "opacity-0" : "opacity-90"}`}
+                      <Image
+                        src="/brand/about-hq-poster.webp"
+                        alt=""
+                        fill
+                        sizes="(max-width: 1024px) 90vw, 42vw"
+                        className={`object-contain transition-opacity duration-700 ${webgl ? "opacity-0" : "opacity-100"}`}
                       />
                     </Zone>
                   </div>

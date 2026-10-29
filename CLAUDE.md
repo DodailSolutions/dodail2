@@ -44,14 +44,20 @@ scripts/            check-content.js, verify-routes.js, production-readiness-tes
 
 - One persistent canvas (`OperationsCanvasHost`, fixed overlay) draws one `ParticleField`; every page "zone"
   (`<Zone phase="...">` in `homeUi.tsx`) anchors a **point-cloud shape** from `particleShapes.ts`
-  (hero brain, **about: corporate building**, problem icons, services, pipeline, industries, process). Particles morph between shapes on the GPU.
+  (hero brain, **about: the Dodail HQ building**, problem icons, services, pipeline, industries, process). Particles morph between shapes on the GPU.
 - Shapes are pure math (no three import) so `CanvasFallback.tsx` renders the same shape as an SVG poster / no-WebGL fallback.
-- Colour tags: palette (-1), blue (-2), gold (-3), bokeh (-4), **orange (-5, signboard)**, **white (-6, wordmark; ink on light)**.
+- Colour tags: palette (-1), blue (-2), gold (-3), bokeh (-4), **photo (-7)** and **photo-fine (-8, signboard)**.
+  Shapes may carry per-point `color`; the shader morphs colour (`aColor` -> `aColorTo`) along with position.
+- **About = the HQ artwork sampled into a coloured point cloud.** Source art: `scripts/assets/dodail-hq-particles.webp` (not shipped).
+  `node scripts/build-building-points.mjs` regenerates `src/components/3d/buildingPoints.ts` (14,000 points, base64, lazy chunk only) and
+  `public/brand/about-hq-poster.webp` (transparent static poster = first paint / no-WebGL fallback). The sampler masks the pale sky (flood fill),
+  the badge/caption baked into the screenshot, and samples the signboard separately and densely (drawn with small dots so the logo reads).
+  `buildingShape.ts` decodes it; `ParticleField` uses it for the `about` phase. If the art changes, update the SILHOUETTE/SIGN polygons in the script.
 - Light theme: `ParticleField` switches to normal blending, ink-blended colours and crisper dots (`uLight`); dark keeps additive glow.
 - Canvas z-index: `z-0` in the **hero** and **cta** phases (content sits above), `z-[15]` elsewhere. A `Zone` adds `relative`:
   give it an explicit size (wrap it in a sized container) or it measures 0px.
 - Gating: dynamic import after idle; skipped for reduced-motion, no WebGL, ≤2 cores / ≤2 GB / save-data; paused when the tab or zone is off-screen.
-  Point count adapts to device (`pointCount()`).
+  Point count adapts to device (`pointCount()`: 14k desktop, 7k modest, 5k phone, 3k modest phone).
 - Hero "floating chips" are DOM elements over the canvas (visible on mobile too).
 
 ## Theming and brand decisions (do not undo without asking)

@@ -9,8 +9,8 @@ Legend: `[x]` done · `[ ]` to do · **you** = needs the owner (credentials / da
 
 ## 0. In progress — branch `feat/corporate-building-and-perf`
 
-- [x] About section: Buddha photo removed; three.js **corporate building** with the Dodail **rooftop signboard** (ring emblem + "dodail" wordmark in particles), lit windows, podium, entrance; SVG poster fallback from the same generator.
-- [x] Shader: orange (-5) and white (-6) colour tags; bokeh faded on light; gold half-vivid on light.
+- [x] About section: Buddha photo removed. First a procedural tower, then **replaced with your HQ artwork sampled into 14k coloured three.js particles** (signboard with the Dodail logo, navy/orange columns, glass, trees); static poster generated from the same points. See CLAUDE.md for the regeneration script.
+- [x] Shader: per-particle colour morphing, photo tags (-7/-8), bokeh faded on light, gold half-vivid on light.
 - [x] Floating hero chips now visible on mobile (compact size).
 - [x] Performance: dead code removed (`AwwwardsHomepage`, `WorkflowSimulator`, `AutonomousBrainCore`, orphaned 647 KB JPEG); `next.config` image formats (AVIF/WebP), `optimizePackageImports`, `/brand` cache headers, `poweredByHeader` off; device-adaptive particle count.
 - [x] `CLAUDE.md` and `TASK.md` created.
@@ -55,7 +55,7 @@ Current build (Next 16.4.3): client JS ≈ 824 KB gzip over 130 files; three.js 
 ## 5. P2 — Design decisions to confirm
 
 - [ ] **you** — White text on the logo orange is ~2.8:1 (below WCAG AA). Keep as is, or use a slightly deeper orange for button backgrounds only.
-- [ ] **you** — Particle building: keep one building shape, or add a second shape for the CTA section.
+- [ ] **you** — About building: it is a pointillist mosaic at card size; the logo text is only partly legible at ~300 px. Options: make the card larger, or add more points (cost: JS size, ~10 KB gz per 1,000 points).
 - [ ] **you** — Gita avatar and chat panel are always white/dark regardless of theme; make them theme-aware?
 
 ## 6. P2 — Housekeeping

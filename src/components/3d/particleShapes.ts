@@ -35,6 +35,8 @@ export interface PointShape {
   tag: Float32Array;
   /** Per-particle flow (dx, dy, dz, speed): the particle loops from pos to pos + d. Speed 0 = still. */
   motion: Float32Array;
+  /** Optional per-point RGB (0..1). Shapes without it use the shared palette colours. */
+  color?: Float32Array;
 }
 
 type Rand = () => number;
@@ -122,147 +124,12 @@ const brain = (count: number, scale = 1) => {
   return s;
 };
 
-// ---------------------------------------------------------------- about: corporate building
-
 type V3 = [number, number, number];
 
 /** Colour tags understood by the particle shader (see ParticleField). */
 export const TAG_GOLD = -3;
 export const TAG_BLUE = -2;
 export const TAG_BOKEH = -4;
-
-/** Brand-orange particles (signboard, entrance): kept vivid on the light theme (see ParticleField). */
-export const TAG_ORANGE = -5;
-/** Near-white particles (signboard lettering): rendered ink-navy on the light theme. */
-export const TAG_WHITE = -6;
-
-/**
- * 5x7 bitmap glyphs for the signboard wordmark ("dodail"). Pure data, so the SSR poster and the
- * WebGL field draw the same letters.
- */
-const GLYPHS: Record<string, string[]> = {
-  d: ["....#", "....#", ".####", "#...#", "#...#", "#...#", ".####"],
-  o: [".....", ".....", ".###.", "#...#", "#...#", "#...#", ".###."],
-  a: [".....", ".....", ".###.", "....#", ".####", "#...#", ".####"],
-  i: ["..#..", ".....", ".##..", "..#..", "..#..", "..#..", ".###."],
-  l: [".##..", "..#..", "..#..", "..#..", "..#..", "..#..", ".###."],
-};
-
-/** Lit cells of a word as [col, row] with row 0 at the top; 6 columns per letter (5 + gap). */
-function glyphCells(word: string): { cells: [number, number][]; cols: number } {
-  const cells: [number, number][] = [];
-  [...word].forEach((ch, k) => {
-    GLYPHS[ch]?.forEach((line, row) => {
-      [...line].forEach((c, col) => {
-        if (c === "#") cells.push([k * 6 + col, row]);
-      });
-    });
-  });
-  return { cells, cols: word.length * 6 - 1 };
-}
-
-/**
- * About section: a glass corporate tower on a podium, windows lit, light streaks climbing its
- * edges, and a rooftop signboard carrying the Dodail ring emblem and wordmark. Built from the
- * same point-cloud generators as every other shape, so it morphs in and out of the page's scene.
- */
-function corporateBuilding(count: number): PointShape {
-  const G = -1.4; // ground
-  const PH = 0.42; // podium height
-  const PW = 2.7;
-  const PD = 1.5;
-  const TW = 1.7; // tower width / depth / base / top
-  const TD = 1.0;
-  const T0 = G + PH;
-  const T1 = T0 + 1.95;
-  const TC = 7; // window columns / rows on the front
-  const TR = 11;
-  const SC = 4; // window columns on the side
-  const BY = 1.45; // signboard centre y
-  const BW = 2.35;
-  const BH = 0.66;
-  const RING_X = -0.95;
-  const RING_R = 0.27;
-
-  const lit = (c: number, r: number, salt: number) => (((c * 73856093) ^ (r * 19349663) ^ (salt * 83492791)) >>> 0) % 100 < 74;
-  const word = glyphCells("dodail");
-  const cell = 0.043;
-  const wx0 = -0.6;
-  const wy0 = BY + (7 * cell) / 2;
-  const dMark = glyphCells("d");
-  const dCell = 0.03;
-
-  /** A point on one of the box's 12 edges. */
-  const boxEdge = (r: Rand, hw: number, hd: number, y0: number, y1: number): V3 => {
-    const e = Math.floor(r() * 12);
-    const t = r();
-    if (e < 4) return [e & 1 ? hw : -hw, y0 + t * (y1 - y0), e & 2 ? hd : -hd];
-    const y = e < 8 ? y0 : y1;
-    const k = (e - 4) % 4;
-    return k < 2 ? [-hw + t * 2 * hw, y, k ? hd : -hd] : [k === 2 ? -hw : hw, y, -hd + t * 2 * hd];
-  };
-
-  const rectEdge = (r: Rand, cx: number, cy: number, w: number, h: number): [number, number] => {
-    const [x, y] = rectOutline(r, w, h);
-    return [cx + x, cy + y];
-  };
-
-  const frontWindow = (face: "front" | "side"): Gen => (r) => {
-    const cols = face === "front" ? TC : SC;
-    const span = face === "front" ? TW : TD;
-    const rowH = (T1 - T0 - 0.2) / TR;
-    for (let tries = 0; tries < 12; tries++) {
-      const c = Math.floor(r() * cols);
-      const row = Math.floor(r() * TR);
-      if (!lit(c, row, face === "front" ? 1 : 2)) continue;
-      const cw = (span - 0.2) / cols;
-      const u = -span / 2 + 0.1 + (c + 0.5) * cw + (r() - 0.5) * cw * 0.58;
-      const y = T0 + 0.1 + (row + 0.5) * rowH + (r() - 0.5) * rowH * 0.5;
-      const tag = r() < 0.86 ? TAG_GOLD : -1;
-      return face === "front" ? [u, y, TD / 2 + 0.006, tag] : [TW / 2 + 0.006, y, u, tag];
-    }
-    return [0, T0, TD / 2, -1];
-  };
-
-  const parts: [number, Gen][] = [
-    // tower frame, with light streaks climbing the four vertical edges
-    [0.09, (r) => { const [x, y, z] = boxEdge(r, TW / 2, TD / 2, T0, T1); return [x, y, z, -1]; }],
-    [0.04, (r) => { const x = r() < 0.5 ? -TW / 2 : TW / 2; const z = r() < 0.5 ? -TD / 2 : TD / 2; return [x, T0 + r() * 0.3, z, TAG_BLUE, 0, (T1 - T0) * 0.9, 0, 0.22]; }],
-    // floor lines and mullions on the front, a few on the side
-    [0.065, (r) => { const row = Math.floor(r() * (TR + 1)); return [(r() - 0.5) * TW, T0 + 0.1 + (row * (T1 - T0 - 0.2)) / TR, TD / 2 + 0.004, -1]; }],
-    [0.045, (r) => { const c = Math.floor(r() * (TC + 1)); return [-TW / 2 + 0.1 + (c * (TW - 0.2)) / TC, T0 + 0.1 + r() * (T1 - T0 - 0.2), TD / 2 + 0.004, -1]; }],
-    [0.02, (r) => { const row = Math.floor(r() * (TR + 1)); return [TW / 2 + 0.004, T0 + 0.1 + (row * (T1 - T0 - 0.2)) / TR, (r() - 0.5) * TD, -1]; }],
-    // lit windows
-    [0.165, frontWindow("front")],
-    [0.075, frontWindow("side")],
-    // sparse wall surface so the tower has body
-    [0.05, (r) => (r() < 0.6 ? [(r() - 0.5) * TW, T0 + r() * (T1 - T0), TD / 2, -1] : [TW / 2, T0 + r() * (T1 - T0), (r() - 0.5) * TD, -1])],
-    // roof parapet
-    [0.02, (r) => { const [x, y, z] = boxEdge(r, TW / 2 + 0.04, TD / 2 + 0.04, T1, T1 + 0.05); return [x, y, z, -1]; }],
-    // podium: outline, glass mullions, rim
-    [0.05, (r) => { const [x, y, z] = boxEdge(r, PW / 2, PD / 2, G, G + PH); return [x, y, z, -1]; }],
-    [0.035, (r) => [-PW / 2 + 0.12 + Math.floor(r() * 11) * ((PW - 0.24) / 10), G + r() * PH, PD / 2 + 0.004, -1]],
-    [0.012, (r) => [(r() - 0.5) * PW, G + PH * (r() < 0.5 ? 0.35 : 1), PD / 2 + 0.004, -1]],
-    // entrance doors and canopy in brand orange
-    [0.015, (r) => { const [x, y] = rectEdge(r, 0, G + 0.17, 0.4, 0.34); return [x, y, PD / 2 + 0.008, TAG_ORANGE]; }],
-    [0.015, (r) => { const [x, z] = rectEdge(r, 0, PD / 2 + 0.12, 0.9, 0.24); return [x, G + PH * 0.9, z, TAG_ORANGE]; }],
-    // signboard: posts, frame, backing, ring emblem, mark, wordmark
-    [0.01, (r) => [r() < 0.5 ? -0.8 : 0.8, T1 + 0.05 + r() * (BY - BH / 2 - T1 - 0.05), r() < 0.5 ? -0.04 : 0.04, -1]],
-    [0.055, (r) => { const [x, y] = rectEdge(r, 0, BY, BW, BH); return [x, y, r() < 0.5 ? -0.045 : 0.045, TAG_ORANGE]; }],
-    [0.022, (r) => [(r() - 0.5) * (BW - 0.1), BY + (r() - 0.5) * (BH - 0.1), 0.045, -1]],
-    [0.045, (r) => { const a = r() * TAU; const rad = RING_R + gauss(r) * 0.006; return [RING_X + Math.cos(a) * rad, BY + Math.sin(a) * rad, 0.05, TAG_ORANGE]; }],
-    [0.02, (r) => { const [c, row] = dMark.cells[Math.floor(r() * dMark.cells.length)]; return [RING_X + (c - 2) * dCell + (r() - 0.5) * dCell, BY + (3 - row) * dCell + (r() - 0.5) * dCell, 0.05, TAG_WHITE]; }],
-    [0.15, (r) => { const [c, row] = word.cells[Math.floor(r() * word.cells.length)]; return [wx0 + c * cell + (r() - 0.5) * cell, wy0 - row * cell + (r() - 0.5) * cell, 0.05, TAG_WHITE]; }],
-    // ground glow and drifting gold bokeh
-    [0.04, (r) => { const a = r() * TAU; const d = Math.pow(r(), 0.6); return [Math.cos(a) * d * 1.9, G - 0.01, Math.sin(a) * d * 1.15, r() < 0.5 ? TAG_GOLD : -1]; }],
-    [0.02, (r) => [(r() - 0.5) * 3.2, G + r() * 3.0, -0.9 + r() * 1.5, TAG_BOKEH]],
-  ];
-
-  const shape = compose(count, 83, parts);
-  const lift = -0.18; // centre the figure vertically in its zone
-  for (let i = 0; i < count; i++) shape.pos[i * 3 + 1] += lift;
-  return shape;
-}
 
 // ---------------------------------------------------------------- scattered (opening state)
 
@@ -672,7 +539,7 @@ function processPath(count: number): PointShape {
  */
 export const PHASE_NOMINAL: Record<ScenePhase, [number, number]> = {
   hero: [6.8, 5.0],
-  about: [3.1, 3.2],
+  about: [2.55, 2.35], // sampled HQ art: building + trees (see buildingShape.ts)
   problem: [5.0, 4.0],
   cta: [9, 6.2], // larger nominal = smaller cloud: it sits behind the CTA copy
   services: [4.0, 4.0],
@@ -701,7 +568,6 @@ export function buildShape(key: string, count: number): PointShape {
   if (hit) return hit;
   let shape: PointShape;
   if (key === "hero") shape = brain(count);
-  else if (key === "about") shape = corporateBuilding(count);
   else if (key === "cta") shape = brain(count, 0.8);
   else if (key === "scatter") shape = scattered(count);
   else if (key === "problem-0") shape = hourglass(count);
