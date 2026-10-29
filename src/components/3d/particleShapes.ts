@@ -35,8 +35,6 @@ export interface PointShape {
   tag: Float32Array;
   /** Per-particle flow (dx, dy, dz, speed): the particle loops from pos to pos + d. Speed 0 = still. */
   motion: Float32Array;
-  /** Optional per-point RGB (0..1). Shapes without it use the shared palette colours. */
-  color?: Float32Array;
 }
 
 type Rand = () => number;
@@ -539,7 +537,7 @@ function processPath(count: number): PointShape {
  */
 export const PHASE_NOMINAL: Record<ScenePhase, [number, number]> = {
   hero: [6.8, 5.0],
-  about: [2.55, 2.35], // sampled HQ art: building + trees (see buildingShape.ts)
+  about: [3.1, 3.2], // unused by the shared field: the About art has its own canvas (AboutParticleArt)
   problem: [5.0, 4.0],
   cta: [9, 6.2], // larger nominal = smaller cloud: it sits behind the CTA copy
   services: [4.0, 4.0],

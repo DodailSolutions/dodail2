@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   Code2,
@@ -17,7 +16,8 @@ import {
   Zap,
 } from "lucide-react";
 import { RichText } from "@/components/cms/RichText";
-import { Zone, sectionPad } from "../homeUi";
+import { AboutParticleArt } from "@/components/3d/AboutParticleArt";
+import { sectionPad } from "../homeUi";
 import { useHomeContent } from "../HomeContentContext";
 import { SpotlightCard } from "../SpotlightCard";
 
@@ -39,7 +39,7 @@ const specialismIcons = {
 const linkCls = "text-fg underline decoration-[#FA5B0F]/60 underline-offset-4 hover:decoration-[#FA5B0F] hover:text-[#FA5B0F] transition-colors";
 
 /** "Who we are": Dodail's own positioning, the company facts, and what it specialises in. */
-export function IntroSection({ webgl }: { webgl: boolean }) {
+export function IntroSection(_props: { webgl: boolean }) {
   const { intro } = useHomeContent().content;
   const { image, specialisms } = intro;
 
@@ -107,50 +107,38 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
             </div>
           </div>
 
-          {/* Right Column: particle corporate building (three.js) + Figures */}
+          {/* Right Column: the Dodail HQ as a three.js particle picture + Figures */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <figure className="relative" aria-label={image.alt}>
-              <div className="relative overflow-hidden rounded-3xl border border-border-token bg-gradient-to-b from-surface to-surface-2 shadow-xl shadow-slate-900/10 group">
+              <div className="relative overflow-hidden rounded-3xl border border-border-token bg-gradient-to-b from-surface to-surface-2 shadow-xl shadow-slate-900/10">
                 {/* Soft brand glow behind the building */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(250,91,15,0.16),rgba(39,211,194,0.07)_48%,transparent_72%)]"
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,91,15,0.14),rgba(39,211,194,0.06)_48%,transparent_72%)]"
                 />
 
-                <div className="relative aspect-[4/5] w-full sm:aspect-[4/3] lg:aspect-[4/5]">
-                  {/* The WebGL particle stream draws the building into this zone; the SVG is the
-                      first-paint poster and the no-WebGL fallback (same generator, same shape). */}
-                  <div className="pointer-events-none absolute inset-x-0 top-14 bottom-[7.5rem]">
-                    <Zone phase="about" className="h-full w-full">
-                      <Image
-                        src="/brand/about-hq-poster.webp"
-                        alt=""
-                        fill
-                        sizes="(max-width: 1024px) 90vw, 42vw"
-                        className={`object-contain transition-opacity duration-700 ${webgl ? "opacity-0" : "opacity-100"}`}
-                      />
-                    </Zone>
-                  </div>
-
+                {/* The art keeps its own aspect ratio, so the whole card width is picture (and the logo gets every pixel). */}
+                <div className="relative w-full" style={{ aspectRatio: "696 / 638" }}>
+                  <AboutParticleArt />
                   {image.badge && (
                     <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full border border-border-token bg-surface/90 px-3.5 py-1.5 backdrop-blur-md shadow-sm">
                       <span className="h-2 w-2 rounded-full bg-[#FA5B0F] animate-pulse" />
                       <span className="font-mono text-[11px] font-semibold tracking-wider text-fg">{image.badge}</span>
                     </div>
                   )}
-
-                  {(image.quote || image.caption) && (
-                    <div className="absolute bottom-4 inset-x-4 z-10 rounded-2xl border border-border-token bg-surface/90 p-3.5 backdrop-blur-md shadow-sm">
-                      {image.quote && <p className="text-xs text-fg font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>}
-                      {image.caption && (
-                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-fg-muted">
-                          <MapPin className="h-3 w-3 text-[#FA5B0F]" />
-                          {image.caption}
-                        </span>
-                      )}
-                    </div>
-                  )}
                 </div>
+
+                {(image.quote || image.caption) && (
+                  <div className="relative z-10 mx-4 mb-4 rounded-2xl border border-border-token bg-surface/90 p-3.5 backdrop-blur-md shadow-sm">
+                    {image.quote && <p className="text-xs text-fg font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>}
+                    {image.caption && (
+                      <span className="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-fg-muted">
+                        <MapPin className="h-3 w-3 text-[#FA5B0F]" />
+                        {image.caption}
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             </figure>
 

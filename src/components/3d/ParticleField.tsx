@@ -5,8 +5,7 @@ import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, NormalBlendin
 import type { BufferGeometry as Geometry } from "three";
 import { useFrame } from "@react-three/fiber";
 import { SceneState } from "./3DTypes";
-import { INDUSTRY_TINT, PALETTE, PHASE_NOMINAL, SCATTER_NOMINAL, buildShape, paletteIndices, shapeKey, type PointShape } from "./particleShapes";
-import { buildingPhotoShape } from "./buildingShape";
+import { INDUSTRY_TINT, PALETTE, PHASE_NOMINAL, SCATTER_NOMINAL, buildShape, paletteIndices, shapeKey } from "./particleShapes";
 
 /*
  * One particle system for the whole page. Each particle morphs on the GPU from
@@ -17,7 +16,6 @@ const vertexShader = /* glsl */ `
   attribute vec3 aFrom;
   attribute vec3 aTo;
   attribute vec3 aColor;
-  attribute vec3 aColorTo;
   attribute float aSeed;
   attribute float aTag;
   attribute vec4 aMotionFrom;
@@ -71,32 +69,26 @@ const vertexShader = /* glsl */ `
     float isActive = (hasActive && abs(aTag - uActive) < 0.5) ? 1.0 : 0.0;
     float scale = length(modelMatrix[0].xyz);
     // Colour tags (particleShapes): -2 blue wisp, -3 gold, -4 large soft gold bokeh.
-    // Colour morphs with position; "photo" particles (tag -7) carry their own colour from the sampled art.
-    vec3 base = mix(aColor, aColorTo, t);
-    float photo = aTag < -6.5 ? 1.0 : 0.0;
-    float fine = aTag < -7.5 ? 1.0 : 0.0; // signboard points: smaller dots so the logo stays legible
-    // Dark theme blends additively, where the art's navy would vanish: lift it to a dim blue.
-    base = mix(base, base * 0.9 + vec3(0.10, 0.13, 0.20) * (1.0 - uLight), photo);
-    // On the light page pale art (the white signboard face) would vanish: tint it a touch grey.
-    base *= 1.0 - 0.17 * uLight * photo;
+    vec3 base = aColor;
     float bokeh = 0.0;
     float keep = 0.0;
-    if (aTag < -1.5 && photo < 0.5) {
+    if (aTag < -1.5) {
       if (aTag > -2.5) base = mix(vec3(0.2, 0.52, 1.0), vec3(0.55, 0.85, 1.0), aSeed);
+      else if (aTag < -5.5) base = vec3(0.96, 0.98, 1.0); // near-white (inked on light)
+      else if (aTag < -4.5) { base = mix(vec3(0.98, 0.36, 0.06), vec3(1.0, 0.55, 0.2), aSeed) * 1.15; keep = 1.0; } // brand orange
       else { base = mix(vec3(1.0, 0.58, 0.16), vec3(1.0, 0.86, 0.5), aSeed) * 1.3; keep = 0.5; } // glowing gold: half-vivid on light
-      bokeh = aTag < -3.5 ? 1.0 : 0.0;
+      bokeh = (aTag < -3.5 && aTag > -4.5) ? 1.0 : 0.0;
     }
-    if (photo > 0.5) keep = 1.0;
     vKeep = keep;
 
     vec3 excitedColor = mix(base, vec3(1.0, 0.74, 0.4), 0.75);
     base = mix(base, excitedColor, mouseInfluence);
 
-    gl_PointSize = uSize * mix(0.55 + aSeed * 0.9, 0.95 + aSeed * 0.12, photo) * (1.0 + isActive * 0.5 + mouseInfluence * 0.4) * (1.0 + bokeh * 2.4) * (1.0 + photo * 0.35 - fine * 0.98) * uPixelRatio * scale / -mv.z;
+    gl_PointSize = uSize * (0.55 + aSeed * 0.9) * (1.0 + isActive * 0.5 + mouseInfluence * 0.4) * (1.0 + bokeh * 2.4) * uPixelRatio * scale / -mv.z;
 
     float twinkle = 0.75 + 0.25 * sin(uTime * 2.0 + aSeed * 60.0);
     vColor = mix(base, uTint, uTintAmt) * (1.0 + isActive * 0.7 + mouseInfluence * 0.55);
-    vAlpha = (mix(twinkle, 1.0, photo) + mouseInfluence * 0.35) * uDim * (hasActive ? (isActive > 0.5 ? 1.0 : 0.4) : 1.0) * (1.0 - bokeh * 0.6);
+    vAlpha = (twinkle + mouseInfluence * 0.35) * uDim * (hasActive ? (isActive > 0.5 ? 1.0 : 0.4) : 1.0) * (1.0 - bokeh * 0.6);
     vAlpha *= mix(1.0, min(1.0, sin(f * 3.14159) * 1.6), flowing);
     // Soft bokeh glows are grey smudges on a white page: fade them out on light.
     vAlpha *= 1.0 - bokeh * uLight * 0.8;
@@ -137,8 +129,8 @@ const lerp = (a: number, b: number, k: number) => a + (b - a) * k;
 function pointCount(isMobile: boolean): number {
   const cores = typeof navigator !== "undefined" ? navigator.hardwareConcurrency || 8 : 8;
   const modest = cores <= 4;
-  if (isMobile) return modest ? 3000 : 5000;
-  return modest ? 7000 : 14000;
+  if (isMobile) return modest ? 1800 : 2800;
+  return modest ? 4500 : 7000;
 }
 
 export function ParticleField({ sceneState }: { sceneState: SceneState }) {
@@ -174,8 +166,6 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
     g.setAttribute("aMotionFrom", new BufferAttribute(new Float32Array(count * 4), 4));
     g.setAttribute("aMotionTo", new BufferAttribute(new Float32Array(count * 4), 4));
     g.setAttribute("aColor", new BufferAttribute(colors, 3));
-    g.setAttribute("aColorTo", new BufferAttribute(new Float32Array(colors), 3));
-    g.userData.paletteColors = colors; // shapes without their own colours use these
     g.setAttribute("aSeed", new BufferAttribute(seeds, 1));
     return g;
   }, [count]);
@@ -230,10 +220,6 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
       const seedA = geo.getAttribute("aSeed") as BufferAttribute;
       const mFromA = geo.getAttribute("aMotionFrom") as BufferAttribute;
       const mToA = geo.getAttribute("aMotionTo") as BufferAttribute;
-      const colA = geo.getAttribute("aColor") as BufferAttribute;
-      const colToA = geo.getAttribute("aColorTo") as BufferAttribute;
-      const col = colA.array as Float32Array;
-      const colTo = colToA.array as Float32Array;
       const from = fromA.array as Float32Array;
       const to = toA.array as Float32Array;
       const mFrom = mFromA.array as Float32Array;
@@ -248,18 +234,16 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
         let t = Math.min(Math.max(m * 1.6 - (seedA.array[i] as number) * 0.6, 0), 1);
         t = t * t * (3 - 2 * t);
         for (let a = 0; a < 3; a++) from[i * 3 + a] = (from[i * 3 + a] + (to[i * 3 + a] - from[i * 3 + a]) * t) * k;
-        for (let a = 0; a < 3; a++) col[i * 3 + a] = col[i * 3 + a] + (colTo[i * 3 + a] - col[i * 3 + a]) * t;
         for (let a = 0; a < 4; a++) {
           const v = mFrom[i * 4 + a] + (mTo[i * 4 + a] - mFrom[i * 4 + a]) * t;
           mFrom[i * 4 + a] = a < 3 ? v * k : v; // scale the flow vector, not its speed
         }
       }
-      const target: PointShape = key === "about" ? buildingPhotoShape(count) : buildShape(key, count);
+      const target = buildShape(key, count);
       to.set(target.pos);
-      colTo.set(target.color ?? (geo.userData.paletteColors as Float32Array));
       mTo.set(target.motion);
       (tagA.array as Float32Array).set(target.tag);
-      for (const attr of [fromA, toA, tagA, mFromA, mToA, colA, colToA]) attr.needsUpdate = true;
+      for (const attr of [fromA, toA, tagA, mFromA, mToA]) attr.needsUpdate = true;
       lastKey.current = key;
       mix.current = 0;
     }
@@ -305,13 +289,12 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
       : phase === "problem"
         ? Math.sin(time * 0.2) * 0.25
         : phase === "about"
-          ? Math.sin(time * 0.18) * 0.05 // the About art is a flattish picture: only a gentle sway
+          ? Math.sin(time * 0.18) * 0.22
           : 0;
 
-    const tilt = phase === "about" ? 0.2 : 1; // less pointer parallax on the flat About art
-    const targetRotY = ry + live.mouse.x * 0.45 * tilt;
-    const targetRotX = (brainPhase ? 0.14 : phase === "about" ? 0.02 : 0.08) - live.mouse.y * 0.28 * tilt;
-    const targetRotZ = -live.mouse.x * 0.12 * tilt;
+    const targetRotY = ry + live.mouse.x * 0.45;
+    const targetRotX = (brainPhase ? 0.14 : 0.08) - live.mouse.y * 0.28;
+    const targetRotZ = -live.mouse.x * 0.12;
 
     pts.rotation.y = lerp(pts.rotation.y, targetRotY, 0.065);
     pts.rotation.x = lerp(pts.rotation.x, targetRotX, 0.065);

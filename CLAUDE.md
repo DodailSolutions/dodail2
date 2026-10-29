@@ -44,20 +44,22 @@ scripts/            check-content.js, verify-routes.js, production-readiness-tes
 
 - One persistent canvas (`OperationsCanvasHost`, fixed overlay) draws one `ParticleField`; every page "zone"
   (`<Zone phase="...">` in `homeUi.tsx`) anchors a **point-cloud shape** from `particleShapes.ts`
-  (hero brain, **about: the Dodail HQ building**, problem icons, services, pipeline, industries, process). Particles morph between shapes on the GPU.
+  (hero brain, problem icons, services, pipeline, industries, process). Particles morph between shapes on the GPU.
 - Shapes are pure math (no three import) so `CanvasFallback.tsx` renders the same shape as an SVG poster / no-WebGL fallback.
-- Colour tags: palette (-1), blue (-2), gold (-3), bokeh (-4), **photo (-7)** and **photo-fine (-8, signboard)**.
-  Shapes may carry per-point `color`; the shader morphs colour (`aColor` -> `aColorTo`) along with position.
-- **About = the HQ artwork sampled into a coloured point cloud.** Source art: `scripts/assets/dodail-hq-particles.webp` (not shipped).
-  `node scripts/build-building-points.mjs` regenerates `src/components/3d/buildingPoints.ts` (14,000 points, base64, lazy chunk only) and
-  `public/brand/about-hq-poster.webp` (transparent static poster = first paint / no-WebGL fallback). The sampler masks the pale sky (flood fill),
-  the badge/caption baked into the screenshot, and samples the signboard separately and densely (drawn with small dots so the logo reads).
-  `buildingShape.ts` decodes it; `ParticleField` uses it for the `about` phase. If the art changes, update the SILHOUETTE/SIGN polygons in the script.
+- Colour tags: palette (-1), blue (-2), gold (-3), bokeh (-4).
+- **About = the Dodail HQ artwork drawn as ~44k three.js particles** (its own small canvas, NOT part of the shared field):
+  `AboutParticleArt.tsx` (wrapper: poster `<Image>`, lazy-loads the canvas near the viewport, honours WebGL/low-power/reduced-motion) and
+  `AboutParticleCanvas.tsx` (orthographic R3F canvas: a grid of points, each reading its colour from the artwork texture in the vertex
+  shader, assembling from a scatter on scroll-in, shimmering, and rippling away from the pointer; pauses off-screen).
+  Texture + poster are one file, `public/brand/about-hq-art.webp` (RGBA, sky removed). Regenerate with `node scripts/build-about-art.mjs`
+  from `scripts/assets/dodail-hq-particles.webp` (a screenshot of the finished card, so the script masks the baked-in badge/caption and the
+  card border; update its SILHOUETTE polygon if the art changes). Lesson: sampling ~14k random points could NOT reproduce the logo; a dense
+  textured grid does. Do not use index-based hashes for grid jitter (they alias into diagonal stripes): use `mulberry32`.
 - Light theme: `ParticleField` switches to normal blending, ink-blended colours and crisper dots (`uLight`); dark keeps additive glow.
 - Canvas z-index: `z-0` in the **hero** and **cta** phases (content sits above), `z-[15]` elsewhere. A `Zone` adds `relative`:
   give it an explicit size (wrap it in a sized container) or it measures 0px.
 - Gating: dynamic import after idle; skipped for reduced-motion, no WebGL, ≤2 cores / ≤2 GB / save-data; paused when the tab or zone is off-screen.
-  Point count adapts to device (`pointCount()`: 14k desktop, 7k modest, 5k phone, 3k modest phone).
+  Point count adapts to device (`pointCount()`: 7k desktop, 4.5k modest, 2.8k phone, 1.8k modest phone).
 - Hero "floating chips" are DOM elements over the canvas (visible on mobile too).
 
 ## Theming and brand decisions (do not undo without asking)
@@ -67,7 +69,7 @@ scripts/            check-content.js, verify-routes.js, production-readiness-tes
 - **Brand orange = the logo orange `#FA5B0F`** (sampled from `public/brand/dodail-logo.png`), hover `#E04E08`. Used everywhere (buttons, text, particles).
 - **Orange buttons use WHITE text** in both themes (user decision). White on #FA5B0F is ~2.8:1 (below WCAG AA); known trade-off.
 - Cyan text is darkened to teal (#0F766E) on light only (bright cyan is ~1.8:1).
-- About section = particle **corporate building with the Dodail signboard** (the old Buddha photo and its code are gone).
+- About section = the **Dodail HQ building with the logo signboard as a particle picture** (the old Buddha photo and its code are gone).
 - Mobile: one floating Gita button (the separate video button is `sm:`+ only); tap targets ≥ 40px; min text 11px.
 - Fonts: CSS names Poppins/Sora but they are **not loaded** (system fallback). Open question in TASK.md.
 

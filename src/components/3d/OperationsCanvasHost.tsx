@@ -65,7 +65,7 @@ function useMediaQuery(query: string): boolean {
 
 let capabilityCache: boolean | null = null;
 /** WebGL available and the device does not look low-power / data-saving. */
-function canRunWebGL(): boolean {
+export function canRunWebGL(): boolean {
   if (capabilityCache !== null) return capabilityCache;
   const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
   const lowPower =
