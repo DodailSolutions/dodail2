@@ -51,7 +51,7 @@ export default async function ContactPage() {
                 </a>
               )}
               <a href={`mailto:${company.email}`} className="flex items-center gap-3 rounded-xl p-2 -mx-2 hover:bg-surface-2 active:bg-surface-2">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-[#FF6B2C]">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-500/10 text-[#FF6B2C] light:bg-orange-50">
                   <Mail className="h-5 w-5" />
                 </span>
                 <span>
@@ -60,7 +60,7 @@ export default async function ContactPage() {
                 </span>
               </a>
               <a href={telHref(company.phone)} className="flex items-center gap-3 rounded-xl p-2 -mx-2 hover:bg-surface-2 active:bg-surface-2">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-[#FF6B2C]">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-500/10 text-[#FF6B2C] light:bg-orange-50">
                   <Phone className="h-5 w-5" />
                 </span>
                 <span>

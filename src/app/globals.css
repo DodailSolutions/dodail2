@@ -368,3 +368,21 @@ a, button, [role="button"], input, select, textarea, label {
 .prose-dodail th, .prose-dodail td { border: 1px solid var(--border-strong); padding: 0.5rem 0.75rem; text-align: left; vertical-align: top; }
 .prose-dodail th { background: var(--surface-2); }
 .prose-dodail img { max-width: 100%; height: auto; border-radius: 0.75rem; }
+
+/* ---------- Accessible brand colours on light surfaces ----------
+   Brand orange (#FF6B2C) and cyan (#27D3C2) are ~2.7:1 and ~1.8:1 on a near-white page, which
+   fails WCAG AA for text. Darken them for TEXT only when the light theme is active; backgrounds
+   and dark mode keep the brand colours. The utility overrides live in the utilities layer with
+   :where() so they're only (0,1,0): they beat the plain `text-[#FF6B2C]` utility (later in
+   source) but not state variants such as `group-hover:text-white`, which are more specific. */
+:root[data-theme="light"] .prose-dodail a { color: #C2410C; }
+:root[data-theme="light"] .prose-dodail a:hover { color: #9A3412; }
+
+@layer utilities {
+  :where(:root[data-theme="light"]) .text-\[\#FF6B2C\] { color: #C2410C; }
+  :where(:root[data-theme="light"]) .text-\[\#27D3C2\] { color: #0F766E; }
+
+  /* Text on a solid orange link/button: white is 2.84:1 (fails, in both themes); the dark navy
+     the homepage buttons already use is ~7:1. */
+  :where(a, button).bg-\[\#FF6B2C\] { color: #05070B; }
+}

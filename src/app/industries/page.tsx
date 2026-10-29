@@ -29,7 +29,7 @@ export default async function IndustriesPage() {
             return (
               <Card key={`${vert.href}-${i}`} className="flex flex-col justify-between hover:shadow-md transition-shadow">
                 <div>
-                  <div className="h-12 w-12 rounded-2xl bg-orange-50 text-[#FF6B2C] flex items-center justify-center mb-6 border border-orange-200/60 shadow-sm">
+                  <div className="h-12 w-12 rounded-2xl bg-orange-500/10 text-[#FF6B2C] flex items-center justify-center mb-6 border border-orange-500/25 light:bg-orange-50 light:border-orange-200/60 shadow-sm">
                     <Icon className="h-6 w-6" />
                   </div>
                   <CardTitle className="text-2xl text-fg">{vert.title}</CardTitle>

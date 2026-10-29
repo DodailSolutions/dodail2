@@ -24,7 +24,7 @@ const solutionTone: Record<string, { box: string; icon: string }> = {
 };
 
 const industryTone: Record<string, string> = {
-  orange: "bg-orange-50 text-[#FF6B2C] border-orange-200/60",
+  orange: "bg-orange-500/10 text-[#FF6B2C] border-orange-500/25 light:bg-orange-50 light:border-orange-200/60",
   amber: "bg-amber-50 text-amber-600 border-amber-200/60",
   emerald: "bg-emerald-50 text-emerald-600 border-emerald-200/60",
   teal: "bg-teal-50 text-[#0D9488] border-teal-200/60",

@@ -115,7 +115,7 @@ export function IndustriesSection({ active, onActive, webgl }: Props) {
                 )}
               </Zone>
               <p className="mt-2 lg:mt-4 flex items-baseline gap-3 text-sm text-fg-muted" aria-hidden="true">
-                <span className="font-semibold" style={{ color: current.accent }}>{current.label}</span>
+                <span className="font-semibold text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_55%,#0F172A)]" style={{ "--pc": current.accent } as React.CSSProperties}>{current.label}</span>
                 <span key={`${active}-${step}`} className="fade-up">
                   Step {step + 1}: <span className="text-fg">{current.steps[step]}</span>
                 </span>
@@ -135,7 +135,7 @@ export function IndustriesSection({ active, onActive, webgl }: Props) {
                     spotlightColor="rgba(39, 211, 194, 0.08)"
                     className="p-6 sm:p-8 rounded-2xl bg-[var(--surface-translucent)] hover:bg-[var(--surface-translucent)] border border-transparent hover:border-border-token"
                   >
-                    <p className="text-sm font-mono font-medium" style={{ color: ind.accent }}>
+                    <p className="text-sm font-mono font-medium text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_55%,#0F172A)]" style={{ "--pc": ind.accent } as React.CSSProperties}>
                       {ind.label}
                     </p>
                     <h3 className="mt-2 text-3xl sm:text-4xl font-light tracking-tight text-fg">{ind.headline}</h3>

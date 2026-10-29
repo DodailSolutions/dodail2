@@ -58,7 +58,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
         <h2 id="about-dodail" className="section-title-clamp max-w-4xl font-extrabold text-fg tracking-tight leading-[1.04]">
           {intro.title}{" "}
           {intro.highlight && (
-            <span className="bg-gradient-to-r from-[#FF6B2C] via-[#FFB547] to-[#FF6B2C] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF6B2C] via-[#FFB547] to-[#FF6B2C] light:from-[#C2410C] light:via-[#B45309] light:to-[#C2410C] bg-clip-text text-transparent">
               {intro.highlight}
             </span>
           )}
@@ -95,7 +95,11 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-fg group-hover:text-fg">{title}</h3>
                     <p className="mt-1.5 text-sm leading-relaxed text-fg-muted">{desc}</p>
-                    <span className="mt-3 inline-block font-mono text-[11px] font-medium tracking-wide" style={{ color }}>
+                    {/* Brand tint on dark; mixed toward navy on light so the small label stays readable. */}
+                    <span
+                      className="mt-3 inline-block font-mono text-[11px] font-medium tracking-wide text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_55%,#0F172A)]"
+                      style={{ "--pc": color } as React.CSSProperties}
+                    >
                       {tag}
                     </span>
                   </SpotlightCard>
@@ -139,18 +143,18 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                   {/* Top Glass Badge: Office Reception Emblem */}
                   <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-full border border-border-token bg-black/60 px-3.5 py-1.5 backdrop-blur-md shadow-lg">
                     <span className="h-2 w-2 rounded-full bg-[#FFB547] animate-pulse" />
-                    <span className="font-mono text-[11px] font-semibold tracking-wider text-fg">{image.badge}</span>
+                    <span className="font-mono text-[11px] font-semibold tracking-wider text-white">{image.badge}</span>
                   </div>
 
                   {/* Bottom philosophical callout overlay */}
                   {(image.quote || image.caption) && (
                     <div className="absolute bottom-4 inset-x-4 z-10 rounded-2xl border border-border-token bg-black/75 p-3.5 backdrop-blur-md">
                       {image.quote && (
-                        <p className="text-xs text-fg/90 font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>
+                        <p className="text-xs text-white/90 font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>
                       )}
                       {image.caption && (
-                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-fg-muted">
-                          <MapPin className="h-3 w-3 text-[#FF6B2C]" />
+                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-white/70">
+                          <MapPin className="h-3 w-3 text-orange-400" />
                           {image.caption}
                         </span>
                       )}

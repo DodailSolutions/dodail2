@@ -38,7 +38,7 @@ const PRODUCTS: ProductItem[] = [
     name: "BillBooky",
     category: "Billing & Business Operations",
     status: "Available",
-    statusColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    statusColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 light:bg-emerald-50 light:text-emerald-800 light:border-emerald-300",
     description:
       "A Dodail-associated business tool designed to simplify professional invoicing, customer account tracking, and automated payment receipts.",
     features: ["Quick GST & Standard Invoicing", "Client Account Management", "Payment Status Tracking", "Mobile-Optimized Interface"],
@@ -51,7 +51,7 @@ const PRODUCTS: ProductItem[] = [
     name: "Dodail AI Social",
     category: "Agency Social Media Intelligence",
     status: "In Development",
-    statusColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    statusColor: "bg-amber-500/10 text-amber-400 border-amber-500/20 light:bg-amber-50 light:text-amber-800 light:border-amber-300",
     description:
       "A unified social media operations platform built for modern agencies and brands: visual content calendar, AI-assisted copy drafting, client review approvals, and publishing automation.",
     features: ["Client Approval Workflow", "AI Content Drafting", "Multi-Account Calendar", "Performance Analytics"],
@@ -62,7 +62,7 @@ const PRODUCTS: ProductItem[] = [
     name: "Rentcot",
     category: "Resort & Farmhouse Booking Marketplace",
     status: "Delivered Project",
-    statusColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    statusColor: "bg-blue-500/10 text-blue-400 border-blue-500/20 light:bg-blue-50 light:text-blue-800 light:border-blue-300",
     description:
       "A complete hospitality marketplace engineered by Dodail: property search, live availability calendars, booking reservations, and responsive mobile UX.",
     features: ["Property Listing Directory", "Availability & Reservation Engine", "Interactive Map Discovery", "Guest Reviews & Inquiries"],
@@ -75,7 +75,7 @@ const PRODUCTS: ProductItem[] = [
     name: "Manufacturing OS",
     category: "Industrial Workflow Software",
     status: "Concept",
-    statusColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+    statusColor: "bg-purple-500/10 text-purple-400 border-purple-500/20 light:bg-purple-50 light:text-purple-800 light:border-purple-300",
     description:
       "A modular operations architecture designed to replace fragmented spreadsheets in factory floors with unified order tracking, inventory synchronization, and dealer dispatch portals.",
     features: ["Dealer Order Management", "Inventory Telemetry", "Dispatch Stage Tracking", "ERP/Tally Connectors"],
@@ -86,7 +86,7 @@ const PRODUCTS: ProductItem[] = [
     name: "TinyRide",
     category: "School Transport Coordination",
     status: "Concept",
-    statusColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+    statusColor: "bg-purple-500/10 text-purple-400 border-purple-500/20 light:bg-purple-50 light:text-purple-800 light:border-purple-300",
     description:
       "A concept mobile application architecture for coordinated student transport between parents, designated drivers, and school administrators.",
     features: ["Parent Real-Time ETA", "Driver Route Management", "Student Attendance Verification", "School Admin Dashboard"],

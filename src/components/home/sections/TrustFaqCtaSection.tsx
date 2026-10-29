@@ -155,12 +155,12 @@ export function TrustSection() {
                       </div>
 
                       <span
-                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-mono tracking-wide"
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-mono tracking-wide text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_55%,#0F172A)]"
                         style={{
+                          "--pc": color,
                           background: `${color}14`,
-                          color,
                           border: `1px solid ${color}33`,
-                        }}
+                        } as React.CSSProperties}
                       >
                         <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B2C] animate-pulse" />
                         {meta.badge}
@@ -298,7 +298,7 @@ export function TrustSection() {
             </Link>
             <Link
               href="/consultation"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6B2C] to-[#ff8548] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#FF6B2C]/25 hover:brightness-110 transition-all active:scale-95"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6B2C] to-[#ff8548] px-5 py-2.5 text-sm font-semibold text-[#05070B] shadow-lg shadow-[#FF6B2C]/25 hover:brightness-110 transition-all active:scale-95"
             >
               <Calendar className="h-4 w-4" />
               Schedule discovery call

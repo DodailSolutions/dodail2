@@ -16,14 +16,14 @@ const ARTICLES = [
   },
   {
     tag: "E-COMMERCE",
-    tagColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    tagColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 light:bg-emerald-50 light:text-emerald-800 light:border-emerald-300",
     title: "Shopify vs WooCommerce: Which is Right for Your Business?",
     date: "Oct 8, 2026 · 6 min read",
     slug: "ai-agent-routing-vs-traditional-rule-engines-in-real-estate-inquiries",
   },
   {
     tag: "SEO",
-    tagColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    tagColor: "bg-blue-500/10 text-blue-400 border-blue-500/20 light:bg-blue-50 light:text-blue-800 light:border-blue-300",
     title: "Local SEO Guide for Healthcare and Dental Clinics",
     date: "Oct 5, 2026 · 7 min read",
     slug: "dental-clinic-patient-retention-zero-no-show-whatsapp-reminders",

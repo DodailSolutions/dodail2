@@ -53,6 +53,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(theme === "dark" ? "light" : "dark");
   }, [theme, setTheme]);
 
+  // Re-assert the theme if <html data-theme> is missing. For an unmatched URL the server sends Next's
+  // bare error shell and React then swaps in the real root, after the pre-paint script has already
+  // run, so the new <html> has no theme and the 404 page would render dark tokens on a light bg.
+  React.useEffect(() => {
+    const root = document.documentElement;
+    if (root.getAttribute("data-theme")) return;
+    let resolved: Theme = "dark";
+    try {
+      const stored = localStorage.getItem(THEME_STORAGE_KEY);
+      if (stored === "light" || stored === "dark") resolved = stored;
+      else if (window.matchMedia?.("(prefers-color-scheme: light)").matches) resolved = "light";
+    } catch {
+      /* storage blocked: keep the dark default */
+    }
+    root.setAttribute("data-theme", resolved);
+    root.style.colorScheme = resolved;
+    setThemeState(resolved);
+  }, []);
+
   // Keep multiple tabs in sync.
   React.useEffect(() => {
     const onStorage = (e: StorageEvent) => {
