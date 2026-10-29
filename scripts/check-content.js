@@ -15,7 +15,15 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const ROOT = path.join(".next", "server", "app");
+// Next writes prerendered HTML to .next/server/app. On Vercel, the build pipeline relocates those
+// pages into the Build Output API's static directory (.vercel/output/static) before this gate runs,
+// which is why scanning only .next/server/app found nothing there. Scan whichever root actually
+// holds the prerendered pages.
+const CANDIDATE_ROOTS = [
+  path.join(".next", "server", "app"),
+  path.join(".vercel", "output", "static"),
+];
+let ROOT = CANDIDATE_ROOTS[0];
 const STRICT = process.env.STRICT_SEO === "1";
 
 const FORBIDDEN = [
@@ -56,9 +64,17 @@ const text = (html) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const files = walk(ROOT);
+let files = [];
+for (const root of CANDIDATE_ROOTS) {
+  const found = walk(root);
+  if (found.length > 0) {
+    ROOT = root;
+    files = found;
+    break;
+  }
+}
 if (files.length === 0) {
-  console.error(`check-content: no prerendered pages found in ${ROOT}. Run the build first.`);
+  console.error(`check-content: no prerendered pages found in ${CANDIDATE_ROOTS.join(" or ")}. Run the build first.`);
   process.exit(1);
 }
 
