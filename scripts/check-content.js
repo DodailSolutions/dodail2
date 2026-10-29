@@ -75,6 +75,19 @@ for (const root of CANDIDATE_ROOTS) {
 }
 if (files.length === 0) {
   console.error(`check-content: no prerendered pages found in ${CANDIDATE_ROOTS.join(" or ")}. Run the build first.`);
+  if (process.env.VERCEL) {
+    // Vercel's build adapter relocates the prerendered output after `next build`. Dump where HTML
+    // actually lives so the deploy log shows the real location. This still fails the build: the
+    // gate must not pass silently until it can scan the relocated pages.
+    for (const dir of [".next", path.join(".next", "server"), ".vercel", path.join(".vercel", "output")]) {
+      const listing = fs.existsSync(dir) ? fs.readdirSync(dir).slice(0, 40).join(", ") : "(missing)";
+      console.error(`check-content [vercel diagnostics]: ${dir} -> ${listing}`);
+    }
+    for (const dir of [".next", ".vercel"]) {
+      const html = walk(dir);
+      console.error(`check-content [vercel diagnostics]: ${html.length} .html under ${dir}; first: ${html.slice(0, 5).join(", ") || "(none)"}`);
+    }
+  }
   process.exit(1);
 }
 
