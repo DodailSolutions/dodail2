@@ -1,9 +1,9 @@
 import React from "react";
 import { ScenePhase } from "@/components/3d/3DTypes";
 
-/** Orange pill on black: dark text keeps contrast above 4.5:1 (white on orange does not). */
+/** Orange pill with white text (brand choice; white on #FF6B2C is ~2.8:1, below WCAG AA). */
 export const primaryBtn =
-  "rounded-full text-[15px] px-6 py-3.5 h-auto font-semibold normal-case tracking-normal text-[#05070B] hover:text-[#05070B] shadow-[0_0_40px_-8px_rgba(255,107,44,0.6)] focus-visible:ring-offset-[#05070B]";
+  "rounded-full text-[15px] px-6 py-3.5 h-auto font-semibold normal-case tracking-normal text-white hover:text-white shadow-[0_0_40px_-8px_rgba(255,107,44,0.6)] focus-visible:ring-offset-[#05070B]";
 
 export const ghostBtn =
   "rounded-full text-[15px] px-6 py-3.5 h-auto font-medium normal-case tracking-normal border-white/15 bg-white/[0.03] text-[#F5F8FC] hover:text-[#F5F8FC] hover:bg-white/10 hover:border-white/30 shadow-none focus-visible:ring-offset-[#05070B] light:border-slate-300 light:bg-white light:text-slate-900 light:hover:bg-slate-50 light:hover:text-slate-900 light:hover:border-slate-400 light:shadow-sm light:focus-visible:ring-offset-white";

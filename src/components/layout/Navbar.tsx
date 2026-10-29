@@ -204,10 +204,10 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
       )}
     >
       {announcement.enabled && announcement.text && (
-        <div className="bg-[#FF6B2C] text-[#05070B] text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <div className="bg-[#FF6B2C] text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
           <span>{announcement.text}</span>
           {announcement.link && (
-            <Link href={announcement.link} className="underline text-[#05070B] font-semibold hover:opacity-90 ml-1">
+            <Link href={announcement.link} className="underline text-white font-semibold hover:opacity-90 ml-1">
               {announcement.linkLabel || "Learn more →"}
             </Link>
           )}
@@ -255,7 +255,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                 size="md"
                 className={cn(
                   "rounded-xl shadow-sm font-semibold",
-                  "rounded-full normal-case tracking-normal text-sm text-[#05070B] hover:text-[#05070B] light:rounded-xl light:uppercase light:tracking-wider light:text-xs"
+                  "rounded-full normal-case tracking-normal text-sm text-white hover:text-white light:rounded-xl light:uppercase light:tracking-wider light:text-xs"
                 )}
               >
                 <Calendar aria-hidden="true" className="h-4 w-4 mr-1.5" />
@@ -357,7 +357,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
                   size="lg"
                   className={cn(
                     "w-full shadow-sm font-semibold",
-                    "rounded-full normal-case tracking-normal text-[#05070B] hover:text-[#05070B] light:rounded-xl light:uppercase light:tracking-wider"
+                    "rounded-full normal-case tracking-normal text-white hover:text-white light:rounded-xl light:uppercase light:tracking-wider"
                   )}
                 >
                   <Calendar aria-hidden="true" className="h-5 w-5 mr-2" />

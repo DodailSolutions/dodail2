@@ -281,7 +281,7 @@ export function ServicesScrollStack() {
               <div className="mt-8 pt-5 border-t border-border-strong">
                 <Link
                   href={service.href}
-                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#071A28] bg-[#FF6B2C] hover:bg-[#FF854D] px-5 py-2.5 rounded-none transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-white bg-[#FF6B2C] hover:bg-[#FF854D] px-5 py-2.5 rounded-none transition-colors"
                 >
                   <span>{service.ctaText}</span>
                   <ArrowUpRight className="h-4 w-4" />

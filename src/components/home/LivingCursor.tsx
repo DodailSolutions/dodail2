@@ -111,7 +111,7 @@ export function LivingCursor() {
         ref={ringRef}
         className={`fixed left-0 top-0 flex items-center justify-center will-change-transform transition-[width,height,background-color,border-color,border-radius,transform] duration-200 ease-out ${
           cursorText
-            ? "h-10 w-16 rounded-full bg-[#FF6B2C] border-0 text-[#071A28] shadow-[0_0_20px_rgba(255,107,44,0.6)] text-[11px] font-bold uppercase tracking-wider"
+            ? "h-10 w-16 rounded-full bg-[#FF6B2C] border-0 text-white shadow-[0_0_20px_rgba(255,107,44,0.6)] text-[11px] font-bold uppercase tracking-wider"
             : isHovered
             ? "h-12 w-12 rounded-full border-2 border-[#FF6B2C] bg-[#FF6B2C]/15 scale-110"
             : "h-9 w-9 rounded-full border border-white/20 bg-white/[0.02] scale-100"

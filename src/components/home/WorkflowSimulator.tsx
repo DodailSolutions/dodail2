@@ -198,7 +198,7 @@ export function WorkflowSimulator() {
           <span className="font-mono text-xs text-[#AABAC8] border-l border-[#1B3652] pl-3 uppercase tracking-wider hidden sm:inline">
             Workflow Simulator
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-bold bg-[#FF6B2C] text-[#071A28] uppercase tracking-wider select-none">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-bold bg-[#FF6B2C] text-white uppercase tracking-wider select-none">
             INTERACTIVE DEMO
           </span>
         </div>
@@ -214,7 +214,7 @@ export function WorkflowSimulator() {
                 i > 0 ? "border-l border-[#1B3652]" : ""
               } ${
                 activeId === sc.id
-                  ? "bg-[#FF6B2C] text-[#071A28] font-bold"
+                  ? "bg-[#FF6B2C] text-white font-bold"
                   : "bg-transparent text-[#AABAC8] hover:text-[#F5F8FC] hover:bg-[#10293B]"
               }`}
             >

@@ -239,8 +239,9 @@ export function OperationsCanvasHost({
       // Hidden whenever no zone is on screen: a paused canvas keeps its last frame, which
       // would otherwise linger over text once its zone has scrolled away.
       // Above page content (below header, menus and the mobile bar) so pinned panels can
-      // hide the text scrolling beneath them; behind the copy in the final CTA.
-      className={`pointer-events-none fixed inset-0 ${phase === "cta" ? "z-0" : "z-[15]"} transition-opacity duration-300 ${
+      // hide the text scrolling beneath them; behind the copy in the hero (so the floating
+      // telemetry chips and headline sit over the particles) and in the final CTA.
+      className={`pointer-events-none fixed inset-0 ${phase === "cta" || phase === "hero" ? "z-0" : "z-[15]"} transition-opacity duration-300 ${
         mode === "webgl" && inView ? "opacity-100" : "opacity-0"
       }`}
     >

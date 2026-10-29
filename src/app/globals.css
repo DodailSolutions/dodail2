@@ -381,8 +381,4 @@ a, button, [role="button"], input, select, textarea, label {
 @layer utilities {
   :where(:root[data-theme="light"]) .text-\[\#FF6B2C\] { color: #C2410C; }
   :where(:root[data-theme="light"]) .text-\[\#27D3C2\] { color: #0F766E; }
-
-  /* Text on a solid orange link/button: white is 2.84:1 (fails, in both themes); the dark navy
-     the homepage buttons already use is ~7:1. */
-  :where(a, button).bg-\[\#FF6B2C\] { color: #05070B; }
 }

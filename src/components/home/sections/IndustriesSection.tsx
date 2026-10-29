@@ -92,7 +92,7 @@ export function IndustriesSection({ active, onActive, webgl }: Props) {
                 aria-current={on ? "true" : undefined}
                 className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-5 py-3 text-sm font-medium transition-all duration-300 ${
                   on
-                    ? "border-[#FF6B2C] bg-[#FF6B2C] text-[#05070B] shadow-[0_0_16px_rgba(255,107,44,0.4)]"
+                    ? "border-[#FF6B2C] bg-[#FF6B2C] text-white shadow-[0_0_16px_rgba(255,107,44,0.4)]"
                     : "border-border-strong text-fg hover:border-[#FF6B2C]/60 hover:bg-[var(--surface-translucent)]"
                 }`}
               >

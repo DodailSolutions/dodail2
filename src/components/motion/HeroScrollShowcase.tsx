@@ -77,7 +77,7 @@ export function HeroScrollShowcase() {
               id="tab-stream"
               className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors ${
                 activeTab === "stream"
-                  ? "bg-[#FF6B2C] text-[#071A28] font-bold"
+                  ? "bg-[#FF6B2C] text-white font-bold"
                   : "text-fg-muted hover:text-fg"
               }`}
             >
@@ -91,7 +91,7 @@ export function HeroScrollShowcase() {
               id="tab-topology"
               className={`px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors border-l border-border-strong ${
                 activeTab === "topology"
-                  ? "bg-[#FF6B2C] text-[#071A28] font-bold"
+                  ? "bg-[#FF6B2C] text-white font-bold"
                   : "text-fg-muted hover:text-fg"
               }`}
             >
