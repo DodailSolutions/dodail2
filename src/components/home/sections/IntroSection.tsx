@@ -58,7 +58,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
         <h2 id="about-dodail" className="section-title-clamp max-w-4xl font-extrabold text-fg tracking-tight leading-[1.04]">
           {intro.title}{" "}
           {intro.highlight && (
-            <span className="bg-gradient-to-r from-[#FF6B2C] via-[#FFB547] to-[#FF6B2C] light:from-[#C2410C] light:via-[#B45309] light:to-[#C2410C] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF6B2C] via-[#FFB547] to-[#FF6B2C] light:from-[#FA5B0F] light:via-[#F97316] light:to-[#FA5B0F] bg-clip-text text-transparent">
               {intro.highlight}
             </span>
           )}
@@ -97,7 +97,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                     <p className="mt-1.5 text-sm leading-relaxed text-fg-muted">{desc}</p>
                     {/* Brand tint on dark; mixed toward navy on light so the small label stays readable. */}
                     <span
-                      className="mt-3 inline-block font-mono text-[11px] font-medium tracking-wide text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_55%,#0F172A)]"
+                      className="mt-3 inline-block font-mono text-[11px] font-medium tracking-wide text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_80%,#0F172A)]"
                       style={{ "--pc": color } as React.CSSProperties}
                     >
                       {tag}

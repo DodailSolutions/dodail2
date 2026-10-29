@@ -218,7 +218,7 @@ export function ServicesScrollStack() {
               {/* Module Header */}
               <div className="flex items-center justify-between border-b border-border-strong pb-4 mb-6">
                 <span
-                  className="text-xs font-mono font-bold tracking-[0.16em] text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_55%,#0F172A)]"
+                  className="text-xs font-mono font-bold tracking-[0.16em] text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_80%,#0F172A)]"
                   style={{ "--pc": service.accentColor } as React.CSSProperties}
                 >
                   MOD // {service.number} · {service.tag}

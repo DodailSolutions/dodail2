@@ -155,7 +155,7 @@ export function TrustSection() {
                       </div>
 
                       <span
-                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-mono tracking-wide text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_55%,#0F172A)]"
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-mono tracking-wide text-[var(--pc)] light:text-[color-mix(in_srgb,var(--pc)_80%,#0F172A)]"
                         style={{
                           "--pc": color,
                           background: `${color}14`,
