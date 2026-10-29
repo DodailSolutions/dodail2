@@ -68,7 +68,11 @@ export function ServicesSection({ active, onActive, webgl }: Props) {
                     <SpotlightCard
                       spotlightColor="rgba(250, 91, 15, 0.08)"
                       className={`p-6 sm:p-8 rounded-2xl transition-all duration-300 ${
-                        isActive ? "bg-[var(--surface-translucent)] border-l-2 border-l-[#FA5B0F]" : "border-l-2 border-l-transparent hover:bg-[var(--surface-translucent)]"
+                        isActive
+                          ? // Dark: glass panel + orange edge. Light: an elevated white card with a straight accent
+                            // bar (a border-l on a rounded card curves into the corners and looks crude on white).
+                            "bg-[var(--surface-translucent)] border-l-2 border-l-[#FA5B0F] light:bg-white light:border-l-transparent light:ring-1 light:ring-slate-200 light:shadow-[0_12px_40px_-14px_rgba(15,23,42,0.22)] light:before:absolute light:before:inset-y-0 light:before:left-0 light:before:w-1 light:before:bg-[#FA5B0F]"
+                          : "border-l-2 border-l-transparent hover:bg-[var(--surface-translucent)] light:hover:bg-white/70"
                       }`}
                     >
                       <p className={`text-sm font-mono tabular-nums ${isActive ? "text-[#FA5B0F]" : "text-fg-muted"}`}>

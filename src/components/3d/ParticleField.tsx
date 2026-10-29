@@ -96,9 +96,14 @@ const fragmentShader = /* glsl */ `
   void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
-    float a = smoothstep(0.5, 0.05, d);
+    // Soft glow edge on dark (additive); a crisper, near-solid disc on light so dots stay distinct
+    // on white instead of blurring together.
+    float a = smoothstep(0.5, mix(0.05, 0.36, uLight), d);
     float lum = dot(vColor, vec3(0.299, 0.587, 0.114));
-    vec3 lightColor = mix(vColor * 0.72, vec3(0.10, 0.14, 0.22), smoothstep(0.7, 0.95, lum));
+    // Deepen the palette and blend part-way toward one ink navy so the multicolour specks read as a
+    // cohesive drawing on white (instead of dusty noise), while keeping the orange/teal accents.
+    vec3 ink = vec3(0.10, 0.14, 0.22);
+    vec3 lightColor = mix(mix(vColor * 0.72, ink, 0.30), ink, smoothstep(0.7, 0.95, lum));
     vec3 color = mix(vColor, lightColor, uLight);
     gl_FragColor = vec4(color, a * vAlpha * mix(0.85, 1.0, uLight));
   }
