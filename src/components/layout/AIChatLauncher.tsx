@@ -228,7 +228,7 @@ export function AIChatLauncher() {
                 <div>
                   <h4 className="text-sm font-bold flex items-center gap-1.5 text-white">
                     Gita
-                    <span className="text-[10px] bg-[#E04E08]/30 text-orange-200 px-1.5 py-0.5 rounded font-mono font-normal">
+                    <span className="text-[11px] bg-[#E04E08]/30 text-orange-200 px-1.5 py-0.5 rounded font-mono font-normal">
                       Dodail Specialist
                     </span>
                   </h4>
@@ -320,7 +320,7 @@ export function AIChatLauncher() {
                       >
                         {m.content}
                       </div>
-                      <p className={`text-[10px] text-slate-400 px-1 font-mono ${isAssistant ? "" : "text-right"}`}>
+                      <p className={`text-[11px] text-slate-400 px-1 font-mono ${isAssistant ? "" : "text-right"}`}>
                         {new Date(m.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                       </p>
                     </div>
@@ -441,11 +441,12 @@ export function AIChatLauncher() {
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            {/* Quick Call Button */}
+            {/* Quick Call Button — desktop only: on phones the tab bar already offers Call/WhatsApp and the
+                chat panel has its own Call button, so one floating button covers less of the page. */}
             <button
               type="button"
               onClick={() => setIsCallModalOpen(true)}
-              className="group flex items-center gap-2 bg-[#E04E08] hover:bg-[#D44710] text-white px-3.5 py-3 rounded-full shadow-2xl transition duration-200 hover:scale-105 active:scale-95"
+              className="group hidden sm:flex items-center gap-2 bg-[#E04E08] hover:bg-[#D44710] text-white px-3.5 py-3 rounded-full shadow-2xl transition duration-200 hover:scale-105 active:scale-95"
               title="Talk to Gita (Voice & Video)"
               aria-label="Talk to Gita"
             >
@@ -471,7 +472,7 @@ export function AIChatLauncher() {
               </div>
               <div className="text-left hidden sm:block">
                 <p className="text-xs font-bold leading-tight">Gita</p>
-                <p className="text-[10px] text-slate-400 leading-tight">Solutions Specialist</p>
+                <p className="text-[11px] text-slate-400 leading-tight">Solutions Specialist</p>
               </div>
             </button>
           </div>

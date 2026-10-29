@@ -227,7 +227,7 @@ export function Navbar({ nav }: { nav: NavigationContent }) {
               <span className="text-xl font-bold tracking-tight flex items-center gap-1.5 font-sans text-[#F5F8FC] light:text-slate-900">
                 {brand.name}
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#A3AAB5] light:text-slate-500">
+              <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#A3AAB5] light:text-slate-500">
                 {brand.tagline}
               </span>
             </div>

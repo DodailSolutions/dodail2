@@ -223,7 +223,7 @@ export function ServicesScrollStack() {
                 >
                   MOD // {service.number} · {service.tag}
                 </span>
-                <span className="text-[10px] font-mono text-fg-muted">DODAIL SPEC</span>
+                <span className="text-[11px] font-mono text-fg-muted">DODAIL SPEC</span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-extrabold text-fg tracking-[-0.025em] leading-snug">

@@ -186,8 +186,8 @@ export function WorkflowSimulator() {
   return (
     <div className="rounded-none border border-[#1B3652] bg-[#0C2233] overflow-hidden shadow-2xl relative">
       {/* Registration Crosshairs */}
-      <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FA5B0F] pointer-events-none select-none">+</div>
-      <div className="absolute top-2 right-2 font-mono text-[10px] text-[#27D3C2] pointer-events-none select-none">+</div>
+      <div className="absolute top-2 left-2 font-mono text-[11px] text-[#FA5B0F] pointer-events-none select-none">+</div>
+      <div className="absolute top-2 right-2 font-mono text-[11px] text-[#27D3C2] pointer-events-none select-none">+</div>
 
       {/* Console Top Toolbar (Swiss Architectural Header) */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-[#1B3652] bg-[#071A28] px-6 py-3.5 gap-4">
@@ -198,7 +198,7 @@ export function WorkflowSimulator() {
           <span className="font-mono text-xs text-[#AABAC8] border-l border-[#1B3652] pl-3 uppercase tracking-wider hidden sm:inline">
             Workflow Simulator
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] font-bold bg-[#FA5B0F] text-white uppercase tracking-wider select-none">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[11px] font-bold bg-[#FA5B0F] text-white uppercase tracking-wider select-none">
             INTERACTIVE DEMO
           </span>
         </div>
@@ -237,7 +237,7 @@ export function WorkflowSimulator() {
             <p className="text-[11px] text-[#27D3C2] font-mono mb-3">{scenario.trigger.channel}</p>
 
             <div className="rounded-none border border-[#1B3652] bg-[#0C2233] p-3 text-xs">
-              <span className="text-[10px] font-mono text-[#AABAC8]/60 block mb-1">
+              <span className="text-[11px] font-mono text-[#AABAC8]/60 block mb-1">
                 {scenario.trigger.timestamp}
               </span>
               <p className="text-xs text-[#F5F8FC]/90 italic font-sans leading-relaxed">
@@ -245,7 +245,7 @@ export function WorkflowSimulator() {
               </p>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8] uppercase tracking-wider">
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider">
             [+] Ingestion Webhook Validated
           </div>
         </div>
@@ -261,7 +261,7 @@ export function WorkflowSimulator() {
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
               <span className="text-[#27D3C2] font-bold">02 / PROCESSING</span>
-              <span className="text-[10px] text-[#AABAC8] font-mono">{scenario.processing.latency}</span>
+              <span className="text-[11px] text-[#AABAC8] font-mono">{scenario.processing.latency}</span>
             </div>
             <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Deterministic Evaluation</h4>
             <p className="text-xs text-[#F5F8FC]/80 leading-relaxed font-sans mb-3">
@@ -271,7 +271,7 @@ export function WorkflowSimulator() {
               → {scenario.processing.validation}
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8] uppercase tracking-wider">
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider">
             [+] Zero-Hallucination Guardrail
           </div>
         </div>
@@ -287,7 +287,7 @@ export function WorkflowSimulator() {
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
               <span className="text-[#FA5B0F] font-bold">03 / ACTION</span>
-              <span className="text-emerald-400 font-mono text-[10px] uppercase">
+              <span className="text-emerald-400 font-mono text-[11px] uppercase">
                 DISPATCHED
               </span>
             </div>
@@ -299,7 +299,7 @@ export function WorkflowSimulator() {
               {scenario.action.destinations.map((dest, i) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between text-[10px] font-mono p-1.5 rounded-none bg-[#0C2233] border border-[#1B3652]"
+                  className="flex items-center justify-between text-[11px] font-mono p-1.5 rounded-none bg-[#0C2233] border border-[#1B3652]"
                 >
                   <span className="text-[#F5F8FC] truncate">{dest.name}</span>
                   <span className="text-emerald-400 font-medium ml-1 shrink-0">{dest.status}</span>
@@ -307,7 +307,7 @@ export function WorkflowSimulator() {
               ))}
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-[#AABAC8] uppercase tracking-wider">
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[11px] font-mono text-[#AABAC8] uppercase tracking-wider">
             [+] ACID Transaction Committed
           </div>
         </div>
@@ -323,7 +323,7 @@ export function WorkflowSimulator() {
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider mb-2 border-b border-[#1B3652] pb-2">
               <span className="text-emerald-400 font-bold">04 / OUTCOME</span>
-              <span className="text-[10px] text-emerald-400 font-mono">VERIFIED</span>
+              <span className="text-[11px] text-emerald-400 font-mono">VERIFIED</span>
             </div>
             <h4 className="text-sm font-bold text-[#F5F8FC] mb-2">Measurable Impact</h4>
             <div className="rounded-none border border-emerald-500/30 bg-emerald-950/20 p-3 mb-3">
@@ -335,7 +335,7 @@ export function WorkflowSimulator() {
               </p>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[10px] font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+          <div className="mt-4 pt-3 border-t border-[#1B3652] text-[11px] font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1">
             <Check className="h-3 w-3" /> Live Production Telemetry
           </div>
         </div>

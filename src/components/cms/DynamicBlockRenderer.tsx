@@ -278,7 +278,7 @@ function CaseStudiesBlockView({ block }: { block: any }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {block.items?.map((item: any, idx: number) => (
             <div key={idx} className="bg-surface border border-border-token rounded-xl p-6">
-              <span className="text-[10px] font-mono uppercase text-[#FA5B0F] tracking-wider block mb-2">
+              <span className="text-[11px] font-mono uppercase text-[#FA5B0F] tracking-wider block mb-2">
                 {item.industry}
               </span>
               <h3 className="text-base font-semibold text-fg mb-2">{item.title}</h3>

@@ -31,7 +31,7 @@ export async function Breadcrumbs({ path, extra = [], withSchema = true, tone = 
       <nav aria-label="Breadcrumb" className={cn("text-xs sm:text-sm", className)}>
         <ol className="flex flex-wrap items-center gap-1.5">
           <li>
-            <Link href="/" className={cn("transition-colors", muted)}>
+            <Link href="/" className={cn("relative transition-colors before:absolute before:-inset-x-1 before:-inset-y-3 before:content-['']", muted)}>
               Home
             </Link>
           </li>
@@ -45,7 +45,7 @@ export async function Breadcrumbs({ path, extra = [], withSchema = true, tone = 
                     {item.name}
                   </span>
                 ) : (
-                  <Link href={item.path} className={cn("transition-colors", muted)}>
+                  <Link href={item.path} className={cn("relative transition-colors before:absolute before:-inset-x-1 before:-inset-y-3 before:content-['']", muted)}>
                     {item.name}
                   </Link>
                 )}

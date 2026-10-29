@@ -34,7 +34,7 @@ export function MobileTabBar({ nav }: { nav: NavigationContent }) {
     const Icon = contentIcon(item.icon);
     const active = isActive(pathname, item.href);
     const className = cn(
-      "flex min-h-11 flex-col items-center justify-center gap-1 py-2 text-[10.5px] font-medium tracking-wide transition-colors active:scale-95",
+      "flex min-h-11 flex-col items-center justify-center gap-1 py-2 text-[11px] font-medium tracking-wide transition-colors active:scale-95",
       active ? "text-fg" : "text-fg-muted"
     );
     const inner = (
@@ -78,7 +78,7 @@ export function MobileTabBar({ nav }: { nav: NavigationContent }) {
                   <span className="grid h-14 w-14 place-items-center rounded-full bg-[#FA5B0F] text-white shadow-[0_8px_24px_-6px_rgba(250,91,15,0.65)] ring-4 ring-[var(--bg-2)]">
                     <Calendar className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <span className={cn("text-[10.5px] font-semibold tracking-wide", ctaActive ? "text-fg" : "text-[#FA5B0F]")}>
+                  <span className={cn("text-[11px] font-semibold tracking-wide", ctaActive ? "text-fg" : "text-[#FA5B0F]")}>
                     {nav.mobileBar.ctaShortLabel || nav.cta.label}
                   </span>
                 </>

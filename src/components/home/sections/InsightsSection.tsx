@@ -62,7 +62,7 @@ export function InsightsSection() {
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-mono font-semibold uppercase px-2.5 py-0.5 rounded-full border ${art.tagColor}`}>
+                    <span className={`text-[11px] font-mono font-semibold uppercase px-2.5 py-0.5 rounded-full border ${art.tagColor}`}>
                       {art.tag}
                     </span>
                     <span className="text-[11px] text-fg-muted font-mono">{art.date}</span>

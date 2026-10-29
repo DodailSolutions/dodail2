@@ -667,7 +667,7 @@ export function AwwwardsHomepage() {
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-2xl font-bold text-[#E04E08]">{step.num}</span>
-                    <span className="rounded-full bg-[#F6F7F9] border border-[#E3E6EB] px-2.5 py-0.5 text-[10px] font-bold text-[#1A2535]/60 uppercase tracking-wider">
+                    <span className="rounded-full bg-[#F6F7F9] border border-[#E3E6EB] px-2.5 py-0.5 text-[11px] font-bold text-[#1A2535]/60 uppercase tracking-wider">
                       {step.timeline}
                     </span>
                   </div>
@@ -894,7 +894,7 @@ export function AwwwardsHomepage() {
             <SpotlightCard className="p-8 bg-white border-2 border-[#E04E08] shadow-xl relative flex flex-col justify-between">
               <BorderBeam size={180} duration={8} />
               <div>
-                <span className="rounded-full bg-[#E04E08] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white inline-block">
+                <span className="rounded-full bg-[#E04E08] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white inline-block">
                   Most Popular
                 </span>
                 <h3 className="mt-3 text-2xl font-bold text-[#1A2535]">Dedicated Growth Retainer</h3>

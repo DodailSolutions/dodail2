@@ -240,7 +240,9 @@ export function ParticleField({ sceneState }: { sceneState: SceneState }) {
       mat.blending = wantBlending;
       mat.needsUpdate = true;
     }
-    u.uSize.value = (isMobile ? 25 : 21) * (light ? 1.35 : 1);
+    // Phones draw 2800 points instead of 7000, so on the light page (normal blending) bump the dots
+    // up further so the shapes keep their body instead of reading as faint specks.
+    u.uSize.value = (isMobile ? 25 : 21) * (light ? (isMobile ? 1.75 : 1.35) : 1);
     u.uChaos.value = lerp(u.uChaos.value, phase === "problem" && problemIndex === 2 ? 0.25 : 0, 0.04);
     u.uDim.value = lerp(u.uDim.value, phase === "problem" ? 0.85 : phase === "cta" ? 1.15 : 1, 0.05);
     u.uActive.value =

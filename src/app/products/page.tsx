@@ -122,7 +122,7 @@ export default function ProductsPage() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-mono text-fg-muted">{prod.category}</span>
-                  <span className={`text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded-full border ${prod.statusColor}`}>
+                  <span className={`text-[11px] font-mono font-semibold uppercase px-2 py-0.5 rounded-full border ${prod.statusColor}`}>
                     {prod.status}
                   </span>
                 </div>

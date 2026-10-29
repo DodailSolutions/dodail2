@@ -64,7 +64,7 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
                 <span>
                   {addressLine()}
                   <br />
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#FA5B0F] hover:underline">
+                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-[#FA5B0F] hover:underline">
                     {footer.mapLabel}
                   </a>
                 </span>
@@ -78,7 +78,7 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
               {company.email && (
                 <div className="flex items-center gap-2.5">
                   <Mail aria-hidden="true" className="h-4 w-4 text-[#FA5B0F] shrink-0" />
-                  <a href={`mailto:${company.email}`} className="hover:text-fg transition-colors">
+                  <a href={`mailto:${company.email}`} className="inline-flex min-h-11 items-center hover:text-fg transition-colors">
                     {company.email}
                   </a>
                 </div>
@@ -86,7 +86,7 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
               {company.phone && (
                 <div className="flex items-center gap-2.5">
                   <Phone aria-hidden="true" className="h-4 w-4 text-[#FA5B0F] shrink-0" />
-                  <a href={telHref(company.phone)} className="hover:text-fg transition-colors">
+                  <a href={telHref(company.phone)} className="inline-flex min-h-11 items-center hover:text-fg transition-colors">
                     {company.phone}
                   </a>
                 </div>
@@ -113,7 +113,7 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
                     href={company.social[key]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-none bg-surface text-fg-muted hover:text-fg hover:bg-surface-2 transition-colors"
+                    className="grid h-11 w-11 place-items-center rounded-none bg-surface text-fg-muted hover:text-fg hover:bg-surface-2 transition-colors"
                     aria-label={`${company.shortName} on ${SOCIAL_ICONS[key].label}`}
                   >
                     <svg aria-hidden="true" width="16" height="16" className="h-4 w-4 fill-current shrink-0" viewBox="0 0 24 24">
@@ -128,10 +128,10 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
           {footer.columns.map((col, ci) => (
             <div key={`${col.title}-${ci}`} className="space-y-3">
               <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-fg">{col.title}</h3>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-0 text-sm">
                 {col.links.map((l, li) => (
                   <li key={`${l.href}-${li}`}>
-                    <Link href={l.href || "/"} className="hover:text-fg transition-colors">
+                    <Link href={l.href || "/"} className="inline-flex min-h-10 items-center hover:text-fg transition-colors">
                       {l.label}
                     </Link>
                   </li>
@@ -148,7 +148,7 @@ export function Footer({ footer, company }: { footer: FooterContent; company: Co
             <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
               {footer.legalLinks.map((l, i) => (
                 <li key={`${l.href}-${i}`}>
-                  <Link href={l.href} className="hover:text-fg transition-colors">
+                  <Link href={l.href} className="inline-flex min-h-10 items-center hover:text-fg transition-colors">
                     {l.label}
                   </Link>
                 </li>

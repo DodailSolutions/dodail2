@@ -52,15 +52,15 @@ export function HeroScrollShowcase() {
         className="mx-auto max-w-5xl rounded-none border border-border-strong bg-surface shadow-2xl overflow-hidden relative"
       >
         {/* Registration Crosshairs */}
-        <div className="absolute top-2 left-2 font-mono text-[10px] text-[#FA5B0F] select-none pointer-events-none">+</div>
-        <div className="absolute top-2 right-2 font-mono text-[10px] text-[#27D3C2] select-none pointer-events-none">+</div>
-        <div className="absolute bottom-2 left-2 font-mono text-[10px] text-[#27D3C2] select-none pointer-events-none">+</div>
-        <div className="absolute bottom-2 right-2 font-mono text-[10px] text-[#FA5B0F] select-none pointer-events-none">+</div>
+        <div className="absolute top-2 left-2 font-mono text-[11px] text-[#FA5B0F] select-none pointer-events-none">+</div>
+        <div className="absolute top-2 right-2 font-mono text-[11px] text-[#27D3C2] select-none pointer-events-none">+</div>
+        <div className="absolute bottom-2 left-2 font-mono text-[11px] text-[#27D3C2] select-none pointer-events-none">+</div>
+        <div className="absolute bottom-2 right-2 font-mono text-[11px] text-[#FA5B0F] select-none pointer-events-none">+</div>
 
         {/* Device Window Header Bar (Swiss Style Toolbar) */}
         <div className="flex items-center justify-between border-b border-border-strong bg-bg px-4 sm:px-6 py-3 text-xs">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#FA5B0F]">
+            <div className="flex items-center gap-1.5 font-mono text-[11px] text-[#FA5B0F]">
               [DOD // SYS-01]
             </div>
             <span className="font-mono text-fg-muted border-l border-border-strong pl-3 hidden sm:inline text-[11px] uppercase tracking-wider">
@@ -112,7 +112,7 @@ export function HeroScrollShowcase() {
               {/* Left Telemetry Column */}
               <div className="md:col-span-4 space-y-4">
                 <div className="p-5 rounded-none bg-bg border border-border-strong">
-                  <span className="text-[10px] font-mono text-fg-muted uppercase tracking-[0.16em] block mb-1">
+                  <span className="text-[11px] font-mono text-fg-muted uppercase tracking-[0.16em] block mb-1">
                     System Accuracy
                   </span>
                   <div className="text-2xl sm:text-3xl font-extrabold text-fg flex items-baseline gap-2 tracking-tight">
@@ -126,7 +126,7 @@ export function HeroScrollShowcase() {
                 </div>
 
                 <div className="p-5 rounded-none bg-bg border border-border-strong">
-                  <span className="text-[10px] font-mono text-fg-muted uppercase tracking-[0.16em] block mb-1">
+                  <span className="text-[11px] font-mono text-fg-muted uppercase tracking-[0.16em] block mb-1">
                     Verified Endpoints
                   </span>
                   <div className="space-y-2 mt-2 text-xs font-mono">

@@ -171,7 +171,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
                 text={hero.title}
                 highlight={hero.highlight}
                 render={(part) => (
-                  <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#FA5B0F] via-[#FF8547] to-[#FFA366] drop-shadow-[0_0_24px_rgba(250,91,15,0.3)]">
+                  <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#FA5B0F] via-[#FF8547] to-[#FFA366] light:to-[#F2640F] light:via-[#F9701A] drop-shadow-[0_0_24px_rgba(250,91,15,0.3)]">
                     {part}
                   </span>
                 )}
@@ -187,14 +187,14 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
           </motion.p>
 
           {/* Dual CTAs */}
-          <motion.div variants={itemVariants} className="mt-7 flex flex-wrap items-center gap-3">
+          <motion.div variants={itemVariants} className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             {hero.primaryCta.label && (
               <div className="relative group">
                 <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-[#FA5B0F] to-[#FF9E58] opacity-70 blur-xs group-hover:opacity-100 transition duration-300 group-hover:scale-105" />
                 <Button
                   href={hero.primaryCta.href || "/consultation"}
                   variant="primary"
-                  className={`relative ${primaryBtn} shadow-lg px-6 py-2.5 text-sm font-semibold flex items-center gap-2 overflow-hidden`}
+                  className={`relative ${primaryBtn} shadow-lg px-6 py-2.5 text-sm font-semibold flex w-full items-center justify-center gap-2 overflow-hidden sm:w-auto`}
                 >
                   <span className="relative z-10">{hero.primaryCta.label}</span>
                   <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -205,7 +205,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
             <Button
               href="/about"
               variant="outline"
-              className={`${ghostBtn} group transition-all duration-300 hover:border-border-token hover:bg-[var(--surface-translucent-2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium`}
+              className={`${ghostBtn} group transition-all duration-300 hover:border-border-token hover:bg-[var(--surface-translucent-2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] flex w-full items-center justify-center gap-2.5 px-5 py-2.5 text-sm font-medium sm:w-auto`}
             >
               <span className="relative flex h-5 w-5 items-center justify-center rounded-full bg-[#FA5B0F]/15 border border-[#FA5B0F]/30 group-hover:scale-110 group-hover:bg-[#FA5B0F]/25 transition-all">
                 <Play className="h-2.5 w-2.5 text-[#FA5B0F] fill-[#FA5B0F] translate-x-0.5" />
@@ -225,7 +225,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
               </div>
               <div className="text-left">
                 <p className="text-xs font-bold text-fg group-hover:text-[#FA5B0F] transition-colors">100+ Businesses</p>
-                <p className="text-[10px] text-fg-muted">Trust our systems</p>
+                <p className="text-[11px] text-fg-muted">Trust our systems</p>
               </div>
             </div>
 
@@ -235,7 +235,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
               </div>
               <div className="text-left">
                 <p className="text-xs font-bold text-fg group-hover:text-[#27D3C2] transition-colors">End-to-End</p>
-                <p className="text-[10px] text-fg-muted">Strategy to execution</p>
+                <p className="text-[11px] text-fg-muted">Strategy to execution</p>
               </div>
             </div>
 
@@ -245,7 +245,7 @@ export function HeroSection({ webgl }: { webgl: boolean }) {
               </div>
               <div className="text-left">
                 <p className="text-xs font-bold text-fg group-hover:text-[#FA5B0F] transition-colors">Global Reach</p>
-                <p className="text-[10px] text-fg-muted">India, UAE &amp; USA</p>
+                <p className="text-[11px] text-fg-muted">India, UAE &amp; USA</p>
               </div>
             </div>
           </motion.div>

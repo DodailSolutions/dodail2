@@ -203,7 +203,7 @@ export default function ServicesPage() {
                 <div className="pt-6 mt-6 border-t border-border-token">
                   <Link
                     href={srv.href}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-fg group-hover:text-[#FA5B0F] transition"
+                    className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-fg group-hover:text-[#FA5B0F] transition"
                   >
                     <span>Explore Solution</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition duration-200" />

@@ -261,14 +261,14 @@ export function AutonomousBrainCore({ reducedMotion = false }: AutonomousBrainCo
       <div className="absolute inset-0 bg-gradient-radial from-orange-400/10 via-sky-400/5 to-transparent pointer-events-none" />
 
       {/* Top technical watermark badge */}
-      <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 bg-surface border border-border-token text-[10px] font-mono text-fg-muted uppercase tracking-wider backdrop-blur-md shadow-sm">
+      <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 bg-surface border border-border-token text-[11px] font-mono text-fg-muted uppercase tracking-wider backdrop-blur-md shadow-sm">
         <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
         <span className="font-semibold">AUTONOMOUS OPERATIONS CORE // LIVE 3D</span>
       </div>
 
       {/* Bottom technical hint */}
       <div className="absolute bottom-4 right-4 z-10 text-right">
-        <span className="text-[10px] font-mono text-fg-subtle bg-surface px-3 py-1.5 border border-border-token shadow-sm">
+        <span className="text-[11px] font-mono text-fg-subtle bg-surface px-3 py-1.5 border border-border-token shadow-sm">
           [ DRAG / HOVER TO ROTATE ]
         </span>
       </div>

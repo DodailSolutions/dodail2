@@ -189,7 +189,7 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
             <div>
               <h2 className="text-sm font-bold text-fg flex items-center gap-2">
                 Live Video Call with Gita
-                <span className="text-[10px] font-mono bg-[#E04E08]/20 text-[#E04E08] px-2 py-0.5 rounded border border-[#E04E08]/30">
+                <span className="text-[11px] font-mono bg-[#E04E08]/20 text-[#E04E08] px-2 py-0.5 rounded border border-[#E04E08]/30">
                   HD 1080p
                 </span>
               </h2>
@@ -277,7 +277,7 @@ export function GitaCallModal({ isOpen, onClose, sessionId }: GitaCallModalProps
                       <RefreshCw className="w-3 h-3" />
                       <span>Retry Microphone</span>
                     </button>
-                    <span className="text-[10px] text-amber-300/80">
+                    <span className="text-[11px] text-amber-300/80">
                       (Or simply type below — Gita will still speak aloud!)
                     </span>
                   </div>

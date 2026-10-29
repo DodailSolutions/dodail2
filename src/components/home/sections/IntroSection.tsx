@@ -153,7 +153,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
                         <p className="text-xs text-white/90 font-medium leading-snug">&ldquo;{image.quote}&rdquo;</p>
                       )}
                       {image.caption && (
-                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-white/70">
+                        <span className="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-white/70">
                           <MapPin className="h-3 w-3 text-orange-400" />
                           {image.caption}
                         </span>
@@ -193,7 +193,7 @@ export function IntroSection({ webgl }: { webgl: boolean }) {
             {specialisms.linkLabel && (
               <Link
                 href={specialisms.linkHref || "/consultation"}
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-fg-muted hover:text-[#FA5B0F] transition-colors"
+                className="inline-flex min-h-11 items-center gap-2 text-xs font-mono uppercase tracking-wider text-fg-muted hover:text-[#FA5B0F] transition-colors"
               >
                 <span>{specialisms.linkLabel}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
